@@ -1,0 +1,293 @@
+#appt-and-res-button {
+    color: #000;
+}
+
+#appt-and-res-button-submit {
+    color: #000;
+    font-size: 16px;
+}
+
+#appt-and-res-card-header {
+    color: #000;
+    font-weight: 500;
+}
+
+#appt-and-res-card-link {
+    color: #000;
+    font-weight: bold;
+}
+
+#appt-and-res-card-title {
+    color: #000;
+    font-weight: bold;
+}
+
+#appt-and-res-img {
+    width: 390px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#appt-and-res-mgmt-admin-types-link {
+    color: #000;
+    text-decoration: none;
+}
+
+#appt-and-res-mgmt-admin-types-link:hover {
+    color: #eba500;
+    text-decoration: none;
+}
+
+#appt-and-res-mgmt-admin-types-link h2 {
+    font-weight: 700;
+}
+
+#appt-and-res-mgmt-admin-types-link span {
+    font-weight: 100;
+}
+
+#appt-and-res-status {
+    color: #000;
+}
+
+#card-h6 {
+    color: #000;
+    font-weight: 500;
+}
+
+#chart-category {
+    color: #000;
+}
+
+#checkbox-label {
+    color: #000;
+}
+
+#collector-rate-desc {
+    color: #000;
+    font-weight: 400;
+}
+
+#collector-rate-img {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 10px;
+}
+
+#collector-rate-percentage {
+    color: #000;
+    font-weight: 600;
+}
+
+#collector-rate-h3 {
+    color: #000;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+#collector-select {
+    font-size: 16px;
+    width: 95%;
+    height: 50px;
+    border-radius: 10rem;
+}
+
+#create-acc-form-img {
+    background-position: center;
+}
+
+#facility-rate-desc {
+    color: #000;
+    margin-top: -7px;
+}
+
+#forgot-pw-form-img {
+    background-size: 150%;
+}
+
+#form-fee {
+    color: #000;
+}
+
+#form-select {
+    font-size: 16px;
+    width: 95%;
+    height: 50px;
+    border-radius: 10rem;
+}
+
+#gcash-logo-1 {
+    height: 55px;
+    background-color: #4e73df;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 7px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#header-h1 {
+    color: #000;
+    font-weight: bold;
+}
+
+#input-file {
+    display: none;
+}
+
+#input-label {
+    color: #000;
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+#i-w_backdrop-1 {
+    color: #fff;
+    background-color: #f2aa00;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+#i-w_backdrop-2 {
+    color: #f2aa00;
+    background-color: #323232;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 8px;
+}
+
+#img-preview {
+    width: 390px;
+    height: 300px;
+    object-fit: cover;
+}
+
+#login-form-img {
+    background-size: 100%;
+    background-position: center;
+}
+
+#page-desc {
+    color: #000;
+}
+
+#payment-tally-category-card {
+    border-radius: 10px;
+}
+
+#payment-tally-h4 {
+    font-weight: bold;
+    text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5)
+}
+
+
+#payment-tally-icon {
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#payment-tally-percentage {
+    font-weight: 600;
+    padding-bottom: 6px;
+}
+
+#payment-tally-percentage-desc {
+    font-weight: 300;
+}
+
+#payment-total-amount-desc {
+    color: #000;
+    margin-top: -7px;
+}
+
+#qr-code-container {
+    width: 240px;
+    height: 320px;
+}
+
+#select-text {
+    border: 1px solid #d1d3e2;
+    padding: 15px;
+}
+
+#tally-card-counter {
+    color: #000;
+}
+
+#tally-card-title {
+    font-size: 14px;
+}
+
+#tb {
+    color: #000;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#tb td {
+    border: 1px solid #dbdbdb;
+}
+
+#tb tr:first-child td:first-child {
+    border-top-left-radius: 8px;
+}
+
+#tb tr:first-child td:last-child {
+    border-top-right-radius: 8px;
+}
+
+#tb tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+#tb tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+#tb-v-head {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f3f3f3;
+}
+
+#transaction-mode-rate-content {
+    color: #000;
+}
+
+#transaction-mode-rate-desc-2 {
+    margin-bottom: 8px;
+}
+
+#transaction-mode-rate-on-site-icon {
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#transaction-mode-rate-on-site-symbol {
+    border-radius: 10px;
+}
+
+#upload-desc {
+    color: #000;
+}
+
+#upload-input-base {
+    height: 50px;
+}
+
+#upload-input-div {
+    height: 50px;
+}
+
+#upload-input-text {
+    color: #000;
+    font-size: 16px;
+    width: 95%;
+    height: 50px;
+    border-radius: 10rem;
+    padding-top: 11px;
+}

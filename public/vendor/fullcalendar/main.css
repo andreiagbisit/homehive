@@ -1,0 +1,48 @@
+/* Adjust calendar container to ensure it doesn't overflow */
+#calendar {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Adjust toolbar elements for smaller screens */
+@media (max-width: 768px) {
+    .fc .fc-toolbar {
+        flex-direction: column; /* Stack toolbar items vertically */
+        align-items: center;    /* Center align the items */
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.2em; /* Slightly smaller title for mobile */
+    }
+
+    .fc .fc-button-group {
+        margin-top: 0.5em; /* Add some spacing between button groups */
+    }
+
+    .fc .fc-button {
+        padding: 0.3em 0.5em; /* Smaller button padding */
+        font-size: 0.8em; /* Smaller font size for buttons */
+        height: auto; /* Reset height to auto for consistent alignment */
+        display: flex; /* Flex display to align content */
+        align-items: center; /* Center align text vertically */
+        justify-content: center; /* Center align text horizontally */
+    }
+}
+
+/* Adjust buttons for even alignment */
+.fc-toolbar-chunk .fc-button {
+    margin-top: 0 !important; /* Remove any top margin */
+    margin-bottom: 16px;
+}
+
+/* Add padding between button groups */
+.fc .fc-toolbar-chunk:first-child {
+    margin-right: 0.5em; /* Add padding to the right of the pagination buttons */
+}
+
+/* Make calendar events text smaller on mobile */
+@media (max-width: 768px) {
+    .fc-daygrid-event {
+        font-size: 0.75em; /* Smaller font for events */
+    }
+}

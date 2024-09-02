@@ -39,22 +39,50 @@
             </div>
 
             <!-- Content Row -->
-            <div class="row">
-                <div class="col-lg mb-4">
-
-                    <!-- Approach -->
-                    <div class="card shadow mb-4">
+            <div class="row mb-4">    
+                <div class="col-lg-2 mb-2">
+                    <div class="card shadow">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-dark">Hello World</h6>
+                            <h6 class="m-0 font-weight-bold text-dark">Legend</h6>
                         </div>
-                        <div class="card-body">
-                            <p>Lorem ipsum, dolor sit amet.</p>
+                        <div class="pt-4 pb-4 card-body d-flex justify-content-center">
+                            <div class="small">
+                                <span id="chart-category" class="mr-2">
+                                    <i class="fas fa-circle text-danger"></i> Announcement<br>
+                                </span>
+                                <span id="chart-category" class="mr-2">
+                                    <i class="fas fa-circle text-success"></i> Reminder<br>
+                                </span>
+                                <span id="chart-category" class="mr-2">
+                                    <i class="fas fa-circle text-primary"></i> Event<br>
+                                </span>
+                                <span id="chart-category" class="mr-2">
+                                    <i class="fas fa-circle text-warning"></i> Interruption
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center mb-4">
+                            <a href="{{ url('') }}" class="btn btn-warning btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-tags"></i>
+                                </span>
+                                <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
+                            </a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg mb-4">
+                    <div class="card shadow mb-4 p-2">
+                        <div class="card-body">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.container-fluid -->
     </x-slot>

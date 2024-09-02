@@ -16,9 +16,12 @@
     <!-- Custom styles for this template -->
     <link href="{{ url('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-    <!-- Custom styles for every table page -->
+    <!-- Custom styles for every page type -->
     <link href="{{ url('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ url('vendor/fullcalendar/main.min.css') }}" rel="stylesheet">
+    <link href="{{ url('vendor/fullcalendar/main.css') }}" rel="stylesheet">
 
     <!-- Custom styles for HomeHive -->
     <link href="{{ url('css/addendum.css') }}" rel="stylesheet">
+    <link href="{{ url('css/fullcalendar.min.css') }}" rel="stylesheet">
 </head>

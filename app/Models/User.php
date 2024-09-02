@@ -24,6 +24,7 @@ class User extends Authenticatable
         'bdate',
         'email',
         'contact_no',
+        'street',
         'house_blk_no',
         'house_lot_no',
         'password',

@@ -23,7 +23,7 @@ $(document).ready(function() {
                 className: 'event-announcement'
             },
             {
-                title: 'Releasing of Vehicle Stickers',
+                title: 'Clubhouse Opening Hours',
                 start: '2024-09-03',
                 category: 'Reminder',
                 className: 'event-reminder'

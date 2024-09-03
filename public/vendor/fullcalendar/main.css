@@ -3,30 +3,6 @@
     overflow-x: auto;
 }
 
-@media (max-width: 768px) {
-    .fc .fc-toolbar {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .fc .fc-toolbar-title {
-        font-size: 1.2em;
-    }
-
-    .fc .fc-button-group {
-        margin-top: 0.5em;
-    }
-
-    .fc .fc-button {
-        padding: 0.3em 0.5em;
-        font-size: 0.8em;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
 .fc-toolbar-chunk .fc-button {
     margin-top: 0 !important;
     margin-bottom: 16px;
@@ -34,12 +10,6 @@
 
 .fc .fc-toolbar-chunk:first-child {
     margin-right: 0.5em;
-}
-
-@media (max-width: 768px) {
-    .fc-daygrid-event {
-        font-size: 0.75em;
-    }
 }
 
 .event-announcement {
@@ -72,12 +42,6 @@
     border-color: #2e2100;
 }
 
-@media (max-width: 768px) {
-    .event-announcement:hover, .event-reminder:hover, .event-event:hover, .event-interruption:hover {
-        overflow: hidden;
-    }
-}
-
 /* General styles for event text on desktop */
 .fc-daygrid-event {
     white-space: normal; /* Allow text wrapping */
@@ -96,6 +60,37 @@
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
+    .fc-daygrid-event {
+        font-size: 0.75em;
+    }
+
+    .event-announcement:hover, .event-reminder:hover, .event-event:hover, .event-interruption:hover {
+        overflow: hidden;
+    }
+
+    .fc .fc-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.2em;
+    }
+
+    .fc .fc-button-group {
+        margin-top: 0.5em;
+    }
+
+    .fc .fc-button {
+        padding: 0.3em 0.5em;
+        font-size: 0.8em;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .fc-daygrid-event {
         width: 14px; /* Smaller width for circles */
         height: 14px; /* Smaller height for circles */

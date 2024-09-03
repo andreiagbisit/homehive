@@ -1,48 +1,179 @@
-/* Adjust calendar container to ensure it doesn't overflow */
 #calendar {
     max-width: 100%;
     overflow-x: auto;
 }
 
-/* Adjust toolbar elements for smaller screens */
 @media (max-width: 768px) {
     .fc .fc-toolbar {
-        flex-direction: column; /* Stack toolbar items vertically */
-        align-items: center;    /* Center align the items */
+        flex-direction: column;
+        align-items: center;
     }
 
     .fc .fc-toolbar-title {
-        font-size: 1.2em; /* Slightly smaller title for mobile */
+        font-size: 1.2em;
     }
 
     .fc .fc-button-group {
-        margin-top: 0.5em; /* Add some spacing between button groups */
+        margin-top: 0.5em;
     }
 
     .fc .fc-button {
-        padding: 0.3em 0.5em; /* Smaller button padding */
-        font-size: 0.8em; /* Smaller font size for buttons */
-        height: auto; /* Reset height to auto for consistent alignment */
-        display: flex; /* Flex display to align content */
-        align-items: center; /* Center align text vertically */
-        justify-content: center; /* Center align text horizontally */
+        padding: 0.3em 0.5em;
+        font-size: 0.8em;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-/* Adjust buttons for even alignment */
 .fc-toolbar-chunk .fc-button {
-    margin-top: 0 !important; /* Remove any top margin */
+    margin-top: 0 !important;
     margin-bottom: 16px;
 }
 
-/* Add padding between button groups */
 .fc .fc-toolbar-chunk:first-child {
-    margin-right: 0.5em; /* Add padding to the right of the pagination buttons */
+    margin-right: 0.5em;
 }
 
-/* Make calendar events text smaller on mobile */
 @media (max-width: 768px) {
     .fc-daygrid-event {
-        font-size: 0.75em; /* Smaller font for events */
+        font-size: 0.75em;
+    }
+}
+
+.event-announcement {
+    background-color: #e74a3b;
+    border-color: #e74a3b;
+    color: #ffffff;
+}
+
+.event-reminder {
+    background-color: #1cc88a;
+    border-color: #1cc88a;
+    color: #000000;
+}
+
+.event-event {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    color: #ffffff;
+}
+
+.event-interruption {
+    background-color: #f6c23e;
+    border-color: #f6c23e;
+    color: #000000;
+}
+
+.event-announcement:hover, .event-reminder:hover, .event-event:hover, .event-interruption:hover {
+    color: #edaa00;
+    background-color: #3f2d00;
+    border-color: #2e2100;
+}
+
+@media (max-width: 768px) {
+    .event-announcement:hover, .event-reminder:hover, .event-event:hover, .event-interruption:hover {
+        overflow: hidden;
+    }
+}
+
+/* General styles for event text on desktop */
+.fc-daygrid-event {
+    white-space: normal; /* Allow text wrapping */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Optional: Add ellipsis for overflow */
+    height: auto; /* Adjust height automatically */
+    line-height: 1.2em; /* Adjust line height */
+    padding: 2px; /* Small padding for better aesthetics */
+}
+
+/* Adjust calendar cell height dynamically on desktop */
+.fc-daygrid-day {
+    vertical-align: top; /* Align events to the top of each cell */
+    height: auto; /* Allow height to adjust */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .fc-daygrid-event {
+        width: 14px; /* Smaller width for circles */
+        height: 14px; /* Smaller height for circles */
+        line-height: 14px; /* Center text vertically */
+        border-radius: 50%; /* Make the event a circle */
+        text-align: center; /* Center text horizontally */
+        font-size: 0; /* Hide text inside the circle */
+        position: relative; /* For absolute positioning of text */
+        overflow: visible; /* Ensure the hover content is visible */
+        margin: 2px; /* Margin for spacing between circles */
+    }
+
+    .fc-daygrid-event::after {
+        content: ''; /* Empty content to keep the circle structure */
+        display: block;
+        width: 100%; /* Inherit the width of the circle */
+        height: 100%; /* Inherit the height of the circle */
+        border-radius: 50%; /* Keep the circle shape */
+        background-color: inherit; /* Inherit the background color of the event */
+        position: absolute; /* Position inside the circle */
+        top: 0;
+        left: 0;
+    }
+
+    .fc-daygrid-event:hover::after {
+        content: attr(data-title); /* Show the event title on hover */
+        font-size: 12px; /* Set font size for hover text */
+        color: #fff; /* Text color on hover */
+        width: auto; /* Auto width for text display */
+        height: auto; /* Auto height for text display */
+        white-space: nowrap; /* Prevent wrapping on hover */
+        padding: 2px 5px; /* Add padding for hover text */
+        background-color: #000; /* Background color for hover text */
+        border-radius: 4px; /* Rounded corners for hover text */
+        top: -25px; /* Position above the circle */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center alignment */
+        z-index: 10; /* Ensure it's above other content */
+    }
+
+    /* Adjust the flexbox for correct placement of multiple events */
+    .fc-daygrid-day-frame {
+        display: flex; /* Use flexbox for alignment */
+        justify-content: center; /* Center horizontally */
+        align-items: flex-start; /* Align items at the top of the cell */
+        flex-wrap: wrap; /* Allow multiple events to wrap within cell */
+        gap: 4px; /* Add space between circles */
+        height: 100%; /* Full height of the cell */
+        align-content: flex-start; /* Align content at the top */
+    }
+
+    /* Ensure date numbers stay at the top */
+    .fc-daygrid-day-top {
+        display: block; /* Make sure the date number stays as block element */
+        width: 100%; /* Take full width for consistent alignment */
+        margin-bottom: 2px; /* Add some space below the date */
+    }
+
+    /* Remove padding and margin from the calendar container */
+    .fc .fc-scrollgrid {
+        width: 100%; /* Full width for the entire calendar */
+        margin: 0; /* Remove any margins */
+        padding: 0; /* Remove any padding */
+    }
+
+    .fc .fc-scrollgrid-sync-inner {
+        margin-right: 0.5rem;
+    }
+
+    /* Ensure no extra padding on the left side */
+    .fc .fc-daygrid-cell {
+        padding-left: 0; /* Remove left padding */
+        padding-right: 0; /* Remove right padding */
+    }
+
+    .fc .fc-col-header-cell {
+        padding-left: 0.3rem;
+        padding-right: 0;
+        font-size: 0.8rem;
     }
 }

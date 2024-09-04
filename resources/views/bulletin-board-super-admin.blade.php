@@ -38,9 +38,16 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Bulletin Board</h1>
             </div>
 
+            <a href="{{ url('add-entry-super-admin') }}" class="btn btn-warning btn-icon-split mb-3">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text" style="color: #000; font-weight: 500;">Add Entry</span>
+            </a>
+
             <!-- Content Row -->
             <div class="row">
-                <div class="col-lg-6 mb-2">
+                <div class="col-lg-7 mb-2">
                     <div class="card shadow mb-2 p-2">
                         <div class="card-body">
                             <div id="calendar"></div>

@@ -115,6 +115,9 @@
     <x-slot name="modal_delete_entry">
     </x-slot>
 
+    <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
     <x-slot name="script">
         <x-script></x-script>
     </x-slot>

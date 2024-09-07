@@ -39,6 +39,8 @@
 
         {{ $modal_delete_entry }}
 
+        {{ $modal_bulletin_entry }}
+
         {{ $script }}
 
     </body>

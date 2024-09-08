@@ -35,7 +35,7 @@ $(document).ready(function() {
                 extendedProps: {
                     category: 'Reminder',
                     dateAndTimePublished:'09-03-2024 12:30 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    author:'Jio Rhey Detros',
                     description: 'We are thrilled to welcome you to our clubhouse! Whether you’re looking for a place to relax, socialize, or engage in various activities, our clubhouse offers a perfect setting for all. To ensure you make the most of your experience, here are our official opening hours: Monday - Friday: 8:00 AM - 9:00 PM, Saturday - Sunday: 9:00 AM - 10:00 PM, and Public Holidays: 10:00 AM - 6:00 PM',
                     imageUrl:'img/clubhouse-2.jpg'
                 }
@@ -46,8 +46,8 @@ $(document).ready(function() {
                 className: 'event-reminder',
                 extendedProps: {
                     category: 'Reminder',
-                    dateAndTimePublished:'09-05-2024 1:00 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    dateAndTimePublished:'09-03-2024 1:00 PM',
+                    author:'Edlan Vere Perez',
                     description: 'We are pleased to inform all residents of [Subdivision Name] about the official release of the new Vehicle Stickers. These stickers are essential for all residents to ensure smooth and secure access to the subdivision. Please take note of the following details regarding the release and distribution process. Sticker release schedule is during Mondays-Fridays at 9:00 AM - 5:00 PM at our clubhouse.',
                     imageUrl:'img/stickers-2.jpg'
                 }
@@ -58,8 +58,8 @@ $(document).ready(function() {
                 className: 'event-event',
                 extendedProps: {
                     category: 'Event',
-                    dateAndTimePublished:'September 3, 2024 1:00 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    dateAndTimePublished:'09-05-2024 1:30 PM',
+                    author:'Terrence Liam Tongol',
                     description: 'Get ready to start your day with energy and fun! Join us for an invigorating Morning Zumba Session at the subdivision covered court this Friday. Whether you’re a seasoned Zumba enthusiast or a first-timer, this event is designed to get your body moving, boost your mood, and kickstart your day in the best way possible!',
                     imageUrl:'img/zumba.jpg'
                 }
@@ -70,7 +70,7 @@ $(document).ready(function() {
                 className: 'event-interruption',
                 extendedProps: {
                     category: 'Interruption',
-                    dateAndTimePublished:'September 3, 2024 1:00 PM',
+                    dateAndTimePublished:'09-09-2024 2:00 PM',
                     author:'Andrei Joaqhim Ali Agbisit',
                     description: 'Dear residents, we would like to inform you of a temporary water shortage affecting our community due to extensive repairs starting this afternoon at 3:00 PM until 6:00 PM. We understand the inconvenience this may cause and are working closely with the relevant authorities to restore normal water supply as quickly as possible.',
                     imageUrl:'img/tap.jpg'
@@ -82,8 +82,8 @@ $(document).ready(function() {
                 className: 'event-announcement',
                 extendedProps: {
                     category: 'Announcement',
-                    dateAndTimePublished:'September 3, 2024 1:00 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    dateAndTimePublished:'09-18-2024 2:30 PM',
+                    author:'Jio Rhey Detros',
                     description: 'We are excited to announce the Grand Opening of the new Tennis Court in the subdivision! Whether you’re a seasoned player or just getting started, this state-of-the-art tennis court is now ready for all residents to enjoy. The tennis court will be available for use starting tomorrow at 10:00 AM.',
                     imageUrl:'img/tennis-court.jpg'
                 }
@@ -94,8 +94,8 @@ $(document).ready(function() {
                 className: 'event-reminder',
                 extendedProps: {
                     category: 'Reminder',
-                    dateAndTimePublished:'September 3, 2024 1:00 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    dateAndTimePublished:'09-27-2024 3:00 PM',
+                    author:'Edlan Vere Perez',
                     description: 'As a friendly reminder, the Homeowners’ Association (HOA) has made it easier and more convenient for you to manage your payments through our Online Payment Collectors. Avoid the hassle of manual payments by using our secure, digital platform to stay on top of your dues and contributions.',
                     imageUrl:'img/phone-payment.jpg'
                 }
@@ -106,8 +106,8 @@ $(document).ready(function() {
                 className: 'event-event',
                 extendedProps: {
                     category: 'Event',
-                    dateAndTimePublished:'September 3, 2024 1:00 PM',
-                    author:'Andrei Joaqhim Ali Agbisit',
+                    dateAndTimePublished:'10-01-2024 3:30 PM',
+                    author:'Terrence Liam Tongol',
                     description: 'Calling all young athletes and sports enthusiasts! We are excited to host the MILO Sports Clinic right here at the subdivision. This event is designed to inspire and develop the skills of young children in various sports through fun and engaging activities. Whether your child is a beginner or looking to improve their athletic abilities, the MILO Sports Clinic offers professional training and plenty of excitement.',
                     imageUrl:'img/milo-sports-clinic.jpg'
                 }

@@ -46,8 +46,9 @@
                 </div>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button id="bulletinEntryModalEdit" style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3" type="button" style="font-weight: bold;">EDIT ENTRY</button>
-                <button style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal" style="font-weight: bold;">CLOSE</button>
+                <button id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3" type="button">EDIT ENTRY</button>
+                <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
+                <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
             </div>
         </div>
     </div>
@@ -55,4 +56,8 @@
 
 <script>
     var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
+
+    $('#bulletinEntryModal').on('hidden.bs.modal', function () {
+        $('.modal-backdrop').remove(); // Remove backdrop after closing modal
+    });
 </script>

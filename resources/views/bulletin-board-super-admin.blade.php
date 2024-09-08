@@ -108,6 +108,7 @@
     </x-slot>
 
     <x-slot name="modal_delete_entry">
+        <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">

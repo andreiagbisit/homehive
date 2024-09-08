@@ -185,12 +185,39 @@ $(document).ready(function() {
         }
     });
 
-    // Check user role and display the edit button accordingly
+    // Check user role and display the edit and delete button accordingly
     if (currentUserAccountTypeId === 1 || currentUserAccountTypeId === 2) {
         $('#bulletinEntryModalEdit').show();
     } else if (currentUserAccountTypeId === 3) {
         $('#bulletinEntryModalEdit').hide();
     };
 
+    if (currentUserAccountTypeId === 1 || currentUserAccountTypeId === 2) {
+        $('#bulletinEntryModalDelete').show();
+    } else if (currentUserAccountTypeId === 3) {
+        $('#bulletinEntryModalDelete').hide();
+    };
+
     calendar.render();
+
+    $('#deleteEntryModal').on('show.bs.modal', function () {
+        // Increase z-index for the delete modal and its backdrop
+        $('#deleteEntryModal').css('z-index', parseInt($('#bulletinEntryModal').css('z-index')) + 10);
+        $('.modal-backdrop').not('.modal-stack').css('z-index', parseInt($('#deleteEntryModal').css('z-index')) - 1).addClass('modal-stack');
+    });
+    
+    $('#deleteEntryModal').on('hidden.bs.modal', function () {
+        // When the delete modal is closed, remove only its backdrop
+        $('.modal-backdrop').removeClass('modal-stack').remove();
+    
+        // Ensure the bulletin entry modal still has a backdrop if it's still open
+        if ($('#bulletinEntryModal').hasClass('show')) {
+            $('<div class="modal-backdrop fade show"></div>').appendTo(document.body);
+        }
+    });
+
+    $('#bulletinEntryModal').on('hidden.bs.modal', function () {
+        // Ensure that the backdrop is removed when the bulletin entry modal is closed
+        $('.modal-backdrop').remove();
+    });    
 });

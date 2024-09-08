@@ -1,4 +1,4 @@
-<!-- Log Out Modal-->
+<!-- Delete Entry Modal-->
 <div class="modal fade" id="deleteEntryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2024 at 05:50 AM
+-- Generation Time: Sep 11, 2024 at 11:38 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -185,25 +185,27 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '0001_01_01_000001_create_cache_table', 1),
-(2, '0001_01_01_000002_create_jobs_table', 1),
-(3, '2024_07_24_183443_create_account_type_table', 1),
-(4, '2024_07_24_183501_create_payment_category_table', 1),
-(5, '2024_07_24_183520_create_payment_mode_table', 1),
-(6, '2024_07_24_183539_create_payment_status_table', 1),
-(7, '2024_07_24_183548_create_payment_collector_table', 1),
-(8, '2024_07_24_183603_create_permission_table', 1),
-(9, '2024_07_24_183615_create_privilege_table', 1),
-(10, '2024_07_24_183630_create_subdivision_role_table', 1),
-(11, '2024_07_24_183641_create_subdivision_facility_table', 1),
-(12, '2024_07_24_183701_create_users_table', 1),
-(13, '2024_07_24_183723_create_bulletin_board_category_table', 1),
-(14, '2024_07_24_183737_create_bulletin_board_table', 1),
-(15, '2024_07_24_183746_create_notification_table', 1),
-(16, '2024_07_24_183753_create_payment_table', 1),
-(17, '2024_07_24_183806_create_facility_reservation_table', 1),
-(18, '2024_07_24_183818_create_vehicle_sticker_application_table', 1),
-(19, '2024_08_29_060930_add_street_to_users_table', 2);
+(42, '0001_01_01_000001_create_cache_table', 1),
+(43, '0001_01_01_000002_create_jobs_table', 1),
+(44, '2024_07_24_183443_create_account_type_table', 1),
+(45, '2024_07_24_183501_create_payment_category_table', 1),
+(46, '2024_07_24_183520_create_payment_mode_table', 1),
+(47, '2024_07_24_183539_create_payment_status_table', 1),
+(48, '2024_07_24_183548_create_payment_collector_table', 1),
+(49, '2024_07_24_183603_create_permission_table', 1),
+(50, '2024_07_24_183615_create_privilege_table', 1),
+(51, '2024_07_24_183630_create_subdivision_role_table', 1),
+(52, '2024_07_24_183641_create_subdivision_facility_table', 1),
+(53, '2024_07_24_183701_create_users_table', 1),
+(54, '2024_07_24_183723_create_bulletin_board_category_table', 1),
+(55, '2024_07_24_183737_create_bulletin_board_table', 1),
+(56, '2024_07_24_183746_create_notification_table', 1),
+(57, '2024_07_24_183753_create_payment_table', 1),
+(58, '2024_07_24_183806_create_facility_reservation_table', 1),
+(59, '2024_07_24_183818_create_vehicle_sticker_application_table', 1),
+(60, '2024_08_29_060930_add_street_to_users_table', 1),
+(61, '2024_09_01_065411_update_street_column_in_users_table', 1),
+(62, '2024_09_11_120656_add_profile_picture_to_users_table', 2);
 
 -- --------------------------------------------------------
 
@@ -354,7 +356,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('9u3GNqH8nrRGXi8uWnm6Y2vHr86S1DyNF17mMIFu', 9, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicWs0UVBaWmFzMlFPTEFDdkFaS2x0aXZ3V0VreXVLYlNhemZhaDJzYSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvdXNlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjk7fQ==', 1725162442);
+('0XAgOuhwDTrMaXzz7TZJ69NEpjTpXpkOydHjKI0x', 8, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 OPR/112.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoid0VlYnNBZjRLdTd3cGYyb0pxU3ZQZnNDaGxjdUs3dFdBSnk2SFFDNCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvdXNlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjg7fQ==', 1726055790),
+('sXnaSvCzLClzNxGH7hLlD861eTzvwOZg0O4R2S9h', 8, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 OPR/112.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTGpiYW1jd3VjcDJVbmNId1E5b1pabURLczFJM2RNUDZiSFp1RGgyUiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9maWxlLWVkaXQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo4O30=', 1726060993);
 
 -- --------------------------------------------------------
 
@@ -392,34 +395,42 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `uname` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL,
-  `account_type_id` tinyint(3) UNSIGNED DEFAULT 3,
+  `account_type_id` tinyint(3) UNSIGNED NOT NULL,
   `fname` varchar(255) NOT NULL,
   `mname` varchar(255) DEFAULT NULL,
   `lname` varchar(255) NOT NULL,
   `bdate` date NOT NULL,
   `email` varchar(255) NOT NULL,
   `contact_no` varchar(255) NOT NULL,
-  `street` varchar(255) DEFAULT '',
+  `street` varchar(255) NOT NULL,
   `house_blk_no` tinyint(3) UNSIGNED NOT NULL,
   `house_lot_no` tinyint(3) UNSIGNED NOT NULL,
   `subdivision_role_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `fname`, `mname`, `lname`, `bdate`, `email`, `contact_no`, `street`, `house_blk_no`, `house_lot_no`, `subdivision_role_id`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'Super Admin', '$2y$12$GOY58OQqQz1ZohXkGlXeUu4C0KNpjZ/TUSkM1JRHzH0CMc91dkIBm', 1, 'Super', 'A.', 'Admin', '2024-07-24', 'SuperAdmin@gmail.com', '09879879877', '', 1, 1, NULL, NULL, 'TGL4W9UUbpzD13EjVuDN6HpiA6krlwgcOQ9WjKdcGQEpYH44QkNh46OmxmX7', '2024-07-25 03:07:46', '2024-07-25 03:07:46'),
-(5, 'User1', '$2y$12$WeNQyZlfYln9PGDZnt1SpO/ipjQXdfXcJsm7UG5sMZGiC2Mie37RS', 3, 'John', NULL, 'User1', '2024-07-10', 'User1@gmail.com', '09876787655', '', 1, 1, NULL, NULL, NULL, '2024-07-25 03:09:19', '2024-07-25 03:09:19'),
-(6, 'User2', '$2y$12$lgqWXA1E2er9vkh9Oe4FU.VEp/fWevd58IN17y8cWUGiY4WxGyq9.', 3, 'User2', NULL, 'User2', '2024-08-28', 'User2@gmail.com', '09867564566', '', 2, 5, NULL, NULL, NULL, '2024-08-07 21:45:27', '2024-08-07 21:45:27'),
-(7, 'User3', '$2y$12$R7HXoZ6jsrhHpLcW74Vfn.5q1cfdNzC7nLHBfPC0YdA6biDAkTq3C', 3, 'User3', NULL, 'User3', '2024-08-05', 'User3@gmail.com', '09867564566', '', 4, 3, NULL, NULL, NULL, '2024-08-28 23:19:05', '2024-08-28 23:19:05'),
-(8, 'User4', '$2y$12$DJLgaQTQhdQvzRpFv6xleum0AaoQ3N6.Sniy6C/ey9JlUSE2jnj9a', 3, 'User4', NULL, 'User4', '2024-08-05', 'User4@gmail.com', '09867564566', '', 4, 3, NULL, NULL, NULL, '2024-08-28 23:19:50', '2024-08-28 23:19:50'),
-(9, 'User 5', '$2y$12$4bDAoLBPLSb6Vc15zZ5H/u.9aoASU/h6OR4BemBERcZL9D0rH/H.m', 3, 'User5', NULL, 'User5', '2024-09-24', 'User5@gmail.com', '09857456755', '', 4, 7, NULL, NULL, NULL, '2024-08-31 19:47:22', '2024-08-31 19:47:22');
+INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `fname`, `mname`, `lname`, `bdate`, `email`, `contact_no`, `street`, `house_blk_no`, `house_lot_no`, `subdivision_role_id`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `profile_picture`) VALUES
+(6, 'SuperAdmin', '$2y$12$/.PuSnnydoipKbH4wDMV9ePwiUS7Nb7Q.6qrZ.Yskc.C2SB2VCyFO', 1, 'Super', NULL, 'Admin', '2024-09-17', 'SuperAdmin@gmail.com', '09576458344', 'Bonifacio', 1, 1, NULL, NULL, NULL, '2024-09-02 09:47:30', '2024-09-02 09:47:30', NULL),
+(7, 'Draymond', '$2y$12$53KoS0mXeIoEhqdbLawmtuYRMijP0z6psNpHK9zdeYn5fMfiT.Hc.', 3, 'Draymond', NULL, 'Green', '2024-09-10', 'User1@gmail.com', '09857456755', 'Mahogany', 21, 11, NULL, NULL, NULL, '2024-09-02 01:48:32', '2024-09-11 05:19:29', 'profile_pictures/wqCh4WlWzthyec8EjQD49YbWWhGODvqqLx9dWke4.jpg'),
+(8, 'Steph30', '$2y$12$yQlc64sc/YBMXoSdNG8hqutxXIqrneQlrJrG5X4A6s6YqBxjsrKr2', 3, 'Kobe', NULL, 'Bryant', '2024-09-24', 'User2@gmail.com', '09867564566', 'Acacia', 23, 42, NULL, NULL, NULL, '2024-09-02 01:49:07', '2024-09-11 05:23:13', 'profile_pictures/6g470npTAJiy8KImYrzKPLp8jq6BetuI4QtkGpMX.jpg'),
+(11, 'User9', '$2y$12$Mt3xKO7fSV.KiGU8qCVnNOzydpxE38iqJupIBl18Entq1lxaZ06I6', 3, 'User9', NULL, 'User9', '2024-09-20', 'User9@gmail.com', '09576857433', '', 3, 23, NULL, NULL, NULL, '2024-09-02 02:31:25', '2024-09-02 02:31:25', NULL),
+(12, 'User45', '$2y$12$TUSI95Ud14EtWuQqen4gCexfwuyF1zo73SLiu.77ffPfw7isPJX4u', 3, 'User45', NULL, 'User45', '2024-09-24', 'User45@gmail.com', '09576458344', 'Acacia', 32, 3, NULL, NULL, NULL, '2024-09-02 03:04:05', '2024-09-02 03:04:05', NULL),
+(13, 'User100', '$2y$12$6gFO5BXvZR2n1g28gmZJH.PyDzFox/3l6qCevw1rv4.2yc5M80aaK', 3, 'User100', NULL, 'User100', '2024-09-19', 'User100@gmail.com', '09576857433', 'Santol', 45, 63, NULL, NULL, NULL, '2024-09-02 03:08:05', '2024-09-02 03:08:05', NULL),
+(14, 'User56', '$2y$12$WPU.SwTrL/jbnTIdy9vGB.BHNvGz/eBiGRUE217lB4a7Y65yvYoNu', 3, 'User45', 'User45', 'User45', '2024-10-01', 'User54@gmail.com', '09876574566', 'Rizal', 3, 6, NULL, NULL, NULL, '2024-09-02 03:15:41', '2024-09-02 03:15:41', NULL),
+(15, 'User11', '$2y$12$YIAaWPMcucBlAb9W3gUe4.TlwJ1K96hjZHeEgYf7oTKCIWLCm3EaS', 3, 'User11', 'User11', 'User11', '2024-09-24', 'User11@gmail.com', '09857456755', 'Seaside', 25, 54, NULL, NULL, NULL, '2024-09-02 03:26:52', '2024-09-02 03:26:52', NULL),
+(16, 'User12', '$2y$12$Byp0TqVKZRYWN07W9uwhUuuCuVI1ZIn1s8bTHW.Ua/HFYI5.X4oFi', 3, 'User12', 'User12', 'User12', '2024-09-09', 'User12@gmail.com', '09867564566', 'Santol', 4, 78, NULL, NULL, NULL, '2024-09-02 03:37:32', '2024-09-02 03:37:32', NULL),
+(17, 'User13', '$2y$12$/.8L5APdF59ddw.ifpxXqu.hAreg17C24C8x1Gbp5NvggED3SEfXa', 3, 'User13', NULL, 'User13', '2024-09-24', 'User13@gmail.com', '09574653455', 'Lucy', 32, 67, NULL, NULL, NULL, '2024-09-02 03:38:30', '2024-09-02 03:38:30', NULL),
+(18, 'User14', '$2y$12$0P2y5jwe0KXBlL8aa9pMLujfEnZBR7BsAaY0gE09mN7ktS9NvDHAW', 3, 'User14', NULL, 'User14', '2024-09-17', 'User14@gmail.com', '09576458344', 'Bonifacio', 32, 32, NULL, NULL, NULL, '2024-09-02 03:39:12', '2024-09-02 03:39:12', NULL),
+(20, 'Admin', '$2y$12$OGvyozkzRwSf6O70zoE6i.QPplf8ExMXj86azrZytjlVkeThfLP4G', 2, 'Admin', NULL, 'Admin', '2024-09-20', 'Admin@gmail.com', '09576857433', 'Seaside', 23, 45, NULL, NULL, NULL, '2024-09-02 12:17:22', '2024-09-02 12:17:22', NULL),
+(22, 'LebronJames', '$2y$12$ulYgDxuLSieSvGVDo2BXUO19IUUSeaZ5SIfKoM7889pNuCqdWAquq', 3, 'Lebron', '\"The King\"', 'James', '2024-09-23', 'LebronJames@gmail.com', '09867564566', 'Los Angeles', 11, 14, NULL, NULL, NULL, '2024-09-03 21:54:45', '2024-09-03 21:54:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -661,7 +672,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -727,7 +738,7 @@ ALTER TABLE `subdivision_role`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `vehicle_sticker_application`

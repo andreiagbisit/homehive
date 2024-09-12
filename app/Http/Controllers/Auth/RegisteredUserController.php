@@ -29,6 +29,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Debug request data to ensure 'street' is present
+          // dd($request->all());
+
         // Validate the registration data
         $request->validate([
             'uname' => ['required', 'string', 'max:255', 'unique:users'],
@@ -44,6 +47,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Debug request data to ensure 'street' is present
+        //Log::debug('Request Data:', $request->all());
+
+
         // Create the user with default roles
         $user = User::create([
             'uname' => $request->uname,
@@ -53,7 +60,7 @@ class RegisteredUserController extends Controller
             'bdate' => $request->bdate,
             'email' => $request->email,
             'contact_no' => $request->contact_no,
-            'street' => $request->street,
+            'street' => $request->street,   
             'house_blk_no' => $request->house_blk_no,
             'house_lot_no' => $request->house_lot_no,
             'password' => Hash::make($request->password),

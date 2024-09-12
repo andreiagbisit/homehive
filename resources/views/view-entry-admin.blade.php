@@ -2,7 +2,7 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Lorem Ipsum - Add Entry</title>
+                <title>- Add Entry</title>
             </x-slot>
         </x-head>
     </x-slot>

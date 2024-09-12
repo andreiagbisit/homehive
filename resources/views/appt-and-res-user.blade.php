@@ -56,7 +56,7 @@
                                             
                                             <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-home"></i>Clubhouse</h2>
 
-                                            <a id="appt-and-res-button" href="{{ url('appt-and-res-form-facility-reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a id="appt-and-res-button" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 BOOK RESERVATION
                                             </a>
                                         </div>
@@ -72,7 +72,7 @@
 
                                             <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-basketball-ball"></i>Basketball Court</h2>
 
-                                            <a id="appt-and-res-button" href="{{ url('appt-and-res-form-facility-reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a id="appt-and-res-button" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 BOOK RESERVATION
                                             </a>
                                         </div>
@@ -88,7 +88,7 @@
 
                                             <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-swimming-pool"></i>Swimming Pool</h2>
 
-                                            <a id="appt-and-res-button-submit" href="{{ url('appt-and-res-form-facility-reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a id="appt-and-res-button-submit" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 BOOK RESERVATION
                                             </a>                                          
                                         </div>
@@ -115,7 +115,7 @@
 
                                         <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-car-side"></i>Vehicle Sticker</h2>
 
-                                        <a href="{{ url('appt-and-res-form-vehicle-sticker-appointment') }}" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
+                                        <a href="{{ route('appt.and.res.form.vehicle.sticker.appointment') }}" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
                                             BOOK APPOINTMENT
                                         </a>
                                     </div>

@@ -6,7 +6,7 @@
             </x-slot>
         </x-head>
     </x-slot>
-    
+
     <x-slot name="sidebar_base">
         <x-sidebar-base>
             <x-slot name="sidebar_landing_link_super_admin">
@@ -33,6 +33,12 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
+
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1" class="h3 mb-0 text-800">Edit Profile</h1>
@@ -55,12 +61,14 @@
                             <div class="col">
                                 <h5 id="page-desc">I. Account Name</h5><br>
 
-                                <form method="POST" action="{{ route('profile.update') }}" class="user">
+                                <!-- Add enctype for file upload -->
+                                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="user">
                                     @csrf
                                     @method('PATCH')
+                                    
                                     <div class="col-sm-4">
                                         <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Username <span style="color: red;">*</span></p>
-                                        <input type="text" name="username" class="form-control form-control-user" required value="{{ old('username', $user->username) }}">
+                                        <input type="text" name="username" class="form-control form-control-user" required value="{{ $user->username }}">
                                     </div><hr><br>
                                     
                                     <h5 id="page-desc">II. Personal Information</h5><br>
@@ -68,22 +76,22 @@
                                     <div class="form-group row">
                                         <div class="col-sm-4 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">First Name <span style="color: red;">*</span></p>
-                                            <input type="text" name="first_name" class="form-control form-control-user" required value="{{ old('first_name', $user->first_name) }}">
+                                            <input type="text" name="first_name" class="form-control form-control-user" required value="{{ $user->first_name }}">
                                         </div>
                                         
                                         <div class="col-sm-4 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Middle Name</p>
-                                            <input type="text" name="middle_name" class="form-control form-control-user" value="{{ old('middle_name', $user->middle_name) }}">
+                                            <input type="text" name="middle_name" class="form-control form-control-user" value="{{ $user->middle_name }}">
                                         </div>
                                         
                                         <div class="col-sm-4 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Last Name <span style="color: red;">*</span></p>
-                                            <input type="text" name="last_name" class="form-control form-control-user" required value="{{ old('last_name', $user->last_name) }}">
+                                            <input type="text" name="last_name" class="form-control form-control-user" required value="{{ $user->last_name }}">
                                         </div>
                                         
                                         <div class="col-sm-4">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Birthdate <span style="color: red;">*</span></p>
-                                            <input type="date" name="birthdate" class="form-control form-control-user" required value="{{ old('birthdate', $user->birthdate) }}">
+                                            <input type="date" name="birthdate" class="form-control form-control-user" required value="{{ $user->birthdate }}">
                                         </div>
                                     </div><hr><br>
 
@@ -92,12 +100,12 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Email <span style="color: red;">*</span></p>
-                                            <input type="email" name="email" class="form-control form-control-user" required value="{{ old('email', $user->email) }}">
+                                            <input type="email" name="email" class="form-control form-control-user" required value="{{ $user->email }}">
                                         </div>
 
                                         <div class="col-sm-4">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Contact No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="contact_no" class="form-control form-control-user" required value="{{ old('contact_no', $user->contact_no) }}">
+                                            <input type="text" name="contact_no" class="form-control form-control-user" required value="{{ $user->contact_no }}">
                                         </div>
                                     </div><hr><br>
 
@@ -106,26 +114,27 @@
                                     <div class="form-group row">
                                         <div class="col-sm-4 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Street <span style="color: red;">*</span></p>
-                                            <input type="text" name="street" class="form-control form-control-user" required value="{{ old('street', $user->street) }}">
+                                            <input type="text" name="street" class="form-control form-control-user" required value="{{ $user->street }}">
                                         </div>
 
                                         <div class="col-sm-4 mb-3">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">House Block No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="block_no" class="form-control form-control-user" required value="{{ old('block_no', $user->block_no) }}">
+                                            <input type="text" name="block_no" class="form-control form-control-user" required value="{{ $user->block_no }}">
                                         </div>
 
                                         <div class="col-sm-4">
                                             <p style="color: #000; font-weight: 500; margin-bottom: 2%;">House Lot No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="lot_no" class="form-control form-control-user" required value="{{ old('lot_no', $user->lot_no) }}">
+                                            <input type="text" name="lot_no" class="form-control form-control-user" required value="{{ $user->lot_no }}">
                                         </div>
                                     </div><hr><br>
 
                                     <h5 id="page-desc">V. Account Password</h5><br>
 
-                                    <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Password <span style="color: red;">*</span></p>
+                                    <!-- Disabled password field just to display the current password -->
+                                    <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Password <span style="color: red;"></span></p>
                                     
                                     <div class="col-sm-4">
-                                        <input id="pw-field" type="password" name="password" class="form-control form-control-user" required>
+                                        <input id="pw-field" type="password" name="password" class="form-control form-control-user">
                                     </div><br>
                                     
                                     <h6 class="btn ml-3">
@@ -133,6 +142,7 @@
                                         <label id="checkbox-label" class="form-check-label" for="show-pw">Show Password</label>
                                     </h6><br>
 
+                                    <!-- Change Password Modal Trigger -->
                                     <a style="margin-bottom: 2%;" class="btn btn-warning btn-icon-split" href="#" data-toggle="modal" data-target="#changePasswordModal">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-edit"></i>
@@ -144,12 +154,16 @@
                                     <h5 id="page-desc">VI. Profile Picture</h5><br>
 
                                     <div class="form-group text-center">
-                                        <img class="img-circle profile-avatar" src="{{ url('img/pfp_1.png') }}"><br>
+                                        <!-- Only one profile picture display -->
+                                        <img class="img-circle profile-avatar" 
+                                             src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('img/default.png') }}" 
+                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br>
                                         <p id="page-desc">
                                             * The image's resolution must at least be <b>232x232</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b>
                                         </p>
 
+                                        <!-- File input for profile picture -->
                                         <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png">
                                         <label class="btn btn-warning btn-icon-split" for="input-file">
                                             <span class="icon text-white-50">

@@ -62,47 +62,64 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">Username</td>
-                                            <td>Agbisit_AJA</td>
+                                            <td>{{ Auth::user()->uname }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">First Name</td>
-                                            <td>Andrei Joaqhim Ali</td>
+                                            <td>{{ Auth::user()->fname }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Middle Name</td>
-                                            <td>Bayabao</td>
+                                            <td>{{ Auth::user()->mname ?? 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Last Name</td>
-                                            <td>Agbisit</td>
+                                            <td>{{ Auth::user()->lname }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Birthdate</td>
-                                            <td>September 1, 2002</td>
+                                            <td>{{ Auth::user()->bdate }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Email Address</td>
-                                            <td>agbisit.andreijoaqhimali@auf.edu.ph	</td>
+                                            <td>{{ Auth::user()->email }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Contact No.</td>
-                                            <td>09172345678</td>
+                                            <td>{{ Auth::user()->contact_no }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="tb-v-head">Street</td>
+                                            <td>{{ Auth::user()->street }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="tb-v-head">House Block No.</td>
+                                            <td>{{ Auth::user()->house_blk_no }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="tb-v-head">House Lot No.</td>
+                                            <td>{{ Auth::user()->house_lot_no }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Profile Picture</td>
                                             <td>
-                                                <img class="img-circle profile-avatar" src="{{ url('img/pfp_1.png') }}">
+                                                <img class="img-circle profile-avatar" 
+                                                    src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('img/default.png') }}" 
+                                                    style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
                                             </td>
                                         </tr>
+
                                     </table><hr>
-                                </form>
                             </div>
                             
                             <div class="col-sm-3 float-right">

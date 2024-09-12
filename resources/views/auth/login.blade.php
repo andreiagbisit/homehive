@@ -53,6 +53,7 @@
                             @if (Route::has('register'))
                                 <a class="small" style="font-weight: bold;" href="{{ route('register') }}">Create New Account</a>
                             @endif
+                        </div>
                     </div>
                 </div>
             </x-slot>

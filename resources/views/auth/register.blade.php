@@ -51,13 +51,6 @@
             <x-input-error :messages="$errors->get('contact_no')" class="mt-2" />
         </div>
 
-        <!-- Street -->
-        <div class="mt-4">
-            <x-input-label for="street" :value="__('Street')" />
-            <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required />
-            <x-input-error :messages="$errors->get('street')" class="mt-2" />
-        </div>
-
         <!-- House Block Number -->
         <div class="mt-4">
             <x-input-label for="house_blk_no" :value="__('House Block Number')" />

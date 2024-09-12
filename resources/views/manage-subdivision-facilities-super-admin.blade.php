@@ -15,7 +15,7 @@
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
             <x-slot name="sidebar_landing_link_admin"></x-slot>
-
+    
             <x-slot name="sidebar_content_super_admin">
                 <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>

@@ -36,14 +36,14 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Collection Management</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ url('add-entry-admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('add.entry.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
                         <span class="text" style="color: #000; font-weight: 500;">Add Entry</span>
                     </a>
 
-                    <a href="{{ url('manage-fund-collection-categories-admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('manage.fund.collection.categories.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-tags"></i>
                         </span>

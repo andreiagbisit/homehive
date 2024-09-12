@@ -94,6 +94,7 @@
                                     @enderror
                                 </div>
                                 
+                                
                                 <div class="form-group row">
                                     <div class="col-sm-6">
                                         <p style="color: #000; font-weight: 500; margin-bottom: 2%;">House Block No. <span style="color: red;">*</span></p>

@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Lorem Ipsum - View Entry</h1>
+                <h1 id="header-h1" class="h3 mb-0 text-800">Terrence Liam - View Entry</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -54,7 +54,7 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">Column 1</td>
-                                            <td>Lorem Ipsum</td>
+                                            <td>Lorem Ipsum - 1</td>
                                         </tr>
 
                                         <tr>

@@ -1,6 +1,6 @@
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('dashboard.admin') }}">
+    <a class="nav-link" href="{{ url('dashboard-admin') }}">
         <i class="fas fa-list"></i>
         <span>Dashboard</span></a>
 </li>

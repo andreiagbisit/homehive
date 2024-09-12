@@ -226,4 +226,3 @@ Route::get('/login', function () {
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-

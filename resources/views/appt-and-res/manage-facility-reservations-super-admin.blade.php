@@ -89,14 +89,14 @@
                                     <td>01/02/2024</td>
                                     <td>2:00 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -128,14 +128,14 @@
                                     <td>01/06/2024</td>
                                     <td>3:30 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -167,14 +167,14 @@
                                     <td>01/10/2024</td>
                                     <td>5:00 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>

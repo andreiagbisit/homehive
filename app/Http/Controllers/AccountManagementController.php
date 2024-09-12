@@ -11,21 +11,21 @@ class AccountManagementController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('acc-mgmt-super-admin', compact('users'));
+        return view('acc-mgmt/super-admin', compact('users'));
     }
 
     // Show the form for viewing the specified user
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('view-entry-super-admin', compact('user'));
+        return view('view-entry/super-admin', compact('user'));
     }
 
     // Show the form for editing the specified user
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('edit-entry-superadmin-account-management', compact('user'));
+        return view('edit-entry/super-admin-acc-mgmt', compact('user'));
     }
 
     // Update the specified user in the database

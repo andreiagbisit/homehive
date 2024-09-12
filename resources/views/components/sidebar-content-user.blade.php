@@ -6,19 +6,19 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('bulletin-board-user') }}">
+    <a class="nav-link" href="{{ route('bulletin.board.user') }}">
         <i class="fa fa-object-group"></i>
         <span>Bulletin Board</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('payment-mgmt-user') }}">
+    <a class="nav-link" href="{{ route('payment.mgmt') }}">
         <i class="fas fa-coins"></i>
         <span>Payment Management</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('appt-and-res-user') }}">
+    <a class="nav-link" href="{{ route('appt.res') }}">
         <i class="far fa-calendar-check"></i>
         <span>Appointments & Reservations</span></a>
 </li>

@@ -36,7 +36,7 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Account Management</h1><br>
 
                 <div class="text-center">
-                <a href="{{ route('manage.roles.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                <a href="{{ route('manage.roles') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                     <span class="icon text-white-50">
                         <i class="fas fa-user-tag"></i>
                     </span>

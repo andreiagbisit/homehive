@@ -20,30 +20,30 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 // Registration routes
-Route::get('/create-new-account', [RegisteredUserController::class, 'create'])->name('register'); // For displaying the registration form
-Route::post('/create-new-account', [RegisteredUserController::class, 'store'])->name('register.store'); // For handling the form submission
+Route::get('/auth/create-new-acc', [RegisteredUserController::class, 'create'])->name('register'); // For displaying the registration form
+Route::post('/auth/create-new-acc', [RegisteredUserController::class, 'store'])->name('register.store'); // For handling the form submission
 
 // Registration route
-Route::get('/create-new-account', function () {
-    return view('create-new-account');
+Route::get('/auth/create-new-acc', function () {
+    return view('auth/create-new-acc');
 })->name('register');
 
-Route::get('/forgot-password', function () {
-    return view('forgot-password');
+Route::get('/auth/forgot-password-draft', function () {
+    return view('auth/forgot-password-draft');
 })->name('password.request');
 
 // Routes for authenticated users
 Route::middleware(['auth', 'verified'])->group(function () {
     // Profile management routes
-    Route::get('/profile-details', function () {
-        return view('profile-details');
+    Route::get('/profile/details', function () {
+        return view('profile/details');
     })->name('profile.details');
 
     Route::patch('/profile-update-password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
     Route::patch('/profile/remove-picture', [ProfileController::class, 'removePicture'])->name('profile.remove.picture');
 
 
-    Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile-delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -63,42 +63,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Super Admin Routes
-    Route::get('/dashboard-super-admin', function () {
-        return view('dashboard-super-admin');
+    Route::get('/dashboard/super-admin', function () {
+        return view('dashboard/super-admin');
     })->name('dashboard.superadmin');
 
     // ACCOUNT MANAGEMENT
 
-    Route::get('/acc-mgmt-super-admin', [AccountManagementController::class, 'index'])->name('account.management'); // List all users
-    Route::get('/view-entry-super-admin/{id}', [AccountManagementController::class, 'show'])->name('superadmin.view'); // View a specific user
-    Route::get('/edit-entry-superadmin-account-management/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
-    Route::patch('/edit-entry-super-admin/{id}', [AccountManagementController::class, 'update'])->name('superadmin.update'); // Update user in the database
+    Route::get('/acc-mgmt/super-admin', [AccountManagementController::class, 'index'])->name('account.management'); // List all users
+    Route::get('/view-entry/super-admin/{id}', [AccountManagementController::class, 'show'])->name('superadmin.view'); // View a specific user
+    Route::get('/edit-entry/super-admin-acc-mgmt/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
+    Route::patch('/edit-entry/super-admin/{id}', [AccountManagementController::class, 'update'])->name('superadmin.update'); // Update user in the database
     Route::delete('/delete-entry-super-admin/{id}', [AccountManagementController::class, 'destroy'])->name('superadmin.destroy'); // Delete a user
 
     // Manage Roles Button Nav
-    Route::get('/manage-roles-super-admin', function () {
-        return view('manage-roles-super-admin');
-    })->name('manage.roles.superadmin');
+    Route::get('/acc-mgmt/manage-roles', function () {
+        return view('acc-mgmt/manage-roles');
+    })->name('manage.roles');
 
     // For Manage Role SuperAdmin/Admin View & Edit
-    Route::get('/edit-entry-super-admin', function () {
-        return view('edit-entry-super-admin');
+    Route::get('/edit-entry/super-admin', function () {
+        return view('edit-entry/super-admin');
     })->name('edit.entry.super.admin');
 
-    Route::get('/view-entry-super-admin', function () {
-        return view('view-entry-super-admin');
+    Route::get('/view-entry/super-admin', function () {
+        return view('view-entry/super-admin');
     })->name('view.entry.super.admin');
-
  
-    Route::get('/bulletin-board-super-admin', function () {
-        return view('bulletin-board-super-admin');
-    })->name('bulletin.board');
+    Route::get('/bulletin-board/super-admin', function () {
+        return view('bulletin-board/super-admin');
+    })->name('bulletin.board.superadmin');
 
     // COLLECTION MANAGEMENT
 
-    Route::get('/collection-mgmt-super-admin', function () {
-        return view('collection-mgmt-super-admin');
-    })->name('collection.management');
+    Route::get('/collection-mgmt/super-admin', function () {
+        return view('collection-mgmt/super-admin');
+    })->name('collection.mgmt.superadmin');
 
     // For Collection Management SuperAdmin/Admin View & Edit
 
@@ -106,8 +105,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // For Manage Categories in Collection Management
 
-    Route::get('/manage-fund-collection-categories-super-admin', function () {
-        return view('manage-fund-collection-categories-super-admin');
+    Route::get('/collection-mgmt/manage-fund-collection-categories-super-admin', function () {
+        return view('collection-mgmt/manage-fund-collection-categories-super-admin');
     })->name('manage.fund.collection.categories.superadmin');
 
     // View and Edit of Manage Categories
@@ -117,19 +116,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // APPOINTMENT AND RESERVATION MANAGEMENT 
 
-    Route::get('/appt-and-res-mgmt-super-admin', function () {
-        return view('appt-and-res-mgmt-super-admin');
-    })->name('appointment.reservation');
+    Route::get('/appt-and-res/mgmt-super-admin', function () {
+        return view('appt-and-res/mgmt-super-admin');
+    })->name('appt.res.mgmt.superadmin');
+
+    Route::get('/appt-and-res/mgmt-admin', function () {
+        return view('appt-and-res/mgmt-admin');
+    })->name('appt.res.mgmt.admin');
 
     // Manage Facility Reservation
 
-    Route::get('/manage-facility-reservations-super-admin', function () {
-        return view('manage-facility-reservations-super-admin');
-    })->name('manage.facility.reservations.super.admin');
+    Route::get('/appt-and-res/manage-facility-reservations-super-admin', function () {
+        return view('appt-and-res/manage-facility-reservations-super-admin');
+    })->name('manage.facility.reservations.superadmin');
 
     // View and Edit of Facility Reservation 
 
     // Manage Facilities 
+
+    Route::get('/appt-and-res/manage-facilities-super-admin', function () {
+        return view('appt-and-res/manage-facilities-super-admin');
+    })->name('manage.facilities.superadmin');
+
+    Route::get('/appt-and-res/manage-facilities-admin', function () {
+        return view('appt-and-res/manage-facilities-admin');
+    })->name('manage.facilities.admin');
 
     // Manage Vehicle Sticker Application
 
@@ -139,41 +150,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('manage-vehicle-sticker-applications-super-admin');
     })->name('manage.vehicle.sticker.applications.super.admin');
 
-    Route::get('/add-entry-super-admin', function () {
-        return view('add-entry-super-admin');
+    Route::get('/add-entry/super-admin', function () {
+        return view('add-entry/super-admin');
     })->name('add.entry.superadmin');
 
-   
-
-   
-
     // Admin Routes
-    Route::get('/dashboard-admin', function () {
-        return view('dashboard-admin');
+    Route::get('/dashboard/admin', function () {
+        return view('dashboard/admin');
     })->name('dashboard.admin');
 
-    Route::get('/bulletin-board-admin', function () {
-        return view('bulletin-board-admin');
+    Route::get('/bulletin-board/admin', function () {
+        return view('bulletin-board/admin');
+    })->name('bulletin.board.admin');
+
+    Route::get('/collection-mgmt/admin', function () {
+        return view('collection-mgmt/admin');
+    })->name('collection.mgmt.admin');
+
+    Route::get('/appt-and-res/mgmt-admin', function () {
+        return view('appt-and-res/mgmt-admin');
     });
 
-    Route::get('/collection-mgmt-admin', function () {
-        return view('collection-mgmt-admin');
-    });
-
-    Route::get('/appt-and-res-mgmt-admin', function () {
-        return view('appt-and-res-mgmt-admin');
-    });
-
-    Route::get('/add-entry-admin', function () {
-        return view('add-entry-admin');
+    Route::get('/add-entry/admin', function () {
+        return view('add-entry/admin');
     })->name('add.entry.admin');
 
-    Route::get('/manage-fund-collection-categories-admin', function () {
-        return view('manage-fund-collection-categories-admin');
+    Route::get('/collection-mgmt/manage-fund-collection-categories-admin', function () {
+        return view('collection-mgmt/manage-fund-collection-categories-admin');
     })->name('manage.fund.collection.categories.admin');
 
-    Route::get('/manage-facility-reservations-admin', function () {
-        return view('manage-facility-reservations-admin');
+    Route::get('/appt-and-res/manage-facility-reservations-admin', function () {
+        return view('appt-and-res/manage-facility-reservations-admin');
     })->name('manage.facility.reservations.admin');
 
     Route::get('/manage-vehicle-sticker-applications-admin', function () {
@@ -183,31 +190,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // User Routes
     Route::get('/dashboard/user', function () {
-        return view('dashboard-user');
+        return view('dashboard/user');
     })->name('dashboard.user');
 
-    Route::get('/bulletin-board-user', function () {
-        return view('bulletin-board-user');
-    });
+    Route::get('/bulletin-board/user', function () {
+        return view('bulletin-board/user');
+    })->name('bulletin.board.user');
 
-    Route::get('/payment-mgmt-user', function () {
-        return view('payment-mgmt-user');
-    });
+    Route::get('/payment-mgmt/user', function () {
+        return view('payment-mgmt/user');
+    })->name('payment.mgmt');
 
-    Route::get('/appt-and-res-user', function () {
-        return view('appt-and-res-user');
-    });
+    Route::get('/appt-and-res/user', function () {
+        return view('appt-and-res/user');
+    })->name('appt.res');
 
-    Route::get('/manage-payment-form', function () {
-        return view('manage-payment-form');
-    })->name('manage.payment.form');
+    Route::get('/payment-mgmt/manage-payment', function () {
+        return view('payment-mgmt/manage-payment');
+    })->name('manage.payment');
 
-    Route::get('/appt-and-res-form-facility-reservation', function () {
-        return view('appt-and-res-form-facility-reservation');
+    Route::get('/appt-and-res/form-facility-reservation', function () {
+        return view('appt-and-res/form-facility-reservation');
     })->name('appt.and.res.form.facility.reservation');
 
-    Route::get('/appt-and-res-form-vehicle-sticker-appointment', function () {
-        return view('appt-and-res-form-vehicle-sticker-appointment');
+    Route::get('/appt-and-res/form-vehicle-sticker-appointment', function () {
+        return view('appt-and-res/form-vehicle-sticker-appointment');
     })->name('appt.and.res.form.vehicle.sticker.appointment');
 
 });

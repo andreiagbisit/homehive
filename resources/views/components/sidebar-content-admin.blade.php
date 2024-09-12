@@ -1,24 +1,24 @@
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('dashboard-admin') }}">
+    <a class="nav-link" href="{{ route('dashboard.admin') }}">
         <i class="fas fa-list"></i>
         <span>Dashboard</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('bulletin-board-admin') }}">
+    <a class="nav-link" href="{{ route('bulletin.board.admin') }}">
         <i class="fa fa-object-group"></i>
         <span>Bulletin Board</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('collection-mgmt-admin') }}">
+    <a class="nav-link" href="{{ route('collection.mgmt.admin') }}">
         <i class="fas fa-coins"></i>
         <span>Collection Management</span></a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url('appt-and-res-mgmt-admin') }}">
+    <a class="nav-link" href="{{ route('appt.res.mgmt.admin') }}">
         <i class="far fa-calendar-check"></i>
         <span>Appointment & Reservation Management</span></a>
 </li>

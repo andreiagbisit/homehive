@@ -9,19 +9,19 @@
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_super_admin">
-                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
+            <x-slot name="sidebar_landing_link_admin">
+                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
 
-            <x-slot name="sidebar_content_super_admin">
-                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
+            <x-slot name="sidebar_content_admin">
+                <x-sidebar-content-admin></x-sidebar-content-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_admin"></x-slot>
+            <x-slot name="sidebar_content_super_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -36,7 +36,7 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Manage Facility Reservations</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ url('manage-subdivision-facilities-super-admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('manage.facilities.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-tags"></i>
                         </span>
@@ -89,14 +89,14 @@
                                     <td>01/02/2024</td>
                                     <td>2:00 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('view-entry-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('edit-entry-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -128,14 +128,14 @@
                                     <td>01/06/2024</td>
                                     <td>3:30 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('view-entry-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('edit-entry-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -167,14 +167,14 @@
                                     <td>01/10/2024</td>
                                     <td>5:00 PM</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('view-entry-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ url('edit-entry-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>

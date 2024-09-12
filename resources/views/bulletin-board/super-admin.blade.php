@@ -38,7 +38,7 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Bulletin Board</h1>
             </div>
 
-            <a href="{{ url('add-entry-super-admin') }}" class="btn btn-warning btn-icon-split mb-3">
+            <a href="{{ url('add-entry/super-admin') }}" class="btn btn-warning btn-icon-split mb-3">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>

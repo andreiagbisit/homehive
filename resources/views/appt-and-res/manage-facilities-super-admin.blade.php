@@ -2,7 +2,7 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>HomeHive - Manage Fund Collection Categories</title>
+                <title>HomeHive - Manage Subdivision Facilities</title>
             </x-slot>
         </x-head>
     </x-slot>
@@ -15,7 +15,7 @@
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
             <x-slot name="sidebar_landing_link_admin"></x-slot>
-
+    
             <x-slot name="sidebar_content_super_admin">
                 <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>
@@ -33,22 +33,22 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Manage Fund Collection Categories</h1><br>
+                <h1 id="header-h1" class="h3 mb-0 text-800">Manage Subdivision Facilities</h1><br>
 
                 <div class="text-center">
                     <a href="{{ url('add-entry-super-admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Add Category</span>
+                        <span class="text" style="color: #000; font-weight: 500;">Add Facility</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Tables -->
+            <!-- Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Fund Collection Categories</h6>
+                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Available Facilities</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -56,23 +56,23 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Category</th>
+                                    <th>Facility</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Maintenance</td>
+                                    <td>Clubhouse</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -90,16 +90,16 @@
 
                                 <tr>
                                     <td>2</td>
-                                    <td>Amenities & Services</td>
+                                    <td>Basketball Court</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -117,16 +117,16 @@
 
                                 <tr>
                                     <td>3</td>
-                                    <td>Security</td>
+                                    <td>Swimming Pool</td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-super-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.view') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-super-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('superadmin.edit') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>

@@ -47,7 +47,7 @@
                                 <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/facilities.jpg') }}">
                                 <hr>
                                 <h2 id="appt-and-res-card-link"><i id="i-w_backdrop-1" class="fas fa-building"></i>Facilities</h2>
-                                <a id="appt-and-res-button" href="{{ route('manage.facility.reservations.super.admin') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                <a id="appt-and-res-button" href="{{ route('manage.facility.reservations.superadmin') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
                                     MANAGE RESERVATIONS
                                 </a>
                             </div>

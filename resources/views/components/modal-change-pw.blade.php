@@ -35,16 +35,16 @@
                     </div>
                 </div>
 
-                <div class="modal-footer d-inline">
+                <div align="center" class="modal-footer d-inline">
                     <!-- Apply New Password Button -->
-                    <div class="form-group mb-3">
+                    <div class="form-group col-sm-6 mb-3">
                         <button type="submit" style="color:#000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold">
                             Apply New Password
                         </button>
                     </div>
 
                     <!-- Cancel Button -->
-                    <div class="form-group">
+                    <div class="form-group col-sm-6">
                         <button style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white" type="button" data-dismiss="modal">
                             Cancel
                         </button>

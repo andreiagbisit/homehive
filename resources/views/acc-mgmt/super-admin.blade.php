@@ -57,6 +57,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Username</th>
+                                    <th>Profile Picture</th>
                                     <th>First Name</th>
                                     <th>Middle Name</th>
                                     <th>Last Name</th>
@@ -75,6 +76,9 @@
                                     <tr>
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->uname }}</td>
+                                        <td>
+                                            <img id="table-pfp" class="img-circle profile-avatar" src="{{ url('img/pfp_1.png') }}">
+                                        </td>
                                         <td>{{ $user->fname }}</td>
                                         <td>{{ $user->mname }}</td>
                                         <td>{{ $user->lname }}</td>

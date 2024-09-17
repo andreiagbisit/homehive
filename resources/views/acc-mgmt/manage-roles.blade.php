@@ -56,14 +56,7 @@
                                     <td>1</td>
                                     <td>HOA President</td>
                                     <td class="text-center">
-                                        <a href="{{ route('view.entry.super.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -83,14 +76,7 @@
                                     <td>2</td>
                                     <td>HOA Vice President</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -110,14 +96,7 @@
                                     <td>3</td>
                                     <td>HOA Secretary</td>
                                     <td class="text-center">
-                                        <a href="{{ route('view.entry.super.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -137,14 +116,7 @@
                                     <td>4</td>
                                     <td>HOA Treasurer</td>
                                     <td class="text-center">
-                                        <a href="{{ route('view.entry.super.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -164,14 +136,7 @@
                                     <td>5</td>
                                     <td>Resident</td>
                                     <td class="text-center">
-                                        <a href="{{ route('view.entry.super.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>

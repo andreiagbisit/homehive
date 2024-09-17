@@ -220,6 +220,15 @@
     padding: 15px;
 }
 
+#table-facility-pic {
+    height: 250px;
+    padding: 8px;
+}
+
+#table-pfp {
+    height: 120px;
+}
+
 #tally-card-counter {
     color: #000;
 }

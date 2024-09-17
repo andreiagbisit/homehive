@@ -36,7 +36,7 @@
                 <h1 id="header-h1" class="h3 mb-0 text-800">Manage Fund Collection Categories</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ url('add-entry-super-admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('add.entry.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
@@ -65,14 +65,7 @@
                                     <td>1</td>
                                     <td>Maintenance</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -92,14 +85,7 @@
                                     <td>2</td>
                                     <td>Amenities & Services</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -119,14 +105,7 @@
                                     <td>3</td>
                                     <td>Security</td>
                                     <td class="text-center">
-                                        <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('superadmin.edit', $user->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>

@@ -146,8 +146,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // View and Edit of Vehicle Sticker Application
 
-    Route::get('/manage-vehicle-sticker-applications-super-admin', function () {
-        return view('manage-vehicle-sticker-applications-super-admin');
+    Route::get('/appt-and-res/manage-vehicle-sticker-applications-super-admin', function () {
+        return view('appt-and-res/manage-vehicle-sticker-applications-super-admin');
     })->name('manage.vehicle.sticker.applications.super.admin');
 
     Route::get('/add-entry/super-admin', function () {

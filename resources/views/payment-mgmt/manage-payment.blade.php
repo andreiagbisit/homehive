@@ -163,16 +163,16 @@
                                             // Determine the correct QR code image based on the selected collector
                                             switch(selectedCollector) {
                                                 case 'John Doe':
-                                                    qrCodeSrc = 'img/gcash-qr-1.png';
+                                                    qrCodeSrc = '/img/gcash-qr-1.png';
                                                     break;
                                                 case 'Jane Doe':
-                                                    qrCodeSrc = 'img/gcash-qr-2.png';
+                                                    qrCodeSrc = '/img/gcash-qr-2.png';
                                                     break;
                                                 case 'Michael Smith':
-                                                    qrCodeSrc = 'img/gcash-qr-3.png';
+                                                    qrCodeSrc = '/img/gcash-qr-3.png';
                                                     break;
                                                 case 'Mary Smith':
-                                                    qrCodeSrc = 'img/gcash-qr-4.png';
+                                                    qrCodeSrc = '/img/gcash-qr-4.png';
                                                     break;
                                                 default:
                                                     qrCodeSrc = ''; // Optional: No QR code if no valid selection

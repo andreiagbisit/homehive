@@ -88,7 +88,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                        <a href="{{ route('manage.payment.form') }}" class="btn btn-warning btn-icon-split">
+                                        <a href="{{ route('manage.payment') }}" class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
@@ -106,7 +106,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                        <a href="{{ url('manage-payment-form') }}" class="btn btn-warning btn-icon-split">
+                                        <a href="{{ route('manage.payment') }}" class="btn btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>

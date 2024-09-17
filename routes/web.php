@@ -167,10 +167,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('collection-mgmt/admin');
     })->name('collection.mgmt.admin');
 
-    Route::get('/appt-and-res/mgmt-admin', function () {
-        return view('appt-and-res/mgmt-admin');
-    });
-
     Route::get('/add-entry/admin', function () {
         return view('add-entry/admin');
     })->name('add.entry.admin');

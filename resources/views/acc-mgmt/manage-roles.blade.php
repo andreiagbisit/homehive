@@ -33,7 +33,7 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Manage Roles</h1><br>
+                <h1 id="header-h1">Manage Roles</h1><br>
             </div>
 
             <!-- Tables -->
@@ -56,7 +56,7 @@
                                     <td>1</td>
                                     <td>HOA President</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('acc.mgmt.edit.entry.role') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -76,7 +76,7 @@
                                     <td>2</td>
                                     <td>HOA Vice President</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('acc.mgmt.edit.entry.role') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -96,7 +96,7 @@
                                     <td>3</td>
                                     <td>HOA Secretary</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('acc.mgmt.edit.entry.role') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -116,7 +116,7 @@
                                     <td>4</td>
                                     <td>HOA Treasurer</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('acc.mgmt.edit.entry.role') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -136,7 +136,7 @@
                                     <td>5</td>
                                     <td>Resident</td>
                                     <td class="text-center">
-                                        <a href="{{ route('edit.entry.super.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('acc.mgmt.edit.entry.role') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -175,11 +175,20 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

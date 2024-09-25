@@ -6,7 +6,7 @@
             </x-slot>
         </x-head>
     </x-slot>
-    
+
     <x-slot name="sidebar_base">
         <x-sidebar-base>
             <x-slot name="sidebar_landing_link_admin">
@@ -33,10 +33,10 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Collection Management</h1><br>
+                <h1 id="header-h1">Collection Management</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ route('add.entry.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('collection.mgmt.add.entry.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
@@ -48,6 +48,20 @@
                             <i class="fas fa-tags"></i>
                         </span>
                         <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
+                    </a>
+
+                    <a href="{{ route('collection.mgmt.manage.collectors.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-comment-dollar"></i>
+                        </span>
+                        <span class="text" style="color: #000; font-weight: 500;">Manage Collectors</span>
+                    </a>
+
+                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-print"></i>
+                        </span>
+                        <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
                     </a>
                 </div>
             </div>
@@ -84,8 +98,29 @@
                                     <td>₱560.00</td>
                                     <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
                                     <td>GCash</td>
-                                    <td>01/01/2024</td>
-                                    <td class="text-center"></td>
+                                    <td><b>01/01/2024</b></td>
+                                    <td class="text-center">
+                                        <a href="{{ route('collection.mgmt.view.entry.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-binoculars"></i>
+                                            </span>
+                                            <span class="text">View</span>
+                                        </a><br>
+
+                                        <a href="{{ route('collection.mgmt.edit.entry.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <span class="text">Edit</span>
+                                        </a><br>
+
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                            <span class="text">Delete</span>
+                                        </a>
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -94,11 +129,32 @@
                                     <td>Maintenance</td>
                                     <td>Jio Rhey Detros</td>
                                     <td>Jane Smith</td>
-                                    <td>₱430.00</td>
+                                    <td><b>₱430.00</b></td>
                                     <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
                                     <td>On-site Payment</td>
                                     <td>01/02/2024</td>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        <a href="{{ route('collection.mgmt.view.entry.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-binoculars"></i>
+                                            </span>
+                                            <span class="text">View</span>
+                                        </a><br>
+
+                                        <a href="{{ route('collection.mgmt.edit.entry.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <span class="text">Edit</span>
+                                        </a><br>
+
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                            <span class="text">Delete</span>
+                                        </a>
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -107,19 +163,19 @@
                                     <td>Amenities & Services</td>
                                     <td>Edlan Vere Perez</td>
                                     <td></td>
-                                    <td>₱320.00</td>
+                                    <td><b>₱320.00</b></td>
                                     <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('collection.mgmt.view.entry.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('collection.mgmt.edit.entry.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -141,19 +197,19 @@
                                     <td>Maintenance</td>
                                     <td>Terrence Liam Tongol</td>
                                     <td></td>
-                                    <td>₱210.00</td>
+                                    <td><b>₱210.00</b></td>
                                     <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                        <a href="{{ url('view-entry-admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('collection.mgmt.view.entry.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ url('edit-entry-admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                        <a href="{{ route('collection.mgmt.edit.entry.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
@@ -192,11 +248,20 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

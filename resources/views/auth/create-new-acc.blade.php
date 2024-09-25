@@ -12,13 +12,13 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div id="create-acc-form-img" class="col-lg-5 d-none d-lg-block" style="background-image: url('img/create_acc.png')"></div>
+                    <div id="create-acc-form-img" class="col-lg-5 d-none d-lg-block" style="background-image: url('/img/create_acc.png')"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4" style="font-weight: bold;">Create New Account</h1>
                                 <p class="mb-4" style="color: #000;">
-                                    Please fill in the necessary details provided with the following fields below. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
+                                    Please fill in the necessary details provided with the following fields below to register a new account. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
                             </div><hr>
 
@@ -128,8 +128,10 @@
                                         <input type="password" class="form-control form-control-user" name="password_confirmation" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
-                                    Create Account
+                                <button type="submit"
+                                        style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                                        class="btn btn-warning btn-block font-weight-bold">
+                                    CREATE ACCOUNT
                                 </button>
                             </form>
                             <hr>

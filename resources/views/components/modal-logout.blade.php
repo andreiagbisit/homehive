@@ -11,14 +11,19 @@
             </div>
             <div class="modal-body">Are you sure? This will end your current session in the website.</div>
 
-            <div class="modal-footer d-inline">
-                <div class="form-group mb-3">
-                    <a style="color:#000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold" href="{{ url('login') }}" style="color: #000; font-weight: bold;">Log Out</a>
-                </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <a style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                    class="btn btn-warning btn-user btn-block font-weight-bold col-sm-5" 
+                    href="{{ url('login') }}">
+                    LOG OUT
+                </a>
 
-                <div class="form-group">
-                    <button style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white" type="button" data-dismiss="modal" style="font-weight: bold;">Cancel</button>
-                </div>
+                <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                        class="btn btn-secondary btn-user btn-block font-weight-bold col-sm-5" 
+                        type="button" 
+                        data-dismiss="modal">
+                    CANCEL
+                </button>
             </div>
         </div>
     </div>

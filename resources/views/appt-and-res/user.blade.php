@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Appointments & Reservations</h1>
+                <h1 id="header-h1">Appointments & Reservations</h1>
             </div>
 
             <!-- Content Rows -->
@@ -54,9 +54,11 @@
                                         <div class="text-center">
                                             <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/clubhouse.jpg') }}"><hr>
                                             
-                                            <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-home"></i>Clubhouse</h2>
+                                            <h2 id="appt-and-res-card-title">Clubhouse</h2>
 
-                                            <a id="appt-and-res-button" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
+                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
+                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                                 BOOK RESERVATION
                                             </a>
                                         </div>
@@ -70,9 +72,11 @@
                                         <div class="text-center">
                                             <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/bball-court.jpg') }}"><hr>
 
-                                            <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-basketball-ball"></i>Basketball Court</h2>
+                                            <h2 id="appt-and-res-card-title">Basketball Court</h2>
 
-                                            <a id="appt-and-res-button" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
+                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
+                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                                 BOOK RESERVATION
                                             </a>
                                         </div>
@@ -86,9 +90,11 @@
                                         <div class="text-center">
                                             <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/pool.jpg') }}"><hr>
 
-                                            <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-swimming-pool"></i>Swimming Pool</h2>
+                                            <h2 id="appt-and-res-card-title">Swimming Pool</h2>
 
-                                            <a id="appt-and-res-button-submit" href="{{ route('appt.and.res.form.facility.reservation') }}" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
+                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
+                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                                 BOOK RESERVATION
                                             </a>                                          
                                         </div>
@@ -113,9 +119,11 @@
                                     <div class="text-center">
                                         <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/stickers.jpg') }}"><hr>
 
-                                        <h2 id="appt-and-res-card-title"><i id="i-w_backdrop-1" class="fas fa-car-side"></i>Vehicle Sticker</h2>
+                                        <h2 id="appt-and-res-card-title">Vehicle Sticker</h2>
 
-                                        <a href="{{ route('appt.and.res.form.vehicle.sticker.appointment') }}" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
+                                        <a href="{{ route('appt.and.res.form.vehicle.sticker.appointment') }}"
+                                            style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
+                                            class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                             BOOK APPOINTMENT
                                         </a>
                                     </div>
@@ -145,10 +153,19 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

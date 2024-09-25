@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Vehicle Sticker - Book Appointment</h1>
+                <h1 id="header-h1">Vehicle Sticker - Book Appointment</h1>
             </div>
 
             <div class="col-lg-6">
@@ -258,10 +258,19 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

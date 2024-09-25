@@ -37,9 +37,15 @@
 
         {{ $modal_change_pw }}
 
+        {{ $modal_dashboard_edit }}
+
         {{ $modal_delete_entry }}
 
         {{ $modal_bulletin_entry }}
+
+        {{ $modal_bulletin_add }}
+
+        {{ $modal_appt_and_res_manage }}
 
         {{ $script }}
 

@@ -5,6 +5,8 @@
 #appt-and-res-button-submit {
     color: #000;
     font-size: 16px;
+    border-radius: 10rem;
+    padding: .75rem 1rem;
 }
 
 #appt-and-res-card-header {
@@ -52,6 +54,10 @@
     color: #000;
 }
 
+#bulletin-board-category-color-picker {
+    margin-bottom: 260px;
+}
+
 #bulletinEntryModal {
     z-index: 1050;
 }
@@ -71,6 +77,22 @@
 
 #checkbox-label {
     color: #000;
+}
+
+#collector-approach-rate-frequency {
+    color: #000;
+}
+
+#collector-approach-rate-left-border {
+    border-left: 0.25rem solid #000;
+}
+
+#collector-approach-rate-percentage {
+    color: #000;
+}
+
+#collector-approach-rate-progress-bar {
+    background-color: #000;
 }
 
 #collector-rate-desc {
@@ -106,6 +128,23 @@
     background-position: center;
 }
 
+#dashboard-amount-value {
+    color: #000;
+    font-weight: bold;
+}
+
+#dashboard-facility-frequency {
+    color: #000;
+}
+
+#dashboard-facility-progress-bar {
+    background-color: #000;
+}
+
+#dashboard-facility-reservation-name-percentage {
+    color: #000;
+}
+
 #facility-rate-desc {
     color: #000;
     margin-top: -7px;
@@ -136,8 +175,14 @@
 }
 
 #header-h1 {
-    color: #000;
-    font-weight: bold;
+    color: #2c2c2c;
+    font-weight: 800;
+    margin-bottom: 0;
+    background-image: linear-gradient(to right, rgba(255,165,0,1), rgba(245,228,95,1));
+    padding: 15px 20px 15px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
 }
 
 #input-file {
@@ -177,12 +222,24 @@
     background-position: center;
 }
 
+#media-upload-info {
+    color: #959595;
+    border: 2px solid #c1c1c1;
+    border-radius: 25px;
+    padding: 10px 15px 10px 15px;
+    max-width: 10px;
+}
+
 #page-desc {
     color: #000;
 }
 
-#payment-tally-category-card {
+#payment-tally-category-card, #payment-tally-category-card-2 {
     border-radius: 10px;
+}
+
+#payment-tally-category-card-2 {
+    background-color: #000;
 }
 
 #payment-tally-h4 {
@@ -215,6 +272,16 @@
     height: 320px;
 }
 
+#sample-bulletin-board-entry {
+    width: 114.84px;
+    border-radius: 3px;
+    background-color: #000;
+    font-size: 13.6px;
+    color: #fff;
+    padding: 4px;
+    line-height: 1.2em;
+}
+
 #select-text {
     border: 1px solid #d1d3e2;
     padding: 15px;
@@ -233,8 +300,12 @@
     color: #000;
 }
 
-#tally-card-title {
+#tally-card-title, #tally-card-title-subdivision {
     font-size: 14px;
+}
+
+#tally-card-title-subdivision {
+    align-items: flex-end;
 }
 
 #tb {

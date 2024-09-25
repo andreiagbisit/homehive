@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div id="modalContentArea">
-                    <h1 id="modalEventTitle"></h1>
+                    <h1 id="modalEventTitle" class="mt-2"></h1>
                     <div class="info-container">
                         <!-- Category Box -->
                         <div class="info-box-category" id="modalCategoryBox">
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3" type="button">EDIT ENTRY</button>
+                <a href="{{ route('bulletin.board.edit.entry') }}" id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</button>
                 <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
                 <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
             </div>

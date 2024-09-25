@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Profile Details</h1><br>
+                <h1 id="header-h1">Profile Details</h1><br>
 
                 <div class="text-center">
                     <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="col overflow-auto">
+                            <div class="col overflow-auto mt-4 mb-4">
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">Username</td>
@@ -113,15 +113,14 @@
                                         <tr>
                                             <td id="tb-v-head">Profile Picture</td>
                                             <td>
-                                                <img class="img-circle profile-avatar" 
+                                                <img class="img-circle profile-avatar border border border-secondary rounded-circle" 
                                                     src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('img/default.png') }}" 
                                                     style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
                                             </td>
                                         </tr>
+                                    </table>
+                            </div><hr>
 
-                                    </table><hr>
-                            </div>
-                            
                             <div class="col-sm-3 float-right">
                                 <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
@@ -150,10 +149,19 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

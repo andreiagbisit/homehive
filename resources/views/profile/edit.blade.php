@@ -41,12 +41,9 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Edit Profile</h1>
+                <h1 id="header-h1">Edit Profile</h1>
             </div>
 
-            <div class="col-lg-6">
-                <p id="page-desc">Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.</p>
-            </div>
             <!-- Content Row -->
             <div class="row">
                 <div class="col-lg-6 mb-4">
@@ -58,7 +55,11 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="col">
+                            <p class="mb-4" style="color: #000;">
+                                Please fill in the necessary details provided with the following fields below to apply changes in your user account. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
+                            </p>
+
+                            <div class="col mt-3">
                                 <h5 id="page-desc">I. Account Name</h5><br>
 
                                 <!-- Add enctype for file upload -->
@@ -155,12 +156,16 @@
 
                                     <div class="form-group text-center">
                                         <!-- Only one profile picture display -->
-                                        <img class="img-circle profile-avatar" 
+                                        <img class="img-circle profile-avatar border border border-secondary rounded-circle mb-1" 
                                              src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('img/default.png') }}" 
-                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br>
+                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br><br>
+                                             <span id="media-upload-info">
+                                                <i class="fas fa-image pr-2"></i> pfp_1.png | 154 KB
+                                            </span><br><br>
                                         <p id="page-desc">
                                             * The image's resolution must at least be <b>232x232</b>.<br>
-                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b>
+                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
+                                            <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
                                         </p>
 
                                         <!-- File input for profile picture -->
@@ -223,10 +228,19 @@
         <x-modal-change-pw></x-modal-change-pw>
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

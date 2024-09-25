@@ -35,10 +35,39 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Dashboard</h1>
+                <h1 id="header-h1">Dashboard</h1>
+
+                <div class="text-center">
+                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;" data-toggle="modal" data-target="#dashboardModalEdit">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-poll"></i>
+                        </span>
+                        <span class="text" style="color: #000; font-weight: 500;">Manage Dashboard</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Content Rows -->
+            <div class="row">
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-secondary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div id="tally-card-title-subdivision" class="d-inline-flex font-weight-bold text-black text-uppercase mb-1">
+                                        <i class="fas fa-home fa-2x text-black pr-2"></i> Subdivision
+                                    </div>
+                                    <div id="tally-card-counter" class="h2 mb-0 font-weight-bold pb-2">Lorem Ipsum Residences</div>
+                                </div>
+                                
+                                <div class="col-auto">
+                                    <img id="table-pfp" class="img-circle profile-avatar border border-secondary rounded-circle" src="{{ url('img/subd-logo.png') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
@@ -145,7 +174,7 @@
                             <h6 id="card-h6" class="m-0">Subdivision Fund Collection</h6>
                         </div>
                         <div class="card-body">
-                            <h1 id="header-h1" class="text-center">₱450,000</h1>
+                            <h1 id="dashboard-amount-value" class="text-center">₱450,000</h1>
                             <p id="payment-total-amount-desc" class="text-center">Total Amount</p>
 
                             <div class="chart-pie pt-4">
@@ -192,11 +221,7 @@
                         <div style="height: 609px;" class="card-body overflow-auto">
 
                             <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-gradient-danger">
-                                    <div class="row no-gutters align-items-center">
-                                        <h2><i id="payment-tally-icon" class="fa fa-wrench text-danger bg-light p-2"></i></h2>
-                                    </div>
-                                    
+                                <div id="payment-tally-category-card" class="card-body bg-danger">
                                     <h4 id="payment-tally-h4" class="text-light">Maintenance</h4>
                                     <div class="col-auto">
                                         <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
@@ -204,7 +229,7 @@
 
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                     </div>
@@ -212,11 +237,7 @@
                             </div>
 
                             <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-gradient-success">
-                                    <div class="row no-gutters align-items-center">
-                                        <h2><i id="payment-tally-icon" class="fas fa-umbrella-beach text-success bg-light p-2"></i></h2>
-                                    </div>
-                                    
+                                <div id="payment-tally-category-card" class="card-body bg-success">
                                     <h4 id="payment-tally-h4" class="text-light">Amenities & Services</h4>
                                     <div class="col-auto">
                                         <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">40% <span id="payment-tally-percentage-desc" class="h6">(4 collections made)</span></div>
@@ -224,7 +245,7 @@
 
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                     </div>
@@ -232,11 +253,7 @@
                             </div>
 
                             <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-gradient-primary">
-                                    <div class="row no-gutters align-items-center">
-                                        <h2><i id="payment-tally-icon" class="fas fa-shield-alt text-primary bg-light p-2"></i></h2>
-                                    </div>
-                                    
+                                <div id="payment-tally-category-card" class="card-body bg-primary">
                                     <h4 id="payment-tally-h4" class="text-light">Security</h4>
                                     <div class="col-auto">
                                         <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">60% <span id="payment-tally-percentage-desc" class="h6">(6 collections made)</span></div>
@@ -244,7 +261,7 @@
                                     
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                     </div>
@@ -252,11 +269,7 @@
                             </div>
 
                             <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-gradient-info">
-                                    <div class="row no-gutters align-items-center">
-                                        <h2><i id="payment-tally-icon" class="fas fa-swimming-pool text-info bg-light p-2"></i></h2>
-                                    </div>
-                                    
+                                <div id="payment-tally-category-card" class="card-body bg-info">
                                     <h4 id="payment-tally-h4" class="text-light">Facility Reservation</h4>
                                     <div class="col-auto">
                                         <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">80% <span id="payment-tally-percentage-desc" class="h6">(8 collections made)</span></div>
@@ -264,7 +277,7 @@
                                     
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                     </div>
@@ -272,11 +285,7 @@
                             </div>
 
                             <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-gradient-warning">
-                                    <div class="row no-gutters align-items-center">
-                                        <h2><i id="payment-tally-icon" class="fas fa-car-side text-warning bg-light p-2"></i></h2>
-                                    </div>
-                                    
+                                <div id="payment-tally-category-card" class="card-body bg-warning">
                                     <h4 id="payment-tally-h4" class="text-light">Vehicle Sticker</h4>
                                     <div class="col-auto">
                                         <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">90% <span id="payment-tally-percentage-desc" class="h6">(9 collections made)</span></div>
@@ -284,7 +293,7 @@
                                     
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
                                     </div>
@@ -355,7 +364,7 @@
                                         <div class="col mr-2">
                                             
                                             <div class="row no-gutters align-items-center">
-                                                <img id="collector-rate-img" class="img-profile rounded-circle" src="{{ url('img/pfp_2.png') }}"><br>
+                                                <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_2.png') }}"><br>
                                                 <h3 id="collector-rate-h3">John Doe</h3>
                                             </div><hr>
 
@@ -383,7 +392,7 @@
                                         <div class="col mr-2">
                                             
                                             <div class="row no-gutters align-items-center">
-                                                <img id="collector-rate-img" class="img-profile rounded-circle" src="{{ url('img/pfp_3.png') }}"><br>
+                                                <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_3.png') }}"><br>
                                                 <h3 id="collector-rate-h3">Jane Doe</h3>
                                             </div><hr>
 
@@ -411,7 +420,7 @@
                                         <div class="col mr-2">
                                             
                                             <div class="row no-gutters align-items-center">
-                                                <img id="collector-rate-img" class="img-profile rounded-circle" src="{{ url('img/pfp_4.png') }}"><br>
+                                                <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_4.png') }}"><br>
                                                 <h3 id="collector-rate-h3">Michael Smith</h3>
                                             </div><hr>
 
@@ -439,7 +448,7 @@
                                         <div class="col mr-2">
                                             
                                             <div class="row no-gutters align-items-center">
-                                                <img id="collector-rate-img" class="img-profile rounded-circle" src="{{ url('img/pfp_5.png') }}"><br>
+                                                <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_5.png') }}"><br>
                                                 <h3 id="collector-rate-h3">Mary Smith</h3>
                                             </div><hr>
 
@@ -514,10 +523,20 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+        <x-modal-dashboard-edit></x-modal-dashboard-edit>
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

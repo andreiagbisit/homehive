@@ -33,7 +33,7 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Account Management</h1><br>
+                <h1 id="header-h1">Account Management</h1><br>
 
                 <div class="text-center">
                 <a href="{{ route('manage.roles') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
@@ -77,7 +77,7 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->uname }}</td>
                                         <td>
-                                            <img id="table-pfp" class="img-circle profile-avatar" src="{{ url('img/pfp_1.png') }}">
+                                            <img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_1.png') }}">
                                         </td>
                                         <td>{{ $user->fname }}</td>
                                         <td>{{ $user->mname }}</td>
@@ -90,7 +90,7 @@
                                         <td>{{ $user->house_lot_no }}</td>
                                         <td>{{ $user->subdivision_role_id }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('superadmin.view', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                            <a href="{{ route('acc.mgmt.view.entry')}}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-binoculars"></i>
                                                 </span>
@@ -141,11 +141,20 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

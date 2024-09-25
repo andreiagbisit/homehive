@@ -71,10 +71,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/acc-mgmt/super-admin', [AccountManagementController::class, 'index'])->name('account.management'); // List all users
     Route::get('/view-entry/super-admin/{id}', [AccountManagementController::class, 'show'])->name('superadmin.view'); // View a specific user
-    Route::get('/edit-entry/super-admin-acc-mgmt/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
+    Route::get('/acc-mgmt/edit-entry-acc/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
     Route::patch('/edit-entry/super-admin/{id}', [AccountManagementController::class, 'update'])->name('superadmin.update'); // Update user in the database
     Route::delete('/delete-entry-super-admin/{id}', [AccountManagementController::class, 'destroy'])->name('superadmin.destroy'); // Delete a user
 
+    Route::get('/acc-mgmt/view-entry-acc', function () {
+        return view('acc-mgmt/view-entry-acc');
+    })->name('acc.mgmt.view.entry');
+
+    Route::get('/acc-mgmt/edit-entry-role', function () {
+        return view('acc-mgmt/edit-entry-role');
+    })->name('acc.mgmt.edit.entry.role');
+    
     // Manage Roles Button Nav
     Route::get('/acc-mgmt/manage-roles', function () {
         return view('acc-mgmt/manage-roles');
@@ -93,11 +101,217 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/super-admin');
     })->name('bulletin.board.superadmin');
 
+    Route::get('/bulletin-board/edit-entry-super-admin', function () {
+        return view('bulletin-board/edit-entry-super-admin');
+    })->name('bulletin.board.edit.entry.superadmin');
+
+    // BULLETIN BOARD - EDIT ENTRY ROUTES (SUPER ADMIN & ADMIN)
+    Route::get('/bulletin-board/edit-entry', function () {
+        $user = Auth::user(); // Get the currently authenticated user
+    
+        // Redirect based on the user's account_type_id
+        if ($user->account_type_id == 1) {
+            // Super Admin
+            return redirect()->route('bulletin.board.edit.entry.superadmin');
+        } elseif ($user->account_type_id == 2) {
+            // Admin
+            return redirect()->route('bulletin.board.edit.entry.admin');
+        }
+    })->name('bulletin.board.edit.entry');
+
+    Route::get('/bulletin-board/manage-categories-super-admin', function () {
+        return view('bulletin-board/manage-categories-super-admin');
+    })->name('bulletin.board.manage.categories.superadmin');
+
+    Route::get('/bulletin-board/manage-categories-admin', function () {
+        return view('bulletin-board/manage-categories-admin');
+    })->name('bulletin.board.manage.categories.admin');
+
+    Route::get('/bulletin-board/add-category-super-admin', function () {
+        return view('bulletin-board/add-category-super-admin');
+    })->name('bulletin.board.add.category.superadmin');
+
+    Route::get('/bulletin-board/add-category-admin', function () {
+        return view('bulletin-board/add-category-admin');
+    })->name('bulletin.board.add.category.admin');
+
+    Route::get('/bulletin-board/edit-category-super-admin', function () {
+        return view('bulletin-board/edit-category-super-admin');
+    })->name('bulletin.board.edit.category.superadmin');
+
+    Route::get('/bulletin-board/edit-category-admin', function () {
+        return view('bulletin-board/edit-category-admin');
+    })->name('bulletin.board.edit.category.admin');
+
+    Route::get('/bulletin-board/view-category-super-admin', function () {
+        return view('bulletin-board/view-category-super-admin');
+    })->name('bulletin.board.view.category.superadmin');
+
+    Route::get('/bulletin-board/view-category-admin', function () {
+        return view('bulletin-board/view-category-admin');
+    })->name('bulletin.board.view.category.admin');
+
     // COLLECTION MANAGEMENT
 
     Route::get('/collection-mgmt/super-admin', function () {
         return view('collection-mgmt/super-admin');
     })->name('collection.mgmt.superadmin');
+
+    Route::get('/collection-mgmt/admin', function () {
+        return view('collection-mgmt/admin');
+    })->name('collection.mgmt.admin');
+
+    Route::get('/collection-mgmt/add-entry-super-admin', function () {
+        return view('collection-mgmt/add-entry-super-admin');
+    })->name('collection.mgmt.add.entry.superadmin');
+
+    Route::get('/collection-mgmt/add-entry-admin', function () {
+        return view('collection-mgmt/add-entry-admin');
+    })->name('collection.mgmt.add.entry.admin');
+
+    Route::get('/collection-mgmt/view-entry-super-admin', function () {
+        return view('collection-mgmt/view-entry-super-admin');
+    })->name('collection.mgmt.view.entry.superadmin');
+
+    Route::get('/collection-mgmt/view-entry-admin', function () {
+        return view('collection-mgmt/view-entry-admin');
+    })->name('collection.mgmt.view.entry.admin');
+
+    Route::get('/collection-mgmt/edit-entry-super-admin', function () {
+        return view('collection-mgmt/edit-entry-super-admin');
+    })->name('collection.mgmt.edit.entry.superadmin');
+
+    Route::get('/collection-mgmt/edit-entry-admin', function () {
+        return view('collection-mgmt/edit-entry-admin');
+    })->name('collection.mgmt.edit.entry.admin');
+
+    Route::get('/collection-mgmt/manage-collectors-super-admin', function () {
+        return view('collection-mgmt/manage-collectors-super-admin');
+    })->name('collection.mgmt.manage.collectors.superadmin');
+
+    Route::get('/collection-mgmt/manage-collectors-admin', function () {
+        return view('collection-mgmt/manage-collectors-admin');
+    })->name('collection.mgmt.manage.collectors.admin');
+
+    Route::get('/collection-mgmt/view-collector-super-admin', function () {
+        return view('collection-mgmt/view-collector-super-admin');
+    })->name('collection.mgmt.view.collector.superadmin');
+
+    Route::get('/collection-mgmt/view-collector-admin', function () {
+        return view('collection-mgmt/view-collector-admin');
+    })->name('collection.mgmt.view.collector.admin');
+
+    Route::get('/collection-mgmt/add-collector-super-admin', function () {
+        return view('collection-mgmt/add-collector-super-admin');
+    })->name('collection.mgmt.add.collector.superadmin');
+
+    Route::get('/collection-mgmt/edit-collector-super-admin', function () {
+        return view('collection-mgmt/edit-collector-super-admin');
+    })->name('collection.mgmt.edit.collector.superadmin');
+
+    Route::get('/collection-mgmt/edit-collector-admin', function () {
+        return view('collection-mgmt/edit-collector-admin');
+    })->name('collection.mgmt.edit.collector.admin');
+    
+    Route::get('/collection-mgmt/add-category-super-admin', function () {
+        return view('collection-mgmt/add-category-super-admin');
+    })->name('collection.mgmt.add.category.superadmin');
+
+    Route::get('/collection-mgmt/add-category-admin', function () {
+        return view('collection-mgmt/add-category-admin');
+    })->name('collection.mgmt.add.category.admin');
+
+    Route::get('/collection-mgmt/edit-category-super-admin', function () {
+        return view('collection-mgmt/edit-category-super-admin');
+    })->name('collection.mgmt.edit.category.superadmin');
+
+    Route::get('/collection-mgmt/edit-category-admin', function () {
+        return view('collection-mgmt/edit-category-admin');
+    })->name('collection.mgmt.edit.category.admin');
+
+    Route::get('/collection-mgmt/view-category-super-admin', function () {
+        return view('collection-mgmt/view-category-super-admin');
+    })->name('collection.mgmt.view.category.superadmin');
+
+    Route::get('/collection-mgmt/view-category-admin', function () {
+        return view('collection-mgmt/view-category-admin');
+    })->name('collection.mgmt.view.category.admin');
+
+    Route::get('/appt-and-res/add-facility-super-admin', function () {
+        return view('appt-and-res/add-facility-super-admin');
+    })->name('appt.and.res.add.facility.superadmin');
+
+    Route::get('/appt-and-res/add-facility-admin', function () {
+        return view('appt-and-res/add-facility-admin');
+    })->name('appt.and.res.add.facility.admin');
+
+    Route::get('/appt-and-res/view-facility-super-admin', function () {
+        return view('appt-and-res/view-facility-super-admin');
+    })->name('appt.and.res.view.facility.superadmin');
+
+    Route::get('/appt-and-res/view-facility-admin', function () {
+        return view('appt-and-res/view-facility-admin');
+    })->name('appt.and.res.view.facility.admin');
+
+    Route::get('/appt-and-res/edit-facility-super-admin', function () {
+        return view('appt-and-res/edit-facility-super-admin');
+    })->name('appt.and.res.edit.facility.superadmin');
+
+    Route::get('/appt-and-res/edit-facility-admin', function () {
+        return view('appt-and-res/edit-facility-admin');
+    })->name('appt.and.res.edit.facility.admin');
+
+    Route::get('/appt-and-res/edit-appointment-super-admin', function () {
+        return view('appt-and-res/edit-appointment-super-admin');
+    })->name('appt.and.res.edit.appointment.superadmin');
+
+    Route::get('/appt-and-res/edit-appointment-admin', function () {
+        return view('appt-and-res/edit-appointment-admin');
+    })->name('appt.and.res.edit.appointment.admin');
+
+    Route::get('/appt-and-res/view-appointment-super-admin', function () {
+        return view('appt-and-res/view-appointment-super-admin');
+    })->name('appt.and.res.view.appointment.superadmin');
+
+    Route::get('/appt-and-res/view-appointment-admin', function () {
+        return view('appt-and-res/view-appointment-admin');
+    })->name('appt.and.res.view.appointment.admin');
+
+    Route::get('/appt-and-res/view-reservation-admin', function () {
+        return view('appt-and-res/view-reservation-admin');
+    })->name('appt.and.res.view.reservation.admin');
+
+    Route::get('/appt-and-res/view-reservation-super-admin', function () {
+        return view('appt-and-res/view-reservation-super-admin');
+    })->name('appt.and.res.view.reservation.superadmin');
+
+    Route::get('/appt-and-res/view-reservation-admin', function () {
+        return view('appt-and-res/view-reservation-admin');
+    })->name('appt.and.res.view.reservation.admin');
+
+    Route::get('/appt-and-res/edit-reservation-superadmin', function () {
+        return view('appt-and-res/edit-reservation-superadmin');
+    })->name('appt.and.res.edit.reservation.superadmin');
+
+    Route::get('/appt-and-res/edit-reservation-admin', function () {
+        return view('appt-and-res/edit-reservation-admin');
+    })->name('appt.and.res.edit.reservation.admin');
+
+    Route::get('/appt-and-res/manage-rules-facility-reservation-super-admin', function () {
+        return view('appt-and-res/manage-rules-facility-reservation-super-admin');
+    })->name('appt.and.res.manage.rules.reservation.superadmin');
+
+    Route::get('/appt-and-res/manage-rules-facility-reservation-admin', function () {
+        return view('appt-and-res/manage-rules-facility-reservation-admin');
+    })->name('appt.and.res.manage.rules.reservation.admin');
+
+    Route::get('/appt-and-res/manage-rules-sticker-appt-super-admin', function () {
+        return view('appt-and-res/manage-rules-sticker-appt-super-admin');
+    })->name('appt.and.res.manage.rules.sticker.appt.superadmin');
+
+    Route::get('/appt-and-res/manage-rules-sticker-appt-admin', function () {
+        return view('appt-and-res/manage-rules-sticker-appt-admin');
+    })->name('appt.and.res.manage.rules.sticker.appt.admin');
 
     // For Collection Management SuperAdmin/Admin View & Edit
 
@@ -162,6 +376,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/bulletin-board/admin', function () {
         return view('bulletin-board/admin');
     })->name('bulletin.board.admin');
+
+    Route::get('/bulletin-board/edit-entry-admin', function () {
+        return view('bulletin-board/edit-entry-admin');
+    })->name('bulletin.board.edit.entry.admin');
 
     Route::get('/collection-mgmt/admin', function () {
         return view('collection-mgmt/admin');

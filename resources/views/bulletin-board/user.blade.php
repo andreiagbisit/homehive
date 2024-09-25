@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Bulletin Board</h1>
+                <h1 id="header-h1">Bulletin Board</h1>
             </div>
 
             <!-- Content Row -->
@@ -43,7 +43,7 @@
                 <div class="col-lg-7 mb-4">
                     <div class="card shadow mb-4 p-2">
                         <div class="card-body">
-                            <div id="calendar"></div>
+                            <div id="calendarBulletinBoard"></div>
                         </div>
                     </div>
                 </div>
@@ -91,12 +91,22 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
         <x-modal-bulletin-entry></x-modal-bulletin-entry>
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+        <x-modal-bulletin-add></x-modal-bulletin-add>
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

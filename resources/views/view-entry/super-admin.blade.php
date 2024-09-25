@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Terrence Liam - View Entry</h1>
+                <h1 id="header-h1">Terrence Liam - View Entry</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -77,7 +77,7 @@
                                         <tr>
                                             <td id="tb-v-head">Image 2</td>
                                             <td>
-                                                <img class="img-circle profile-avatar" src="{{ url('img/pfp_1.png') }}">
+                                                <img class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('img/pfp_1.png') }}">
                                             </td>
                                         </tr>
                                     </table><hr>
@@ -112,10 +112,19 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

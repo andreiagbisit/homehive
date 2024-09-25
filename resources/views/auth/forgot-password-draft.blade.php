@@ -10,7 +10,7 @@
     <x-slot name="account_form_container_child_login_forgot">
         <x-base-account-form-login-forgot-outer-row>
             <x-slot name="content_login_forgot">
-                <div id="forgot-pw-form-img" class="col-lg-6 d-none d-lg-block" style="background-image: url('img/forgot.png')"></div>
+                <div id="forgot-pw-form-img" class="col-lg-6 d-none d-lg-block" style="background-image: url('/img/forgot.png')"></div>
                 <div class="col-lg-6">
                     <div class="p-5">
                         <div class="text-center">
@@ -24,13 +24,15 @@
                                 <p id="input-label">Email Address <span style="color: red;">*</span></p>
                                 <input type="email" class="form-control form-control-user" aria-describedby="emailHelp">
                             </div>
-                            <a href="{{ url('login') }}" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
-                                Reset Password
+                            <a href="{{ url('login') }}"
+                                style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                                class="btn btn-warning btn-block font-weight-bold">
+                                RESET PASSWORD
                             </a>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" style="font-weight: bold;" href="{{ url('create-new-account') }}">Create New Account</a>
+                            <a class="small" style="font-weight: bold;" href="{{ route('register') }}">Create New Account</a>
                         </div>
                         <div class="text-center">
                             <a class="small"  style="font-weight: bold;" href="{{ url('login') }}">Log In to an Existing Account</a>

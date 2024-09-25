@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1" class="h3 mb-0 text-800">Lorem Ipsum - Add Entry</h1>
+                <h1 id="header-h1">Lorem Ipsum - Add Entry</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -78,7 +78,7 @@
                                     <div class="form-group text-center">
                                         <img id="img-preview" class="img-fluid mt-3 mb-4" src="{{ url('img/facilities.jpg') }}"><br>
                                         <p id="page-desc">
-                                            * The image must at least be <b>390x300</b>. In smartphone-based layouts, it will be displayed in <b>246x300</b>.<br>
+                                            * The image must at least be <b>390x300</b>. In smartphone-based layouts, it will be displayed at <b>246x300</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b>
                                         </p>
 
@@ -135,10 +135,19 @@
     <x-slot name="modal_change_pw">
     </x-slot>
 
+    <x-slot name="modal_dashboard_edit">
+    </x-slot>
+
     <x-slot name="modal_delete_entry">
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+    </x-slot>
+
+    <x-slot name="modal_bulletin_add">
+    </x-slot>
+
+    <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">

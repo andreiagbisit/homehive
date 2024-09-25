@@ -25,7 +25,7 @@ class AccountManagementController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('edit-entry/super-admin-acc-mgmt', compact('user'));
+        return view('acc-mgmt/edit-entry-acc', compact('user'));
     }
 
     // Update the specified user in the database

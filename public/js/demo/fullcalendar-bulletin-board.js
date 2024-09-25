@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendarBulletinBoard');
 
     var categoryColors = {
         'Announcement': { background: '#e74a3b', border: '#e74a3b', text: '#ffffff' },
@@ -114,6 +114,24 @@ $(document).ready(function() {
             }
         ],
 
+        eventClick: function(info) {
+            // Access the description from the event's extended properties
+            var description = info.event.extendedProps.description;
+
+            // Assuming you have a rich text editor initialized (e.g., CKEditor or RTE)
+            var editor = new RichTextEditor('#richTextEditorContainer');
+            
+            // Set the description into the editor
+            editor.setHTML(description);
+
+            // Alternatively, if using a specific rich text editor, like CKEditor or TinyMCE:
+            // CKEditor example:
+            // CKEDITOR.instances.editor1.setData(description);
+            
+            // TinyMCE example:
+            // tinymce.get('richTextEditorContainer').setContent(description);
+        },
+        
         eventDidMount: function(info) {
             var element = info.el;
             var event = info.event;

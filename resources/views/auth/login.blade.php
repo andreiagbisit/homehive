@@ -39,8 +39,10 @@
                                     <label class="custom-control-label" for="remember_me" style="color: #000; font-weight: bold;">Remember Me</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-warning btn-user btn-block" style="color: #000; font-weight: bold;">
-                                Log In
+                            <button type="submit"
+                                    style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                                    class="btn btn-warning btn-block font-weight-bold">
+                                LOG IN
                             </button>
                             <hr>
                         </form>

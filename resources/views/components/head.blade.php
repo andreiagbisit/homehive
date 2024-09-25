@@ -20,8 +20,8 @@
     <link href="{{ url('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ url('vendor/fullcalendar/main.min.css') }}" rel="stylesheet">
     <link href="{{ url('vendor/fullcalendar/main.css') }}" rel="stylesheet">
+    <link href="{{ url('vendor/richtexteditor/rte_theme_default.css') }}" rel="stylesheet">
 
     <!-- Custom styles for HomeHive -->
     <link href="{{ url('css/addendum.css') }}" rel="stylesheet">
-    <link href="{{ url('css/fullcalendar.min.css') }}" rel="stylesheet">
 </head>

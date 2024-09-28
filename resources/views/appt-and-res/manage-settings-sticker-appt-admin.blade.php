@@ -57,18 +57,31 @@
                                     <div class="form-group row mt-4 mb-5">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
 
-                                            <h4 id="form-header-h4" class="mt-4 mb-4">
+                                            <p id="input-label">
                                                 Reservation Fee <span style="color: red;">*</span>
-                                            </h4>
-                                        
+                                            </p>
+
                                             <input type="text" id="form-text" class="form-control form-control-user" required value="₱200.00">
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <p id="input-label">
+                                                Maximum Number of Vehicles per Household <span style="color: red;">*</span>
+                                            </p>
+
+                                            <input type="text" id="form-text" class="form-control form-control-user" required value="5">
                                         </div>
                                     </div>
 
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Maximum Number of Vehicles per Household <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="5">
+                                    <div class="form-group row mt-4 mb-5">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+
+                                            <p id="input-label">
+                                                Vehicle Sticker Fee <span style="color: red;">*</span>
+                                            </p>
+
+                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱300.00">
                                         </div>
                                     </div>
                                     <hr>

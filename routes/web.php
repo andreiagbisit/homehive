@@ -297,21 +297,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/edit-reservation-admin');
     })->name('appt.and.res.edit.reservation.admin');
 
-    Route::get('/appt-and-res/manage-rules-facility-reservation-super-admin', function () {
-        return view('appt-and-res/manage-rules-facility-reservation-super-admin');
-    })->name('appt.and.res.manage.rules.reservation.superadmin');
+    Route::get('/appt-and-res/manage-settings-facility-reservation-super-admin', function () {
+        return view('appt-and-res/manage-settings-facility-reservation-super-admin');
+    })->name('appt.and.res.manage.settings.reservation.superadmin');
 
-    Route::get('/appt-and-res/manage-rules-facility-reservation-admin', function () {
-        return view('appt-and-res/manage-rules-facility-reservation-admin');
-    })->name('appt.and.res.manage.rules.reservation.admin');
+    Route::get('/appt-and-res/manage-settings-facility-reservation-admin', function () {
+        return view('appt-and-res/manage-settings-facility-reservation-admin');
+    })->name('appt.and.res.manage.settings.reservation.admin');
 
-    Route::get('/appt-and-res/manage-rules-sticker-appt-super-admin', function () {
-        return view('appt-and-res/manage-rules-sticker-appt-super-admin');
-    })->name('appt.and.res.manage.rules.sticker.appt.superadmin');
+    Route::get('/appt-and-res/manage-settings-sticker-appt-super-admin', function () {
+        return view('appt-and-res/manage-settings-sticker-appt-super-admin');
+    })->name('appt.and.res.manage.settings.sticker.appt.superadmin');
 
-    Route::get('/appt-and-res/manage-rules-sticker-appt-admin', function () {
-        return view('appt-and-res/manage-rules-sticker-appt-admin');
-    })->name('appt.and.res.manage.rules.sticker.appt.admin');
+    Route::get('/appt-and-res/manage-settings-sticker-appt-admin', function () {
+        return view('appt-and-res/manage-rusettingsles-sticker-appt-admin');
+    })->name('appt.and.res.manage.settings.sticker.appt.admin');
 
     // For Collection Management SuperAdmin/Admin View & Edit
 

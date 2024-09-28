@@ -128,9 +128,21 @@
                                         The payment receipt from the GCash app that can be downloaded on your device.
                                     </p>
 
-                                    <div id="upload-input-div" class="custom-file">
+                                    <div id="upload-input-div" class="custom-file mb-5">
                                         <input id="upload-input-base" class="custom-file-input" type="file" accept=".jpg, .png">
                                         <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label><br><br>
+                                    </div>
+
+                                    <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.
+                                    </p>
+
+                                    <div id="reference-no-div">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                                <p id="input-label">Reference No.</p>
+                                                <input type="text" class="form-control form-control-user" id="reference-no">
+                                            </div>
+                                        </div>
                                     </div><br>
 
                                     <script>
@@ -143,10 +155,14 @@
 
                                             // Hide the QR code description and upload input initially
                                             const uploadDesc = document.getElementById('upload-desc');
+                                            const uploadDesc2 = document.getElementById('upload-desc-2');
                                             const uploadInputDiv = document.getElementById('upload-input-div');
+                                            const referenceNoDiv = document.getElementById('reference-no-div');
                                             
                                             uploadDesc.style.display = 'none';
+                                            uploadDesc2.style.display = 'none';
                                             uploadInputDiv.style.display = 'none';
+                                            referenceNoDiv.style.display = 'none';
                                         });
 
                                         /* PAYMENT COLLECTOR W/ CORRESPONDING QR CODE */
@@ -190,7 +206,8 @@
                                             }
                                         });
                                     </script>
-                                    
+
+                                    <hr>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">

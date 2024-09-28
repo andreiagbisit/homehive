@@ -2,11 +2,11 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Lorem Ipsum - Book Reservation</title>
+                <title>Facility Name - Book Reservation</title>
             </x-slot>
         </x-head>
     </x-slot>
-    
+
     <x-slot name="sidebar_base">
         <x-sidebar-base>
             <x-slot name="sidebar_landing_link_user">
@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Lorem Ipsum - Book Reservation</h1>
+                <h1 id="header-h1">Facility Name - Book Reservation</h1>
             </div>
 
             <div class="col-lg-6">
@@ -130,11 +130,24 @@
                                         The payment receipt from the GCash app that can be downloaded on your device.
                                     </p>
 
-                                    <div id="upload-input-div" class="custom-file">
+                                    <div id="upload-input-div" class="custom-file mb-5">
                                         <input id="upload-input-base" class="custom-file-input" type="file" accept=".jpg, .png">
                                         <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label><br><br>
+                                    </div>
+
+                                    <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.
+                                    </p>
+
+                                    <div id="reference-no-div">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                                <p id="input-label">Reference No.</p>
+                                                <input type="text" class="form-control form-control-user" id="reference-no">
+                                            </div>
+                                        </div>
                                     </div><br>
-                                    
+
+                                    <hr>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">

@@ -136,6 +136,9 @@
 
                                         <script>
                                             function applyInitialValues() {
+                                                var defaultText = document.getElementById('form-text').value;
+                                                document.getElementById('dashboard-facility-reservation-name-percentage').innerText = defaultText;
+
                                                 var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
 
                                                 document.getElementById('dashboard-facility-reservation-name-percentage').style.color = defaultColor;

@@ -98,21 +98,33 @@
                                     </p>
 
                                     <script>
-                                        // JavaScript to update the background color and icon color in real-time
-                                        document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
-                                            var selectedColor = event.target.value;  // Get the selected color from the picker
+                                        // Function to apply the initial values based on the predefined input values
+                                        function applyInitialValues() {
+                                            // Fetch the predefined values from the input fields
+                                            var defaultText = document.getElementById('form-text').value;
+                                            var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
 
-                                            // Apply the selected color to the bulletin board entry background
-                                            document.getElementById('sample-bulletin-board-entry').style.backgroundColor = selectedColor;
+                                            // Apply the predefined text to the category name
+                                            document.getElementById('category-name').innerText = defaultText;
 
-                                            // Apply the selected color to the font-awesome circle icon
-                                            document.getElementById('category-circle-icon').style.color = selectedColor;
+                                            // Apply the predefined color to the bulletin board entry and circle icon
+                                            document.getElementById('sample-bulletin-board-entry').style.backgroundColor = defaultColor;
+                                            document.getElementById('category-circle-icon').style.color = defaultColor;
+                                        }
+
+                                        // Apply the initial values when the page loads
+                                        window.onload = applyInitialValues;
+
+                                        // Update values in real time based on user input
+                                        document.getElementById('form-text').addEventListener('input', function(event) {
+                                            var inputText = event.target.value;
+                                            document.getElementById('category-name').innerText = inputText;
                                         });
 
-                                        // JavaScript to update the chart-category text in real-time
-                                        document.getElementById('form-text').addEventListener('input', function(event) {
-                                            var inputText = event.target.value;  // Get the input value from the form text
-                                            document.getElementById('category-name').innerText = inputText;  // Set the category name
+                                        document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
+                                            var selectedColor = event.target.value;
+                                            document.getElementById('sample-bulletin-board-entry').style.backgroundColor = selectedColor;
+                                            document.getElementById('category-circle-icon').style.color = selectedColor;
                                         });
                                     </script>
                                     <hr>

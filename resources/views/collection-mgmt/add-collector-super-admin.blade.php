@@ -57,7 +57,7 @@
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Name <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required>
+                                            <input type="text" id="form-text-name" class="form-control form-control-user" required>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -190,6 +190,30 @@
                                             </div>
                                         </div>
                                         <script>
+                                            // Function to apply the initial values based on the predefined input values
+                                            function applyInitialValues() {
+                                                // Fetch the predefined values from the input fields
+                                                var defaultText = document.getElementById('form-text-name').value;
+                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+
+                                                // Apply the predefined text to the category name
+                                                document.getElementById('collector-rate-h3').innerText = defaultText;
+
+                                                document.getElementById('collector-approach-rate-left-border').style.borderLeftColor = defaultColor;
+                                                document.getElementById('collector-approach-rate-frequency').style.color = defaultColor;  // Update the text color
+                                                document.getElementById('collector-approach-rate-percentage').style.color = defaultColor;  // Update the percentage text color
+                                                document.getElementById('collector-approach-rate-progress-bar').style.backgroundColor = defaultColor;  // Update the progress bar color
+                                            }
+
+                                            // Apply the initial values when the page loads
+                                            window.onload = applyInitialValues;
+
+                                            // Update values in real time based on user input
+                                            document.getElementById('form-text-name').addEventListener('input', function(event) {
+                                                var inputText = event.target.value;
+                                                document.getElementById('collector-rate-h3').innerText = inputText;
+                                            });
+
                                             // JavaScript to update styles in real-time based on color picker input
                                             document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
                                                 var selectedColor = event.target.value;  // Get the selected color from the color picker

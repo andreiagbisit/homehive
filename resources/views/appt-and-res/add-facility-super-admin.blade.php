@@ -135,6 +135,19 @@
                                         </div>
 
                                         <script>
+                                            function applyInitialValues() {
+                                                var defaultText = document.getElementById('form-text').value;
+                                                document.getElementById('dashboard-facility-reservation-name-percentage').innerText = defaultText;
+
+                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+
+                                                document.getElementById('dashboard-facility-reservation-name-percentage').style.color = defaultColor;
+                                                document.getElementById('dashboard-facility-frequency').style.color = defaultColor;
+                                                document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = defaultColor;
+                                            }
+
+                                            window.onload = applyInitialValues;
+
                                             document.getElementById('form-text').addEventListener('input', function(event) {
                                                 var inputText = event.target.value;
                                                 document.getElementById('dashboard-facility-reservation-name-percentage').innerText = inputText;

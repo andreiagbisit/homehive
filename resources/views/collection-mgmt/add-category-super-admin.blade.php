@@ -56,7 +56,11 @@
                                 <form class="user">
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Name <span style="color: red;">*</span></p>
+
+                                        <h4 id="form-header-h4" class="mt-4 mb-4">
+                                            Name <span style="color: red;">*</span>
+                                        </h4>
+
                                             <input type="text" id="form-text" class="form-control form-control-user" required>
                                         </div>
                                     </div>
@@ -101,6 +105,28 @@
                                         </div>
 
                                         <script>
+                                            // Function to apply the initial values based on the predefined input values
+                                            function applyInitialValues() {
+                                                // Fetch the predefined values from the input fields
+                                                var defaultText = document.getElementById('form-text').value;
+                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+
+                                                // Apply the predefined text to the category name
+                                                document.getElementById('payment-tally-h4').innerText = defaultText;
+
+                                                // Apply the predefined color to the bulletin board entry and circle icon
+                                                document.getElementById('payment-tally-category-card-2').style.backgroundColor = defaultColor;
+                                            }
+
+                                            // Apply the initial values when the page loads
+                                            window.onload = applyInitialValues;
+
+                                            // Update values in real time based on user input
+                                            document.getElementById('form-text').addEventListener('input', function(event) {
+                                                var inputText = event.target.value;
+                                                document.getElementById('payment-tally-h4').innerText = inputText;
+                                            });
+
                                             document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
                                                 var selectedColor = event.target.value;
 

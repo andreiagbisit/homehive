@@ -2,26 +2,26 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Collection Management - Add Category</title>
+                <title>Manage Facility Reservations - Manage Settings</title>
             </x-slot>
         </x-head>
     </x-slot>
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_admin">
-                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
+            <x-slot name="sidebar_landing_link_super_admin">
+                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_admin"></x-slot>
 
-            <x-slot name="sidebar_content_admin">
-                <x-sidebar-content-admin></x-sidebar-content-admin>
+            <x-slot name="sidebar_content_super_admin">
+                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_super_admin"></x-slot>
+            <x-slot name="sidebar_content_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -35,32 +35,35 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Collection Management - Edit Category</h1>
+                <h1 id="header-h1">Manage Facility Reservations - Manage Settings</h1>
             </div>
+            
             <!-- Content Row -->
             <div class="row">
                 <div class="col-lg-6 mb-4">
-
                     <!-- Approach -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Existing Collection Category</h6>
+                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Existing Preferences</h6>
                         </div>
 
                         <div class="card-body">
-                            <div class="col">
-                                <p class="mb-4" style="color: #000;">
-                                    Please fill in the necessary details provided with the following fields below to edit an existing category for managing funds. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
-                                </p>
+                            <p class="mb-4" style="color: #000;">
+                            Fill in what is being asked to set preferences in initializing an online facility reservation. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
+                            </p>
 
+                            <div class="col">
                                 <form class="user">
-                                    <div class="form-group row mt-4 mb-4">
+                                    <div class="form-group row mt-4 mb-5">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Name <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Maintenance">
+
+                                        <h4 id="form-header-h4" class="mt-4 mb-4">
+                                            Reservation Fee <span style="color: red;">*</span>
+                                        </h4>
+
+                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱200.00">
                                         </div>
-                                    </div>
-                                    <hr>
+                                    </div><hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
@@ -74,7 +77,7 @@
                                             The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
                                         </b>
                                     </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required value="#e74a3b">
+                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
                                     <hr>
 
                                     <div class="pl-3 pr-3 mt-4">
@@ -87,7 +90,7 @@
                                         </p>
 
                                         <div id="payment-tally-category-card-2" class="card-body">
-                                            <h4 id="payment-tally-h4" class="text-light">Maintenance</h4>
+                                            <h4 id="payment-tally-h4" class="text-light">Facility Reservation</h4>
                                             <div class="col-auto">
                                                 <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
                                             </div>
@@ -104,11 +107,7 @@
                                             // Function to apply the initial values based on the predefined input values
                                             function applyInitialValues() {
                                                 // Fetch the predefined values from the input fields
-                                                var defaultText = document.getElementById('form-text').value;
                                                 var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
-
-                                                // Apply the predefined text to the category name
-                                                document.getElementById('payment-tally-h4').innerText = defaultText;
 
                                                 // Apply the predefined color to the bulletin board entry and circle icon
                                                 document.getElementById('payment-tally-category-card-2').style.backgroundColor = defaultColor;
@@ -116,12 +115,6 @@
 
                                             // Apply the initial values when the page loads
                                             window.onload = applyInitialValues;
-
-                                            // Update values in real time based on user input
-                                            document.getElementById('form-text').addEventListener('input', function(event) {
-                                                var inputText = event.target.value;
-                                                document.getElementById('payment-tally-h4').innerText = inputText;
-                                            });
 
                                             document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
                                                 var selectedColor = event.target.value;

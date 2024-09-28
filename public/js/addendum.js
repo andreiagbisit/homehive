@@ -71,16 +71,16 @@ document.getElementById('collector-select').addEventListener('change', function(
     // Determine the correct QR code image based on the selected collector
     switch(selectedCollector) {
         case 'John Doe':
-            qrCodeSrc = 'img/gcash-qr-1.png';
+            qrCodeSrc = '/img/gcash-qr-1.png';
             break;
         case 'Jane Doe':
-            qrCodeSrc = 'img/gcash-qr-2.png';
+            qrCodeSrc = '/img/gcash-qr-2.png';
             break;
         case 'Michael Smith':
-            qrCodeSrc = 'img/gcash-qr-3.png';
+            qrCodeSrc = '/img/gcash-qr-3.png';
             break;
         case 'Mary Smith':
-            qrCodeSrc = 'img/gcash-qr-4.png';
+            qrCodeSrc = '/img/gcash-qr-4.png';
             break;
         default:
             qrCodeSrc = ''; // Optional: No QR code if no valid selection
@@ -108,7 +108,9 @@ function togglePaymentOptions() {
     const collectorSelect = document.getElementById('collector-select');
     const qrCodeContainer = document.getElementById('qr-code-container');
     const uploadDesc = document.getElementById('upload-desc');
+    const uploadDesc2 = document.getElementById('upload-desc-2');
     const uploadInputDiv = document.getElementById('upload-input-div');
+    const referenceNoDiv = document.getElementById('reference-no-div');
 
     if (onsiteCheckbox.checked) {
         // On-site payment selected
@@ -117,14 +119,18 @@ function togglePaymentOptions() {
         collectorSelect.disabled = true;
         qrCodeContainer.innerHTML = ''; // Clear QR code
         uploadDesc.style.display = 'none'; // Hide the description
+        uploadDesc2.style.display = 'none';
         uploadInputDiv.style.display = 'none'; // Hide the upload input
+        referenceNoDiv.style.display = 'none';
     } else if (gcashCheckbox.checked) {
         // GCash payment selected
         appointmentDate.disabled = true;
         appointmentTime.disabled = true;
         collectorSelect.disabled = false;
         uploadDesc.style.display = 'block'; // Show the description
+        uploadDesc2.style.display = 'block';
         uploadInputDiv.style.display = 'block'; // Show the upload input
+        referenceNoDiv.style.display = 'block';
     } else {
         // Neither payment option selected
         appointmentDate.disabled = true;
@@ -132,7 +138,9 @@ function togglePaymentOptions() {
         collectorSelect.disabled = true;
         qrCodeContainer.innerHTML = ''; // Clear QR code
         uploadDesc.style.display = 'none'; // Hide the description
+        uploadDesc2.style.display = 'none';
         uploadInputDiv.style.display = 'none'; // Hide the upload input
+        referenceNoDiv.style.display = 'none';
     }
 }
 
@@ -144,8 +152,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hide the QR code description and upload input initially
     const uploadDesc = document.getElementById('upload-desc');
+    const uploadDesc2 = document.getElementById('upload-desc-2');
     const uploadInputDiv = document.getElementById('upload-input-div');
+    const referenceNoDiv = document.getElementById('reference-no-div');
     
     uploadDesc.style.display = 'none';
+    uploadDesc2.style.display = 'none';
     uploadInputDiv.style.display = 'none';
+    referenceNoDiv.style.display = 'none';
 });

@@ -68,8 +68,10 @@
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="mr-2 d-none d-lg-inline small" style="color: #000; font-weight: 500;">
             {{ Auth::user()->uname }} 
-            <img class="img-profile rounded-circle border border-secondary rounded-circle"
-                src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('img/default.png') }}">
+            <img class="img-profile rounded-circle"
+            src="{{ Auth::user()->profile_picture ?: 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
+            alt="User Profile Picture"
+            style="width: 40px; height: 40px; object-fit: cover; display: inline-block;">
 
     </a>
     <!-- Dropdown - User Information -->

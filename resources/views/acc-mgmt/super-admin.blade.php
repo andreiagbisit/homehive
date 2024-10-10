@@ -77,7 +77,9 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->uname }}</td>
                                         <td>
-                                            <img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_1.png') }}">
+                                        <img id="table-pfp" class="img-circle profile-avatar"
+                                                src="{{ $user->profile_picture ? $user->profile_picture : 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
+                                                style="width: 40px; height: 40px; object-fit: cover;">
                                         </td>
                                         <td>{{ $user->fname }}</td>
                                         <td>{{ $user->mname }}</td>

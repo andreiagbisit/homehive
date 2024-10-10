@@ -7,10 +7,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage; // <-- Add this line
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use Illuminate\Validation\Rules\Password; // This is correctly placed here, outside the class
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
@@ -19,45 +19,63 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $isDefaultProfilePicture = !empty($user->profile_picture) && $this->isDefaultProfilePicture($user->profile_picture);
+    
         return view('profile/edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'defaultProfilePictureUrl' => $this->getDefaultProfilePicture(),
+            'isDefaultProfilePicture' => $isDefaultProfilePicture // Pass this variable
         ]);
     }
+    
 
     /**
-     * Update the user's profile information.
+     * Update the user's profile information (including uploading new profile pictures).
      */
+    
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        //dd($request->all());  // Check the form data here
- 
         $user = $request->user();
-
-        // Update profile fields
-        $user->uname = $request->input('username');
-        $user->fname = $request->input('first_name');
-        $user->mname = $request->input('middle_name');
-        $user->lname = $request->input('last_name');
-        $user->bdate = $request->input('birthdate');
-        $user->email = $request->input('email');
-        $user->contact_no = $request->input('contact_no');
-        $user->street = $request->input('street');
-        $user->house_blk_no = $request->input('block_no');
-        $user->house_lot_no = $request->input('lot_no');
-
-         // Handle image upload
+                // Check if a new profile picture has been uploaded
+      
+        // Check if a new profile picture has been uploaded
         if ($request->hasFile('profile_picture')) {
-            // Delete the old profile picture if it exists
-            if ($user->profile_picture) {
-                Storage::delete('public/' . $user->profile_picture);
+            
+            // If the user already has a profile picture, delete the old one from Azure Blob Storage
+            if ($user->profile_picture && !$this->isDefaultProfilePicture($user->profile_picture)) {
+                $oldFileName = basename($user->profile_picture);
+                Storage::disk('azure')->delete('profile-pictures/' . $oldFileName);
             }
 
-            // Store the new profile picture
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->profile_picture = $path; // Save the path in the database
+
+            // Upload the new profile picture to Azure Blob Storage
+            $file = $request->file('profile_picture');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Store the new file in the "profile-pictures" directory
+            $filePath = Storage::disk('azure')->putFileAs('profile-pictures', $file, $fileName);
+
+            // Get the URL of the uploaded file
+            $fileUrl = Storage::disk('azure')->url($filePath);
+
+            // Save the new profile picture URL in the database
+            $user->profile_picture = $fileUrl;
         }
 
-        // Check if password needs to be updated
+        // Update profile fields (other details)
+        $user->uname = $request->input('username') ?? $user->uname;
+        $user->fname = $request->input('first_name') ?? $user->fname;
+        $user->mname = $request->input('middle_name') ?? $user->mname;
+        $user->lname = $request->input('last_name') ?? $user->lname;
+        $user->bdate = $request->input('birthdate') ?? $user->bdate;
+        $user->email = $request->input('email') ?? $user->email;
+        $user->contact_no = $request->input('contact_no') ?? $user->contact_no;
+        $user->street = $request->input('street') ?? $user->street;
+        $user->house_blk_no = $request->input('block_no') ?? $user->house_blk_no;
+        $user->house_lot_no = $request->input('lot_no') ?? $user->house_lot_no;
+
+        // If the password is being updated, hash and save it
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
@@ -67,64 +85,52 @@ class ProfileController extends Controller
             $user->email_verified_at = null;
         }
 
-        // Save changes
+        // Save the updated user information
         $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'Profile updated successfully.');
     }
 
     /**
-     * Delete the user's account.
+     * Remove the user's profile picture.
      */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
-
-    /**
-     * Update the user's password.
-     */
-    public function updatePassword(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'new_password' => ['required', 'confirmed', Password::defaults()],
-        ]);
-
-        $user = $request->user();
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', 'Password updated successfully.');
-    }
-
-    /*public function removePicture(Request $request): RedirectResponse
+    public function removePicture(Request $request): RedirectResponse
     {
         $user = $request->user();
 
-        // Remove the current profile picture if it exists
-        if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
-            Storage::delete('public/' . $user->profile_picture);
+        // Remove the current profile picture from Azure Blob Storage if it's not the default
+        if ($user->profile_picture && !$this->isDefaultProfilePicture($user->profile_picture)) {
+            $fileName = basename($user->profile_picture);
+            Storage::disk('azure')->delete('profile-pictures/' . $fileName);
         }
 
-        // Set profile_picture to null or a default value
-        $user->profile_picture = null; // or a default image path if needed
+        // Set profile_picture to the default image URL
+        $user->profile_picture = 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png';
         $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'Profile picture removed successfully.');
-    }*/
+    }
+
+    /**
+     * Check if the profile picture is the default one.
+     */
+    protected function isDefaultProfilePicture(string $profilePictureUrl): bool
+    {
+        return $profilePictureUrl === 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png';
+    }
+
+    /**
+     * Get the default profile picture URL from Azure Blob Storage.
+     */
+    protected function getDefaultProfilePicture(): string
+    {
+        return 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png';
+    }
+
+    public function show()
+    {
+        $user = Auth::user();
+        return view('profile.details', compact('user'));  // Pass the user object to the view
+    }
 
 }

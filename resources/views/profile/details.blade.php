@@ -113,8 +113,8 @@
                                         <tr>
                                             <td id="tb-v-head">Profile Picture</td>
                                             <td>
-                                                <img class="img-circle profile-avatar border border border-secondary rounded-circle" 
-                                                    src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('img/default.png') }}" 
+                                            <img class="img-circle profile-avatar" 
+                                                 src="{{ Auth::user()->profile_picture ?: 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
                                                     style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
                                             </td>
                                         </tr>

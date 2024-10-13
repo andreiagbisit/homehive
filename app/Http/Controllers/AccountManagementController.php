@@ -69,8 +69,19 @@ class AccountManagementController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        // Redirect back to the account management page after deletion
-        return redirect()->route('account.management')->with('success', 'User deleted successfully.');
+        // Determine the current user's role
+        $currentUser = auth()->user(); // Get the logged-in user
+
+        if ($currentUser->account_type_id == 1) {
+            // Redirect to superadmin account management
+            return redirect()->route('account.management.superadmin')->with('success', 'User deleted successfully.');
+        } elseif ($currentUser->account_type_id == 2) {
+            // Redirect to admin account management
+            return redirect()->route('account.management.admin')->with('success', 'User deleted successfully.');
+        }
+
+        // Fallback in case no valid role is found (optional)
+        return redirect()->route('login')->with('error', 'Unauthorized access.');
     }
 
     public function verify(User $user)

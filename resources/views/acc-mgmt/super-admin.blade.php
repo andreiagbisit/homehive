@@ -91,7 +91,7 @@
                                         <td>{{ $user->street }}</td>
                                         <td>{{ $user->house_blk_no }}</td>
                                         <td>{{ $user->house_lot_no }}</td>
-                                        <td>{{ $user->subdivision_role_id }}</td>
+                                        <td>{{ $user->subdivisionRole->name ?? 'No Role Assigned' }}</td> <!-- Updated line -->
                                         <td class="text-center">
                                             <a href="{{ route('acc.mgmt.view.entry', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                                 <span class="icon text-white-50">

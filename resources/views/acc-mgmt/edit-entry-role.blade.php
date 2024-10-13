@@ -53,21 +53,31 @@
                                     Please fill in the necessary details provided with the following fields below to edit an existing account role. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
 
-                                <form class="user">
+                                <form method="POST" action="{{ route('acc.mgmt.update.entry.role', $user->id) }}" class="user">
+                                    @csrf
+                                    @method('PATCH')
+
                                     <div class="form-group row mb-5">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <h4 id="form-header-h4" class="mt-4">
                                                 Role Name <span style="color: red;">*</span>
                                             </h4>
-                                                <input type="text" id="form-text" class="form-control form-control-user" value="HOA President" required>
+                                            <input 
+                                                type="text" 
+                                                name="name" 
+                                                id="form-text" 
+                                                class="form-control form-control-user" 
+                                                value="{{ old('name', $user->subdivisionRole->name ?? '') }}" 
+                                                required>
                                         </div>
-                                    </div><hr>
+                                    </div>
+                                    <hr>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

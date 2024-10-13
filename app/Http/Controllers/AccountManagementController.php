@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SubdivisionRole;
 use Illuminate\Http\Request;
 
 class AccountManagementController extends Controller
@@ -13,6 +14,12 @@ class AccountManagementController extends Controller
         $users = User::all();
         return view('acc-mgmt/super-admin', compact('users'));
     }
+
+    public function manageRoles()
+    {
+        $users = User::with('subdivisionRole')->get(); // Load users with their roles
+        return view('acc-mgmt.manage-roles', compact('users')); // Pass 'users' to the view
+    }    
 
     // Show the form for viewing the specified user
     public function show($id)
@@ -66,17 +73,49 @@ class AccountManagementController extends Controller
         return redirect()->route('account.management')->with('success', 'User deleted successfully.');
     }
 
-public function verify(User $user)
-{
-    // Toggle the 'is_verified' status (true or false)
-    $user->is_verified = !$user->is_verified;
-    $user->save(); // Save the updated status
+    public function verify(User $user)
+    {
+        // Toggle the 'is_verified' status (true or false)
+        $user->is_verified = !$user->is_verified;
+        $user->save(); // Save the updated status
 
-    // Return a JSON response with the new status
-    return response()->json([
-        'success' => true,
-        'is_verified' => $user->is_verified, // Pass the updated status to the client
-    ]);
-}
+        // Return a JSON response with the new status
+        return response()->json([
+            'success' => true,
+            'is_verified' => $user->is_verified, // Pass the updated status to the client
+        ]);
+    }
+
+    public function editRole($id)
+    {
+        // Find the user by ID, or return a 404 if not found
+        $user = User::findOrFail($id);
+    
+        // Pass the user to the view
+        return view('acc-mgmt.edit-entry-role', compact('user'));
+    }    
+
+        public function updateEntryRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Validate the role name input
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Check if the user has a subdivision role or create a new one
+        $role = $user->subdivisionRole ?? new SubdivisionRole();
+        $role->name = $request->input('name');
+        $role->save();
+
+        // Associate the role with the user
+        $user->subdivision_role_id = $role->id;
+        $user->save();
+
+        return redirect()->route('manage.roles')->with('success', 'Role updated successfully.');
+    }
+
+
 
 }

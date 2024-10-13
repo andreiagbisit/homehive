@@ -75,7 +75,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/acc-mgmt/edit-entry-acc/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
     Route::patch('/edit-entry/super-admin/{id}', [AccountManagementController::class, 'update'])->name('superadmin.update'); // Update user in the database
     Route::delete('/delete-entry-super-admin/{id}', [AccountManagementController::class, 'destroy'])->name('superadmin.destroy'); // Delete a user
-    
+
+    // MANAGE ROLE
+    Route::get('/acc-mgmt/manage-roles', [AccountManagementController::class, 'manageRoles'])->name('manage.roles');
+
+    Route::get('/acc-mgmt/edit-entry-role/{id}', [AccountManagementController::class, 'editRole'])
+     ->name('acc.mgmt.edit.entry.role');
+
+     Route::patch('/acc-mgmt/update-entry-role/{id}', [AccountManagementController::class, 'updateEntryRole'])
+     ->name('acc.mgmt.update.entry.role'); 
+
     // Add the new verification route here
     Route::patch('/users/{user}/verify', [AccountManagementController::class, 'verify'])->name('users.verify');
 
@@ -83,14 +92,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('acc-mgmt/view-entry-acc');
     })->name('acc.mgmt.view.entry');*/
 
-    Route::get('/acc-mgmt/edit-entry-role', function () {
+    /*Route::get('/acc-mgmt/edit-entry-role', function () {
         return view('acc-mgmt/edit-entry-role');
-    })->name('acc.mgmt.edit.entry.role');
+    })->name('acc.mgmt.edit.entry.role');*/
     
-    // Manage Roles Button Nav
+    /* Manage Roles Button Nav
     Route::get('/acc-mgmt/manage-roles', function () {
         return view('acc-mgmt/manage-roles');
-    })->name('manage.roles');
+    })->name('manage.roles');*/
 
     // For Manage Role SuperAdmin/Admin View & Edit
     Route::get('/edit-entry/super-admin', function () {

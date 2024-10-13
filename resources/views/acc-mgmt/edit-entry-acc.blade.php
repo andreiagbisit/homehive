@@ -127,12 +127,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Subdivision Role</p>
-                                            <select name="subdivision_role_id" id="form-select" class="form-control w-75">
-                                                <option value="1" {{ old('subdivision_role_id', $user->subdivision_role_id) == 1 ? 'selected' : '' }}>Role 1</option>
-                                                <option value="2" {{ old('subdivision_role_id', $user->subdivision_role_id) == 2 ? 'selected' : '' }}>Role 2</option>
-                                                <option value="3" {{ old('subdivision_role_id', $user->subdivision_role_id) == 3 ? 'selected' : '' }}>Role 3</option>
-                                                <!-- Add more options as needed -->
-                                            </select>
+                                            <input type="text" name="subdivision_role" id="form-text" class="form-control form-control-user" value="{{ old('subdivision_role', $user->subdivisionRole->name ?? '') }}">
                                         </div>
                                     </div>
 

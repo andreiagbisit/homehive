@@ -85,6 +85,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
      Route::patch('/acc-mgmt/update-entry-role/{id}', [AccountManagementController::class, 'updateEntryRole'])
      ->name('acc.mgmt.update.entry.role'); 
 
+     Route::patch('/acc-mgmt/promote-to-admin/{id}', [AccountManagementController::class, 'promoteToAdmin'])
+     ->name('acc.mgmt.promote.admin');
+
     // Add the new verification route here
     Route::patch('/users/{user}/verify', [AccountManagementController::class, 'verify'])->name('users.verify');
 

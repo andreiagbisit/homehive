@@ -64,7 +64,7 @@
                                                 </span>
                                                 <span class="text">Edit</span>
                                             </a><br>
-
+                                            <!--
                                             <a href="#" class="btn btn-danger btn-icon-split" 
                                             data-toggle="modal" data-target="#deleteEntryModal">
                                                 <span class="icon text-white-50">
@@ -72,6 +72,7 @@
                                                 </span>
                                                 <span class="text">Delete</span>
                                             </a>
+                                            -->
                                         </td>
                                     </tr>
                                 @endforeach

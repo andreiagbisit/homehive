@@ -120,13 +120,14 @@ class AccountManagementController extends Controller
         $role->name = $request->input('name');
         $role->save();
 
-        // Associate the role with the user
+        // Update the user's account type
+        $user->account_type_id = $request->input('account_type_id');
         $user->subdivision_role_id = $role->id;
         $user->save();
 
-        return redirect()->route('manage.roles')->with('success', 'Role updated successfully.');
-    }
-
+        // Redirect with a success message
+        return redirect()->route('manage.roles')->with('success', 'Role and privileges updated successfully.');
+}
 
 
 }

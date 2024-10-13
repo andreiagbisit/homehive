@@ -107,8 +107,13 @@
                                                 <span class="text">Edit</span>
                                             </a><br>
 
-                                            <!-- Only show the buttons if this is NOT the logged-in user's row -->
-                                            @if(Auth::user()->id !== $user->id)
+                                            <!-- Only show the buttons if:
+                                                - This is NOT the superadmin's row when an admin is logged in 
+                                                - OR the logged-in user is the superadmin -->
+                                                @if(
+                                                !($user->account_type_id === 1 && Auth::user()->account_type_id === 2) ||  // Admins can't see on superadmin's row
+                                                Auth::user()->account_type_id === 1 // Superadmin can see on all rows, including their own
+                                            )
                                                 <!-- Verify/Unverify Button -->
                                                 <button class="btn btn-icon-split {{ $user->is_verified ? 'btn-success' : 'btn-danger' }} verify-toggle-btn"
                                                         data-id="{{ $user->id }}" style="margin-bottom: 5%;">

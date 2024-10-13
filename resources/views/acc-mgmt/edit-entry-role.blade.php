@@ -49,9 +49,10 @@
 
                         <div class="card-body">
                             <div class="col">
+                                
                                 <p class="mb-4" style="color: #000;">
-                                    Please fill in the necessary details provided with the following fields below to edit an existing account role. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
-                                </p>
+                                    Please fill in the necessary details provided with the following fields below to edit an existing account role and their privileges.
+                                </p> 
 
                                 <form method="POST" action="{{ route('acc.mgmt.update.entry.role', $user->id) }}" class="user">
                                     @csrf
@@ -60,7 +61,7 @@
                                     <div class="form-group row mb-5">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <h4 id="form-header-h4" class="mt-4">
-                                                Role Name <span style="color: red;">*</span>
+                                                Role Name <span style="color: red;"></span>
                                             </h4>
                                             <input 
                                                 type="text" 
@@ -72,6 +73,25 @@
                                         </div>
                                     </div>
                                     <hr>
+
+                                    
+                                    <!-- Privilege Dropdown -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <label for="account_type_id" class="form-label">Privileges</label>
+                                            <select 
+                                                name="account_type_id" 
+                                                id="account_type_id" 
+                                                class="form-control w-75">
+                                                <option value="2" {{ old('account_type_id', $user->account_type_id) == 2 ? 'selected' : '' }}>
+                                                    Admin
+                                                </option>
+                                                <option value="3" {{ old('account_type_id', $user->account_type_id) == 3 ? 'selected' : '' }}>
+                                                    Resident
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

@@ -7,7 +7,7 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('account.management') }}">
+    <a class="nav-link" href="{{ route('account.management.superadmin') }}">
         <i class="far fa-address-card"></i>
         <span>Account Management</span>
     </a>

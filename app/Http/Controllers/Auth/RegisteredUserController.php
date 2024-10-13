@@ -29,9 +29,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Debug request data to ensure 'street' is present
-          // dd($request->all());
-
         // Validate the registration data
         $request->validate([
             'uname' => ['required', 'string', 'max:255', 'unique:users'],
@@ -60,12 +57,12 @@ class RegisteredUserController extends Controller
             'bdate' => $request->bdate,
             'email' => $request->email,
             'contact_no' => $request->contact_no,
-            'street' => $request->street,   
+            'street' => $request->street,
             'house_blk_no' => $request->house_blk_no,
             'house_lot_no' => $request->house_lot_no,
             'password' => Hash::make($request->password),
-            'account_type_id' => 3, // Set as Super Admin for the first user
-            'subdivision_role_id' => null, // Optional for the Super Admin
+            'account_type_id' => 3, // User role
+            'subdivision_role_id' => null, // No subdivision role on registration
         ]);
 
 
@@ -80,8 +77,9 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Redirect to the dashboard
-        return redirect(route('dashboard', absolute: false));
-        
-        
+        return redirect()->route('login')->with(
+            'status', 
+            'Registration successful. Please wait for admin verification.'
+        );
     }
 }

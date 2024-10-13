@@ -73,6 +73,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
+
                                     <tr>
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->uname }}</td>
@@ -92,7 +93,7 @@
                                         <td>{{ $user->house_lot_no }}</td>
                                         <td>{{ $user->subdivision_role_id }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('acc.mgmt.view.entry')}}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                            <a href="{{ route('acc.mgmt.view.entry', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-binoculars"></i>
                                                 </span>
@@ -106,16 +107,31 @@
                                                 <span class="text">Edit</span>
                                             </a><br>
 
-                                            <form action="{{ route('superadmin.destroy', $user->id) }}" method="POST" style="display: inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-icon-split">
+                                            <!-- Only show the buttons if this is NOT the logged-in user's row -->
+                                            @if(Auth::user()->id !== $user->id)
+                                                <!-- Verify/Unverify Button -->
+                                                <button class="btn btn-icon-split {{ $user->is_verified ? 'btn-success' : 'btn-danger' }} verify-toggle-btn"
+                                                        data-id="{{ $user->id }}" style="margin-bottom: 5%;">
                                                     <span class="icon text-white-50">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                        <i class="{{ $user->is_verified ? 'fas fa-check' : 'fas fa-times' }}"></i>
                                                     </span>
-                                                    <span class="text">Delete</span>
-                                                </button>
-                                            </form>
+                                                    <span class="text">
+                                                        {{ $user->is_verified ? 'Verified' : 'Unverified' }}
+                                                    </span>
+                                                </button><br>
+
+                                                <!-- Delete Button -->
+                                                <form action="{{ route('superadmin.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </span>
+                                                        <span class="text">Delete</span>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -160,6 +176,45 @@
     </x-slot>
 
     <x-slot name="script">
-        <x-script></x-script>
-    </x-slot>
+    <x-script></x-script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Attach click event to all verify-toggle buttons
+            const verifyButtons = document.querySelectorAll('.verify-toggle-btn');
+
+            verifyButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const userId = this.dataset.id; // Get the user ID
+                    const buttonElement = this; // Store reference to the button
+
+                    // Send AJAX request to toggle verification
+                    fetch(`/users/${userId}/verify`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token
+                        }
+                    })
+                    .then(response => response.json()) // Parse JSON response
+                    .then(data => {
+                        if (data.success) {
+                            // Toggle button classes and content based on verification status
+                            buttonElement.classList.toggle('btn-success', data.is_verified);
+                            buttonElement.classList.toggle('btn-danger', !data.is_verified);
+
+                            // Update the icon and text
+                            buttonElement.querySelector('i').className = 
+                                data.is_verified ? 'fas fa-check' : 'fas fa-times';
+                            buttonElement.querySelector('.text').textContent = 
+                                data.is_verified ? 'Verified' : 'Unverified';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error)); // Handle any errors
+                });
+            });
+        });
+    </script>
+</x-slot>
+
 </x-base>

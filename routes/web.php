@@ -69,15 +69,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // ACCOUNT MANAGEMENT
 
-    Route::get('/acc-mgmt/super-admin', [AccountManagementController::class, 'index'])->name('account.management'); // List all users
-    Route::get('/view-entry/super-admin/{id}', [AccountManagementController::class, 'show'])->name('superadmin.view'); // View a specific user
+    Route::get('/acc-mgmt/super-admin', [AccountManagementController::class, 'index'])->name('account.management.superadmin'); // List all users for super admin
+    Route::get('/acc-mgmt/admin', [AccountManagementController::class, 'index'])->name('account.management.admin'); // List all users
+    Route::get('/acc-mgmt/view-entry-acc/{id}', [AccountManagementController::class, 'show'])->name('acc.mgmt.view.entry'); // Route to view a specific user
     Route::get('/acc-mgmt/edit-entry-acc/{id}', [AccountManagementController::class, 'edit'])->name('superadmin.edit'); // Edit a user form 
     Route::patch('/edit-entry/super-admin/{id}', [AccountManagementController::class, 'update'])->name('superadmin.update'); // Update user in the database
     Route::delete('/delete-entry-super-admin/{id}', [AccountManagementController::class, 'destroy'])->name('superadmin.destroy'); // Delete a user
+    
+    // Add the new verification route here
+    Route::patch('/users/{user}/verify', [AccountManagementController::class, 'verify'])->name('users.verify');
 
-    Route::get('/acc-mgmt/view-entry-acc', function () {
+    /*Route::get('/acc-mgmt/view-entry-acc', function () {
         return view('acc-mgmt/view-entry-acc');
-    })->name('acc.mgmt.view.entry');
+    })->name('acc.mgmt.view.entry');*/
 
     Route::get('/acc-mgmt/edit-entry-role', function () {
         return view('acc-mgmt/edit-entry-role');
@@ -93,9 +97,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('edit-entry/super-admin');
     })->name('edit.entry.super.admin');
 
-    Route::get('/view-entry/super-admin', function () {
+    /*Route::get('/view-entry/super-admin', function () {
         return view('view-entry/super-admin');
-    })->name('view.entry.super.admin');
+    })->name('view.entry.super.admin');*/
  
     Route::get('/bulletin-board/super-admin', function () {
         return view('bulletin-board/super-admin');

@@ -31,6 +31,17 @@ class AuthenticatedSessionController extends Controller
         // Get the authenticated user
         $user = Auth::user();
 
+            // Check if the user is verified
+        if (!$user->is_verified) {
+            // Log out the user immediately
+            Auth::logout();
+
+            // Redirect back to the login page with an error message
+            return redirect()->route('login')->withErrors([
+                'email' => 'Your account is not verified yet. Please contact an administrator.',
+            ]);
+        }
+
         // Redirect based on user role
         switch ($user->account_type_id) {
             case 1:

@@ -18,7 +18,7 @@ class AccountManagementController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('view-entry/super-admin', compact('user'));
+        return view('acc-mgmt/view-entry-acc', compact('user'));
     }
 
     // Show the form for editing the specified user
@@ -32,26 +32,29 @@ class AccountManagementController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
-        // Validate and update the user
-        $request->validate([
-            'uname' => 'required|string|max:255',
-            'fname' => 'required|string|max:255',
+    
+        // Validate only if fields are provided
+        $validatedData = $request->validate([
+            'uname' => 'nullable|string|max:255',
+            'fname' => 'nullable|string|max:255',
             'mname' => 'nullable|string|max:255',
-            'lname' => 'required|string|max:255',
-            'bdate' => 'required|date',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'contact_no' => 'required|string|max:20',
-            'street' => 'required|string|max:255',
-            'house_blk_no' => 'required|integer',
-            'house_lot_no' => 'required|integer',
+            'lname' => 'nullable|string|max:255',
+            'bdate' => 'nullable|date',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
+            'contact_no' => 'nullable|string|max:20',
+            'street' => 'nullable|string|max:255',
+            'house_blk_no' => 'nullable|integer',
+            'house_lot_no' => 'nullable|integer',
         ]);
-
-        $user->update($request->all());
-
-        // Redirect back to the user's detail view after update
-        return redirect()->route('superadmin.view', $id)->with('success', 'User updated successfully.');
+    
+        // Update only the fields that have changed
+        $user->update($validatedData);
+    
+        // Redirect back to the view page with success message
+        return redirect()->route('acc.mgmt.view.entry', $user->id)
+            ->with('success', 'User updated successfully.');
     }
+    
 
     // Remove the specified user from the database
     public function destroy($id)
@@ -62,4 +65,18 @@ class AccountManagementController extends Controller
         // Redirect back to the account management page after deletion
         return redirect()->route('account.management')->with('success', 'User deleted successfully.');
     }
+
+public function verify(User $user)
+{
+    // Toggle the 'is_verified' status (true or false)
+    $user->is_verified = !$user->is_verified;
+    $user->save(); // Save the updated status
+
+    // Return a JSON response with the new status
+    return response()->json([
+        'success' => true,
+        'is_verified' => $user->is_verified, // Pass the updated status to the client
+    ]);
+}
+
 }

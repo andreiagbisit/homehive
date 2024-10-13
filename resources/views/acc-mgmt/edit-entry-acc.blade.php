@@ -46,11 +46,14 @@
                         <div class="card-header py-3">
                             <h6 id="card-h6" class="m-0 font-weight-bold">Change Existing Entry</h6>
                         </div>
-
+                        
+                        
                         <div class="card-body p-4">
+                            <!--
                             <p class="mb-4" style="color: #000;">
                                 Please fill in the necessary details provided with the following fields below to apply changes in an existing account. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
+                            -->
 
                             <h4 id="form-header-h4" class="mt-2">
                                 Personal Information
@@ -63,13 +66,13 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Username <span style="color: red;">*</span></p>
-                                            <input type="text" name="uname" id="form-text" class="form-control form-control-user" value="{{ old('uname', $user->uname) }}" required>
+                                            <p id="input-label">Username <span style="color: red;"></span></p>
+                                            <input type="text" name="uname" id="form-text" class="form-control form-control-user" value="{{ old('uname', $user->uname) }}">
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">First Name <span style="color: red;">*</span></p>
-                                            <input type="text" name="fname" id="form-text" class="form-control form-control-user" value="{{ old('fname', $user->fname) }}" required>
+                                            <p id="input-label">First Name <span style="color: red;"></span></p>
+                                            <input type="text" name="fname" id="form-text" class="form-control form-control-user" value="{{ old('fname', $user->fname) }}">
                                         </div>
                                     </div>
 
@@ -80,44 +83,44 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">Last Name <span style="color: red;">*</span></p>
-                                            <input type="text" name="lname" id="form-text" class="form-control form-control-user" value="{{ old('lname', $user->lname) }}" required>
+                                            <p id="input-label">Last Name <span style="color: red;"></span></p>
+                                            <input type="text" name="lname" id="form-text" class="form-control form-control-user" value="{{ old('lname', $user->lname) }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Birthdate <span style="color: red;">*</span></p>
-                                            <input type="date" name="bdate" id="form-text" class="form-control form-control-user" value="{{ old('bdate', $user->bdate) }}" required>
+                                            <p id="input-label">Birthdate <span style="color: red;"></span></p>
+                                            <input type="date" name="bdate" id="form-text" class="form-control form-control-user" value="{{ old('bdate', $user->bdate) }}">
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">Email Address <span style="color: red;">*</span></p>
-                                            <input type="email" name="email" id="form-text" class="form-control form-control-user" value="{{ old('email', $user->email) }}" required>
+                                            <p id="input-label">Email Address <span style="color: red;"></span></p>
+                                            <input type="email" name="email" id="form-text" class="form-control form-control-user" value="{{ old('email', $user->email) }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Contact No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="contact_no" id="form-text" class="form-control form-control-user" value="{{ old('contact_no', $user->contact_no) }}" required>
+                                            <p id="input-label">Contact No. <span style="color: red;"></span></p>
+                                            <input type="text" name="contact_no" id="form-text" class="form-control form-control-user" value="{{ old('contact_no', $user->contact_no) }}">
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">Street <span style="color: red;">*</span></p>
-                                            <input type="text" name="street" id="form-text" class="form-control form-control-user" value="{{ old('street', $user->street) }}" required>
+                                            <p id="input-label">Street <span style="color: red;"></span></p>
+                                            <input type="text" name="street" id="form-text" class="form-control form-control-user" value="{{ old('street', $user->street) }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">House Block No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="house_blk_no" id="form-text" class="form-control form-control-user" value="{{ old('house_blk_no', $user->house_blk_no) }}" required>
+                                            <p id="input-label">House Block No. <span style="color: red;"></span></p>
+                                            <input type="text" name="house_blk_no" id="form-text" class="form-control form-control-user" value="{{ old('house_blk_no', $user->house_blk_no) }}">
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">House Lot No. <span style="color: red;">*</span></p>
-                                            <input type="text" name="house_lot_no" id="form-text" class="form-control form-control-user" value="{{ old('house_lot_no', $user->house_lot_no) }}" required>
+                                            <p id="input-label">House Lot No. <span style="color: red;"></span></p>
+                                            <input type="text" name="house_lot_no" id="form-text" class="form-control form-control-user" value="{{ old('house_lot_no', $user->house_lot_no) }}">
                                         </div>
                                     </div>
 
@@ -140,11 +143,16 @@
                                     </h4>
 
                                     <div class="form-group text-center">
-                                        <img class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('img/pfp_1.png') }}"><br><br>
+                                    <img class="img-circle profile-avatar border border-secondary rounded-circle" 
+                                                 src="{{ $user->profile_picture ?: 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
+                                                 style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
+                                        <!--
                                         <span id="media-upload-info">
-                                            <i class="fas fa-image pr-2"></i> pfp_1.png | 154 KB
+                                             <i class="fas fa-image pr-2"></i> pfp_1.png | 154 KB 
                                         </span><br><br>
+                                      
 
+                                        
                                         <p id="page-desc">
                                             * The image's resolution must at least be <b>390x300</b>. In smartphone-based layouts, it will be displayed at <b>246x300</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
@@ -169,7 +177,7 @@
                                             <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
                                         </a>
                                     </div>
-                                    <hr>
+                                    <hr> -->
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

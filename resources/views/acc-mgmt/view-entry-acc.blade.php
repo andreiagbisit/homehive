@@ -37,6 +37,13 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Account Management - View Entry</h1>
             </div>
+
+                    @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Content Row -->
             <div class="row">
                 <div class="col-lg-6 mb-4">
@@ -51,74 +58,76 @@
                             <div class="col overflow-auto mt-4 mb-4">
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
-                                            <td id="tb-v-head">ID</td>
-                                            <td>6</td>
-                                        </tr>
+                                        <td id="tb-v-head">ID</td>
+                                        <td>{{ $user->id }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Username</td>
-                                            <td>SuperAdmin</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Username</td>
+                                        <td>{{ $user->uname }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Profile Picture</td>
-                                            <td>
-                                                <img class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('img/pfp_1.png') }}">
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Profile Picture</td>
+                                        <td>
+                                            <img class="img-circle profile-avatar border border-secondary rounded-circle" 
+                                                 src="{{ $user->profile_picture ?: 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
+                                                 style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
+                                        </td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">First Name</td>
-                                            <td>Super</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">First Name</td>
+                                        <td>{{ $user->fname }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Middle Name</td>
-                                            <td></td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Middle Name</td>
+                                        <td>{{ $user->mname }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Last Name</td>
-                                            <td></td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Last Name</td>
+                                        <td>{{ $user->lname }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Birthdate</td>
-                                            <td>2024-09-17</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Birthdate</td>
+                                        <td>{{ $user->bdate }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Email Address</td>
-                                            <td>SuperAdmin@gmail.com</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Email Address</td>
+                                        <td>{{ $user->email }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Contact No.</td>
-                                            <td>09576458344</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Contact No.</td>
+                                        <td>{{ $user->contact_no }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Street</td>
-                                            <td>Bonifacio</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Street</td>
+                                        <td>{{ $user->street }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">House Block No.</td>
-                                            <td>1</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td id="tb-v-head">House Lot No.</td>
-                                            <td>2</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">House Block No.</td>
+                                        <td>{{ $user->house_blk_no }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Subdivision Role</td>
-                                            <td>2</td>
-                                        </tr>
-                                    </table>
-                                </form>
-                            </div><hr>
+                                    <tr>
+                                        <td id="tb-v-head">House Lot No.</td>
+                                        <td>{{ $user->house_lot_no }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td id="tb-v-head">Subdivision Role</td>
+                                        <td>{{ $user->subdivision_role_id }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <hr>
                             
                             <div class="col-sm-3 float-right">
                                 <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">

@@ -6,6 +6,13 @@
 </li>
 
 <li class="nav-item">
+    <a class="nav-link" href="{{ route('account.management.admin') }}">
+        <i class="far fa-address-card"></i>
+        <span>Account Management</span>
+    </a>
+</li>
+
+<li class="nav-item">
     <a class="nav-link" href="{{ route('bulletin.board.admin') }}">
         <i class="fa fa-object-group"></i>
         <span>Bulletin Board</span></a>

@@ -65,14 +65,17 @@
                                     @method('PATCH')
 
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <p id="input-label">Username <span style="color: red;"></span></p>
                                             <input type="text" name="uname" id="form-text" class="form-control form-control-user" value="{{ old('uname', $user->uname) }}">
+                                            @error('uname')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div> <!-- Display Username Error -->
+                                            @enderror
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">First Name <span style="color: red;"></span></p>
-                                            <input type="text" name="fname" id="form-text" class="form-control form-control-user" value="{{ old('fname', $user->fname) }}">
+                                            <input type="text" name="fname" id="form-text" class="form-control form-control-user" value="{{ old('fname', $user->fname) }}" required>
                                         </div>
                                     </div>
 
@@ -84,52 +87,55 @@
 
                                         <div class="col-sm-6">
                                             <p id="input-label">Last Name <span style="color: red;"></span></p>
-                                            <input type="text" name="lname" id="form-text" class="form-control form-control-user" value="{{ old('lname', $user->lname) }}">
+                                            <input type="text" name="lname" id="form-text" class="form-control form-control-user" value="{{ old('lname', $user->lname) }}"required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Birthdate <span style="color: red;"></span></p>
-                                            <input type="date" name="bdate" id="form-text" class="form-control form-control-user" value="{{ old('bdate', $user->bdate) }}">
+                                            <input type="date" name="bdate" id="form-text" class="form-control form-control-user" value="{{ old('bdate', $user->bdate) }}"required>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">Email Address <span style="color: red;"></span></p>
-                                            <input type="email" name="email" id="form-text" class="form-control form-control-user" value="{{ old('email', $user->email) }}">
+                                            <input type="email" name="email" id="form-text" class="form-control form-control-user" value="{{ old('email', $user->email) }}"required>
+                                            @error('email')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div> <!-- Display Email Error -->
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Contact No. <span style="color: red;"></span></p>
-                                            <input type="text" name="contact_no" id="form-text" class="form-control form-control-user" value="{{ old('contact_no', $user->contact_no) }}">
+                                            <input type="text" name="contact_no" id="form-text" class="form-control form-control-user" value="{{ old('contact_no', $user->contact_no) }}"required>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">Street <span style="color: red;"></span></p>
-                                            <input type="text" name="street" id="form-text" class="form-control form-control-user" value="{{ old('street', $user->street) }}">
+                                            <input type="text" name="street" id="form-text" class="form-control form-control-user" value="{{ old('street', $user->street) }}"required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">House Block No. <span style="color: red;"></span></p>
-                                            <input type="text" name="house_blk_no" id="form-text" class="form-control form-control-user" value="{{ old('house_blk_no', $user->house_blk_no) }}">
+                                            <input type="text" name="house_blk_no" id="form-text" class="form-control form-control-user" value="{{ old('house_blk_no', $user->house_blk_no) }}"required>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">House Lot No. <span style="color: red;"></span></p>
-                                            <input type="text" name="house_lot_no" id="form-text" class="form-control form-control-user" value="{{ old('house_lot_no', $user->house_lot_no) }}">
+                                            <input type="text" name="house_lot_no" id="form-text" class="form-control form-control-user" value="{{ old('house_lot_no', $user->house_lot_no) }}"required>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Subdivision Role</p>
-                                            <input type="text" name="subdivision_role" id="form-text" class="form-control form-control-user" value="{{ old('subdivision_role', $user->subdivisionRole->name ?? '') }}">
+                                            <input type="text" name="name" id="form-text" class="form-control form-control-user" value="{{ old('name', $user->subdivisionRole->name ?? '') }}">
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <hr>
 

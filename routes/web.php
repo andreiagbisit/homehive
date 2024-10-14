@@ -384,6 +384,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('add-entry/super-admin');
     })->name('add.entry.superadmin');
 
+    Route::get('/add-entry/admin', function () {
+        return view('add-entry/super-admin');
+    })->name('add.entry.admin');
+
     // Admin Routes
     Route::get('/dashboard/admin', function () {
         return view('dashboard/admin');

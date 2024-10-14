@@ -126,7 +126,12 @@
                                                 </button><br>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('superadmin.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                                <form action="{{ route('superadmin.destroy', $user->id) }}" method="POST" style="display: inline-block;"
+                                                    data-delete 
+                                                    data-fname="{{ $user->fname }}" 
+                                                    data-mname="{{ $user->mname }}" 
+                                                    data-lname="{{ $user->lname }}"
+                                                >
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-icon-split">
@@ -216,6 +221,29 @@
                         }
                     })
                     .catch(error => console.error('Error:', error)); // Handle any errors
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Attach click event to all delete buttons
+            const deleteForms = document.querySelectorAll('form[data-delete]');
+
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent immediate form submission
+
+                    // Get user information from data attributes
+                    const fname = this.dataset.fname;
+                    const mname = this.dataset.mname;
+                    const lname = this.dataset.lname;
+
+                    // Show confirmation dialog
+                    const confirmed = confirm(`Are you sure you want to delete ${fname} ${mname} ${lname}?`);
+
+                    if (confirmed) {
+                        this.submit(); // Submit the form if the user confirms
+                    }
                 });
             });
         });

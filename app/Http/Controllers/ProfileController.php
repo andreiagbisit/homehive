@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -62,6 +63,16 @@ class ProfileController extends Controller
             // Save the new profile picture URL in the database
             $user->profile_picture = $fileUrl;
         }
+
+        // Validate input with unique constraints for username and email
+        $request->validate([
+            'username' => 'nullable|string|max:255|unique:users,uname,' . $user->id,
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $user->id,
+        ], [
+            'username.unique' => 'The username has already been taken.',  // Custom message
+            'email.unique' => 'The email has already been taken.',       // Custom message
+        ]);
+        
 
         // Update profile fields (other details)
         $user->uname = $request->input('username') ?? $user->uname;
@@ -131,6 +142,34 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         return view('profile.details', compact('user'));  // Pass the user object to the view
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // Validate the current and new passwords
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Please provide your current password.',
+            'new_password.confirmed' => 'New password does not match.',
+        ]);
+    
+        $user = $request->user();
+    
+        // Check if the current password matches
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            throw ValidationException::withMessages([
+                'current_password' => ['The provided password does not match your current password.'],
+            ]);
+        }
+    
+        // Update the user's password
+        $user->password = Hash::make($request->input('new_password'));
+        $user->save();
+    
+        // Redirect with a success message
+        return Redirect::back()->with('status', 'Password updated successfully!');
     }
 
 }

@@ -36,6 +36,12 @@
                 <h1 id="header-h1">Manage Roles</h1><br>
             </div>
 
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">

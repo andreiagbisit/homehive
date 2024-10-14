@@ -25,7 +25,7 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users', 'uname')->ignore($this->user()->id),],
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -59,6 +59,14 @@ class ProfileUpdateRequest extends FormRequest
             'block_no' => 'house block number',
             'lot_no' => 'house lot number',
             'password' => 'password',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.unique' => 'The email has already been taken.',  // Custom email error message
+            'username.unique' => 'The username has already been taken.',  // Custom username error message
         ];
     }
 }

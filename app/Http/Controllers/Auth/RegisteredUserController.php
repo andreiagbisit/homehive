@@ -31,17 +31,20 @@ class RegisteredUserController extends Controller
     {
         // Validate the registration data
         $request->validate([
-            'uname' => ['required', 'string', 'max:255', 'unique:users'],
+            'uname' => ['required', 'string', 'max:255', 'unique:users' . $id],
             'fname' => ['required', 'string', 'max:255'],
             'mname' => ['nullable', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'bdate' => ['required', 'date'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users' . $id],
             'contact_no' => ['required', 'string', 'max:20'],
             'street' => ['required', 'string', 'max:255'],
             'house_blk_no' => ['required', 'integer'],
             'house_lot_no' => ['required', 'integer'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'uname.unique' => 'Username already taken', // Custom error message for username
+            'email.unique' => 'Email already in use',   // Custom error message for email
         ]);
 
         // Debug request data to ensure 'street' is present

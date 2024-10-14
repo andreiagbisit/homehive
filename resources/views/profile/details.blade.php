@@ -111,6 +111,11 @@
                                         </tr>
 
                                         <tr>
+                                            <td id="tb-v-head">Subdivision Role</td>
+                                            <td>{{ $user->subdivisionRole->name ?? 'No role assigned' }}</td>
+                                        </tr>
+
+                                        <tr>
                                             <td id="tb-v-head">Profile Picture</td>
                                             <td>
                                             <img class="img-circle profile-avatar" 

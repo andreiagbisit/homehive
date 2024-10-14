@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Lorem Ipsum - Add Entry</h1>
+                <h1 id="header-h1">Bulletin Board - Add Entry</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -49,17 +49,17 @@
 
                         <div class="card-body">
                             <div class="col">
-                                <h5 id="page-desc">Text Fields</h5><br>
+                                <h5 id="page-desc">Please fill out the following Bulletin Board</h5><br>
 
                                 <form class="user">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Text Field 1 <span style="color: red;">*</span></p>
+                                            <p id="input-label">Title <span style="color: red;">*</span></p>
                                             <input type="text" id="form-text" class="form-control form-control-user" required>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p id="input-label">Text Field 2</p>
+                                            <p id="input-label">Description</p>
                                             <input type="text" id="form-text" class="form-control form-control-user">
                                         </div>
                                     </div>

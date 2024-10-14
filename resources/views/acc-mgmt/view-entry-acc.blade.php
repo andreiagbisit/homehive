@@ -123,7 +123,7 @@
 
                                     <tr>
                                         <td id="tb-v-head">Subdivision Role</td>
-                                        <td>{{ $user->subdivision_role_id }}</td>
+                                        <td>{{ $user->subdivisionRole->name ?? 'No role assigned' }}</td>
                                     </tr>
                                 </table>
                             </div>

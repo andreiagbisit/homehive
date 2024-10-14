@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\SubdivisionRole;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AccountManagementController extends Controller
 {
@@ -42,16 +43,32 @@ class AccountManagementController extends Controller
     
         // Validate only if fields are provided
         $validatedData = $request->validate([
-            'uname' => 'nullable|string|max:255',
-            'fname' => 'nullable|string|max:255',
+            'uname' => [
+                'required', 
+                'string', 
+                'max:255', 
+                Rule::unique('users', 'uname')->ignore($user->id)->whereNull('deleted_at')
+            ],
+            'email' => [
+                'required', 
+                'string', 
+                'email', 
+                'max:255', 
+                Rule::unique('users', 'email')->ignore($user->id)->whereNull('deleted_at')
+            ],
+            'fname' => 'required|string|max:255',
             'mname' => 'nullable|string|max:255',
-            'lname' => 'nullable|string|max:255',
-            'bdate' => 'nullable|date',
-            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
-            'contact_no' => 'nullable|string|max:20',
-            'street' => 'nullable|string|max:255',
-            'house_blk_no' => 'nullable|integer',
-            'house_lot_no' => 'nullable|integer',
+            'lname' => 'required|string|max:255',
+            'bdate' => 'required|date',
+            'contact_no' => 'required|string|max:20',
+            'street' => 'required|string|max:255',
+            'house_blk_no' => 'required|integer',
+            'house_lot_no' => 'required|integer',
+        ], [
+            'uname.required' => 'The username field is required.',  // Custom message for required uname
+            'uname.unique' => 'This username has already been taken.', // Custom message for unique uname
+            'email.required' => 'The email field is required.', // Custom message for required email
+            'email.unique' => 'This email has already been taken.',   // Custom message for unique email
         ]);
     
         // Update only the fields that have changed

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2024 at 04:11 PM
+-- Generation Time: Oct 14, 2024 at 06:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -68,9 +68,17 @@ CREATE TABLE `bulletin_board` (
 CREATE TABLE `bulletin_board_category` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
+  `hex_code` varchar(7) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bulletin_board_category`
+--
+
+INSERT INTO `bulletin_board_category` (`id`, `name`, `hex_code`, `created_at`, `updated_at`) VALUES
+(1, 'Test Category', '#ff0000', '2024-10-14 07:14:42', '2024-10-14 07:14:42');
 
 -- --------------------------------------------------------
 
@@ -209,7 +217,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (63, '2024_10_13_034558_add_is_verified_to_users_table', 3),
 (64, '2024_10_13_101703_add_deleted_at_to_users_table', 4),
 (65, '2024_10_14_035100_modify_street_nullable', 5),
-(66, '2024_10_14_084033_update_unique_constraints_on_users_table', 6);
+(66, '2024_10_14_084033_update_unique_constraints_on_users_table', 6),
+(67, '2024_10_14_144949_add_hex_code_to_bulletin_board_category', 7);
 
 -- --------------------------------------------------------
 
@@ -360,7 +369,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('5SmtGcgylWtm5E1YLAVDjpPaTaOiJZMcqmFE0RhC', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNXg2OEVJS3VnYTVsakFvaUZiekJtZ0E5OHVSY3dmM0hpZ3Z0T3ljZiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hY2MtbWdtdC9lZGl0LWVudHJ5LWFjYy83Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjA7fQ==', 1728913897);
+('mXBgJwUrNxibw2g2jeVWlbWVCPDWPTcS8oGBYP5S', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieGVNQnZKN25tYlZSdVZ4andScnA0U0l0SXpiOXBCZ0xTUUp2TDR4RCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC9tYW5hZ2UtY2F0ZWdvcmllcy1hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwO30=', 1728922667);
 
 -- --------------------------------------------------------
 
@@ -668,7 +677,7 @@ ALTER TABLE `bulletin_board`
 -- AUTO_INCREMENT for table `bulletin_board_category`
 --
 ALTER TABLE `bulletin_board_category`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `facility_reservation`
@@ -692,7 +701,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `notification`

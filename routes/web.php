@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AccountManagementController; // Include the AccountManagementController
+use App\Http\Controllers\BulletinBoardCategoryController;
 
 // Home route - redirect to login if not authenticated
 Route::get('/', function () {
@@ -91,6 +92,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Add the new verification route here
     Route::patch('/users/{user}/verify', [AccountManagementController::class, 'verify'])->name('users.verify');
 
+    Route::post('/bulletin-board/store-category', [BulletinBoardCategoryController::class, 'store'])
+     ->name('bulletin.board.store.category');
+
+     Route::get('/bulletin-board/manage-categories-admin', [BulletinBoardCategoryController::class, 'index'])
+     ->name('bulletin.board.manage.categories.admin');
+
+     Route::get('/bulletin-board/view-category-admin/{id}', [BulletinBoardCategoryController::class, 'show'])
+     ->name('bulletin.board.view.category.admin');
+ 
+ 
+
+
     /*Route::get('/acc-mgmt/view-entry-acc', function () {
         return view('acc-mgmt/view-entry-acc');
     })->name('acc.mgmt.view.entry');*/
@@ -139,9 +152,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/manage-categories-super-admin');
     })->name('bulletin.board.manage.categories.superadmin');
 
-    Route::get('/bulletin-board/manage-categories-admin', function () {
+    /*Route::get('/bulletin-board/manage-categories-admin', function () {
         return view('bulletin-board/manage-categories-admin');
-    })->name('bulletin.board.manage.categories.admin');
+    })->name('bulletin.board.manage.categories.admin');*/
 
     Route::get('/bulletin-board/add-category-super-admin', function () {
         return view('bulletin-board/add-category-super-admin');
@@ -163,9 +176,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/view-category-super-admin');
     })->name('bulletin.board.view.category.superadmin');
 
-    Route::get('/bulletin-board/view-category-admin', function () {
+    /*Route::get('/bulletin-board/view-category-admin', function () {
         return view('bulletin-board/view-category-admin');
-    })->name('bulletin.board.view.category.admin');
+    })->name('bulletin.board.view.category.admin');*/
 
     // COLLECTION MANAGEMENT
 

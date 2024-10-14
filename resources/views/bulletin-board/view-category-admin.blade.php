@@ -52,17 +52,17 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">ID</td>
-                                            <td>1</td>
+                                            <td>{{ $category->id }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Category Name</td>
-                                            <td>Maintenance</td>
+                                            <td>{{ $category->name }}</td>
                                         </tr>
                                         
                                         <tr>
                                             <td id="tb-v-head">Color Hex</td>
-                                            <td>#e74a3b</td>
+                                            <td>{{ $category->hex_code }}</td>
                                         </tr>
                                     </table>
                                 </form>

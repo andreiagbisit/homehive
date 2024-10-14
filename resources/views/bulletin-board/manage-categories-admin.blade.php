@@ -45,6 +45,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                        <div class="alert alert-success">
+                        {{ session('success') }}
+                        </div>
+            @endif
+
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -62,117 +68,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Announcement</td>
-                                    <td>#e74a3b</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->hex_code }}</td>
+                                        <td class="text-center">
+                                        <a href="{{ route('bulletin.board.view.category.admin', ['id' => $category->id]) }}" 
+                                        class="btn btn-primary btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
                                         </a>
-                                    </td>
-                                </tr>
 
-                                <tr>
-                                    <td>2</td>
-                                    <td>Reminder</td>
-                                    <td>#1cc88a</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+                                            <a href="{{ route('bulletin.board.edit.category.admin', $category->id) }}" 
+                                            class="btn btn-success btn-icon-split d-inline-block" style="margin-right: 10px;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Edit</span>
+                                            </a>
 
-                                        <a href="{{ route('bulletin.board.edit.category.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Event</td>
-                                    <td>#4e73df</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Interruption</td>
-                                    <td>#f6c23e</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            <a href="#" class="btn btn-danger btn-icon-split d-inline-block" 
+                                            data-toggle="modal" data-target="#deleteEntryModal">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

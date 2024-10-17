@@ -112,7 +112,7 @@
 
                                         <tr>
                                             <td id="tb-v-head">Subdivision Role</td>
-                                            <td>{{ $user->subdivisionRole->name ?? 'No role assigned' }}</td>
+                                            <td>{{ Auth::user()->subdivisionRole->name ?? 'No role assigned' }}</td>
                                         </tr>
 
                                         <tr>

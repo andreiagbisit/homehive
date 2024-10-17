@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AccountManagementController; // Include the AccountManagementController
 use App\Http\Controllers\BulletinBoardCategoryController;
+use App\Http\Controllers\BulletinBoardController;
 
 // Home route - redirect to login if not authenticated
 Route::get('/', function () {
@@ -100,8 +101,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
      Route::get('/bulletin-board/view-category-admin/{id}', [BulletinBoardCategoryController::class, 'show'])
      ->name('bulletin.board.view.category.admin');
- 
- 
+
+     Route::get('/bulletin-board/edit-category-admin/{id}', [BulletinBoardCategoryController::class, 'edit'])
+    ->name('bulletin.board.edit.category.admin');
+    
+    Route::patch('/bulletin-board/update-category-admin/{id}', [BulletinBoardCategoryController::class, 'update'])
+    ->name('bulletin.board.update.category.admin');
+
+    Route::delete('/bulletin-board/delete-category/{id}', [BulletinBoardCategoryController::class, 'destroy'])
+    ->name('bulletin.board.delete.category.admin');
+
+    Route::get('/bulletin-board/admin', [BulletinBoardCategoryController::class, 'adminView'])->name('bulletin.board.admin');
+
+    Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
+
+
 
 
     /*Route::get('/acc-mgmt/view-entry-acc', function () {
@@ -168,9 +182,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/edit-category-super-admin');
     })->name('bulletin.board.edit.category.superadmin');
 
-    Route::get('/bulletin-board/edit-category-admin', function () {
+    /*Route::get('/bulletin-board/edit-category-admin', function () {
         return view('bulletin-board/edit-category-admin');
-    })->name('bulletin.board.edit.category.admin');
+    })->name('bulletin.board.edit.category.admin');*/
 
     Route::get('/bulletin-board/view-category-super-admin', function () {
         return view('bulletin-board/view-category-super-admin');
@@ -406,9 +420,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard/admin');
     })->name('dashboard.admin');
 
-    Route::get('/bulletin-board/admin', function () {
+    /*Route::get('/bulletin-board/admin', function () {
         return view('bulletin-board/admin');
-    })->name('bulletin.board.admin');
+    })->name('bulletin.board.admin');*/
 
     Route::get('/bulletin-board/edit-entry-admin', function () {
         return view('bulletin-board/edit-entry-admin');

@@ -49,7 +49,7 @@
                         <div class="alert alert-success">
                         {{ session('success') }}
                         </div>
-            @endif
+            @endif 
 
             <!-- Tables -->
             <div class="card shadow mb-4">
@@ -68,7 +68,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($categories as $category) 
                                     <tr>
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
@@ -91,7 +91,9 @@
                                             </a>
 
                                             <a href="#" class="btn btn-danger btn-icon-split d-inline-block" 
-                                            data-toggle="modal" data-target="#deleteEntryModal">
+                                            data-toggle="modal" 
+                                            data-target="#deleteEntryModal" 
+                                            data-entry-url="{{ route('bulletin.board.delete.category.admin', $category->id) }}">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </span>
@@ -142,5 +144,14 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+        $('#deleteEntryModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);  // Button that triggered the modal
+            var entryUrl = button.data('entry-url');  // Extract delete URL from data attribute
+
+            var modal = $(this);
+            modal.find('#delete-entry-form').attr('action', entryUrl);  // Set the form action to the delete URL
+        });
+    </script>
     </x-slot>
 </x-base>

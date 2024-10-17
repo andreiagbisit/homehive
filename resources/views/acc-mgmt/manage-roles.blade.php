@@ -61,7 +61,20 @@
                                 @foreach($users as $user) <!-- Iterate through the users -->
                                     <tr>
                                         <td>{{ $user->fname }} {{ $user->mname ?? '' }} {{ $user->lname }}</td>
-                                        <td>{{ $user->subdivisionRole->name ?? 'No Role Assigned' }}</td>
+                                        
+                                        <!-- Display the user type based on account_type_id -->
+                                        <td>
+                                            @if ($user->account_type_id == 1)
+                                                Super Admin
+                                            @elseif ($user->account_type_id == 2)
+                                                Admin
+                                            @elseif ($user->account_type_id == 3)
+                                                Resident
+                                            @else
+                                                Unknown
+                                            @endif
+                                        </td>
+
                                         <td class="text-center">
                                             <a href="{{ route('acc.mgmt.edit.entry.role', $user->id) }}" 
                                             class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
@@ -70,15 +83,6 @@
                                                 </span>
                                                 <span class="text">Edit</span>
                                             </a><br>
-                                            <!--
-                                            <a href="#" class="btn btn-danger btn-icon-split" 
-                                            data-toggle="modal" data-target="#deleteEntryModal">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </span>
-                                                <span class="text">Delete</span>
-                                            </a>
-                                            -->
                                         </td>
                                     </tr>
                                 @endforeach

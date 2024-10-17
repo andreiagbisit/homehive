@@ -61,30 +61,22 @@
                             <h6 id="page-desc" class="m-0 font-weight-bold text-black">Legend</h6>
                         </div>
                         <div class="pt-4 pb-4 card-body d-flex justify-content-center">
-                            <div class="small">
+                        <div class="small">
+                            @foreach ($categories as $category)
                                 <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-danger"></i> Announcement<br>
+                                    <i class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> {{ $category->name }}<br>
                                 </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Reminder<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Event<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-warning"></i> Interruption
-                                </span>
-                            </div>
+                            @endforeach
                         </div>
+                    </div>
 
-                        <div class="d-flex justify-content-center mb-4">
-                            <a href="{{ route('bulletin.board.manage.categories.admin') }}" class="btn btn-warning btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-tags"></i>
-                                </span>
-                                <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
-                            </a>
-                        </div>
+                    <div class="d-flex justify-content-center mb-4">
+                        <a href="{{ route('bulletin.board.manage.categories.admin') }}" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -119,14 +111,107 @@
     </x-slot>
 
     <x-slot name="modal_bulletin_add">
-        <x-modal-bulletin-add></x-modal-bulletin-add>
+        <x-modal-bulletin-add :categories="$categories" />
     </x-slot>
 
     <x-slot name="modal_appt_and_res_manage">
     </x-slot>
 
     <x-slot name="script">
-        <x-script></x-script>
-    </x-slot>
-</x-base>
+    <script>
+$(document).ready(function () {
+    var calendarEl = document.getElementById('calendarBulletinBoard');
 
+    // Dynamically generated category colors from your categories in the database
+    var categoryColors = {
+        @foreach ($categories as $category)
+            '{{ $category->name }}': { background: '{{ $category->hex_code }}', border: '{{ $category->hex_code }}', text: '#ffffff' }, 
+        @endforeach
+    };
+
+    // Use server-side rendered data (entries) passed from the controller
+    var events = @json($entries->map(function($entry) {
+        return [
+            'title' => $entry->title,
+            'start' => $entry->post_date,
+            'className' => 'event-' . strtolower($entry->category->name),
+            'extendedProps' => (object)[
+                'category' => $entry->category->name,
+                'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
+                'author' => $entry->author ?? 'Unknown',
+                'description' => $entry->description,
+                // Uncomment the following line if you have image data available
+                // 'imageUrl' => $entry->image_url ?? null
+            ]
+        ];
+    }));
+
+    // Initialize the calendar with dynamic data
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+        },
+        events: events, // Load events dynamically from the controller
+
+        eventClick: function (info) {
+            // Handle event click if needed
+        },
+
+        eventDidMount: function (info) {
+            var element = info.el;
+            var event = info.event;
+
+            // Format the date and time
+            var publishedDateTime = new Date(event.extendedProps.dateAndTimePublished);
+            var formattedDate = publishedDateTime.toLocaleDateString('en-US', { dateStyle: 'long' });
+            var formattedTime = publishedDateTime.toLocaleTimeString('en-US', { timeStyle: 'short' });
+            var formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+            // Handle modal logic for viewing event details
+            element.setAttribute('data-toggle', 'modal');
+            element.setAttribute('data-target', '#bulletinEntryModal');
+            element.setAttribute('data-title', event.title);
+            element.setAttribute('data-dateAndTimePublished', formattedDateTime);
+            element.setAttribute('data-author', event.extendedProps.author);
+            element.setAttribute('data-description', event.extendedProps.description);
+            element.setAttribute('data-category', event.extendedProps.category);
+
+            if (event.extendedProps.imageUrl) {
+                element.setAttribute('data-image-url', event.extendedProps.imageUrl);
+            }
+
+            // Add click event to open the modal
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Populate modal with event details
+                document.querySelector('#modalEventTitle').innerText = event.title;
+                document.querySelector('#modalDateAndTimePublished').innerText = formattedDateTime;
+                document.querySelector('#modalAuthor').innerText = event.extendedProps.author;
+                document.querySelector('#modalDescription').innerText = event.extendedProps.description;
+                document.querySelector('#modalCategory').innerText = event.extendedProps.category;
+
+                // Set background color for category
+                var categoryColor = categoryColors[event.extendedProps.category];
+                var modalCategoryBox = document.querySelector('.info-box-category');
+                modalCategoryBox.style.backgroundColor = categoryColor.background;
+                modalCategoryBox.style.color = categoryColor.text;
+
+                // Display event image if available
+                if (event.extendedProps.imageUrl) {
+                    var modalImage = document.getElementById('modalImage');
+                    modalImage.src = event.extendedProps.imageUrl;
+                    document.getElementById('modalImageContainer').style.display = 'block';
+                } else {
+                    document.getElementById('modalImageContainer').style.display = 'none';
+                }
+            });
+        }
+    });
+
+    calendar.render();
+});
+</script>

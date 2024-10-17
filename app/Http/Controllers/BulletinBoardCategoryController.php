@@ -41,7 +41,47 @@ class BulletinBoardCategoryController extends Controller
         return view('bulletin-board.view-category-admin', compact('category'));
     }
     
-    
+        public function edit($id)
+    {
+        // Fetch the category by its ID
+        $category = BulletinBoardCategory::findOrFail($id);
 
+        // Return the edit view with the category data
+        return view('bulletin-board.edit-category-admin', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'hex_code' => 'required|string|size:7', // Ensure it's a valid HEX code
+        ]);
+
+        // Find the category and update its details
+        $category = BulletinBoardCategory::findOrFail($id);
+        $category->update([
+            'name' => $request->input('name'),
+            'hex_code' => $request->input('hex_code'),
+        ]);
+
+        // Redirect back to the manage categories page with a success message
+        return redirect()->route('bulletin.board.manage.categories.admin')
+                        ->with('success', 'Category updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $category = BulletinBoardCategory::findOrFail($id);
+        $category->delete();  // Soft delete the category
+
+        return redirect()->route('bulletin.board.manage.categories.admin')
+                        ->with('success', 'Category deleted successfully!');
+    }
+
+    public function adminView() {
+        $categories = BulletinBoardCategory::all(); // Fetch all categories from the database
+        return view('bulletin-board.admin', compact('categories')); // Pass categories to the view
+    }
 
 }

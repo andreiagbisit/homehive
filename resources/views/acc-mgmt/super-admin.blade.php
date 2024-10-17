@@ -45,6 +45,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                    <div class="alert alert-success">
+                    {{ session('success') }}
+                    </div>
+            @endif
+
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -91,7 +97,7 @@
                                         <td>{{ $user->street }}</td>
                                         <td>{{ $user->house_blk_no }}</td>
                                         <td>{{ $user->house_lot_no }}</td>
-                                        <td>{{ $user->subdivisionRole->name ?? 'No Role Assigned' }}</td> <!-- Updated line -->
+                                        <td>{{ $user->subdivisionRole->name ?? 'No Role Assigned' }}</td> <!-- Updated line --> 
                                         <td class="text-center">
                                             <a href="{{ route('acc.mgmt.view.entry', $user->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
                                                 <span class="icon text-white-50">
@@ -132,14 +138,16 @@
                                                     data-mname="{{ $user->mname }}" 
                                                     data-lname="{{ $user->lname }}"
                                                 >
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </span>
-                                                        <span class="text">Delete</span>
-                                                    </button>
+                                                <!-- Delete Button (Trigger Modal) -->
+                                                <a href="#" class="btn btn-danger btn-icon-split d-inline-block" 
+                                                    data-toggle="modal" 
+                                                    data-target="#deleteEntryModal" 
+                                                    data-entry-url="{{ route('superadmin.destroy', $user->id) }}">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </span>
+                                                    <span class="text">Delete</span>
+                                                </a>
                                                 </form>
                                             @endif
                                         </td>
@@ -189,65 +197,14 @@
     <x-script></x-script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Attach click event to all verify-toggle buttons
-            const verifyButtons = document.querySelectorAll('.verify-toggle-btn');
+            $('#deleteEntryModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);  // Button that triggered the modal
+                var entryUrl = button.data('entry-url');  // Extract the delete URL from data attribute
 
-            verifyButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const userId = this.dataset.id; // Get the user ID
-                    const buttonElement = this; // Store reference to the button
-
-                    // Send AJAX request to toggle verification
-                    fetch(`/users/${userId}/verify`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token
-                        }
-                    })
-                    .then(response => response.json()) // Parse JSON response
-                    .then(data => {
-                        if (data.success) {
-                            // Toggle button classes and content based on verification status
-                            buttonElement.classList.toggle('btn-success', data.is_verified);
-                            buttonElement.classList.toggle('btn-danger', !data.is_verified);
-
-                            // Update the icon and text
-                            buttonElement.querySelector('i').className = 
-                                data.is_verified ? 'fas fa-check' : 'fas fa-times';
-                            buttonElement.querySelector('.text').textContent = 
-                                data.is_verified ? 'Verified' : 'Unverified';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error)); // Handle any errors
-                });
+                var modal = $(this);
+                modal.find('#delete-entry-form').attr('action', entryUrl);  // Set the form action to the delete URL
             });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Attach click event to all delete buttons
-            const deleteForms = document.querySelectorAll('form[data-delete]');
-
-            deleteForms.forEach(form => {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault(); // Prevent immediate form submission
-
-                    // Get user information from data attributes
-                    const fname = this.dataset.fname;
-                    const mname = this.dataset.mname;
-                    const lname = this.dataset.lname;
-
-                    // Show confirmation dialog
-                    const confirmed = confirm(`Are you sure you want to delete ${fname} ${mname} ${lname}?`);
-
-                    if (confirmed) {
-                        this.submit(); // Submit the form if the user confirms
-                    }
-                });
-            });
-        });
-    </script>
+        </script>
 </x-slot>
 
 </x-base>

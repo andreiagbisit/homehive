@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BulletinBoardCategory; // Import the model
 use Illuminate\Http\Request;
+use App\Models\BulletinBoardEntry;
+
 
 class BulletinBoardCategoryController extends Controller
 {
@@ -79,9 +81,29 @@ class BulletinBoardCategoryController extends Controller
                         ->with('success', 'Category deleted successfully!');
     }
 
-    public function adminView() {
-        $categories = BulletinBoardCategory::all(); // Fetch all categories from the database
-        return view('bulletin-board.admin', compact('categories')); // Pass categories to the view
+    public function adminView()
+    {
+        // Fetch categories for the legend
+        $categories = BulletinBoardCategory::all();
+    
+        // Fetch bulletin board entries
+        $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
+            return [
+                'title' => $entry->title,
+                'start' => $entry->post_date,
+                'className' => 'event-' . strtolower($entry->category->name),
+                'extendedProps' => [
+                    'category' => $entry->category->name,
+                    'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
+                    'author' => $entry->author ?? 'Unknown',
+                    'description' => $entry->description
+                ]
+            ];
+        })->toArray(); // Convert to array
+    
+        // Pass both $categories and $entries to the view
+        return view('bulletin-board.admin', compact('categories', 'entries'));
     }
+    
 
 }

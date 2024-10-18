@@ -118,6 +118,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
+
+
+
+
+
+
     /*Route::get('/acc-mgmt/view-entry-acc', function () {
         return view('acc-mgmt/view-entry-acc');
     })->name('acc.mgmt.view.entry');*/

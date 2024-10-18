@@ -32,7 +32,6 @@
     <x-slot name="content">
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Bulletin Board</h1>
@@ -61,22 +60,23 @@
                             <h6 id="page-desc" class="m-0 font-weight-bold text-black">Legend</h6>
                         </div>
                         <div class="pt-4 pb-4 card-body d-flex justify-content-center">
-                        <div class="small">
-                            @foreach ($categories as $category)
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> {{ $category->name }}<br>
-                                </span>
-                            @endforeach
+                            <div class="small">
+                                @foreach ($categories as $category)
+                                    <span id="chart-category" class="mr-2">
+                                        <i class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> {{ $category->name }}<br>
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex justify-content-center mb-4">
-                        <a href="{{ route('bulletin.board.manage.categories.admin') }}" class="btn btn-warning btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-tags"></i>
-                            </span>
-                            <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
-                        </a>
+                        <div class="d-flex justify-content-center mb-4">
+                            <a href="{{ route('bulletin.board.manage.categories.admin') }}" class="btn btn-warning btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-tags"></i>
+                                </span>
+                                <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,18 +96,49 @@
         <x-modal-logout></x-modal-logout>
     </x-slot>
 
+    <!-- Keep this modal content to avoid the Undefined variable error -->
     <x-slot name="modal_change_pw">
+        <!-- Placeholder for modal content -->
+        <x-modal-change-pw></x-modal-change-pw>
     </x-slot>
 
     <x-slot name="modal_dashboard_edit">
+        <!-- Placeholder for modal content -->
+        <x-modal-dashboard-edit></x-modal-dashboard-edit>
     </x-slot>
 
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
-
+<!--
     <x-slot name="modal_bulletin_entry">
         <x-modal-bulletin-entry></x-modal-bulletin-entry>
+    </x-slot>
+-->
+       <!-- Event Details Modal (Place this before your script section) -->
+       <x-slot name="modal_bulletin_entry">
+        <div class="modal fade" id="bulletinEntryModal" tabindex="-1" role="dialog" aria-labelledby="bulletinEntryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEventTitle">Event Title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Date and Time Published:</strong> <span id="modalDateAndTimePublished"></span></p>
+                        <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+                        <p><strong>Description:</strong></p>
+                        <p id="modalDescription"></p>
+                        <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </x-slot>
 
     <x-slot name="modal_bulletin_add">
@@ -115,38 +146,37 @@
     </x-slot>
 
     <x-slot name="modal_appt_and_res_manage">
+        <!-- Placeholder for modal content -->
+        <x-modal-appt-and-res-manage></x-modal-appt-and-res-manage>
     </x-slot>
 
     <x-slot name="script">
-    <script>
+<!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Load Bootstrap JS (for modals) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+<!-- Load FullCalendar JS -->
+<script src="{{ url('vendor/fullcalendar/main.min.js') }}"></script>
+
+<!-- Load RichTextEditor -->
+<script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
+<script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
+
+<!-- Custom Script for Calendar and Modals -->
+
+<script>
 $(document).ready(function () {
     var calendarEl = document.getElementById('calendarBulletinBoard');
 
-    // Dynamically generated category colors from your categories in the database
-    var categoryColors = {
-        @foreach ($categories as $category)
-            '{{ $category->name }}': { background: '{{ $category->hex_code }}', border: '{{ $category->hex_code }}', text: '#ffffff' }, 
-        @endforeach
-    };
-
     // Use server-side rendered data (entries) passed from the controller
-    var events = @json($entries->map(function($entry) {
-        return [
-            'title' => $entry->title,
-            'start' => $entry->post_date,
-            'className' => 'event-' . strtolower($entry->category->name),
-            'extendedProps' => (object)[
-                'category' => $entry->category->name,
-                'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
-                'author' => $entry->author ?? 'Unknown',
-                'description' => $entry->description,
-                // Uncomment the following line if you have image data available
-                // 'imageUrl' => $entry->image_url ?? null
-            ]
-        ];
-    }));
+    var events = @json($entries);
 
-    // Initialize the calendar with dynamic data
+    // Log the dynamic data to check if it's correct
+    console.log(events);
+
+    // Initialize FullCalendar with dynamic data
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: {
@@ -154,64 +184,30 @@ $(document).ready(function () {
             center: 'title',
             right: ''
         },
-        events: events, // Load events dynamically from the controller
+        events: events,  // Use dynamic events from controller
 
-        eventClick: function (info) {
-            // Handle event click if needed
-        },
+        // Handle event click
+        eventClick: function(info) {
+            var eventObj = info.event;
+            
+            // Log event for debugging
+            console.log(eventObj);
 
-        eventDidMount: function (info) {
-            var element = info.el;
-            var event = info.event;
+            // Handle modal logic or displaying the event details
+            $('#bulletinEntryModal').modal('show'); // Show the modal (assuming Bootstrap is used)
 
-            // Format the date and time
-            var publishedDateTime = new Date(event.extendedProps.dateAndTimePublished);
-            var formattedDate = publishedDateTime.toLocaleDateString('en-US', { dateStyle: 'long' });
-            var formattedTime = publishedDateTime.toLocaleTimeString('en-US', { timeStyle: 'short' });
-            var formattedDateTime = `${formattedDate} ${formattedTime}`;
+            // Populate the modal with event details
+            document.querySelector('#modalEventTitle').innerText = eventObj.title;
+            document.querySelector('#modalDateAndTimePublished').innerText = eventObj.extendedProps.dateAndTimePublished;
+            document.querySelector('#modalAuthor').innerText = eventObj.extendedProps.author;
+            document.querySelector('#modalDescription').innerText = eventObj.extendedProps.description;
+            document.querySelector('#modalCategory').innerText = eventObj.extendedProps.category;
+ } });
 
-            // Handle modal logic for viewing event details
-            element.setAttribute('data-toggle', 'modal');
-            element.setAttribute('data-target', '#bulletinEntryModal');
-            element.setAttribute('data-title', event.title);
-            element.setAttribute('data-dateAndTimePublished', formattedDateTime);
-            element.setAttribute('data-author', event.extendedProps.author);
-            element.setAttribute('data-description', event.extendedProps.description);
-            element.setAttribute('data-category', event.extendedProps.category);
-
-            if (event.extendedProps.imageUrl) {
-                element.setAttribute('data-image-url', event.extendedProps.imageUrl);
-            }
-
-            // Add click event to open the modal
-            element.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Populate modal with event details
-                document.querySelector('#modalEventTitle').innerText = event.title;
-                document.querySelector('#modalDateAndTimePublished').innerText = formattedDateTime;
-                document.querySelector('#modalAuthor').innerText = event.extendedProps.author;
-                document.querySelector('#modalDescription').innerText = event.extendedProps.description;
-                document.querySelector('#modalCategory').innerText = event.extendedProps.category;
-
-                // Set background color for category
-                var categoryColor = categoryColors[event.extendedProps.category];
-                var modalCategoryBox = document.querySelector('.info-box-category');
-                modalCategoryBox.style.backgroundColor = categoryColor.background;
-                modalCategoryBox.style.color = categoryColor.text;
-
-                // Display event image if available
-                if (event.extendedProps.imageUrl) {
-                    var modalImage = document.getElementById('modalImage');
-                    modalImage.src = event.extendedProps.imageUrl;
-                    document.getElementById('modalImageContainer').style.display = 'block';
-                } else {
-                    document.getElementById('modalImageContainer').style.display = 'none';
-                }
-            });
-        }
-    });
-
+    // Render the calendar
     calendar.render();
 });
 </script>
+
+</x-slot>
+</x-base>

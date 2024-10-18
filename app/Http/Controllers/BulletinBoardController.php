@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BulletinBoardCategory;
 use App\Models\BulletinBoardEntry; // Assuming this model handles entries
 
+
 class BulletinBoardController extends Controller
 {
 
@@ -21,14 +22,17 @@ class BulletinBoardController extends Controller
                     'category' => $entry->category->name,
                     'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
                     'author' => $entry->author ?? 'Unknown',
-                    'description' => $entry->description,
+                    'description' => $entry->description
                 ]
             ];
-        });
+        })->toArray();  // Convert to array        
+
+           // Check if $entries and $categories are populated
+        dd($entries, $categories);
     
         // Pass categories and prepared entries to the view
         $categories = BulletinBoardCategory::all();
-        return view('bulletin-board.admin', compact('categories', 'entries'));
+        return view('bulletin.board.entries.admin', compact('categories', 'entries'));
     }
     
 

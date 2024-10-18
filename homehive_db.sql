@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2024 at 06:21 PM
+-- Generation Time: Oct 18, 2024 at 06:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -59,6 +59,14 @@ CREATE TABLE `bulletin_board` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `bulletin_board`
+--
+
+INSERT INTO `bulletin_board` (`id`, `title`, `description`, `category_id`, `post_date`, `created_at`, `updated_at`) VALUES
+(1, 'Final Defense', '<p>Final Defense</p>', 5, '2024-11-05', '2024-10-17 04:52:24', '2024-10-17 04:52:24'),
+(2, 'Final Defense 2', '<p><ul><li><span style=\"color: rgb(0, 128, 0);\">Final Defense</span></li></ul></p>', 5, '2024-11-06', '2024-10-18 08:44:07', '2024-10-18 08:44:07');
+
 -- --------------------------------------------------------
 
 --
@@ -70,15 +78,20 @@ CREATE TABLE `bulletin_board_category` (
   `name` varchar(255) NOT NULL,
   `hex_code` varchar(7) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `bulletin_board_category`
 --
 
-INSERT INTO `bulletin_board_category` (`id`, `name`, `hex_code`, `created_at`, `updated_at`) VALUES
-(1, 'Test Category', '#ff0000', '2024-10-14 07:14:42', '2024-10-14 07:14:42');
+INSERT INTO `bulletin_board_category` (`id`, `name`, `hex_code`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Test Category 2', '#ffffff', '2024-10-14 07:14:42', '2024-10-17 00:38:53', '2024-10-17 00:38:53'),
+(2, 'Test Category Hello', '#000000', '2024-10-17 00:39:11', '2024-10-17 02:49:32', '2024-10-17 02:49:32'),
+(3, 'Christmas Party', '#ff0000', '2024-10-17 02:59:37', '2024-10-17 02:59:37', NULL),
+(4, 'Thanksgiving', '#000000', '2024-10-17 03:00:04', '2024-10-17 03:09:34', NULL),
+(5, 'Final Defense', '#00eb2f', '2024-10-17 03:54:37', '2024-10-17 03:54:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -218,7 +231,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (64, '2024_10_13_101703_add_deleted_at_to_users_table', 4),
 (65, '2024_10_14_035100_modify_street_nullable', 5),
 (66, '2024_10_14_084033_update_unique_constraints_on_users_table', 6),
-(67, '2024_10_14_144949_add_hex_code_to_bulletin_board_category', 7);
+(67, '2024_10_14_144949_add_hex_code_to_bulletin_board_category', 7),
+(68, '2024_10_17_081744_add_deleted_at_to_bulletin_board_category_table', 8);
 
 -- --------------------------------------------------------
 
@@ -369,7 +383,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('mXBgJwUrNxibw2g2jeVWlbWVCPDWPTcS8oGBYP5S', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieGVNQnZKN25tYlZSdVZ4andScnA0U0l0SXpiOXBCZ0xTUUp2TDR4RCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC9tYW5hZ2UtY2F0ZWdvcmllcy1hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwO30=', 1728922667);
+('3JQUVjp2TZUL5mvedk4fmcza04MGbTEPudaMi3pe', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWGxtY09WVDlWaG51OEFMOU45eVMwQ1BpZXlhVWVWRGFiRmxjTkJ4SCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC9hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjc7fQ==', 1729174355),
+('tqyBNihnbm6Y8mbAE4vO19FmenUkORsnVbE89xEV', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoib1RHT1RQS1ViSHRwQkdTcFA3REJJSWlUYXkxT2haOFZFenhaVWhsSyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC9tYW5hZ2UtY2F0ZWdvcmllcy1hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwO30=', 1729270036);
 
 -- --------------------------------------------------------
 
@@ -402,13 +417,14 @@ CREATE TABLE `subdivision_role` (
 --
 
 INSERT INTO `subdivision_role` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'HOA President', '2024-10-13 01:30:20', '2024-10-13 01:33:26'),
+(1, 'Sample Role', '2024-10-13 01:30:20', '2024-10-17 00:49:34'),
 (2, 'Resident', '2024-10-13 01:33:38', '2024-10-13 01:33:38'),
 (3, 'Resident', '2024-10-13 01:33:46', '2024-10-13 01:33:46'),
 (4, 'Resident', '2024-10-13 02:00:25', '2024-10-13 02:00:25'),
 (5, 'Panel Admin', '2024-10-13 02:00:33', '2024-10-14 04:09:40'),
 (6, 'Subdivision Super Admin', '2024-10-13 03:39:45', '2024-10-13 03:39:45'),
-(7, 'HOA President', '2024-10-14 05:42:17', '2024-10-14 05:42:17');
+(7, 'HOA President', '2024-10-14 05:42:17', '2024-10-14 05:42:17'),
+(8, 'Resident', '2024-10-16 23:46:07', '2024-10-16 23:46:07');
 
 -- --------------------------------------------------------
 
@@ -446,7 +462,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `is_verified`, `fname`, `mname`, `lname`, `bdate`, `email`, `contact_no`, `street`, `house_blk_no`, `house_lot_no`, `subdivision_role_id`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `profile_picture`, `deleted_at`) VALUES
 (6, 'SuperAdmin', '$2y$12$/.PuSnnydoipKbH4wDMV9ePwiUS7Nb7Q.6qrZ.Yskc.C2SB2VCyFO', 1, 1, 'Super', 'Homehive', 'Admin', '2024-09-17', 'SuperAdmin@gmail.com', '09576458344', 'Acacia', 23, 32, 6, NULL, NULL, '2024-09-02 09:47:30', '2024-10-13 03:39:45', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/1727510961_steph.jpg', NULL),
-(7, 'Panel 1 Admin', '$2y$12$vwtdh6uD7ZRUzpd0.JbVauB7e3bH4T1ZsXzgww87gRbsYSq0cDr/m', 3, 1, 'Daisy', 'Yap', 'Admin', '2024-09-10', 'Panel1Admin@gmail.com', '09857456755', 'Sesame', 22, 22, 5, NULL, NULL, '2024-09-02 01:48:32', '2024-10-14 01:12:13', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
+(7, 'Panel 1 Admin', '$2y$12$vwtdh6uD7ZRUzpd0.JbVauB7e3bH4T1ZsXzgww87gRbsYSq0cDr/m', 2, 1, 'Daisy', 'Yap', 'Admin', '2024-09-10', 'Panel1Admin@gmail.com', '09857456755', 'Sesame', 22, 22, 5, NULL, NULL, '2024-09-02 01:48:32', '2024-10-16 23:35:04', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
 (8, 'Panel 2 Admin', '$2y$12$DupB3AqYdi/xegtyeTD9rOKq/RKKYRuuX4m7J.cZNHoL9DzEvjcXe', 2, 1, 'Joey', 'Aviles', 'Admin', '2024-09-24', 'Panel2Admin@gmail.com', '09867564566', 'Acacia', 23, 42, 4, NULL, NULL, '2024-09-02 01:49:07', '2024-10-14 01:19:26', NULL, NULL),
 (11, 'Panel 1 Resident', '$2y$12$Mt3xKO7fSV.KiGU8qCVnNOzydpxE38iqJupIBl18Entq1lxaZ06I6', 2, 1, 'Daisy', 'Yap', 'Resident', '2024-09-20', 'Panel1Resident@gmail.com', '09576857433', 'Sesame', 3, 23, 2, NULL, NULL, '2024-09-02 02:31:25', '2024-10-14 01:25:58', NULL, NULL),
 (12, 'User45', '$2y$12$TUSI95Ud14EtWuQqen4gCexfwuyF1zo73SLiu.77ffPfw7isPJX4u', 3, 1, 'User45', NULL, 'User45', '2024-09-24', 'User45@gmail.com', '09576458344', 'Acacia', 32, 3, NULL, NULL, NULL, '2024-09-02 03:04:05', '2024-10-13 02:29:14', NULL, '2024-10-13 02:29:14'),
@@ -454,8 +470,8 @@ INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `is_verified`
 (14, 'User56', '$2y$12$WPU.SwTrL/jbnTIdy9vGB.BHNvGz/eBiGRUE217lB4a7Y65yvYoNu', 3, 1, 'User45', 'User45', 'User45', '2024-10-01', 'User54@gmail.com', '09876574566', 'Rizal', 3, 6, NULL, NULL, NULL, '2024-09-02 03:15:41', '2024-10-13 02:34:09', NULL, '2024-10-13 02:34:09'),
 (15, 'Panel 2 Resident', '$2y$12$YIAaWPMcucBlAb9W3gUe4.TlwJ1K96hjZHeEgYf7oTKCIWLCm3EaS', 3, 1, 'Joey', 'Aviles', 'Resident', '2024-09-24', 'Panel2Resident@gmail.com', '09857456755', 'Seaside', 25, 54, NULL, NULL, NULL, '2024-09-02 03:26:52', '2024-10-13 21:35:49', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
 (16, 'User1', '$2y$12$siYUNwr7iols/841pnMS/OPhWBjakbsINhoru.1WASjyrTN.lU82K', 3, 1, 'User1', 'User12', 'User12', '2024-09-09', 'User1@gmail.com', '09867564566', 'Santol', 4, 78, NULL, NULL, NULL, '2024-09-02 03:37:32', '2024-10-13 23:42:38', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', '2024-10-13 23:42:38'),
-(17, 'User2', '$2y$12$/.8L5APdF59ddw.ifpxXqu.hAreg17C24C8x1Gbp5NvggED3SEfXa', 3, 1, 'User2', NULL, 'User13', '2024-09-24', 'User2@gmail.com', '09574653455', 'Lucy', 32, 67, NULL, NULL, NULL, '2024-09-02 03:38:30', '2024-10-13 21:41:27', NULL, NULL),
-(18, 'User1', '$2y$12$0P2y5jwe0KXBlL8aa9pMLujfEnZBR7BsAaY0gE09mN7ktS9NvDHAW', 3, 1, 'User14', NULL, 'User14', '2024-09-17', 'User1@gmail.com', '09576458344', 'Bonifacio', 32, 32, NULL, NULL, NULL, '2024-09-02 03:39:12', '2024-10-14 00:41:47', NULL, NULL),
+(17, 'User2', '$2y$12$/.8L5APdF59ddw.ifpxXqu.hAreg17C24C8x1Gbp5NvggED3SEfXa', 3, 1, 'User2', NULL, 'User13', '2024-09-24', 'User2@gmail.com', '09574653455', 'Lucy', 32, 67, NULL, NULL, NULL, '2024-09-02 03:38:30', '2024-10-17 02:48:18', NULL, '2024-10-17 02:48:18'),
+(18, 'User1', '$2y$12$0P2y5jwe0KXBlL8aa9pMLujfEnZBR7BsAaY0gE09mN7ktS9NvDHAW', 3, 1, 'User14', NULL, 'User14', '2024-09-17', 'User1@gmail.com', '09576458344', 'Bonifacio', 32, 32, 8, NULL, NULL, '2024-09-02 03:39:12', '2024-10-17 02:54:31', NULL, '2024-10-17 02:54:31'),
 (20, 'Admin', '$2y$12$OeVaNvRzDxhk1cVw6hSRUuE5ncpQJWdWRntR4yvjloik128HZs7SS', 2, 1, 'Trinidad', 'Village', 'Admin', '2024-09-20', 'Admin@gmail.com', '09576857433', 'Acacia', 23, 45, 1, NULL, NULL, '2024-09-02 12:17:22', '2024-10-14 05:29:08', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
 (22, 'HOA President Josuel', '$2y$12$ulYgDxuLSieSvGVDo2BXUO19IUUSeaZ5SIfKoM7889pNuCqdWAquq', 2, 1, 'Josuel', 'Josuel', 'Josuel', '2024-09-23', 'User3@gmail.com', '09867564566', 'Los Angeles', 11, 14, 7, NULL, NULL, '2024-09-03 21:54:45', '2024-10-14 05:42:17', NULL, NULL),
 (23, 'User50', '$2y$12$FvVqXVnTnH01sSoEDcaCT.IF0bi6jEqx8NhtObVV78kEFaAokviQ.', 3, 1, 'User50', NULL, 'User50', '2024-09-12', 'User50@gmail.com', '09876574566', 'Bonifacio', 3, 32, 3, NULL, NULL, '2024-09-27 20:12:54', '2024-10-13 02:34:38', NULL, '2024-10-13 02:34:38'),
@@ -671,13 +687,13 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `bulletin_board`
 --
 ALTER TABLE `bulletin_board`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bulletin_board_category`
 --
 ALTER TABLE `bulletin_board_category`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `facility_reservation`
@@ -701,7 +717,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -761,7 +777,7 @@ ALTER TABLE `subdivision_facility`
 -- AUTO_INCREMENT for table `subdivision_role`
 --
 ALTER TABLE `subdivision_role`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

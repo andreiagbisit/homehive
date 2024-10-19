@@ -99,6 +99,9 @@ class ProfileController extends Controller
         // Save the updated user information
         $user->save();
 
+        // **Refresh the Auth::user() session**
+        Auth::setUser($user);
+
         return Redirect::route('profile.edit')->with('status', 'Profile updated successfully.');
     }
 

@@ -8,6 +8,10 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\AccountManagementController; // Include the AccountManagementController
 use App\Http\Controllers\BulletinBoardCategoryController;
 use App\Http\Controllers\BulletinBoardController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\PasswordResetController;
+
 
 // Home route - redirect to login if not authenticated
 Route::get('/', function () {
@@ -25,14 +29,32 @@ require __DIR__.'/auth.php';
 Route::get('/auth/create-new-acc', [RegisteredUserController::class, 'create'])->name('register'); // For displaying the registration form
 Route::post('/auth/create-new-acc', [RegisteredUserController::class, 'store'])->name('register.store'); // For handling the form submission
 
-// Registration route
+/* Registration route
 Route::get('/auth/create-new-acc', function () {
     return view('auth/create-new-acc');
-})->name('register');
+})->name('register');*/
 
 Route::get('/auth/forgot-password-draft', function () {
     return view('auth/forgot-password-draft');
 })->name('password.request');
+
+// Route to handle the request to send the password reset link
+Route::post('/password/reset-link', [PasswordResetController::class, 'sendResetLink'])->name('password.request.submit');
+
+// Route to show the reset password form (this is the form users see after clicking the link in their email)
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+
+// Route to actually reset the password
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.reset.submit');
+
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['throttle:6,1'])
+    ->name('verification.send');
 
 // Routes for authenticated users
 Route::middleware(['auth', 'verified'])->group(function () {

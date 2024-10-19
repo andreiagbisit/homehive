@@ -69,6 +69,7 @@
                                     <th>Last Name</th>
                                     <th>Birthdate</th>
                                     <th>Email Address</th>
+                                    <th>Email Verified</th>
                                     <th>Contact No.</th>
                                     <th>Street</th>
                                     <th>House Block No.</th>
@@ -93,6 +94,14 @@
                                         <td>{{ $user->lname }}</td>
                                         <td>{{ $user->bdate }}</td>
                                         <td>{{ $user->email }}</td>
+                                                                                <!-- New Email Verified Status Column -->
+                                        <td>
+                                            @if ($user->email_verified_at)
+                                                <span class="badge badge-success">Verified</span>
+                                            @else
+                                                <span class="badge badge-danger">Not Verified</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $user->contact_no }}</td>
                                         <td>{{ $user->street }}</td>
                                         <td>{{ $user->house_blk_no }}</td>
@@ -197,14 +206,53 @@
     <x-script></x-script>
 
     <script>
-            $('#deleteEntryModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);  // Button that triggered the modal
-                var entryUrl = button.data('entry-url');  // Extract the delete URL from data attribute
+    // Existing delete modal logic
+    $('#deleteEntryModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);  // Button that triggered the modal
+        var entryUrl = button.data('entry-url');  // Extract the delete URL from data attribute
 
-                var modal = $(this);
-                modal.find('#delete-entry-form').attr('action', entryUrl);  // Set the form action to the delete URL
-            });
-        </script>
+        var modal = $(this);
+        modal.find('#delete-entry-form').attr('action', entryUrl);  // Set the form action to the delete URL
+    });
+
+    // New verify/unverify logic
+    document.querySelectorAll('.verify-toggle-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var userId = this.getAttribute('data-id');
+            var url = `/users/${userId}/verify`; // Adjust this URL to match your routes
+
+            // Send an AJAX request to toggle verification
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Laravel CSRF token for security
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the button style and text based on the new is_verified status
+                    if (data.is_verified) {
+                        this.classList.remove('btn-danger');
+                        this.classList.add('btn-success');
+                        this.querySelector('.icon i').classList.remove('fa-times');
+                        this.querySelector('.icon i').classList.add('fa-check');
+                        this.querySelector('.text').textContent = 'Verified';
+                    } else {
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-danger');
+                        this.querySelector('.icon i').classList.remove('fa-check');
+                        this.querySelector('.icon i').classList.add('fa-times');
+                        this.querySelector('.text').textContent = 'Unverified';
+                    }
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
 </x-slot>
 
 </x-base>

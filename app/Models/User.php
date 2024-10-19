@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; // Import the SoftDeletes trait
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes; // Use the SoftDeletes trait;
     
@@ -64,4 +65,7 @@ class User extends Authenticatable
         return $this->belongsTo(SubdivisionRole::class, 'subdivision_role_id');
     }
 
+
+    
 }
+

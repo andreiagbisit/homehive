@@ -19,7 +19,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View      
     {
-        return view('auth.register');
+        return view('auth.create-new-acc');
     }
 
     /**
@@ -31,20 +31,20 @@ class RegisteredUserController extends Controller
     {
         // Validate the registration data
         $request->validate([
-            'uname' => ['required', 'string', 'max:255', 'unique:users' . $id],
+            'uname' => ['required', 'string', 'max:255', 'unique:users,uname,NULL,id,deleted_at,NULL'],
             'fname' => ['required', 'string', 'max:255'],
             'mname' => ['nullable', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'bdate' => ['required', 'date'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users' . $id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,NULL,id,deleted_at,NULL'],
             'contact_no' => ['required', 'string', 'max:20'],
             'street' => ['required', 'string', 'max:255'],
             'house_blk_no' => ['required', 'integer'],
             'house_lot_no' => ['required', 'integer'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ], [
-            'uname.unique' => 'Username already taken', // Custom error message for username
-            'email.unique' => 'Email already in use',   // Custom error message for email
+            'uname.unique' => 'Username is already taken', // Custom error message for username
+            'email.unique' => 'Email address is already taken',   // Custom error message for email
         ]);
 
         // Debug request data to ensure 'street' is present
@@ -80,7 +80,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Redirect to the dashboard
-        return redirect()->route('login')->with(
+        return redirect()->route('verification.notice')->with(
             'status', 
             'Registration successful. Please wait for admin verification.'
         );

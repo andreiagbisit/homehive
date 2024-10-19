@@ -19,16 +19,19 @@
                                 Kindly provide your email address in the provided field below and wait for a password reset link to be sent shortly.
                             </p>
                         </div>
-                        <form class="user">
-                            <div class="form-group">
-                                <p id="input-label">Email Address <span style="color: red;">*</span></p>
-                                <input type="email" class="form-control form-control-user" aria-describedby="emailHelp">
-                            </div>
-                            <a href="{{ url('login') }}"
-                                style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
-                                class="btn btn-warning btn-block font-weight-bold">
-                                RESET PASSWORD
-                            </a>
+                        <form method="POST" action="{{ route('password.request.submit') }}" class="user">
+                        @csrf <!-- This is important for security! -->
+
+                        <div class="form-group">
+                            <p id="input-label">Email Address <span style="color: red;">*</span></p>
+                            <input type="email" class="form-control form-control-user" name="email" aria-describedby="emailHelp" required>
+                        </div>
+
+                        <button type="submit"
+                            style="color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" 
+                            class="btn btn-warning btn-block font-weight-bold">
+                            RESET PASSWORD
+                        </button>
                         </form>
                         <hr>
                         <div class="text-center">

@@ -101,8 +101,30 @@ class BulletinBoardCategoryController extends Controller
             ];
         })->toArray(); // Convert to array
     
-        // Pass both $categories and $entries to the view
-        return view('bulletin-board.admin', compact('categories', 'entries'));
+        // Return view for admin
+        return view('bulletin-board.admin', compact('categories', 'entries'))->with('role', 'admin');
+    }
+
+    public function superAdminView()
+    {
+        // Fetch categories and entries as in adminView
+        $categories = BulletinBoardCategory::all();
+        $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
+            return [
+                'title' => $entry->title,
+                'start' => $entry->post_date,
+                'className' => 'event-' . strtolower($entry->category->name),
+                'extendedProps' => [
+                    'category' => $entry->category->name,
+                    'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
+                    'author' => $entry->author ?? 'Unknown',
+                    'description' => $entry->description
+                ]
+            ];
+        })->toArray();
+
+        // Return the same view for super admin but with 'superadmin' flag
+        return view('bulletin-board.admin', compact('categories', 'entries'))->with('role', 'superadmin');
     }
     
 

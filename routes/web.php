@@ -113,6 +113,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/bulletin-board/admin', [BulletinBoardCategoryController::class, 'adminView'])->name('bulletin.board.admin');
 
+    Route::get('/bulletin-board/super-admin', [BulletinBoardCategoryController::class, 'superAdminView'])->name('bulletin.board.superadmin');
+
     Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
 
 
@@ -146,9 +148,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('view-entry/super-admin');
     })->name('view.entry.super.admin');*/
  
-    Route::get('/bulletin-board/super-admin', function () {
+   /*Route::get('/bulletin-board/super-admin', function () {
         return view('bulletin-board/super-admin');
-    })->name('bulletin.board.superadmin');
+    })->name('bulletin.board.superadmin');*/
 
     Route::get('/bulletin-board/edit-entry-super-admin', function () {
         return view('bulletin-board/edit-entry-super-admin');

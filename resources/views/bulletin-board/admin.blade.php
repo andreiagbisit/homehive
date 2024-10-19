@@ -25,6 +25,17 @@
         </x-sidebar-base>
     </x-slot>
 
+    @if ($role === 'superadmin')
+        <h2>Super Admin Bulletin Board</h2>
+        <!-- Show content specific to super admins -->
+    @else
+        <h2>Admin Bulletin Board</h2>
+        <!-- Show content specific to admins -->
+    @endif
+
+    <!-- Reuse the same bulletin board content for both roles -->
+    <!-- ... Include calendar, modal, etc ... -->
+
     <x-slot name="topbar">
         <x-topbar></x-topbar>
     </x-slot>

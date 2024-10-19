@@ -6,7 +6,7 @@
             </x-slot>
         </x-head>
     </x-slot>
-    
+
     <x-slot name="sidebar_base">
         <x-sidebar-base>
             <x-slot name="sidebar_landing_link_admin">
@@ -24,17 +24,6 @@
             <x-slot name="sidebar_content_super_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
-
-    @if ($role === 'superadmin')
-        <h2>Super Admin Bulletin Board</h2>
-        <!-- Show content specific to super admins -->
-    @else
-        <h2>Admin Bulletin Board</h2>
-        <!-- Show content specific to admins -->
-    @endif
-
-    <!-- Reuse the same bulletin board content for both roles -->
-    <!-- ... Include calendar, modal, etc ... -->
 
     <x-slot name="topbar">
         <x-topbar></x-topbar>
@@ -107,49 +96,81 @@
         <x-modal-logout></x-modal-logout>
     </x-slot>
 
-    <!-- Keep this modal content to avoid the Undefined variable error -->
     <x-slot name="modal_change_pw">
-        <!-- Placeholder for modal content -->
         <x-modal-change-pw></x-modal-change-pw>
     </x-slot>
 
     <x-slot name="modal_dashboard_edit">
-        <!-- Placeholder for modal content -->
         <x-modal-dashboard-edit></x-modal-dashboard-edit>
     </x-slot>
 
     <x-slot name="modal_delete_entry">
         <x-modal-delete-entry></x-modal-delete-entry>
     </x-slot>
-<!--
+
     <x-slot name="modal_bulletin_entry">
-        <x-modal-bulletin-entry></x-modal-bulletin-entry>
-    </x-slot>
--->
-       <!-- Event Details Modal (Place this before your script section) -->
-       <x-slot name="modal_bulletin_entry">
         <div class="modal fade" id="bulletinEntryModal" tabindex="-1" role="dialog" aria-labelledby="bulletinEntryModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="color: #000; padding: 20px;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalEventTitle">Event Title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <h6 class="modal-title" id="bulletinEntryModalLabel" style="font-weight: bold;">Bulletin Board - Entry Details</h6>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>Date and Time Published:</strong> <span id="modalDateAndTimePublished"></span></p>
-                        <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
-                        <p><strong>Description:</strong></p>
-                        <p id="modalDescription"></p>
-                        <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+                        <div id="modalContentArea">
+                            <h1 id="modalEventTitle" class="mt-2"></h1>
+                            <div class="info-container">
+                                <!-- Category Box -->
+                                <div class="info-box-category" id="modalCategoryBox">
+                                    <i class="fas fa-tags icon-box-category"></i> 
+                                    <span><strong>Category</strong> <span id="icon-box-divider">|</span></span>&nbsp;
+                                    <span id="modalCategory"></span>
+                                </div>
+
+                                <!-- Published Box -->
+                                <div class="info-box">
+                                    <i class="fas fa-paper-plane icon-box"></i> 
+                                    <span><strong>Published</strong> <span id="icon-box-divider">|</span></span>&nbsp;
+                                    <span id="modalDateAndTimePublished"></span>
+                                </div>
+
+                                <!-- Author Box -->
+                                <div class="info-box">
+                                    <i class="fas fa-user-edit icon-box"></i> 
+                                    <span><strong>Author</strong> <span id="icon-box-divider">|</span></span>&nbsp;
+                                    <span id="modalAuthor"></span>
+                                </div>
+                            </div>
+
+                            <!-- Image Section -->
+                            <div id="modalImageContainer" style="display: none; margin-top: 20px;">
+                                <img id="modalImage" src="" alt="Event Image" class="img-fluid">
+                            </div><br>
+
+                            <!-- Event description -->
+                            <div id="modalDescriptionArea">
+                                <p id="modalDescription"></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <a href="{{ route('bulletin.board.edit.entry') }}" id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</button>
+                        <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
+                        <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
+
+            $('#bulletinEntryModal').on('hidden.bs.modal', function () {
+                $('.modal-backdrop').remove(); // Remove backdrop after closing modal
+            });
+        </script>
     </x-slot>
 
     <x-slot name="modal_bulletin_add">
@@ -162,63 +183,151 @@
     </x-slot>
 
     <x-slot name="script">
-<!-- Load jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Load jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Load Bootstrap JS (for modals) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <!-- Load Bootstrap JS (for modals) -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
-<!-- Load FullCalendar JS -->
-<script src="{{ url('vendor/fullcalendar/main.min.js') }}"></script>
+        <!-- Load FullCalendar JS -->
+        <script src="{{ url('vendor/fullcalendar/main.min.js') }}"></script>
 
-<!-- Load RichTextEditor -->
-<script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
-<script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
+        <!-- Load RichTextEditor -->
+        <script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
+        <script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
 
-<!-- Custom Script for Calendar and Modals -->
+        <!-- FullCalendar - Bulletin Board -->
+        <script>
+            $(document).ready(function () {
+                var calendarEl = document.getElementById('calendarBulletinBoard');
 
-<script>
-$(document).ready(function () {
-    var calendarEl = document.getElementById('calendarBulletinBoard');
+                // Use server-side rendered data (entries) passed from the controller
+                var events = @json($entries);
 
-    // Use server-side rendered data (entries) passed from the controller
-    var events = @json($entries);
+                // Log the dynamic data to check if it's correct
+                console.log(events);
 
-    // Log the dynamic data to check if it's correct
-    console.log(events);
+                // Pass categories from Blade to JavaScript
+                window.bulletinCategories = @json($categories);
 
-    // Initialize FullCalendar with dynamic data
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: ''
-        },
-        events: events,  // Use dynamic events from controller
+                // Create an object to map category names to their hex codes
+                var categoryColors = {};
+                window.bulletinCategories.forEach(function(category) {
+                    categoryColors[category.name] = category.hex_code;
+                });
 
-        // Handle event click
-        eventClick: function(info) {
-            var eventObj = info.event;
-            
-            // Log event for debugging
-            console.log(eventObj);
+                // Apply category colors to events
+                events.forEach(function(event) {
+                    var eventCategory = event.extendedProps.category; // Assuming category is in extendedProps
+                    if (categoryColors[eventCategory]) {
+                        event.backgroundColor = categoryColors[eventCategory]; // Set the background color
+                        event.borderColor = categoryColors[eventCategory];     // Set the border color
+                        event.textColor = '#000000';
+                    }
+                });
 
-            // Handle modal logic or displaying the event details
-            $('#bulletinEntryModal').modal('show'); // Show the modal (assuming Bootstrap is used)
+                // Initialize FullCalendar with dynamic data
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: ''
+                    },
+                    events: events,  // Use dynamic events from controller
 
-            // Populate the modal with event details
-            document.querySelector('#modalEventTitle').innerText = eventObj.title;
-            document.querySelector('#modalDateAndTimePublished').innerText = eventObj.extendedProps.dateAndTimePublished;
-            document.querySelector('#modalAuthor').innerText = eventObj.extendedProps.author;
-            document.querySelector('#modalDescription').innerText = eventObj.extendedProps.description;
-            document.querySelector('#modalCategory').innerText = eventObj.extendedProps.category;
- } });
+                    // Handle event click
+                    eventClick: function(info) {
+                        var eventObj = info.event;
+                        
+                        // Log event for debugging
+                        console.log(eventObj);
 
-    // Render the calendar
-    calendar.render();
-});
-</script>
+                        // Handle modal logic or displaying the event details
+                        $('#bulletinEntryModal').modal('show'); // Show the modal (assuming Bootstrap is used)
 
-</x-slot>
+                        // Populate the modal with event details
+                        document.querySelector('#modalEventTitle').innerText = eventObj.title;
+                        document.querySelector('#modalDateAndTimePublished').innerText = eventObj.extendedProps.dateAndTimePublished;
+                        document.querySelector('#modalAuthor').innerText = eventObj.extendedProps.author;
+                        document.querySelector('#modalDescription').innerText = eventObj.extendedProps.description;
+                        document.querySelector('#modalCategory').innerText = eventObj.extendedProps.category;
+
+                        // Get category name and apply corresponding background color from categoryColors
+                        var categoryName = eventObj.extendedProps.category;
+                        var categoryColor = categoryColors[categoryName]; // Get the hex code for the category
+
+                        // Apply background color to the category box
+                        if (categoryColor) {
+                            document.querySelector('#modalCategoryBox').style.backgroundColor = categoryColor;
+                        }
+
+                        // Here we use innerHTML to ensure that the description renders HTML content
+                        document.querySelector('#modalDescription').innerHTML = eventObj.extendedProps.description || '';
+                }});
+
+                // Render the calendar
+                calendar.render();
+            });
+        </script>
+
+        <script>
+            (function($) {
+                "use strict"; // Start of use strict
+
+                // Toggle the side navigation
+                $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+                    $("body").toggleClass("sidebar-toggled");
+                    $(".sidebar").toggleClass("toggled");
+                    if ($(".sidebar").hasClass("toggled")) {
+                    $('.sidebar .collapse').collapse('hide');
+                    };
+                });
+
+                // Close any open menu accordions when window is resized below 768px
+                $(window).resize(function() {
+                    if ($(window).width() < 768) {
+                    $('.sidebar .collapse').collapse('hide');
+                    };
+                    
+                    // Toggle the side navigation when window is resized below 480px
+                    if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+                    $("body").addClass("sidebar-toggled");
+                    $(".sidebar").addClass("toggled");
+                    $('.sidebar .collapse').collapse('hide');
+                    };
+                });
+
+                // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+                $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+                    if ($(window).width() > 768) {
+                    var e0 = e.originalEvent,
+                        delta = e0.wheelDelta || -e0.detail;
+                    this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                    e.preventDefault();
+                    }
+                });
+
+                // Scroll to top button appear
+                $(document).on('scroll', function() {
+                    var scrollDistance = $(this).scrollTop();
+                    if (scrollDistance > 100) {
+                    $('.scroll-to-top').fadeIn();
+                    } else {
+                    $('.scroll-to-top').fadeOut();
+                    }
+                });
+
+                // Smooth scrolling using jQuery easing
+                $(document).on('click', 'a.scroll-to-top', function(e) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                    scrollTop: ($($anchor.attr('href')).offset().top)
+                    }, 1000, 'easeInOutExpo');
+                    e.preventDefault();
+                });
+
+                })(jQuery); // End of use strict
+        </script>
+    </x-slot>
 </x-base>

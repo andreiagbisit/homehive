@@ -333,3 +333,7 @@
     color: #000;
     padding: 1rem;
 }
+
+.fc-event {
+    font-weight: 500;
+}

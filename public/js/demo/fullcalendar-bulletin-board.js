@@ -43,20 +43,20 @@ $(document).ready(function() {
             var element = info.el;
             var event = info.event;
 
-        // Parse the published date and time into a Date object
-        var publishedDateTime = new Date(event.extendedProps.dateAndTimePublished);
+            // Parse the published date and time into a Date object
+            var publishedDateTime = new Date(event.extendedProps.dateAndTimePublished);
 
-        // Format date and time separately
-        var formattedDate = publishedDateTime.toLocaleDateString('en-US', {
-            dateStyle: 'long'
-        });
+            // Format date and time separately
+            var formattedDate = publishedDateTime.toLocaleDateString('en-US', {
+                dateStyle: 'long'
+            });
 
-        var formattedTime = publishedDateTime.toLocaleTimeString('en-US', {
-            timeStyle: 'short'
-        });
+            var formattedTime = publishedDateTime.toLocaleTimeString('en-US', {
+                timeStyle: 'short'
+            });
 
-        // Concatenate the formatted date and time without "at"
-        var formattedDateTime = `${formattedDate} ${formattedTime}`;
+            // Concatenate the formatted date and time without "at"
+            var formattedDateTime = `${formattedDate} ${formattedTime}`;
 
             // Make the entire event rectangle a clickable link
             element.setAttribute('role', 'button');

@@ -28,4 +28,3 @@
     <script src="{{ url('js/demo/chart-bar-admin-types.js') }}"></script>
     <script src="{{ url('js/demo/datatables.js') }}"></script>
     <script src="{{ url('js/demo/fullcalendar-bulletin-board.js') }}"></script>
-    

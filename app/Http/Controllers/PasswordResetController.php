@@ -18,8 +18,26 @@ class PasswordResetController extends Controller
     {
         // Validate the email
         $request->validate([
-            'email' => 'required|email|exists:users,email',
+            'email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    // Use withTrashed() to include soft-deleted users
+                    $user = \App\Models\User::withTrashed()->where('email', $value)->first();
+        
+                    // If no user exists with this email
+                    if (!$user) {
+                        $fail('This email address does not exist in our system.');
+                    }
+        
+                    // If the user is soft-deleted, fail with a specific message
+                    if ($user && $user->trashed()) {
+                        $fail('This account has been deleted. Please contact support.');
+                    }
+                },
+            ],
         ]);
+        
 
         // Generate a reset token
         $token = Str::random(60);
@@ -48,7 +66,7 @@ class PasswordResetController extends Controller
             $message->subject('Password Reset Request');
         });
 
-        return back()->with('status', 'Password reset link sent to your email!');
+        return back()->with('status', 'Password reset link has been sent to your email.');
     }
 
         public function showResetForm($token)

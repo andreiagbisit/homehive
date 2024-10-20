@@ -22,7 +22,7 @@
 
                         <!-- Entry Date -->
                         <div class="col-lg-3 mb-4">
-                            <h4 id="form-header-h4">Entry Date <span style="color: red;">*</span></h4>
+                            <h4 id="form-header-h4">Event Date <span style="color: red;">*</span></h4>
                             <input style="border-radius: 10rem; padding: 1.5rem 1rem;" type="date" name="post_date" class="form-control form-control-user" required>
                         </div>
 

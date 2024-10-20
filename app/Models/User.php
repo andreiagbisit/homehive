@@ -65,6 +65,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(SubdivisionRole::class, 'subdivision_role_id');
     }
 
+    public function bulletinBoards()
+    {
+        return $this->hasMany(BulletinBoard::class, 'user_id');
+    }
+
+
 
     
 }

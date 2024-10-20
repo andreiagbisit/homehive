@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BulletinBoardCategory;
 use App\Models\BulletinBoardEntry; // Assuming this model handles entries
+use Illuminate\Support\Facades\Auth;
+
 
 
 class BulletinBoardController extends Controller
@@ -13,7 +15,7 @@ class BulletinBoardController extends Controller
     public function index()
     {
         // Fetch entries and map them
-        $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
+        $entries = BulletinBoardEntry::with(['category', 'user'])->get()->map(function ($entry) {
             return [
                 'title' => $entry->title,
                 'start' => $entry->post_date,
@@ -21,14 +23,15 @@ class BulletinBoardController extends Controller
                 'extendedProps' => [
                     'category' => $entry->category->name,
                     'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
-                    'author' => $entry->author ?? 'Unknown',
-                    'description' => $entry->description
+                    'author' => $entry->user ? $entry->user->fname . ' ' . $entry->user->mname . ' ' . $entry->user->lname : 'Unknown',  // Concatenate author name
+                    'description' => $entry->description,
+                    'entryId' => $entry->id, // Ensure the entryId is passed here
                 ]
             ];
         })->toArray();  // Convert to array        
 
            // Check if $entries and $categories are populated
-        dd($entries, $categories);
+        //dd($entries, $categories);
     
         // Pass categories and prepared entries to the view
         $categories = BulletinBoardCategory::all();
@@ -62,8 +65,43 @@ class BulletinBoardController extends Controller
             'title' => $request->input('title'),
             'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
+            'user_id' => Auth::id(),  // Set the user_id of the logged-in user
         ]);
 
         return redirect()->route('bulletin.board.admin')->with('success', 'Entry added successfully!');
     }
+
+    public function edit($id)
+    {
+        $entry = BulletinBoardEntry::findOrFail($id); // Find the entry by ID
+        $categories = BulletinBoardCategory::all(); // Fetch all categories
+
+        return view('bulletin-board.edit-entry-admin', compact('entry', 'categories')); // Pass data to view
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the input data
+        $request->validate([
+            'post_date' => 'required|date',
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:bulletin_board_category,id',
+            'description' => 'required|string',
+        ]);
+
+        // Find the bulletin entry by ID
+        $entry = BulletinBoardEntry::findOrFail($id);
+
+        // Update the entry fields
+        $entry->update([
+            'post_date' => $request->input('post_date'),
+            'title' => $request->input('title'),
+            'category_id' => $request->input('category_id'),
+            'description' => $request->input('description'),
+        ]);
+
+        // Redirect back with success message
+        return redirect()->route('bulletin.board.admin')->with('success', 'Entry updated successfully!');
+    }
+
 }

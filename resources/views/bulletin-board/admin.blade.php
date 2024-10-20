@@ -126,8 +126,8 @@
                                 <div class="info-box-category" id="modalCategoryBox">
                                     <i class="fas fa-tags icon-box-category"></i> 
                                     <span><strong>Category</strong> <span id="icon-box-divider">|</span></span>&nbsp;
-                                    <span id="modalCategory"></span>
-                                </div>
+                                    
+
 
                                 <!-- Published Box -->
                                 <div class="info-box">
@@ -156,8 +156,10 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="justify-content: center;">
-                        <a href="{{ route('bulletin.board.edit.entry') }}" id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</button>
+                        <a id="bulletinEntryModalEdit" href="#" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</a>
+
                         <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
+                        
                         <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
@@ -217,11 +219,18 @@
                 });
 
                 // Apply category colors to events
-                events.forEach(function(event) {
-                    var eventCategory = event.extendedProps.category; // Assuming category is in extendedProps
+                    events.forEach(function(event) {
+                    var eventCategory = event.extendedProps.category ? event.extendedProps.category : 'Uncategorized'; // Fallback to 'Uncategorized'
+                    
+                    // Apply category colors, or set default if category is missing
                     if (categoryColors[eventCategory]) {
                         event.backgroundColor = categoryColors[eventCategory]; // Set the background color
                         event.borderColor = categoryColors[eventCategory];     // Set the border color
+                        event.textColor = '#000000';
+                    } else {
+                        // Optionally, set a default color for 'Uncategorized' events
+                        event.backgroundColor = '#cccccc'; // Light gray or any other fallback color
+                        event.borderColor = '#cccccc';
                         event.textColor = '#000000';
                     }
                 });
@@ -239,9 +248,26 @@
                     // Handle event click
                     eventClick: function(info) {
                         var eventObj = info.event;
-                        
-                        // Log event for debugging
-                        console.log(eventObj);
+
+                            // Log the event object and entryId for debugging
+                        console.log("Event Object:", eventObj);
+                        console.log("Entry ID:", eventObj.extendedProps.entryId);
+
+                        var editButton = document.querySelector('#bulletinEntryModalEdit');
+                                               
+                        if (editButton) {
+                            console.log("Edit Button Found:", editButton);
+                            var entryId = eventObj.extendedProps.entryId;
+                            if (entryId) {
+                                console.log("Setting Edit Button href for Entry ID: ", entryId);
+                                editButton.setAttribute('href', '/bulletin-board/edit-entry-admin/' + entryId);
+                                console.log("New href:", editButton.getAttribute('href'));
+                            } else {
+                                console.error('No entry ID found for this event');
+                            }
+                        }
+
+                        console.log(events);
 
                         // Handle modal logic or displaying the event details
                         $('#bulletinEntryModal').modal('show'); // Show the modal (assuming Bootstrap is used)
@@ -250,8 +276,20 @@
                         document.querySelector('#modalEventTitle').innerText = eventObj.title;
                         document.querySelector('#modalDateAndTimePublished').innerText = eventObj.extendedProps.dateAndTimePublished;
                         document.querySelector('#modalAuthor').innerText = eventObj.extendedProps.author;
-                        document.querySelector('#modalDescription').innerText = eventObj.extendedProps.description;
-                        document.querySelector('#modalCategory').innerText = eventObj.extendedProps.category;
+                        document.querySelector('#modalDescription').innerHTML = eventObj.extendedProps.description || '';
+                        var eventCategory = eventObj.extendedProps.category ? eventObj.extendedProps.category : 'Uncategorized';
+                        document.querySelector('#modalCategory').innerText = eventCategory;
+
+                        var entryId = eventObj.extendedProps.entryId;
+                        if (entryId) {
+                            console.log("Setting Edit Button href for Entry ID: ", entryId);
+                            editButton.setAttribute('href', '/bulletin-board/edit-entry-admin/' + entryId);
+                        } else {
+                            console.error('No entry ID found for this event');
+                        }
+                        
+                        // Set delete button href or data-target for delete modal
+                        // document.querySelector('#bulletinEntryModalDelete').setAttribute('data-target', '#deleteEntryModal-' + entryId);
 
                         // Get category name and apply corresponding background color from categoryColors
                         var categoryName = eventObj.extendedProps.category;

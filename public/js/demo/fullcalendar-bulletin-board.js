@@ -21,7 +21,7 @@ $(document).ready(function() {
         events: [
         ],
 
-        eventClick: function(info) {
+        /*eventClick: function(info) {
             // Access the description from the event's extended properties
             var description = info.event.extendedProps.description;
 
@@ -37,7 +37,7 @@ $(document).ready(function() {
             
             // TinyMCE example:
             // tinymce.get('richTextEditorContainer').setContent(description);
-        },
+        },*/
         
         eventDidMount: function(info) {
             var element = info.el;
@@ -82,6 +82,15 @@ $(document).ready(function() {
                 document.querySelector('#modalAuthor').innerText = event.extendedProps.author;
                 document.querySelector('#modalDescription').innerText = event.extendedProps.description;
                 document.querySelector('#modalCategory').innerText = event.extendedProps.category || event.category;
+
+                    // Get entry ID from the event's extendedProps and set the "Edit Entry" button's href
+                    var entryId = eventObj.extendedProps.entryId; // Ensure the entryId is passed
+                    if (entryId) {
+                        // Set the href attribute for the "Edit Entry" button
+                        document.querySelector('#bulletinEntryModalEdit').setAttribute('href', '/bulletin-board/edit-entry-admin/' + entryId);
+                    } else {
+                        console.error('No entry ID found for this event');
+                    }
 
                 // Set background color for category based on categoryColors
                 var categoryColor = categoryColors[event.extendedProps.category]; // Get category color

@@ -15,4 +15,6 @@ class BulletinBoardCategory extends Model
 
     // Specify which fields are mass assignable
     protected $fillable = ['name', 'hex_code'];
+
+    protected $dates = ['deleted_at'];
 }

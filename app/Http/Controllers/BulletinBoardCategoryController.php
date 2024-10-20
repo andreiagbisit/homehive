@@ -74,12 +74,23 @@ class BulletinBoardCategoryController extends Controller
 
     public function destroy($id)
     {
+        // Find the category to be deleted
         $category = BulletinBoardCategory::findOrFail($id);
-        $category->delete();  // Soft delete the category
-
+    
+        // Find or create the default "Uncategorized" category
+        $defaultCategory = BulletinBoardCategory::firstOrCreate(['name' => 'Uncategorized'], ['hex_code' => '#000000']); // Set a default hex color if needed
+    
+        // Reassign all entries with the current category to the default "Uncategorized" category
+        \App\Models\BulletinBoardEntry::where('category_id', $category->id)
+            ->update(['category_id' => $defaultCategory->id]);
+    
+        // Proceed to delete the category (soft delete if you're using it)
+        $category->delete();
+    
+        // Redirect back with a success message
         return redirect()->route('bulletin.board.manage.categories.admin')
-                        ->with('success', 'Category deleted successfully!');
-    }
+                         ->with('success', 'Category deleted and entries reassigned to "Uncategorized".');
+    }    
 
     public function adminView()
     {
@@ -90,13 +101,14 @@ class BulletinBoardCategoryController extends Controller
         $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
             return [
                 'title' => $entry->title,
-                'start' => $entry->post_date,
-                'className' => 'event-' . strtolower($entry->category->name),
+                'start' => $entry->post_date_for_calendar,
+                'className' => 'event-' . strtolower($entry->category->name ?? 'Uncategorized'),
                 'extendedProps' => [
-                    'category' => $entry->category->name,
+                    'category' => $entry->category->name ?? 'Uncategorized',
                     'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
-                    'author' => $entry->author ?? 'Unknown',
-                    'description' => $entry->description
+                    'author' => $entry->user ? $entry->user->fname . ' ' . $entry->user->lname : 'Unknown', // Fetch the user's full name
+                    'description' => $entry->description,
+                    'entryId' => $entry->id, // Make sure the entryId is passed here
                 ]
             ];
         })->toArray(); // Convert to array
@@ -112,13 +124,14 @@ class BulletinBoardCategoryController extends Controller
         $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
             return [
                 'title' => $entry->title,
-                'start' => $entry->post_date,
-                'className' => 'event-' . strtolower($entry->category->name),
+                'start' => $entry->post_date_for_calendar,
+                'className' => 'event-' . strtolower($entry->category->name ?? 'Uncategorized'),
                 'extendedProps' => [
-                    'category' => $entry->category->name,
+                    'category' => $entry->category->name ?? 'Uncategorized',
                     'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
-                    'author' => $entry->author ?? 'Unknown',
-                    'description' => $entry->description
+                    'author' => $entry->user ? $entry->user->fname . ' ' . $entry->user->lname : 'Unknown', // Fetch the user's full name
+                    'description' => $entry->description,
+                    'entryId' => $entry->id, // Make sure the entryId is passed here
                 ]
             ];
         })->toArray();

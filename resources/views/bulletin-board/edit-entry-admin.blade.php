@@ -52,59 +52,51 @@
                             <p class="mb-4" style="color: #000;">
                                 Please fill in the necessary details provided with the following fields below to publish an entry in the bulletin board. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
+                            
+                            <form action="{{ route('bulletin.board.update.admin', $entry->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
 
                             <div class="col-lg-3 mb-4">
-                                <h4 id="form-header-h4">
-                                    Entry Date <span style="color: red;">*</span>
-                                </h4>
-                                <input style="border-radius: 10rem; padding: 1.5rem 1rem;" type="date" name="new_password" class="form-control form-control-user" value="2024-09-01" required>
+                                <h4 id="form-header-h4">Event Date <span style="color: red;">*</span></h4>
+                                <input style="border-radius: 10rem; padding: 1.5rem 1rem;" 
+                                    type="date" 
+                                    name="post_date" 
+                                    class="form-control form-control-user" 
+                                    value="{{ old('post_date', $entry->post_date ? $entry->post_date->format('Y-m-d') : '') }}" required>
                             </div>
 
                             <div class="col-lg-8 mb-4">
-                                <h4 id="form-header-h4">
-                                    Title <span style="color: red;">*</span>
-                                </h4>
-                                <input style="border-radius: 10rem; padding: 1.5rem 1rem;" type="text" class="form-control form-control-user" value="Plaza Stalls/Lots for Rent" required>
+                                <h4 id="form-header-h4">Title <span style="color: red;">*</span></h4>
+                                <input style="border-radius: 10rem; padding: 1.5rem 1rem;" 
+                                    type="text" 
+                                    class="form-control form-control-user" 
+                                    name="title" 
+                                    value="{{ old('title', $entry->title) }}" required>
                             </div>
 
                             <div class="col-lg-8 mb-4">
-                                <h4 id="form-header-h4">
-                                    Category <span style="color: red;">*</span>
-                                </h4>
-
-                                <div class="form-group form-check">
-                                    <input style="margin-top: 10px;" type="radio" class="form-check-input" name="bulletinCategoryPick" id="bulletinCategoryPick1" checked>
-                                    <label id="checkbox-label" class="form-check-label mb-2">
-                                        <span id="chart-category" class="rounded-label bg-danger text-white">
-                                            Announcement
-                                        </span>
-                                    </label>
-                                    <br>
-
-                                    <input style="margin-top: 10px;" type="radio" class="form-check-input" name="bulletinCategoryPick" id="bulletinCategoryPick2">
-                                    <label id="checkbox-label" class="form-check-label mb-2">
-                                        <span id="chart-category" class="rounded-label bg-success">
-                                            Reminder
-                                        </span>
-                                    </label><br>
-
-                                    <input style="margin-top: 10px;" type="radio" class="form-check-input" name="bulletinCategoryPick" id="bulletinCategoryPick3">
-                                    <label id="checkbox-label" class="form-check-label mb-2">
-                                        <span id="chart-category" class="rounded-label bg-primary text-white">
-                                            Event
-                                        </span>
-                                    </label><br>
-
-                                    <input style="margin-top: 10px;" type="radio" class="form-check-input" name="bulletinCategoryPick" id="bulletinCategoryPick4">
-                                    <label id="checkbox-label" class="form-check-label mb-2">
-                                        <span id="chart-category" class="rounded-label bg-warning">
-                                            Interruption
-                                        </span>
-                                    </label><br>
-                                </div>
+                                <h4 id="form-header-h4">Category <span style="color: red;">*</span></h4>
+                                @foreach ($categories as $category)
+                                    <div class="form-group form-check">
+                                        <input style="margin-top: 10px;" 
+                                            type="radio" 
+                                            class="form-check-input" 
+                                            name="category_id" 
+                                            id="bulletinCategoryPick{{ $category->id }}" 
+                                            value="{{ $category->id }}" 
+                                            {{ $entry->category_id == $category->id ? 'checked' : '' }}>
+                                        <label id="checkbox-label" class="form-check-label mb-2">
+                                            <span id="chart-category" class="rounded-label" 
+                                                style="background-color: {{ $category->hex_code }};">
+                                                {{ $category->name }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
 
-                            <h4 id="form-header-h4" class="pl-2">
+                           <!-- <h4 id="form-header-h4" class="pl-2">
                                 Entry Image
                             </h4>
 
@@ -137,35 +129,40 @@
                                     </span>
                                     <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
                                 </a>
-                            </div>
+                            </div> -->
 
                             <div class="col-lg-20 mb-3 pl-2">
                                 <h4 id="form-header-h4">
                                     Entry Details <span style="color: red;">*</span>
                                 <h4>
-                                <textarea id="richtexteditor" name="content" required></textarea>
-                                <script>
-                                    document.addEventListener("DOMContentLoaded", function() {
-                                        var editor = new RichTextEditor("#richtexteditor");
-                                        editor.setHTML("<p>Are you a local vendor, artisan, or entrepreneur looking for the perfect space to showcase your goods or services? We are excited to announce that stalls and lots are now available for rent at the subdivision’s plaza. This is an excellent opportunity to reach a diverse audience in a bustling, high-traffic area!</p>");
-                                    });
-                                </script>
+                                <!-- Initialize the RichTextEditor on this textarea -->
+                                <textarea id="richtexteditor" name="description" required>{{ old('description', $entry->description) }}</textarea>
                             </div>
                             <hr>
 
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <button type="submit" id="appt-and-res-button-submit" class="user btn btn-warning btn-user btn-block font-weight-bold">
-                                        SAVE CHANGES
-                                    </button>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
-                                        BACK
-                                    </a>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            </div>
+                            @endif
+
+                                <!-- Your form fields go here -->
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <!-- Rename this ID to avoid conflict -->
+                                    <button id="saveChangesButton" type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">SAVE CHANGES</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold">BACK</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -205,6 +202,23 @@
     </x-slot>
 
     <x-slot name="script">
-        <x-script></x-script>
+    <link rel="stylesheet" href="{{ url('vendor/richtexteditor/rte_theme_default.css') }}">
+    <script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
+    <script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize the rich text editor on the textarea
+        var editor = new RichTextEditor("#richtexteditor");
+
+        // Populate the editor with old content or existing content
+        editor.setHTML(`{!! old('description', $entry->description) !!}`);
+
+        // Sync content of the editor with the underlying textarea on form submission
+        document.querySelector('form').addEventListener('submit', function() {
+            var content = editor.getHTML();
+            document.querySelector('textarea[name="description"]').value = content; // Sync the value
+        });
+    });
+    </script>
     </x-slot>
 </x-base>

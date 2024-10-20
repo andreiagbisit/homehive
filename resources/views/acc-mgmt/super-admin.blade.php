@@ -69,7 +69,7 @@
                                     <th>Last Name</th>
                                     <th>Birthdate</th>
                                     <th>Email Address</th>
-                                    <th>Email Verified</th>
+                                    <th>Email Verification</th>
                                     <th>Contact No.</th>
                                     <th>Street</th>
                                     <th>House Block No.</th>

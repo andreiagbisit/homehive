@@ -13,11 +13,28 @@ class BulletinBoardEntry extends Model
     protected $table = 'bulletin_board';
 
     // Define which fields are fillable via mass assignment
-    protected $fillable = ['post_date', 'title', 'category_id', 'description'];
+    protected $fillable = ['post_date', 'title', 'category_id', 'description'    ];
+    
+    protected $casts = [
+        'post_date' => 'datetime',
+    ];
 
     // Define the relationship to the BulletinBoardCategory model
     public function category()
     {
-        return $this->belongsTo(BulletinBoardCategory::class, 'category_id');
+        return $this->belongsTo(BulletinBoardCategory::class, 'category_id')->withTrashed();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getPostDateForCalendarAttribute()
+    {
+        return $this->post_date ? $this->post_date->format('Y-m-d') : null;
+    }
+
+    
+
 }

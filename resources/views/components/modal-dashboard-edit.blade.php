@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button id="bulletinEntryModalEdit" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-5" type="button">SAVE CHANGES</button>
+                <button id="saveChangesButton" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-5" type="button">SAVE CHANGES</button>
                 <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-5" type="button" data-dismiss="modal">CLOSE</button>
             </div>
         </div>

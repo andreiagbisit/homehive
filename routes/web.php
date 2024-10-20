@@ -139,6 +139,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
 
+        // Route to show the edit form
+    Route::get('/bulletin-board/edit-entry-admin/{id}', [BulletinBoardController::class, 'edit'])->name('bulletin.board.edit.entry.admin');
+
+    // Route to handle form submission and update the entry
+    Route::put('/bulletin-board/update-entry-admin/{id}', [BulletinBoardController::class, 'update'])->name('bulletin.board.update.admin');
+
+
 
 
 
@@ -454,9 +461,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/admin');
     })->name('bulletin.board.admin');*/
 
-    Route::get('/bulletin-board/edit-entry-admin', function () {
+    /*Route::get('/bulletin-board/edit-entry-admin', function () {
         return view('bulletin-board/edit-entry-admin');
-    })->name('bulletin.board.edit.entry.admin');
+    })->name('bulletin.board.edit.entry.admin');*/
 
     Route::get('/collection-mgmt/admin', function () {
         return view('collection-mgmt/admin');

@@ -19,7 +19,7 @@
                         Delete Entry
                     </button>
                 </form>
-                <div class="form-group">
+                    <div class="form-group">
                     <button class="btn btn-secondary btn-user btn-block font-weight-bold" type="button" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

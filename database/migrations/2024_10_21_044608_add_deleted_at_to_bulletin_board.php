@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up()
     {
-        // Since the foreign key already exists, no need to add it again
-        // This migration can be left empty or used for other operations
+        Schema::table('bulletin_board', function (Blueprint $table) {
+            if (!Schema::hasColumn('bulletin_board', 'deleted_at')) {
+                $table->softDeletes();  // Adds the `deleted_at` column for soft deletes
+            }
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down()
     {
-        // Only drop the foreign key if needed, but ensure it's not already dropped
         Schema::table('bulletin_board', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+            $table->dropSoftDeletes();  // Removes the `deleted_at` column if the migration is rolled back
         });
     }
 };
+

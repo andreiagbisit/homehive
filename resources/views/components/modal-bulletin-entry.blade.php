@@ -44,20 +44,28 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" style="justify-content: center;">
-                <a id="bulletinEntryModalEdit" href="#" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</a>
-                <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
-                <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
-            </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <a id="bulletinEntryModalEdit" href="#" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</a>
+                    <a href="#" class="bulletinEntryModalDelete" data-entry-id="{{ $entry->id }}" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRYTITI</a>
+                    <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
+                </div>
         </div>
     </div>
 </div>
 
 <script>
-    var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
+        var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
 
-    $('#bulletinEntryModal').on('hidden.bs.modal', function () {
+        $('#bulletinEntryModal').on('hidden.bs.modal', function () { 
         $('.modal-backdrop').remove(); // Remove backdrop after closing modal
+    });
+
+       // When the "Delete Entry" button is clicked in modal-bulletin-entry
+       $('.bulletinEntryModalDelete').on('click', function() {
+        var entryId = $(this).data('entry-id'); // Get the entry ID
+        // Update the form action dynamically in modal-delete-entry
+        var formAction = '/bulletin-board/admin/' + entryId;
+        $('#delete-entry-form').attr('action', formAction);
     });
 </script>
 

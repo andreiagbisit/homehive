@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BulletinBoardEntry extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     // Specify the table if it's different from the model name
     protected $table = 'bulletin_board';
 
     // Define which fields are fillable via mass assignment
-    protected $fillable = ['post_date', 'title', 'category_id', 'description'    ];
+    protected $fillable = ['post_date', 'title', 'category_id', 'description','user_id'];
     
     protected $casts = [
         'post_date' => 'datetime',

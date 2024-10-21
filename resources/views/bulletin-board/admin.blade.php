@@ -44,6 +44,12 @@
                 <span class="text" style="color: #000; font-weight: 500;">Add Entry</span>
             </a>
 
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Content Row -->
             <div class="row">
                 <div class="col-lg-7 mb-2">
@@ -81,7 +87,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
     </x-slot>
 
     <x-slot name="footer">
@@ -109,6 +114,10 @@
     </x-slot>
 
     <x-slot name="modal_bulletin_entry">
+
+        <x-modal-bulletin-add :categories="$categories" />
+        
+        <!-- THIS IS THE MODAL TO SHOW BULLETIN ENTRY DETAILS -->
         <div class="modal fade" id="bulletinEntryModal" tabindex="-1" role="dialog" aria-labelledby="bulletinEntryModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="color: #000; padding: 20px;">
@@ -126,8 +135,8 @@
                                 <div class="info-box-category" id="modalCategoryBox">
                                     <i class="fas fa-tags icon-box-category"></i> 
                                     <span><strong>Category</strong> <span id="icon-box-divider">|</span></span>&nbsp;
-                                    
-
+                                    <span id="modalCategory"></span>
+                                </div>
 
                                 <!-- Published Box -->
                                 <div class="info-box">
@@ -158,42 +167,42 @@
                     <div class="modal-footer" style="justify-content: center;">
                         <a id="bulletinEntryModalEdit" href="#" style="font-weight: bold; color: #000; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-warning btn-user btn-block font-weight-bold col-sm-3">EDIT ENTRY</a>
 
-                        <a href="#" id="bulletinEntryModalDelete" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
+                        <a href="#" id="bulletinEntryModalDelete" data-entry-id="" style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-danger btn-user btn-block font-weight-bold text-white col-sm-3" data-toggle="modal" data-target="#deleteEntryModal">DELETE ENTRY</a>
                         
                         <button style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" class="btn btn-secondary btn-user btn-block font-weight-bold text-white col-sm-3" type="button" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <script>
-            var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
-
-            $('#bulletinEntryModal').on('hidden.bs.modal', function () {
-                $('.modal-backdrop').remove(); // Remove backdrop after closing modal
-            });
-        </script>
+        </div>   
     </x-slot>
 
     <x-slot name="modal_bulletin_add">
-        <x-modal-bulletin-add :categories="$categories" />
     </x-slot>
 
     <x-slot name="modal_appt_and_res_manage">
         <!-- Placeholder for modal content -->
         <x-modal-appt-and-res-manage></x-modal-appt-and-res-manage>
     </x-slot>
-
+    
     <x-slot name="script">
         <!-- Load jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        
         <!-- Load Bootstrap JS (for modals) -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Custom JavaScript to show the modal -->
+        <script>
+            $(document).ready(function() {
+                $('#addEntryButton').click(function() {
+                    $('#bulletinEntryModalAdd').modal('show');
+                });
+            });
+        </script>
+        
         <!-- Load FullCalendar JS -->
         <script src="{{ url('vendor/fullcalendar/main.min.js') }}"></script>
-
+        
         <!-- Load RichTextEditor -->
         <script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
         <script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
@@ -248,6 +257,45 @@
                     // Handle event click
                     eventClick: function(info) {
                         var eventObj = info.event;
+                        var entryId = eventObj.extendedProps.entryId;
+
+                        // Set the entry ID on the Delete button
+                        $('#bulletinEntryModalDelete').attr('data-entry-id', entryId);
+
+                        // Show the modal
+                        $('#bulletinEntryModal').modal('show');
+
+                        $('#bulletinEntryModalDelete').on('click', function () {
+                            var entryId = $(this).data('entry-id'); // Get the entry ID from the button
+
+                            if (entryId) {
+                                console.log("Setting Entry ID:", entryId);
+                                
+                                var formAction = '/bulletin-board/admin/' + entryId; // Create the delete URL
+
+                                // Open the modal
+                                $('#delete-entry-form').attr('action', formAction); // Set the form action
+                            } else {
+                                console.error("Entry ID is missing from event properties");
+                            }
+                        });
+
+                        // Log the event object and entryId for debugging
+                        console.log("Event Object:", eventObj);
+                        console.log("Extended Props:", eventObj.extendedProps);
+
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const modal = document.querySelector('#bulletinEntryModal');
+                            console.log(modal);  // Check if the modal exists in the DOM
+                        });
+
+                        var modalTitleElement = document.querySelector('#modalEventTitle');
+
+                        if (!modalTitleElement) {
+                            console.error("Modal element with ID 'modalEventTitle' not found!");
+                            return;  // Stop execution if the modal element isn't found
+                        }
+                        console.log("Modal Event Title element found, setting content...");
 
                             // Log the event object and entryId for debugging
                         console.log("Event Object:", eventObj);
@@ -273,12 +321,12 @@
                         $('#bulletinEntryModal').modal('show'); // Show the modal (assuming Bootstrap is used)
 
                         // Populate the modal with event details
-                        document.querySelector('#modalEventTitle').innerText = eventObj.title;
+                        document.querySelector('#modalEventTitle').innerText = eventObj.title || 'Unknown';
                         document.querySelector('#modalDateAndTimePublished').innerText = eventObj.extendedProps.dateAndTimePublished;
                         document.querySelector('#modalAuthor').innerText = eventObj.extendedProps.author;
                         document.querySelector('#modalDescription').innerHTML = eventObj.extendedProps.description || '';
                         var eventCategory = eventObj.extendedProps.category ? eventObj.extendedProps.category : 'Uncategorized';
-                        document.querySelector('#modalCategory').innerText = eventCategory;
+                        document.querySelector('#modalCategory').innerText = eventCategory ;
 
                         var entryId = eventObj.extendedProps.entryId;
                         if (entryId) {
@@ -306,6 +354,35 @@
 
                 // Render the calendar
                 calendar.render();
+
+                $('#deleteEntryModal').on('show.bs.modal', function () {
+                    // Ensure delete modal is on top of other modals
+                    var zIndex = 1050 + 10; // Assign a base z-index to delete modal and its backdrop
+                    $(this).css('z-index', zIndex);
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                });
+
+                $('#deleteEntryModal').on('hidden.bs.modal', function () {
+                    // Remove backdrop specific to delete modal
+                    $('.modal-backdrop').not('.modal-stack').removeClass('modal-stack').remove();
+
+                    // Check if any other modals are still open and ensure their backdrop stays
+                    if ($('#bulletinEntryModal').hasClass('show')) {
+                        $('<div class="modal-backdrop fade show"></div>').appendTo(document.body);
+                    }
+                });
+
+                $('#bulletinEntryModal').on('hidden.bs.modal', function () {
+                    // Ensure the backdrop is completely removed when the modal is closed
+                    $('.modal-backdrop').remove();
+                });
+
+                // Adding a similar check for the add modal
+                $('#bulletinEntryModalAdd').on('hidden.bs.modal', function () {
+                    // Ensure that the backdrop is removed when the add entry modal is closed
+                    $('.modal-backdrop').remove();
+                });
+
             });
         </script>
 
@@ -366,6 +443,8 @@
                 });
 
                 })(jQuery); // End of use strict
+                // Update the delete form with the correct entry ID when the delete button is clicked
+
         </script>
     </x-slot>
 </x-base>

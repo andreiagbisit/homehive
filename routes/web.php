@@ -145,6 +145,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route to handle form submission and update the entry
     Route::put('/bulletin-board/update-entry-admin/{id}', [BulletinBoardController::class, 'update'])->name('bulletin.board.update.admin');
 
+    Route::delete('bulletin-board/admin/{id}', [BulletinBoardController::class, 'destroy'])->name('bulletin.board.destroy');
+
 
 
 

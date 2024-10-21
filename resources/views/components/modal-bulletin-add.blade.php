@@ -1,5 +1,5 @@
 @props(['categories'])
-<!-- Bulletin Entry Add Modal -->
+<!-- Bulletin ADD ENTRY MODAL -->
 <div class="modal fade" id="bulletinEntryModalAdd" tabindex="-1" role="dialog" aria-labelledby="bulletinEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="{{ route('bulletin.board.store.entry.admin') }}" method="POST" class="user"> <!-- Ensure route is set for saving the data -->
@@ -34,7 +34,7 @@
 
                         <!-- Category -->
                         <div class="col-lg-8 mb-4">
-                            <h4 id="form-header-h4">Category <span style="color: red;">*</span></h4>
+                            <h4 id="form-header-h4">Category<span style="color: red;">*</span></h4>
                             <div class="form-group form-check">
                                 @foreach ($categories as $category) <!-- Dynamically loop through categories -->
                                     <input style="margin-top: 10px;" type="radio" class="form-check-input" name="category_id" value="{{ $category->id }}" required>
@@ -67,11 +67,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    var currentUserAccountTypeId = {{ Auth::check() ? Auth::User()->account_type_id : 'null' }};
-
-    $('#bulletinEntryModal').on('hidden.bs.modal', function () {
-        $('.modal-backdrop').remove();
-    });
-</script>

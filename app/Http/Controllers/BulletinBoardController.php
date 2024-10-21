@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class BulletinBoardController extends Controller
 {
 
+    
     public function index()
     {
         // Fetch entries and map them
@@ -19,9 +20,9 @@ class BulletinBoardController extends Controller
             return [
                 'title' => $entry->title,
                 'start' => $entry->post_date,
-                'className' => 'event-' . strtolower($entry->category->name),
+                'className' => 'event-' . strtolower($entry->category->name ?? 'Uncategorized'), // Use 'Uncategorized' if category is missing
                 'extendedProps' => [
-                    'category' => $entry->category->name,
+                    'category' => $entry->category ? $entry->category->name : 'Uncategorized',  // Fallback to 'Uncategorized' if no category
                     'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
                     'author' => $entry->user ? $entry->user->fname . ' ' . $entry->user->mname . ' ' . $entry->user->lname : 'Unknown',  // Concatenate author name
                     'description' => $entry->description,
@@ -103,5 +104,15 @@ class BulletinBoardController extends Controller
         // Redirect back with success message
         return redirect()->route('bulletin.board.admin')->with('success', 'Entry updated successfully!');
     }
+
+    public function destroy($id)
+    {
+        // Soft delete the bulletin board entry
+        $bulletinEntry = BulletinBoardEntry::findOrFail($id);
+        $bulletinEntry->delete();
+    
+        return redirect()->route('bulletin.board.admin')->with('success', 'Entry deleted successfully!');
+    }
+    
 
 }

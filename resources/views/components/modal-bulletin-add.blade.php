@@ -1,4 +1,5 @@
 @props(['categories'])
+
 <!-- Bulletin ADD ENTRY MODAL -->
 <div class="modal fade" id="bulletinEntryModalAdd" tabindex="-1" role="dialog" aria-labelledby="bulletinEntryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

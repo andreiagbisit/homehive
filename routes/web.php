@@ -137,6 +137,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/bulletin-board/super-admin', [BulletinBoardCategoryController::class, 'superAdminView'])->name('bulletin.board.superadmin');
 
+    Route::get('/bulletin-board/user', [BulletinBoardCategoryController::class, 'userView'])->name('bulletin.board.user');
+
     Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
 
         // Route to show the edit form
@@ -493,9 +495,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard/user');
     })->name('dashboard.user');
 
-    Route::get('/bulletin-board/user', function () {
+    /*Route::get('/bulletin-board/user', function () {
         return view('bulletin-board/user');
-    })->name('bulletin.board.user');
+    })->name('bulletin.board.user');*/
 
     Route::get('/payment-mgmt/user', function () {
         return view('payment-mgmt/user');

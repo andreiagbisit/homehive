@@ -140,5 +140,32 @@ class BulletinBoardCategoryController extends Controller
         return view('bulletin-board.admin', compact('categories', 'entries'))->with('role', 'superadmin');
     }
     
+    public function userView()
+    {
+        // Fetch categories for the legend or bulletin board
+        $categories = BulletinBoardCategory::all();
+
+        // Fetch bulletin board entries for users, and pass both categories and entries to the view
+        $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
+            return [
+                'title' => $entry->title,
+                'start' => $entry->post_date,
+                'backgroundColor' => $entry->category->hex_code ?? '#cccccc', // Default color if no category
+                'borderColor' => $entry->category->hex_code ?? '#cccccc',
+                'textColor' => '#000000',
+                'className' => 'event-' . strtolower($entry->category->name ?? 'Uncategorized'),
+                'extendedProps' => [
+                    'category' => $entry->category->name ?? 'Uncategorized',
+                    'dateAndTimePublished' => $entry->created_at->format('m-d-Y H:i A'),
+                    'author' => $entry->user ? $entry->user->fname . ' ' . $entry->user->lname : 'Unknown',
+                    'description' => $entry->description,
+                    'entryId' => $entry->id,
+                ]
+            ];
+        })->toArray();
+        
+        // Return view for user
+        return view('bulletin-board.user', compact('categories', 'entries'));
+    }    
 
 }

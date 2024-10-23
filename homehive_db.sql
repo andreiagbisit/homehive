@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 04:25 AM
+-- Generation Time: Oct 23, 2024 at 04:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -54,20 +54,39 @@ CREATE TABLE `bulletin_board` (
   `title` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
   `category_id` tinyint(3) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `post_date` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `bulletin_board`
 --
 
-INSERT INTO `bulletin_board` (`id`, `title`, `description`, `category_id`, `post_date`, `created_at`, `updated_at`) VALUES
-(1, 'Final Defense', '<p>Final Defense</p>', 5, '2024-11-05', '2024-10-17 04:52:24', '2024-10-17 04:52:24'),
-(2, 'Final Defense 2', '<p><ul><li><span style=\"color: rgb(0, 128, 0);\">Final Defense</span></li></ul></p>', 5, '2024-11-06', '2024-10-18 08:44:07', '2024-10-18 08:44:07'),
-(3, 'Christmas Party', '<p><span style=\"color: rgb(255, 0, 0); font-weight: bold;\">Christmas Party</span></p>', 3, '2024-12-20', '2024-10-19 17:45:43', '2024-10-19 17:45:43'),
-(4, 'Christmas Party 2', '<p style=\"text-align: center; \"><span style=\"font-weight: bold; font-style: italic; text-decoration-line: underline; background-color: rgb(255, 153, 0); font-size: 36px; font-family: &quot;Comic Sans MS&quot;;\">Christmas Party</span></p>', 3, '2024-10-15', '2024-10-19 17:48:22', '2024-10-19 17:48:22');
+INSERT INTO `bulletin_board` (`id`, `title`, `description`, `category_id`, `user_id`, `post_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Final Defense', '<p>Final Defense</p>', 12, NULL, '2024-11-05', '2024-10-17 04:52:24', '2024-10-21 07:44:25', '2024-10-21 07:44:25'),
+(2, 'Final Defense 2nd Day', '<div>Final Def</div>', 6, NULL, '2024-11-07', '2024-10-18 08:44:07', '2024-10-21 07:44:21', '2024-10-21 07:44:21'),
+(3, 'Christmas Party', '<p><span style=\"color: rgb(255, 0, 0); font-weight: bold;\">Christmas Party</span></p>', 3, NULL, '2024-12-20', '2024-10-19 17:45:43', '2024-10-19 17:45:43', NULL),
+(4, 'Christmas Party 2', '<span style=\"font-family: &quot;Comic Sans MS&quot;; font-size: 36px; font-style: italic; font-weight: 700; background-color: rgb(255, 153, 0); text-decoration-line: underline;\">Hi</span>', 3, NULL, '2024-10-15', '2024-10-19 17:48:22', '2024-10-21 07:34:11', '2024-10-21 07:34:11'),
+(5, 'Testing', '<p>\r\n\r\n<font size=\"+1\" style=\" font-family: &quot;Times New Roman&quot;; background-color: rgb(253, 253, 255)\"><p>In Britain’s Isle, no matter where,<br />&nbsp; &nbsp; An ancient pile of buildings stands:<br />The Huntingdons and Hattons there<br />&nbsp; &nbsp; Employ’d the power of Fairy hands<br /><br />To raise the ceiling’s fretted height,<br />&nbsp; &nbsp; Each pannel in achievements cloathing,<br />Rich windows that exclude the light,<br />&nbsp; &nbsp; And passages, that lead to nothing.<br /><br />Full oft within the spacious walls,<br />&nbsp; &nbsp; When he had fifty winters o’er him,<br />My grave Lord-Keeper<sup><font size=\"-1\">1</font></sup><span>&nbsp;</span>led the Brawls;<br />&nbsp; &nbsp; The Seal, and Maces, danc’d before him.<br /><br />His bushy beard, and shoe-strings green,<br />&nbsp; &nbsp; His high-crown’d hat, and satin-doublet,<br />Mov’d the stout heart of England’s Queen,<br />&nbsp; &nbsp; Tho’ Pope and Spaniard could not trouble it.<br /><br />What, in the very first beginning!<br />&nbsp; &nbsp; Shame of the versifying tribe!<br />Your Hist’ry whither are you spinning?<br />&nbsp; &nbsp; Can you do nothing but describe?<br /><br />A House there is, (and that’s enough)<br />&nbsp; &nbsp; From whence one fatal morning issues<br />A brace of Warriors, not in buff,<br />&nbsp; &nbsp; But rustling in their silks and tissues.<br /><br />The first came cap-a-pee from France<br />&nbsp; &nbsp; Her conqu’ring destiny fulfilling,<br />Whom meaner beauties eye askance,<br />&nbsp; &nbsp; And vainly ape her art of killing.<br /><br />The other Amazon kind heaven<br />&nbsp; &nbsp; Had armed with spirit, wit, and satire:<br />But C<font size=\"-1\">OBHAM</font><span>&nbsp;</span>had the polish given<br />&nbsp; &nbsp; And tip’d her arrows with good-nature.<br /><br />To celebrate her eyes, her air -<br />&nbsp; &nbsp; Coarse panegyricks would but teaze her.<br />Melissa is her Nom de Guerre.<br />&nbsp; &nbsp; Alas, who would not wish to please her!<br /><br />With bonnet blue and capucine,<br />&nbsp; &nbsp; And aprons long they hid their armour,<br />And veil’d their weapons bright and keen<br />&nbsp; &nbsp; In pity to the country-farmer.<br /><br />Fame, in the shape of Mr. Purt,<br />&nbsp; &nbsp; (By this time all the parish know it)<br />Had told, that thereabouts there lurk’d<br />&nbsp; &nbsp; A wicked Imp they call a Poet,<br /><br />Who prowl’d the country far and near,<br />&nbsp; &nbsp; Bewitch’d the children of the peasants,<br />Dried up the cows, and lam’d the deer,<br />&nbsp; &nbsp; And suck’d the eggs and kill’d the pheasants.<br /><br />My Lady heard their joint petition,<br />&nbsp; &nbsp; Swore by her coronet and ermine,<br />She’d issue out her high commission<br />&nbsp; &nbsp; To rid the manour of such vermin.<br /><br />The Heroines undertook the task,<br />&nbsp; &nbsp; Thro’ lanes unknown, o’er stiles they ventur’d,<br />Rap’d at the door nor stay’d to ask,<br />&nbsp; &nbsp; But bounce into the parlour enter’d.<br /><br />The trembling family they daunt,<br />&nbsp; &nbsp; They flirt, they sing, they laugh, they tattle,<br />Rummage his Mother, pinch his Aunt,<br />&nbsp; &nbsp; And up stairs in a whirlwind rattle.<br /><br />Each hole and cupboard they explore,<br />&nbsp; &nbsp; Each creek and cranny of his chamber,<br />Run hurry-skurry round the floor,<br />&nbsp; &nbsp; And o’er the bed and tester clamber,<br /><br />Into the Drawers and China pry,<br />&nbsp; &nbsp; Papers and books, a huge Imbroglio!<br />Under a tea-cup he might lie,<br />&nbsp; &nbsp; Or creased, like dogs-ears, in a folio.<br /><br />On the first marching of the troops<br />&nbsp; &nbsp; The Muses, hopeless of his pardon,<br />Convey’d him underneath their hoops<br />&nbsp; &nbsp; To a small closet in the garden.<br /><br />So Rumour says. (Who will, believe.)<br />&nbsp; &nbsp; But that they left the door a-jarr,<br />Where, safe and laughing in his sleeve,<br />&nbsp; &nbsp; He heard the distant din of war.<br /><br />Short was his joy. He little knew<br />&nbsp; &nbsp; The power of Magick was no fable.<br />Out of the window, whisk, they flew,<br />&nbsp; &nbsp; But left a spell upon the table.<br /><br />The words too eager to unriddle,<br />&nbsp; &nbsp; The poet felt a strange disorder:<br />Transparent birdlime form’d the middle,<br />&nbsp; &nbsp; And chains invisible the border.<br /><br />So cunning was the Apparatus,<br />&nbsp; &nbsp; The powerful pothooks did so move him,<br />That, will he, nill he, to the Great-house<br />&nbsp; &nbsp; He went, as if the Devil drove him.<br /><br />Yet on his way (no sign of grace,<br />&nbsp; &nbsp; For folks in fear are apt to pray)<br />To Phoebus he prefer’d his case,<br />&nbsp; &nbsp; And begged his aid that dreadful day.<br /><br />The Godhead would have back’d his quarrel,<br />&nbsp; &nbsp; But, with a blush on recollection,<br />Own’d that his quiver and his laurel<br />&nbsp; &nbsp; ’Gainst four such eyes were no protection.<br /><br />The Court was sate, the Culprit there,<br />&nbsp; &nbsp; Forth from their gloomy mansions creeping<br />The Lady<span>&nbsp;</span><i>Janes</i><span>&nbsp;</span>and<span>&nbsp;</span><i>Joans</i><span>&nbsp;</span>repair,<br />&nbsp; &nbsp; And from the gallery stand peeping:<br /><br />Such as in silence of the night<br />&nbsp; &nbsp; Come (sweep) along some winding entry<br />(<i>Styack</i><sup><font size=\"-1\">2</font></sup><span>&nbsp;</span>has often seen the sight)<br />&nbsp; &nbsp; Or at the chappel-door stand sentry;<br /><br />In peaked hoods and mantles tarnish’d,<br />&nbsp; &nbsp; Sour visages, enough to scare ye,<br />High dames of honour once, that garnish’d<br />&nbsp; &nbsp; The drawing-room of fierce Queen Mary.<br /><br />The Peeress comes. The Audience stare,<br />&nbsp; &nbsp; And doff their hats with due submission:<br />She curtsies, as she takes her chair,<br />&nbsp; &nbsp; To all the people of condition.<br /><br />The bard with many an artful fib,<br />&nbsp; &nbsp; Had in imagination fenc’d him,<br />Disproved the arguments of<span>&nbsp;</span><i>Squib</i>,<sup><font size=\"-1\">3</font></sup><br />&nbsp; &nbsp; And all that<span>&nbsp;</span><i>Groom</i><sup><font size=\"-1\">4</font></sup><span>&nbsp;</span>could urge against him.<br /><br />But soon his rhetorick forsook him,<br />&nbsp; &nbsp; When he the solemn hall had seen;<br />A sudden fit of ague shook him,<br />&nbsp; &nbsp; He stood as mute as poor<span>&nbsp;</span><i>Macleane</i>.<sup><font size=\"-1\">5</font></sup><br /><br />Yet something he was heard to mutter,<br />&nbsp; &nbsp; ‘‘How in the park beneath an old-tree<br />(Without design to hurt the butter,<br />&nbsp; &nbsp; Or any malice to the poultry,)<br /><br />‘‘He once or twice had pen’d a sonnet;<br />&nbsp; &nbsp; Yet hop’d that he might save his bacon:<br />Numbers would give their oaths upon it,<br />&nbsp; &nbsp; He ne’er was for a conj’rer taken.’’<br /><br />The ghostly Prudes with hagged face<br />&nbsp; &nbsp; Already had condemn’d the sinner.<br />My Lady rose, and with a grace -<br />&nbsp; &nbsp; She smiled, and bid him come to dinner.<br /><br />‘‘Jesu-Maria! Madam Bridget,<br />&nbsp; &nbsp; Why, what can the Viscountess mean?’’<br />(Cried the square Hoods in woeful fidget)<br />&nbsp; &nbsp; ‘‘The times are altered quite and clean!<br /><br />‘‘Decorum’s turned to mere civility;<br />&nbsp; &nbsp; Her air and all her manners show it.<br />Commend me to her affability!<br />&nbsp; &nbsp; Speak to a Commoner and Poet!’’<br /><br /><em>[Here 500 Stanzas are lost.]</em><br /><br />And so God save our noble King,<br />&nbsp; &nbsp; And guard us from long-winded Lubbers,<br />That to eternity would sing,<br />&nbsp; &nbsp; And keep my Lady from her Rubbers.<br /></p></font><p style=\" font-family: &quot;Times New Roman&quot;; background-color: rgb(253, 253, 255)\"><font size=\"+1\"></font><font color=\"#800000\">Gray’s own notes:</font></p><p style=\" font-family: &quot;Times New Roman&quot;; background-color: rgb(253, 253, 255)\">1. Hatton, prefer’d by Queen Elizabeth for his graceful Person and fine Dancing.<br />2. The House-Keeper.<br />3. Groom of the Chambers.<br />4. The Steward.<br />5. A famous Highwayman hang’d the week before.<br /><br /><br /><br /><br />(The Works of Thomas Gray in Prose and Verse, edited by Edmund Gosse, 4 vols. London, Macmillan and Co., 1912. Vol 1, p 81.)<font color=\"#800000\"><br /><br /></font></p><center style=\" font-family: &quot;Times New Roman&quot;; background-color: rgb(253, 253, 255)\"><font color=\"#800000\">* * *</font></center><font color=\"#800000\" style=\"font-family: &quot;Times New Roman&quot;; background-color: rgb(253, 253, 255)\"><br /><br />How long should a poem be? Gray himself never wrote, or at least never completed, any really large-scale poem, and was conscious of being a writer of short, intense lyrics. In this he was modern: the epics of the classical world, the mediaeval verse romances, the stories of Chaucer, the rambling popular ballads, and the huge narratives of the Renaissance are types of poetry not written any more, but they are what poetry used to be, and in Gray’s<span>&nbsp;</span><i>Long Story</i>, which is of course really a very short story, all of these forms are duly acknowledged.<p>So there is an epic touch, when the Muses spirit the poet away from his Amazonian assault like those guardian deities in Homer who remove their favourite heroes from the battlefield. The protests against the poem, which cause the poet to change tack,</p><blockquote><i>What, in the very first beginning!<br />Shame of the versifying tribe!</i></blockquote>- are like the protests of the Canterbury Pilgrims against Chaucer, which cause him to abandon completely his<span>&nbsp;</span><i>Tale of Sir Thopas</i>. The two Amazons, setting out on their quest in full armour, are mediaeval knights errant, but also remind us of Tasso’s Clorinda. (Gray translated a passage of the<span>&nbsp;</span><i>Gerusalemme Liberata</i><span>&nbsp;</span>into English heroic couplets.) The stanza form of four lines with alternate rhymes reminds us of an anonymous ballad. The very last stanza, with its health to the King,<blockquote><i>And so God save our noble King,<br />&nbsp; &nbsp;And guard us from long-winded Lubbers,<br />That to eternity would sing,<br />&nbsp; &nbsp;And keep my Lady from her Rubbers.</i></blockquote>is a deliberate echo of the ending of<span>&nbsp;</span><i>Chevy Chase</i>,<blockquote><i>God save our king, and bless this land<br />&nbsp; &nbsp; With plenty, joy, and peace,<br />And grant henceforth that foul debate<br />&nbsp; &nbsp; Twixt noble men may cease.</i></blockquote></font>\r\n<br /></p>', 3, NULL, '2024-10-21', '2024-10-19 19:13:17', '2024-10-19 19:13:17', NULL),
+(6, 'testing 2', '<p>hello</p>', 4, NULL, '2024-10-21', '2024-10-19 19:14:39', '2024-10-19 19:14:39', NULL),
+(7, 'Testing 3', '<p>oki</p>', 3, NULL, '2024-10-21', '2024-10-19 20:34:00', '2024-10-20 06:05:31', NULL),
+(8, 'Test 34', '<p>hi</p>', 3, 20, '2024-10-21', '2024-10-19 20:39:51', '2024-10-19 20:39:51', NULL),
+(9, 'Hello', '<p>Okay</p>', 3, 20, '2024-10-22', '2024-10-19 20:46:41', '2024-10-21 07:34:00', '2024-10-21 07:34:00'),
+(10, 'Title 1', '<p>dadadw</p>', 3, 20, '2024-10-22', '2024-10-20 00:36:41', '2024-10-20 00:36:41', NULL),
+(11, 'hello', '<p>okay</p>', 3, 20, '2024-11-30', '2024-10-20 00:48:02', '2024-10-21 07:47:12', '2024-10-21 07:47:12'),
+(12, 'Test', '<p>Test</p>', 3, NULL, '2024-10-23', '2024-10-20 22:02:39', '2024-10-22 00:12:57', '2024-10-22 00:12:57'),
+(13, 'Testing Again', '<p>Okay</p>', 6, NULL, '2024-10-24', '2024-10-20 22:11:24', '2024-10-20 22:11:24', NULL),
+(14, 'Test 3', '<p>Hello</p>', 8, NULL, '2024-10-23', '2024-10-20 22:21:44', '2024-10-21 05:39:11', NULL),
+(15, 'Maybe Test', '<p>maybe</p>', 3, 20, '2024-10-23', '2024-10-20 22:38:18', '2024-10-20 22:38:18', NULL),
+(16, 'New Test', '<p>New Test</p>', 3, 20, '2024-10-24', '2024-10-20 23:03:25', '2024-10-20 23:03:25', NULL),
+(17, 'party', '<p>party</p>', 3, 20, '2024-10-23', '2024-10-20 23:28:46', '2024-10-20 23:28:46', NULL),
+(18, 'Another Test', '<p>Another Test<br /></p>', 3, 20, '2024-10-23', '2024-10-20 23:48:42', '2024-10-20 23:48:42', NULL),
+(19, 'Hello', '<p>Okay</p>', 6, 20, '2024-10-10', '2024-10-21 07:39:59', '2024-10-21 07:44:18', '2024-10-21 07:44:18'),
+(20, 'Another Test', '<p>Another Test</p>', 16, 20, '2024-10-24', '2024-10-22 02:23:45', '2024-10-22 02:23:45', NULL),
+(21, 'Test Christmas Party', '<p>Test Christmas Party<br /></p>', 3, 20, '2024-10-25', '2024-10-22 17:44:50', '2024-10-22 17:44:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -92,8 +111,22 @@ INSERT INTO `bulletin_board_category` (`id`, `name`, `hex_code`, `created_at`, `
 (1, 'Test Category 2', '#ffffff', '2024-10-14 07:14:42', '2024-10-17 00:38:53', '2024-10-17 00:38:53'),
 (2, 'Test Category Hello', '#000000', '2024-10-17 00:39:11', '2024-10-17 02:49:32', '2024-10-17 02:49:32'),
 (3, 'Christmas Party', '#ff0000', '2024-10-17 02:59:37', '2024-10-18 21:50:24', NULL),
-(4, 'Thanksgiving', '#000000', '2024-10-17 03:00:04', '2024-10-17 03:09:34', NULL),
-(5, 'Final Defense', '#00eb2f', '2024-10-17 03:54:37', '2024-10-17 03:54:37', NULL);
+(4, 'New Year', '#000000', '2024-10-17 03:00:04', '2024-10-20 23:00:06', NULL),
+(5, 'Final Defense', '#00eb2f', '2024-10-17 03:54:37', '2024-10-20 03:51:35', '2024-10-20 03:51:35'),
+(6, 'Maintenance', '#0008ff', '2024-10-20 20:37:03', '2024-10-20 20:37:03', NULL),
+(7, 'Test Category', '#00ff11', '2024-10-21 05:21:52', '2024-10-21 05:21:56', '2024-10-21 05:21:56'),
+(8, 'Uncategorized', '#000000', '2024-10-21 05:21:56', '2024-10-21 05:39:11', '2024-10-21 05:39:11'),
+(9, 'What If Category', '#ff0000', '2024-10-21 05:39:30', '2024-10-21 05:39:33', '2024-10-21 05:39:33'),
+(10, 'Uncategorized', '#000000', '2024-10-21 05:39:33', '2024-10-21 05:39:41', '2024-10-21 05:39:41'),
+(11, 'Test Category Hello', '#ff00f7', '2024-10-21 07:35:07', '2024-10-21 07:35:10', '2024-10-21 07:35:10'),
+(12, 'Uncategorized', '#000000', '2024-10-21 07:35:10', '2024-10-21 07:35:33', '2024-10-21 07:35:33'),
+(13, 'Test Category Hello', '#2bff00', '2024-10-21 07:46:36', '2024-10-21 07:46:39', '2024-10-21 07:46:39'),
+(14, 'Uncategorized', '#000000', '2024-10-21 07:46:39', '2024-10-21 07:46:50', '2024-10-21 07:46:50'),
+(15, 'Test Category', '#00ff11', '2024-10-21 07:48:35', '2024-10-21 07:48:35', NULL),
+(16, 'Another Category', '#00fbff', '2024-10-22 02:23:25', '2024-10-22 02:23:25', NULL),
+(17, 'Will Delete', '#e100ff', '2024-10-22 02:25:13', '2024-10-22 02:25:53', '2024-10-22 02:25:53'),
+(18, 'Hello', '#000000', '2024-10-22 02:25:53', '2024-10-22 02:31:57', '2024-10-22 02:31:57'),
+(19, 'Uncategorized', '#000000', '2024-10-22 02:31:57', '2024-10-22 02:33:04', '2024-10-22 02:33:04');
 
 -- --------------------------------------------------------
 
@@ -106,14 +139,6 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cache`
---
-
-INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('bc33ea4e26e5e1af1408321416956113a4658763', 'i:1;', 1729329863),
-('bc33ea4e26e5e1af1408321416956113a4658763:timer', 'i:1729329863;', 1729329863);
 
 -- --------------------------------------------------------
 
@@ -244,7 +269,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (67, '2024_10_14_144949_add_hex_code_to_bulletin_board_category', 7),
 (68, '2024_10_17_081744_add_deleted_at_to_bulletin_board_category_table', 8),
 (69, '2024_10_19_094053_create_password_resets_table', 9),
-(70, '2024_10_20_022343_modify_description_column_in_bulletin_board_table', 10);
+(70, '2024_10_20_022343_modify_description_column_in_bulletin_board_table', 10),
+(71, '2024_10_20_033339_add_user_id_to_bulletin_board_table', 11),
+(72, '2024_10_20_040224_update_bulletin_board_table', 12),
+(73, '2024_10_21_044608_add_deleted_at_to_bulletin_board', 12);
 
 -- --------------------------------------------------------
 
@@ -273,6 +301,16 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('homehivesystem@gmail.com', 'FdocX4aWxgJG0FOs04ZVR4fkXaNTgFWEqxDleLAoMORdtqYamdw1jGnBvxcB', '2024-10-21 23:32:47'),
+('User1@gmail.com', 'k2vr9XzaMpcpFYRAzYfv2sUEtPZyiCqrZku2jrtqxmstyGQAEg67jVCWa8EW', '2024-10-19 18:47:40'),
+('SuperAdmin@gmail.com', 'XjW3xBEGtf3KKX0lmcNU9IHCj8eoGXW6WozF623A2llY6YWk0Ku5VQKoKUGx', '2024-10-19 18:54:41'),
+('Panel1Admin@gmail.com', 'kbM3162h0gEkhej2VupqsSPv2Sbh3wddtwiY3ozXIdRTtZAtf7C0iOtsH9jr', '2024-10-19 18:55:14');
 
 -- --------------------------------------------------------
 
@@ -407,7 +445,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('jAUiYT1jW4niBpmdh2BCNiOF7qV9mmaIh764x9sr', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieldXd3Rnd0pWcHVaY1YyRWx5Z21tNllGWERrRGdoUzRiNVFvS1J3VyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC9hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIwO30=', 1729390667);
+('8I8GdSlKytiiLYvl126TEtpKa32K7h9NHbzDiH3u', 20, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieHd4R29heVhYT0FYSkVLeEVZeDhQWUp1ZDlxRHAyNDRQYlo3YzlJWCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9maWxlL2VkaXQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyMDt9', 1729650359),
+('u2HkD7PNKTOa4C6fqkVvOVrwkEqrqOL4lzHv4lHd', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiakdUdk5QVXRxeFJpb1BVemJEeHVxeWFNdzR1VkhMWE50SVZHellCVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1729647855),
+('UFKEMcRPB2biq3g8zXrgmFI9rbkuyDObyN2QqXKa', 27, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiclo4V0N6cVdieFlzYUZvM0xzRmU1dHFabm5iSEdJRndEdmRaVEpMWCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9idWxsZXRpbi1ib2FyZC91c2VyIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjc7fQ==', 1729648979);
 
 -- --------------------------------------------------------
 
@@ -485,9 +525,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `is_verified`, `fname`, `mname`, `lname`, `bdate`, `email`, `contact_no`, `street`, `house_blk_no`, `house_lot_no`, `subdivision_role_id`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `profile_picture`, `deleted_at`) VALUES
 (6, 'SuperAdmin', '$2y$12$/.PuSnnydoipKbH4wDMV9ePwiUS7Nb7Q.6qrZ.Yskc.C2SB2VCyFO', 1, 1, 'Super', 'Homehive', 'Admin', '2024-09-17', 'SuperAdmin@gmail.com', '09576458344', 'Acacia', 23, 32, 6, '2024-10-19 07:55:45', NULL, '2024-09-02 09:47:30', '2024-10-13 03:39:45', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/1727510961_steph.jpg', NULL),
-(7, 'Panel 1 Admin', '$2y$12$vwtdh6uD7ZRUzpd0.JbVauB7e3bH4T1ZsXzgww87gRbsYSq0cDr/m', 2, 1, 'Daisy', 'Yap', 'Admin', '2024-09-10', 'Panel1Admin@gmail.com', '09857456755', 'Sesame', 22, 22, 5, '2024-10-19 07:55:45', NULL, '2024-09-02 01:48:32', '2024-10-16 23:35:04', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
+(7, 'Panel 1 Admin', '$2y$12$vwtdh6uD7ZRUzpd0.JbVauB7e3bH4T1ZsXzgww87gRbsYSq0cDr/m', 2, 1, 'Daisy', 'Yap', 'Admin', '2024-09-10', 'Panel1Admin@gmail.com', '09857456755', 'Sesame', 22, 22, 5, '2024-10-19 07:55:45', NULL, '2024-09-02 01:48:32', '2024-10-19 22:22:47', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
 (8, 'Panel 2 Admin', '$2y$12$DupB3AqYdi/xegtyeTD9rOKq/RKKYRuuX4m7J.cZNHoL9DzEvjcXe', 2, 1, 'Joey', 'Aviles', 'Admin', '2024-09-24', 'Panel2Admin@gmail.com', '09867564566', 'Acacia', 23, 42, 4, '2024-10-19 07:55:45', NULL, '2024-09-02 01:49:07', '2024-10-14 01:19:26', NULL, NULL),
-(11, 'Panel 1 Resident', '$2y$12$Mt3xKO7fSV.KiGU8qCVnNOzydpxE38iqJupIBl18Entq1lxaZ06I6', 2, 1, 'Daisy', 'Yap', 'Resident', '2024-09-20', 'Panel1Resident@gmail.com', '09576857433', 'Sesame', 3, 23, 2, '2024-10-19 07:55:45', NULL, '2024-09-02 02:31:25', '2024-10-14 01:25:58', NULL, NULL),
+(11, 'Panel 1 Resident', '$2y$12$Mt3xKO7fSV.KiGU8qCVnNOzydpxE38iqJupIBl18Entq1lxaZ06I6', 2, 1, 'Daisy', 'Yap', 'Resident', '2024-09-20', 'Panel1Resident@gmail.com', '09576857433', 'Sesame', 3, 23, 2, '2024-10-19 07:55:45', NULL, '2024-09-02 02:31:25', '2024-10-19 22:22:46', NULL, NULL),
 (12, 'User45', '$2y$12$TUSI95Ud14EtWuQqen4gCexfwuyF1zo73SLiu.77ffPfw7isPJX4u', 3, 1, 'User45', NULL, 'User45', '2024-09-24', 'User45@gmail.com', '09576458344', 'Acacia', 32, 3, NULL, NULL, NULL, '2024-09-02 03:04:05', '2024-10-13 02:29:14', NULL, '2024-10-13 02:29:14'),
 (13, 'User100', '$2y$12$6gFO5BXvZR2n1g28gmZJH.PyDzFox/3l6qCevw1rv4.2yc5M80aaK', 3, 1, 'User100', NULL, 'User100', '2024-09-19', 'User100@gmail.com', '09576857433', 'Santol', 45, 63, NULL, NULL, NULL, '2024-09-02 03:08:05', '2024-10-13 02:24:23', NULL, '2024-10-13 02:24:23'),
 (14, 'User56', '$2y$12$WPU.SwTrL/jbnTIdy9vGB.BHNvGz/eBiGRUE217lB4a7Y65yvYoNu', 3, 1, 'User45', 'User45', 'User45', '2024-10-01', 'User54@gmail.com', '09876574566', 'Rizal', 3, 6, NULL, NULL, NULL, '2024-09-02 03:15:41', '2024-10-13 02:34:09', NULL, '2024-10-13 02:34:09'),
@@ -495,7 +535,7 @@ INSERT INTO `users` (`id`, `uname`, `password`, `account_type_id`, `is_verified`
 (16, 'User1', '$2y$12$siYUNwr7iols/841pnMS/OPhWBjakbsINhoru.1WASjyrTN.lU82K', 3, 1, 'User1', 'User12', 'User12', '2024-09-09', 'User1@gmail.com', '09867564566', 'Santol', 4, 78, NULL, NULL, NULL, '2024-09-02 03:37:32', '2024-10-13 23:42:38', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', '2024-10-13 23:42:38'),
 (17, 'User2', '$2y$12$/.8L5APdF59ddw.ifpxXqu.hAreg17C24C8x1Gbp5NvggED3SEfXa', 3, 1, 'User2', NULL, 'User13', '2024-09-24', 'User2@gmail.com', '09574653455', 'Lucy', 32, 67, NULL, NULL, NULL, '2024-09-02 03:38:30', '2024-10-17 02:48:18', NULL, '2024-10-17 02:48:18'),
 (18, 'User1', '$2y$12$0P2y5jwe0KXBlL8aa9pMLujfEnZBR7BsAaY0gE09mN7ktS9NvDHAW', 3, 1, 'User14', NULL, 'User14', '2024-09-17', 'User1@gmail.com', '09576458344', 'Bonifacio', 32, 32, 8, NULL, NULL, '2024-09-02 03:39:12', '2024-10-17 02:54:31', NULL, '2024-10-17 02:54:31'),
-(20, 'Admin', '$2y$12$OeVaNvRzDxhk1cVw6hSRUuE5ncpQJWdWRntR4yvjloik128HZs7SS', 2, 1, 'Trinidad', 'Village', 'Admin', '2024-09-20', 'Admin@gmail.com', '09576857433', 'Acacia', 23, 45, 1, '2024-10-19 07:55:45', NULL, '2024-09-02 12:17:22', '2024-10-19 17:44:33', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
+(20, 'User50', '$2y$12$OeVaNvRzDxhk1cVw6hSRUuE5ncpQJWdWRntR4yvjloik128HZs7SS', 2, 1, 'Trinidad', 'Village', 'Admin', '2024-09-20', 'Admin@gmail.com', '09576857433', 'Acacia', 23, 45, 1, '2024-10-19 07:55:45', NULL, '2024-09-02 12:17:22', '2024-10-22 18:25:58', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png', NULL),
 (22, 'HOA President Josuel', '$2y$12$ulYgDxuLSieSvGVDo2BXUO19IUUSeaZ5SIfKoM7889pNuCqdWAquq', 2, 1, 'Josuel', 'Josuel', 'Josuel', '2024-09-23', 'User3@gmail.com', '09867564566', 'Los Angeles', 11, 14, 7, '2024-10-19 07:55:45', NULL, '2024-09-03 21:54:45', '2024-10-14 05:42:17', NULL, NULL),
 (23, 'User50', '$2y$12$FvVqXVnTnH01sSoEDcaCT.IF0bi6jEqx8NhtObVV78kEFaAokviQ.', 3, 1, 'User50', NULL, 'User50', '2024-09-12', 'User50@gmail.com', '09876574566', 'Bonifacio', 3, 32, 3, NULL, NULL, '2024-09-27 20:12:54', '2024-10-13 02:34:38', NULL, '2024-10-13 02:34:38'),
 (24, 'Steak and Frice Resident', '$2y$12$3pedxkURd1XLHZxATaX2OO8TzWU10M6.ZzZat1H.EbCIQuHYGIaiW', 3, 1, 'Unverified', NULL, 'User', '2024-10-15', 'UnverifiedUser@gmail.com', '09576458344', 'Bonifacio', 4, 32, NULL, '2024-10-19 07:55:45', NULL, '2024-10-12 19:32:50', '2024-10-19 00:45:20', 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/1728793967_unnamed.png', NULL),
@@ -541,7 +581,8 @@ ALTER TABLE `account_type`
 --
 ALTER TABLE `bulletin_board`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `bulletin_board_category_id_foreign` (`category_id`);
+  ADD KEY `bulletin_board_category_id_foreign` (`category_id`),
+  ADD KEY `bulletin_board_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `bulletin_board_category`
@@ -719,13 +760,13 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `bulletin_board`
 --
 ALTER TABLE `bulletin_board`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `bulletin_board_category`
 --
 ALTER TABLE `bulletin_board_category`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `facility_reservation`
@@ -749,7 +790,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -831,7 +872,8 @@ ALTER TABLE `vehicle_sticker_application`
 -- Constraints for table `bulletin_board`
 --
 ALTER TABLE `bulletin_board`
-  ADD CONSTRAINT `bulletin_board_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `bulletin_board_category` (`id`);
+  ADD CONSTRAINT `bulletin_board_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `bulletin_board_category` (`id`),
+  ADD CONSTRAINT `bulletin_board_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `facility_reservation`

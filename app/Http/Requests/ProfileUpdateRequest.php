@@ -25,12 +25,12 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'max:255', Rule::unique('users', 'uname')->ignore($this->user()->id),],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users', 'uname')->ignore($this->user()->id)->whereNull('deleted_at')],
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)->whereNull('deleted_at')],
             'contact_no' => ['required', 'string', 'max:20'],
             'street' => ['required', 'string', 'max:255'],
             'block_no' => ['required', 'integer'],

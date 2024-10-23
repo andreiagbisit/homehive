@@ -66,13 +66,13 @@ class ProfileController extends Controller
 
         // Validate input with unique constraints for username and email
         $request->validate([
-            'username' => 'nullable|string|max:255|unique:users,uname,' . $user->id,
-            'email' => 'nullable|string|email|max:255|unique:users,email,' . $user->id,
+            'username' => 'nullable|string|max:255|unique:users,uname,' . $user->id . ',id,deleted_at,NULL',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $user->id . ',id,deleted_at,NULL',
         ], [
             'username.unique' => 'The username has already been taken.',  // Custom message
             'email.unique' => 'The email has already been taken.',       // Custom message
         ]);
-        
+          
 
         // Update profile fields (other details)
         $user->uname = $request->input('username') ?? $user->uname;

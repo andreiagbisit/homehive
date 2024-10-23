@@ -139,6 +139,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/bulletin-board/user', [BulletinBoardCategoryController::class, 'userView'])->name('bulletin.board.user');
 
+    // Redirection of email links from bulletin board entries notification
+    Route::get('/bulletin-board', function () {
+        $user = Auth::user();
+        if ($user->account_type_id == 1) {
+            return redirect()->route('bulletin.board.superadmin');
+        } elseif ($user->account_type_id == 2) {
+            return redirect()->route('bulletin.board.admin');
+        } else {
+            return redirect()->route('bulletin.board.user');
+        }
+    })->middleware('auth')->name('bulletin.board');    
+
     Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
 
         // Route to show the edit form
@@ -394,7 +406,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('appt.and.res.manage.settings.sticker.appt.superadmin');
 
     Route::get('/appt-and-res/manage-settings-sticker-appt-admin', function () {
-        return view('appt-and-res/manage-rusettingsles-sticker-appt-admin');
+        return view('appt-and-res/manage-settings-sticker-appt-admin');
     })->name('appt.and.res.manage.settings.sticker.appt.admin');
 
     // For Collection Management SuperAdmin/Admin View & Edit
@@ -485,8 +497,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/manage-facility-reservations-admin');
     })->name('manage.facility.reservations.admin');
 
-    Route::get('/manage-vehicle-sticker-applications-admin', function () {
-        return view('manage-vehicle-sticker-applications-admin');
+    Route::get('/appt-and-res/manage-vehicle-sticker-applications-admin', function () {
+        return view('appt-and-res/manage-vehicle-sticker-applications-admin');
     })->name('manage.vehicle.sticker.applications.admin');
 
 

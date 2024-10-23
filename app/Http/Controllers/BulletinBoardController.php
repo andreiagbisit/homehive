@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BulletinBoardCategory;
 use App\Models\BulletinBoardEntry; // Assuming this model handles entries
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
+use App\Mail\BulletinBoardNotification;
 
 
 class BulletinBoardController extends Controller
@@ -61,7 +63,7 @@ class BulletinBoardController extends Controller
         ]);
 
         // Create a new bulletin board entry
-        BulletinBoardEntry::create([
+        $bulletinEntry = BulletinBoardEntry::create([
             'post_date' => $request->input('post_date'),
             'title' => $request->input('title'),
             'category_id' => $request->input('category_id'),
@@ -69,7 +71,13 @@ class BulletinBoardController extends Controller
             'user_id' => Auth::id(),  // Set the user_id of the logged-in user
         ]);
 
-        return redirect()->route('bulletin.board.admin')->with('success', 'Entry added successfully!');
+         // Send email notification to all users
+        $users = User::all(); // Optionally filter active users or specific user types
+        foreach ($users as $user) {
+        Mail::to($user->email)->queue(new BulletinBoardNotification($bulletinEntry));
+        }
+
+        return redirect()->route('bulletin.board.admin')->with('success', 'Entry added successfully and notifications sent!');
     }
 
     public function edit($id)

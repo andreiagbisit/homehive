@@ -67,45 +67,6 @@
                                     </div><hr>
 
                                     <h4 id="form-header-h4" class="pl-2 mt-4">
-                                        Entry Image <span style="color: red;">*</span>
-                                    </h4><br>
-
-                                    <div class="form-group text-center">
-                                        <!-- Only one profile picture display -->
-                                        <img class="img-circle profile-avatar border border border-secondary rounded-circle mb-1" 
-                                            src="{{ url('/img/pfp_2.png') }}" 
-                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br><br>
-                                             <span id="media-upload-info">
-                                                <i class="fas fa-image pr-2"></i> pfp_2.png | 169 KB
-                                            </span><br><br>
-                                        <p id="page-desc">
-                                            * The image's resolution must at least be <b>232x232</b>.<br>
-                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
-                                            <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
-                                        </p>
-
-                                        <!-- File input for profile picture -->
-                                        <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png">
-                                        <label class="btn btn-warning btn-icon-split" for="input-file">
-                                            <span class="icon text-white-50">
-                                                    <i class="fas fa-file-upload"></i>
-                                            </span>
-                                            
-                                            <span class="text" style="color: #000; font-weight: 500;">
-                                                Upload New Image
-                                            </span>
-                                        </label><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
-                                        </a>
-                                    </div>
-                                    <hr>
-
-                                    <h4 id="form-header-h4" class="pl-2 mt-4">
                                         GCash QR Code <span style="color: red;">*</span>
                                     </h4><br>
 
@@ -141,6 +102,49 @@
                                         </a>
                                     </div>
                                     <hr>
+                                    
+                                    <!--
+                                    <h4 id="form-header-h4" class="pl-2 mt-4">
+                                        Entry Image <span style="color: red;">*</span>
+                                    </h4><br> -->
+                                    
+                                    <!--
+                                    <div class="form-group text-center"> -->
+                                         <!--Only one profile picture display -->
+                                        <!-- <img class="img-circle profile-avatar border border border-secondary rounded-circle mb-1" 
+                                            src="{{ url('/img/pfp_2.png') }}" 
+                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br><br>
+                                             <span id="media-upload-info">
+                                                <i class="fas fa-image pr-2"></i> pfp_2.png | 169 KB
+                                            </span><br><br> --> 
+                                       <!-- <p id="page-desc">
+                                            * The image's resolution must at least be <b>232x232</b>.<br>
+                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
+                                            <b>Maximum image size:</b> <b class="text-danger">20 MB</b> --> 
+                                       <!-- </p> --> 
+
+                                        <!-- File input for profile picture -->
+                                         <!--
+                                        <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png">
+                                        <label class="btn btn-warning btn-icon-split" for="input-file">
+                                            <span class="icon text-white-50">
+                                                    <i class="fas fa-file-upload"></i>
+                                            </span>
+                                            
+                                            <span class="text" style="color: #000; font-weight: 500;">
+                                                Upload New Image
+                                            </span>
+                                        </label><br>
+
+                                        <a href="#" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </span>
+                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
+                                        </a>
+                                    </div> 
+                                    
+                                    <hr> -->
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color Code (for Dashboard) <span style="color: red;">*</span>

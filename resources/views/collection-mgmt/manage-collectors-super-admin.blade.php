@@ -36,7 +36,8 @@
                 <h1 id="header-h1">Manage GCash Collectors</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ route('collection.mgmt.add.collector.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.add.collector.superadmin') : route('collection.mgmt.add.collector.admin') }}" 
+                        class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>
@@ -45,6 +46,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+            </div>
+             @endif
+             
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -57,137 +64,48 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Collector Name</th>
-                                    <th>Profile Picture</th>
                                     <th>GCash No.</th>
                                     <th>GCash QR Code</th>
-                                    <th>Color Hex</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td><img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_2.png') }}"></td>
-                                    <td>09102345678</td>
-                                    <td><img id="qr-code-container" src="{{ url('/img/gcash-qr-1.png') }}"></td>
-                                    <td>#e74a3b</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.collector.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+                                @foreach ($collectors as $collector)
+                                    <tr>
+                                        <td>{{ $collector->id }}</td>
+                                        <td>{{ $collector->name }}</td>
+                                        <td>{{ $collector->collector_gcash_number }}</td>
+                                        <td class="text-center">
+                                            @if ($collector->gcash_qr_code_path)
+                                                <img src="{{ Storage::disk('azure')->url(path: $collector->gcash_qr_code_path) }}" alt="GCash QR Code" style="width: 80px; height: auto;">
+                                            @else
+                                                <span>No QR Code</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('collection.mgmt.view.collector.superadmin',  $collector->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-binoculars"></i>
+                                                </span>
+                                                <span class="text">View</span>
+                                            </a><br>
 
-                                        <a href="{{ route('collection.mgmt.edit.collector.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
+                                            <a href="{{ route('collection.mgmt.edit.collector.superadmin',   $collector->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Edit</span>
+                                            </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jane Doe</td>
-                                    <td><img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_3.png') }}"></td>
-                                    <td>09112345678</td>
-                                    <td><img id="qr-code-container" src="{{ url('/img/gcash-qr-2.png') }}"></td>
-                                    <td>#1cc88a</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.collector.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.collector.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Michael Smth</td>
-                                    <td><img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_4.png') }}"></td>
-                                    <td>09122345678</td>
-                                    <td><img id="qr-code-container" src="{{ url('/img/gcash-qr-3.png') }}"></td>
-                                    <td>#4e73df</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.collector.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.collector.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Mary Smth</td>
-                                    <td><img id="table-pfp" class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('/img/pfp_5.png') }}"></td>
-                                    <td>09132345678</td>
-                                    <td><img id="qr-code-container" src="{{ url('/img/gcash-qr-4.png') }}"></td>
-                                    <td>#f6c23e</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.collector.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.collector.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $collector->id }})">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -230,5 +148,13 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+            
+            function setDeleteEntryUrl(id) {
+                const deleteForm = document.querySelector('#deleteEntryModal form');
+                deleteForm.action = `/collection-mgmt/manage-collectors-super-admin/${id}`;
+            }
+
+        </script>
     </x-slot>
 </x-base>

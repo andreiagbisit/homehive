@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentCollectorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
@@ -161,7 +162,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('bulletin-board/admin/{id}', [BulletinBoardController::class, 'destroy'])->name('bulletin.board.destroy');
 
+    Route::post('/collection-mgmt/store-collector', [PaymentCollectorController::class, 'store'])->name('store-collector');
 
+    Route::get('/collection-mgmt/manage-collectors-super-admin', [PaymentCollectorController::class, 'manageCollectors'])->name('collection.mgmt.manage.collectors.superadmin');
+
+    Route::get('/collection-mgmt/add-collector-admin', [PaymentCollectorController::class, 'addCollectorAdmin'])->name('collection.mgmt.add.collector.admin');
+
+    Route::get('/collection-mgmt/manage-collectors-admin', [PaymentCollectorController::class, 'manageCollectorsAdmin'])->name('collection.mgmt.manage.collectors.admin');
+
+    Route::get('collection-mgmt/edit-collector-super-admin/{id}', [PaymentCollectorController::class, 'editCollector'])->name('collection.mgmt.edit.collector.superadmin');
+
+    Route::put('/collection-mgmt/update-collector-super-admin/{id}', [PaymentCollectorController::class, 'update'])->name('collection.mgmt.update.collector.superadmin');
+
+    Route::get('/collection-mgmt/view-collector-super-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.superadmin');
+
+    Route::delete('/collection-mgmt/manage-collectors-super-admin/{id}', [PaymentCollectorController::class, 'destroy'])->name('collection.mgmt.delete.collector.superadmin');
 
 
 
@@ -251,7 +266,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('collection.mgmt.superadmin');
 
     Route::get('/collection-mgmt/admin', function () {
-        return view('collection-mgmt/admin');
+        return view('collection-mgmt/superadmin');
     })->name('collection.mgmt.admin');
 
     Route::get('/collection-mgmt/add-entry-super-admin', function () {
@@ -278,21 +293,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('collection-mgmt/edit-entry-admin');
     })->name('collection.mgmt.edit.entry.admin');
 
-    Route::get('/collection-mgmt/manage-collectors-super-admin', function () {
+    /*Route::get('/collection-mgmt/manage-collectors-super-admin', function () {
         return view('collection-mgmt/manage-collectors-super-admin');
-    })->name('collection.mgmt.manage.collectors.superadmin');
+    })->name('collection.mgmt.manage.collectors.superadmin');*/
 
-    Route::get('/collection-mgmt/manage-collectors-admin', function () {
+    /*Route::get('/collection-mgmt/manage-collectors-admin', function () {
         return view('collection-mgmt/manage-collectors-super-admin');
     })->name('collection.mgmt.manage.collectors.admin');
 
     Route::get('/collection-mgmt/manage-collectors-admin', function () {
         return view('collection-mgmt/manage-collectors-admin');
-    })->name('collection.mgmt.manage.collectors.admin');
+    })->name('collection.mgmt.manage.collectors.admin');*/
 
-    Route::get('/collection-mgmt/view-collector-super-admin', function () {
+    /*Route::get('/collection-mgmt/view-collector-super-admin', function () {
         return view('collection-mgmt/view-collector-super-admin');
-    })->name('collection.mgmt.view.collector.superadmin');
+    })->name('collection.mgmt.view.collector.superadmin');*/
 
     Route::get('/collection-mgmt/view-collector-admin', function () {
         return view('collection-mgmt/view-collector-admin');
@@ -302,13 +317,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('collection-mgmt/add-collector-super-admin');
     })->name('collection.mgmt.add.collector.superadmin');
 
-    Route::get('/collection-mgmt/add-collector-admin', function () {
+    /*Route::get('/collection-mgmt/add-collector-admin', function () {
         return view('collection-mgmt/add-collector-super-admin');
-    })->name('collection.mgmt.add.collector.admin');
+    })->name('collection.mgmt.add.collector.admin');*/
 
-    Route::get('/collection-mgmt/edit-collector-super-admin', function () {
+    /*Route::get('/collection-mgmt/edit-collector-super-admin', function () {
         return view('collection-mgmt/edit-collector-super-admin');
-    })->name('collection.mgmt.edit.collector.superadmin');
+    })->name('collection.mgmt.edit.collector.superadmin');*/
 
     Route::get('/collection-mgmt/edit-collector-admin', function () {
         return view('collection-mgmt/edit-collector-admin');

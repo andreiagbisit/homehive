@@ -50,7 +50,7 @@
                         <span class="text" style="color: #000; font-weight: 500;">Manage Categories</span>
                     </a>
 
-                    <a href="{{ route('collection.mgmt.manage.collectors.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('collection.mgmt.manage.collectors.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-comment-dollar"></i>
                         </span>

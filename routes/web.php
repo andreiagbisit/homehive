@@ -175,9 +175,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('acc-mgmt/view-entry-acc');
     })->name('acc.mgmt.view.entry');*/
 
-    /*Route::get('/acc-mgmt/edit-entry-role', function () {
-        return view('acc-mgmt/edit-entry-role');
-    })->name('acc.mgmt.edit.entry.role');*/
     
     /* Manage Roles Button Nav
     Route::get('/acc-mgmt/manage-roles', function () {
@@ -286,6 +283,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('collection.mgmt.manage.collectors.superadmin');
 
     Route::get('/collection-mgmt/manage-collectors-admin', function () {
+        return view('collection-mgmt/manage-collectors-super-admin');
+    })->name('collection.mgmt.manage.collectors.admin');
+
+    Route::get('/collection-mgmt/manage-collectors-admin', function () {
         return view('collection-mgmt/manage-collectors-admin');
     })->name('collection.mgmt.manage.collectors.admin');
 
@@ -300,6 +301,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection-mgmt/add-collector-super-admin', function () {
         return view('collection-mgmt/add-collector-super-admin');
     })->name('collection.mgmt.add.collector.superadmin');
+
+    Route::get('/collection-mgmt/add-collector-admin', function () {
+        return view('collection-mgmt/add-collector-super-admin');
+    })->name('collection.mgmt.add.collector.admin');
 
     Route::get('/collection-mgmt/edit-collector-super-admin', function () {
         return view('collection-mgmt/edit-collector-super-admin');

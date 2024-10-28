@@ -34,14 +34,18 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Account Management</h1><br>
+            
 
+             <!-- Only show "Manage Roles" button to superadmin (account_type 1) -->
                 <div class="text-center">
+                @if (auth()->user()->account_type_id == 1)
                 <a href="{{ route('manage.roles') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                     <span class="icon text-white-50">
                         <i class="fas fa-user-tag"></i>
                     </span>
                     <span class="text" style="color: #000; font-weight: 500;">Manage Roles</span>
                 </a>
+                @endif
                 </div>
             </div>
 

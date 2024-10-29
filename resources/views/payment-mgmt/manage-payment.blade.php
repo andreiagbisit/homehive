@@ -112,6 +112,37 @@
                                         </p>
                                     </div>
 
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label" for="month-select">Month <span style="color: red;">*</span></label><br>
+                                            <select id="month-select" name="month" class="form-control w-100" required>
+                                                <option value="">Select Month</option>
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label id="input-label" for="form-select">Year <span style="color: red;">*</span></label><br>
+                                            <select id="year-select" name="year" class="form-control w-100" required>
+                                                <!-- Dynamic year generation -->
+                                                @for ($year = now()->year - 10; $year <= now()->year + 20; $year++)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label id="input-label" for="collector-select">Payment Collector</label><br>
                                         <select id="collector-select" class="form-control w-50" required>

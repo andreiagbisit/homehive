@@ -52,48 +52,57 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">Payment No.</td>
-                                            <td>1</td>
+                                            <td>{{ $payment->id }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Subject</td>
-                                            <td>Gate Surveillance Equipment</td>
+                                            <td>{{ $payment->title }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Category</td>
-                                            <td>Security</td>
+                                            <td>{{ $payment->category->name ?? 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Household Representative</td>
-                                            <td>Andrei Joaqhim Ali Agbisit</td>
+                                            <td>{{ $payment->user->fname }} {{ $payment->user->mname ?? '' }} {{ $payment->user->lname }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Collector</td>
-                                            <td>John Doe</td>
+                                            <td>{{ $payment->collector->name ?? 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Amount</td>
-                                            <td><b>₱560.00</b></td>
+                                            <td><b>₱{{ number_format($payment->fee, 2)  }}</b></td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Status</td>
-                                            <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
+                                            <td><span style="color: {{ $payment->status_id == 1 ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                            {{ $payment->status_id == 1 ? 'PAID' : 'PENDING' }}
+                                            </span>
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Mode of Payment</td>
-                                            <td>GCash</td>
+                                            <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Date of Payment</td>
-                                            <td>01/01/2024</td>
+                                            <td>{{ \Carbon\Carbon::parse($payment->pay_date)->format('m/d/Y') }}</td>
                                         </tr>
+                                        
+                                        <tr>
+                                        <td id="tb-v-head">Payment For</td>
+                                        <td>{{ $payment->month }} {{ $payment->year }}</td>
+                                        </tr>
+
                                     </table>
                                 </form>
                             </div><hr>

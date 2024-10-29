@@ -66,6 +66,12 @@
                 </div>
             </div>
 
+             @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- DataTables Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -85,145 +91,51 @@
                                     <th>Status</th>
                                     <th>Mode of Payment</th>
                                     <th>Date of Payment</th>
+                                    <th>Payment For</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gate Surveillance Equipment</td>
-                                    <td>Security</td>
-                                    <td>Andrei Joaqhim Ali Agbisit</td>
-                                    <td>John Doe</td>
-                                    <td><b>₱560.00</b></td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>01/01/2024</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.entry.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
+                                @foreach($payments as $payment)
+                                    <tr>
+                                        <td>{{ $payment->id }}</td> <!-- Payment No. -->
+                                        <td>{{ $payment->title }}</td> <!-- Subject -->
+                                        <td>{{ $payment->category->name ?? 'N/A' }}</td> <!-- Category -->
+                                        <td>{{ $payment->user->fname }} {{ $payment->user->mname ?? '' }} {{ $payment->user->lname }}</td> <!-- Household Representative -->
+                                        <td>{{ $payment->collector->name ?? 'N/A' }}</td> <!-- Collector -->
+                                        <td><b>₱{{ number_format($payment->fee, 2) }}</b></td> <!-- Amount -->
+                                        <td>
+                                            <span style="color: {{ $payment->status_id == 1 ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                                {{ $payment->paymentStatus->name }}
                                             </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+                                        </td> <!-- Status -->
+                                        <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td> <!-- Mode of Payment -->
+                                        <td>{{ $payment->pay_date->format('m/d/Y') }}</td> <!-- Date of Payment -->
+                                        <td>{{ $payment->month }} {{ $payment->year }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('collection.mgmt.view.entry.superadmin', ['id' => $payment->id]) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-binoculars"></i>
+                                                </span>
+                                                <span class="text">View</span>
+                                            </a><br>
 
-                                        <a href="{{ route('collection.mgmt.edit.entry.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
+                                            <a href="{{ route('collection.mgmt.edit.entry.superadmin', ['id' => $payment->id]) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Edit</span>
+                                            </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Clubhouse Refubishing Funds</td>
-                                    <td>Maintenance</td>
-                                    <td>Jio Rhey Detros</td>
-                                    <td>Jane Smith</td>
-                                    <td><b>₱430.00</b></td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>On-site Payment</td>
-                                    <td>01/02/2024</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.entry.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.entry.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Swimming Pool Chloride</td>
-                                    <td>Amenities & Services</td>
-                                    <td>Edlan Vere Perez</td>
-                                    <td></td>
-                                    <td><b>₱320.00</b></td>
-                                    <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.entry.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.entry.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Water Tank Plumbing Fittings</td>
-                                    <td>Maintenance</td>
-                                    <td>Terrence Liam Tongol</td>
-                                    <td></td>
-                                    <td><b>₱210.00</b></td>
-                                    <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.entry.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.entry.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $payment->id }})">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -266,5 +178,13 @@
 
     <x-slot name="script">
         <x-script></x-script>
+
+        <script>
+        function setDeleteEntryUrl(id) {
+            const deleteForm = document.querySelector('#deleteEntryModal form');
+            deleteForm.action = `/collection-mgmt/delete-payment-super-admin/${id}`;
+        }
+        </script>
+        
     </x-slot>
 </x-base>

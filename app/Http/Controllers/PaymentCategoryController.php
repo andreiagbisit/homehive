@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PaymentCategory;
+use App\Models\User;
+use App\Models\PaymentCollector;
 
 class PaymentCategoryController extends Controller
 {
@@ -90,6 +92,14 @@ class PaymentCategoryController extends Controller
     {
         $categories = PaymentCategory::all(); // Fetch all categories from the database
         return view('collection-mgmt.admin', compact('categories')); // Adjust to your view name if necessary
+    }
+    
+    public function createEntry()
+    {
+        $categories = PaymentCategory::all(); // Fetch all categories
+        $users = User::all(); // Fetch all users
+        $collectors = PaymentCollector::all(); // Fetch all collectors
+        return view('collection-mgmt.add-entry-super-admin', compact('categories','users', 'collectors'));
     }
 
 

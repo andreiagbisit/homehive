@@ -105,10 +105,12 @@ class PaymentCollectorController extends Controller
     {
         $collector = PaymentCollector::findOrFail($id);
         $collector->delete();
-        return redirect()->route('collection.mgmt.manage.collectors.superadmin')
-                        ->with('success', 'Collector deleted successfully.');
+        if (auth()->user()->account_type_id == 2) { // Assuming 2 is admin
+            return redirect()->route('collection.mgmt.manage.collectors.admin')->with('success', 'Collector deleted successfully.');
+        } else {
+            return redirect()->route('collection.mgmt.manage.collectors.superadmin')->with('success', 'Collector deleted successfully.');
+        }
+
     }
-
-
 
 }

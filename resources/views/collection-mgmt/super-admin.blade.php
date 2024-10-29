@@ -43,7 +43,7 @@
                         <span class="text" style="color: #000; font-weight: 500;">Add Entry</span>
                     </a>
 
-                    <a href="{{ route('manage.fund.collection.categories.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ auth()->user()->account_type_id == 1 ? route('manage.fund.collection.categories.superadmin') : route('manage.fund.collection.categories.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-tags"></i>
                         </span>

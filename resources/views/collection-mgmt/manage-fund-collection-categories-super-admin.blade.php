@@ -9,19 +9,19 @@
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_super_admin">
-                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
+            <x-slot name="sidebar_landing_link_admin">
+                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
 
-            <x-slot name="sidebar_content_super_admin">
-                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
+            <x-slot name="sidebar_content_admin">
+                <x-sidebar-content-admin></x-sidebar-content-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_admin"></x-slot>
+            <x-slot name="sidebar_content_super_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -45,6 +45,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -62,89 +68,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Maintenance</td>
-                                    <td>#e74a3b</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td> {{ $category->hex_code }}</td>
+                                        <td class="text-center">
+                                        <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.view.category.superadmin', $category->id) : route('collection.mgmt.view.category.admin', $category->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-binoculars"></i>
+                                                </span>
+                                                <span class="text">View</span>
+                                            </a><br>
 
-                                        <a href="{{ route('collection.mgmt.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
+                                            <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.edit.category.superadmin', $category->id) : route('collection.mgmt.edit.category.admin', $category->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                                <span class="text">Edit</span>
+                                            </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Amenities & Services</td>
-                                    <td>#1cc88a</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Security</td>
-                                    <td>#4e73df</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('collection.mgmt.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('collection.mgmt.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $category->id }})">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </span>
+                                                <span class="text">Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -187,5 +139,11 @@
 
     <x-slot name="script">
         <x-script></x-script>
+            <script>
+            function setDeleteEntryUrl(id) {
+            const deleteForm = document.querySelector('#deleteEntryModal form');
+            deleteForm.action = `/collection-mgmt/delete-category-super-admin/${id}`;
+        }
+            </script>
     </x-slot>
 </x-base>

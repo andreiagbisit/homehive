@@ -83,14 +83,14 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('collection.mgmt.view.collector.superadmin',  $collector->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.view.collector.admin', $collector->id) : route('collection.mgmt.view.collector.superadmin', $collector->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-binoculars"></i>
                                                 </span>
                                                 <span class="text">View</span>
                                             </a><br>
 
-                                            <a href="{{ route('collection.mgmt.edit.collector.superadmin',   $collector->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                            <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.edit.collector.admin', $collector->id) : route('collection.mgmt.edit.collector.superadmin', $collector->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-edit"></i>
                                                 </span>

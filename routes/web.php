@@ -12,6 +12,8 @@ use App\Http\Controllers\BulletinBoardController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\PaymentCategoryController;
+
 
 
 // Home route - redirect to login if not authenticated
@@ -172,42 +174,48 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('collection-mgmt/edit-collector-super-admin/{id}', [PaymentCollectorController::class, 'editCollector'])->name('collection.mgmt.edit.collector.superadmin');
 
+    Route::get('collection-mgmt/edit-collector-admin/{id}', [PaymentCollectorController::class, 'editCollector'])->name('collection.mgmt.edit.collector.admin');
+
     Route::put('/collection-mgmt/update-collector-super-admin/{id}', [PaymentCollectorController::class, 'update'])->name('collection.mgmt.update.collector.superadmin');
 
-    Route::get('/collection-mgmt/view-collector-super-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.superadmin');
+    Route::get('/collection-mgmt/view-collector-super-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.superadmin');  
+
+    Route::get('/collection-mgmt/view-collector-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.admin');
 
     Route::delete('/collection-mgmt/manage-collectors-super-admin/{id}', [PaymentCollectorController::class, 'destroy'])->name('collection.mgmt.delete.collector.superadmin');
 
-
-
-
-
-
-
-
-
-    /*Route::get('/acc-mgmt/view-entry-acc', function () {
-        return view('acc-mgmt/view-entry-acc');
-    })->name('acc.mgmt.view.entry');*/
-
     
-    /* Manage Roles Button Nav
-    Route::get('/acc-mgmt/manage-roles', function () {
-        return view('acc-mgmt/manage-roles');
-    })->name('manage.roles');*/
+
+
+
+
+    Route::get('/collection-mgmt/add-category-super-admin', [PaymentCategoryController::class, 'create'])->name('collection.mgmt.add.category.superadmin');
+
+    Route::post('/collection-mgmt/store-category-super-admin', [PaymentCategoryController::class, 'store'])->name('store.category.superadmin');
+
+    Route::get('/collection-mgmt/manage-fund-collection-categories-super-admin', [PaymentCategoryController::class, 'index'])->name('manage.fund.collection.categories.superadmin');
+
+    Route::get('/collection-mgmt/manage-fund-collection-categories-admin', [PaymentCategoryController::class, 'index'])->name('manage.fund.collection.categories.admin');
+
+    Route::get('/collection-mgmt/view-category-super-admin/{id}', [PaymentCategoryController::class, 'show'])->name('collection.mgmt.view.category.superadmin');
+
+    Route::get('/collection-mgmt/view-category-admin/{id}', [PaymentCategoryController::class, 'show'])->name('collection.mgmt.view.category.admin');
+
+    Route::get('/collection-mgmt/edit-category-super-admin/{id}', [PaymentCategoryController::class, 'edit'])->name('collection.mgmt.edit.category.superadmin');
+
+    Route::get('/collection-mgmt/edit-category-admin/{id}', [PaymentCategoryController::class, 'edit'])->name('collection.mgmt.edit.category.admin');
+
+    Route::put('/collection-mgmt/update-category-super-admin/{id}', [PaymentCategoryController::class, 'update'])->name('collection.mgmt.update.category.superadmin');
+
+    Route::delete('/collection-mgmt/delete-category-super-admin/{id}', [PaymentCategoryController::class, 'destroy'])->name('collection.mgmt.delete.category.superadmin');
+
+
 
     // For Manage Role SuperAdmin/Admin View & Edit
     Route::get('/edit-entry/super-admin', function () {
         return view('edit-entry/super-admin');
     })->name('edit.entry.super.admin');
 
-    /*Route::get('/view-entry/super-admin', function () {
-        return view('view-entry/super-admin');
-    })->name('view.entry.super.admin');*/
- 
-   /*Route::get('/bulletin-board/super-admin', function () {
-        return view('bulletin-board/super-admin');
-    })->name('bulletin.board.superadmin');*/
 
     Route::get('/bulletin-board/edit-entry-super-admin', function () {
         return view('bulletin-board/edit-entry-super-admin');
@@ -293,41 +301,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('collection-mgmt/edit-entry-admin');
     })->name('collection.mgmt.edit.entry.admin');
 
-    /*Route::get('/collection-mgmt/manage-collectors-super-admin', function () {
-        return view('collection-mgmt/manage-collectors-super-admin');
-    })->name('collection.mgmt.manage.collectors.superadmin');*/
-
-    /*Route::get('/collection-mgmt/manage-collectors-admin', function () {
-        return view('collection-mgmt/manage-collectors-super-admin');
-    })->name('collection.mgmt.manage.collectors.admin');
-
-    Route::get('/collection-mgmt/manage-collectors-admin', function () {
-        return view('collection-mgmt/manage-collectors-admin');
-    })->name('collection.mgmt.manage.collectors.admin');*/
-
-    /*Route::get('/collection-mgmt/view-collector-super-admin', function () {
-        return view('collection-mgmt/view-collector-super-admin');
-    })->name('collection.mgmt.view.collector.superadmin');*/
-
-    Route::get('/collection-mgmt/view-collector-admin', function () {
-        return view('collection-mgmt/view-collector-admin');
-    })->name('collection.mgmt.view.collector.admin');
-
     Route::get('/collection-mgmt/add-collector-super-admin', function () {
         return view('collection-mgmt/add-collector-super-admin');
     })->name('collection.mgmt.add.collector.superadmin');
-
-    /*Route::get('/collection-mgmt/add-collector-admin', function () {
-        return view('collection-mgmt/add-collector-super-admin');
-    })->name('collection.mgmt.add.collector.admin');*/
-
-    /*Route::get('/collection-mgmt/edit-collector-super-admin', function () {
-        return view('collection-mgmt/edit-collector-super-admin');
-    })->name('collection.mgmt.edit.collector.superadmin');*/
-
-    Route::get('/collection-mgmt/edit-collector-admin', function () {
-        return view('collection-mgmt/edit-collector-admin');
-    })->name('collection.mgmt.edit.collector.admin');
     
     Route::get('/collection-mgmt/add-category-super-admin', function () {
         return view('collection-mgmt/add-category-super-admin');
@@ -336,22 +312,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection-mgmt/add-category-admin', function () {
         return view('collection-mgmt/add-category-admin');
     })->name('collection.mgmt.add.category.admin');
-
-    Route::get('/collection-mgmt/edit-category-super-admin', function () {
-        return view('collection-mgmt/edit-category-super-admin');
-    })->name('collection.mgmt.edit.category.superadmin');
-
-    Route::get('/collection-mgmt/edit-category-admin', function () {
-        return view('collection-mgmt/edit-category-admin');
-    })->name('collection.mgmt.edit.category.admin');
-
-    Route::get('/collection-mgmt/view-category-super-admin', function () {
-        return view('collection-mgmt/view-category-super-admin');
-    })->name('collection.mgmt.view.category.superadmin');
-
-    Route::get('/collection-mgmt/view-category-admin', function () {
-        return view('collection-mgmt/view-category-admin');
-    })->name('collection.mgmt.view.category.admin');
 
     Route::get('/appt-and-res/add-facility-super-admin', function () {
         return view('appt-and-res/add-facility-super-admin');
@@ -435,9 +395,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // For Manage Categories in Collection Management
 
-    Route::get('/collection-mgmt/manage-fund-collection-categories-super-admin', function () {
+    /*Route::get('/collection-mgmt/manage-fund-collection-categories-super-admin', function () {
         return view('collection-mgmt/manage-fund-collection-categories-super-admin');
-    })->name('manage.fund.collection.categories.superadmin');
+    })->name('manage.fund.collection.categories.superadmin');*/
 
     // View and Edit of Manage Categories
 
@@ -508,10 +468,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/add-entry/admin', function () {
         return view('add-entry/admin');
     })->name('add.entry.admin');
-
-    Route::get('/collection-mgmt/manage-fund-collection-categories-admin', function () {
-        return view('collection-mgmt/manage-fund-collection-categories-admin');
-    })->name('manage.fund.collection.categories.admin');
 
     Route::get('/appt-and-res/manage-facility-reservations-admin', function () {
         return view('appt-and-res/manage-facility-reservations-admin');

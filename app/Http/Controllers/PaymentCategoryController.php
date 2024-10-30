@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\PaymentCategory;
 use App\Models\User;
 use App\Models\PaymentCollector;
+use App\Mail\NewCategoryNotification;
+use Illuminate\Support\Facades\Mail;
+
 
 class PaymentCategoryController extends Controller
 {
@@ -23,15 +27,23 @@ class PaymentCategoryController extends Controller
             'hex_code' => 'required|string', // Validation for hex color
         ]);
 
-        PaymentCategory::create([
+        $category =PaymentCategory::create([
             'name' => $request->name,
             'hex_code' => $request->hex_code,
         ]);
+
+        // Get all users' email addresses
+        $users = User::all();
+
+    // Send email to each user
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new NewCategoryNotification($category));
+        }
                          
         if (auth()->user()->account_type_id == 1) {
-            return redirect()->route('manage.fund.collection.categories.superadmin')->with('success', 'Category added successfully.');
+            return redirect()->route('manage.fund.collection.categories.superadmin')->with('success', 'Category added successfully and notifications sent.');
         } else {
-            return redirect()->route('manage.fund.collection.categories.admin')->with('success', 'Category added successfully.');
+            return redirect()->route('manage.fund.collection.categories.admin')->with('success', 'Category added successfully and notifications sent.');
         }
     }
     public function index()

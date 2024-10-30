@@ -89,17 +89,7 @@
                                         <p id="page-desc">Amount in cash should be prepared by the resident in the subdivision's HOA office.</p>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Appointment Date</p>
-                                            <input type="date" class="form-control form-control-user" id="appointment-date" required>
-                                        </div>
 
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Appointment Time</p>
-                                            <input type="time" class="form-control form-control-user" id="appointment-time" required>
-                                        </div>
-                                    </div>
                                     <hr>
 
                                     <div class="form-group form-check">

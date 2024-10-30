@@ -36,7 +36,7 @@
                 <h1 id="header-h1">Manage Fund Collection Categories</h1><br>
 
                 <div class="text-center">
-                    <a href="{{ route('collection.mgmt.add.category.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.add.category.superadmin') : route('collection.mgmt.add.category.admin') }}"class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-plus"></i>
                         </span>

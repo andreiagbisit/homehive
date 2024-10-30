@@ -191,7 +191,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/collection-mgmt/add-category-super-admin', [PaymentCategoryController::class, 'create'])->name('collection.mgmt.add.category.superadmin');
 
+    Route::get('/collection-mgmt/add-category-admin', [PaymentCategoryController::class, 'create'])->name('collection.mgmt.add.category.admin');
+
     Route::post('/collection-mgmt/store-category-super-admin', [PaymentCategoryController::class, 'store'])->name('store.category.superadmin');
+
+    Route::post('/collection-mgmt/store-category-admin', [PaymentCategoryController::class, 'store'])->name('store.category.admin');
 
     Route::get('/collection-mgmt/manage-fund-collection-categories-super-admin', [PaymentCategoryController::class, 'index'])->name('manage.fund.collection.categories.superadmin');
 
@@ -309,9 +313,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('collection-mgmt/add-collector-super-admin');
     })->name('collection.mgmt.add.collector.superadmin');
     
-    Route::get('/collection-mgmt/add-category-super-admin', function () {
+    /*Route::get('/collection-mgmt/add-category-super-admin', function () {
         return view('collection-mgmt/add-category-super-admin');
-    })->name('collection.mgmt.add.category.superadmin');
+    })->name('collection.mgmt.add.category.superadmin');*/
 
     Route::get('/collection-mgmt/add-category-admin', function () {
         return view('collection-mgmt/add-category-admin');

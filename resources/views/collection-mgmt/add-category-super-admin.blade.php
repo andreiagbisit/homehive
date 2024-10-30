@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form class="user" action="{{ route('store.category.superadmin') }}" method="POST">
+                            <form class="user" action="{{ auth()->user()->account_type_id == 1 ? route('store.category.superadmin') : route('store.category.admin') }}" method="POST">
                                 @csrf
                                 <div class="col">
                                     <p class="mb-4" style="color: #000;">

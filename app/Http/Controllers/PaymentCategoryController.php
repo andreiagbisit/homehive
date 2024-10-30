@@ -27,9 +27,12 @@ class PaymentCategoryController extends Controller
             'name' => $request->name,
             'hex_code' => $request->hex_code,
         ]);
-
-        return redirect()->route('manage.fund.collection.categories.superadmin')
-                         ->with('success', 'Category added successfully.');
+                         
+        if (auth()->user()->account_type_id == 1) {
+            return redirect()->route('manage.fund.collection.categories.superadmin')->with('success', 'Category added successfully.');
+        } else {
+            return redirect()->route('manage.fund.collection.categories.admin')->with('success', 'Category added successfully.');
+        }
     }
     public function index()
     {

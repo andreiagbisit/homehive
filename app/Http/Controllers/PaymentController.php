@@ -34,7 +34,11 @@ class PaymentController extends Controller
         Payment::create($validatedData);
 
         // Redirect back with a success message
-        return redirect()->route('collection.mgmt.superadmin')->with('success', 'Payment entry added successfully.');
+        if (auth()->user()->account_type_id == 1) { // Super Admin
+            return redirect()->route('collection.mgmt.superadmin')->with('success', 'Payment entry added successfully.');
+        } else { // Admin
+            return redirect()->route('collection.mgmt.admin')->with('success', 'Payment entry added successfully.');
+        }
     }
 
     public function index()
@@ -43,7 +47,11 @@ class PaymentController extends Controller
         
         $payments = Payment::with(['category', 'user', 'collector', 'paymentStatus', 'paymentMode'])->get();
 
-        return view('collection-mgmt.super-admin', compact('payments'));
+        if (auth()->user()->account_type_id == 1) {
+            return view('collection-mgmt.super-admin', compact('payments'));
+        } else {
+            return view('collection-mgmt.admin', compact('payments'));
+        }
     }
 
     public function show($id)
@@ -51,7 +59,11 @@ class PaymentController extends Controller
         $payment = Payment::with(['category', 'user', 'collector', 'paymentMode', 'paymentStatus'])
                         ->findOrFail($id);
 
-        return view('collection-mgmt.view-entry-super-admin', compact('payment'));
+                        $view = auth()->user()->account_type_id == 1 
+                        ? 'collection-mgmt.view-entry-super-admin' 
+                        : 'collection-mgmt.view-entry-admin';
+                
+                    return view($view, compact('payment'));
     }
 
     public function edit($id)
@@ -62,9 +74,14 @@ class PaymentController extends Controller
         $collectors = PaymentCollector::all();
         $paymentModes = PaymentMode::all();
         $status = PaymentStatus::all();
-
-        return view('collection-mgmt.edit-entry-super-admin', compact('payment', 'categories', 'users', 'collectors', 'paymentModes', 'status'));
+    
+        $view = auth()->user()->account_type_id == 1 
+            ? 'collection-mgmt.edit-entry-super-admin' 
+            : 'collection-mgmt.edit-entry-admin';
+        
+        return view($view, compact('payment', 'categories', 'users', 'collectors', 'paymentModes', 'status'));
     }
+    
 
     public function update(Request $request, $id)
     {
@@ -87,15 +104,24 @@ class PaymentController extends Controller
             'title', 'category_id', 'user_id', 'collector_id', 'fee', 'status_id', 'pay_date', 'mode_id', 'month', 'year'
         ]));
 
-        return redirect()->route('collection.mgmt.superadmin')->with('success', 'Payment entry updated successfully.');
+            // Conditional redirect based on user role
+        if (auth()->user()->account_type_id == 1) { // Super Admin
+            return redirect()->route('collection.mgmt.superadmin')->with('success', 'Payment entry updated successfully.');
+        } else { // Admin
+            return redirect()->route('collection.mgmt.admin')->with('success', 'Payment entry updated successfully.');
+        }
     }
 
     public function destroy($id)
     {
         $payment = Payment::findOrFail($id);
         $payment->delete(); // This will perform a soft delete if soft delete trait is enabled on the model
-
-        return redirect()->route('collection.mgmt.superadmin')->with('success', 'Payment entry deleted successfully.');
+    
+        $redirectRoute = auth()->user()->account_type_id == 1 
+            ? 'collection.mgmt.superadmin' 
+            : 'collection.mgmt.admin';
+    
+        return redirect()->route($redirectRoute)->with('success', 'Payment entry deleted successfully.');
     }
 
 

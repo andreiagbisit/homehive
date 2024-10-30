@@ -9,19 +9,19 @@
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_admin">
-                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
+            <x-slot name="sidebar_landing_link_super_admin">
+                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_admin"></x-slot>
 
-            <x-slot name="sidebar_content_admin">
-                <x-sidebar-content-admin></x-sidebar-content-admin>
+            <x-slot name="sidebar_content_super_admin">
+                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_super_admin"></x-slot>
+            <x-slot name="sidebar_content_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -53,52 +53,63 @@
                             </p>
 
                             <div class="col">
-                                <form class="user">
+                                <form class="user" method="POST" action="{{ route('payment.update', $payment->id) }}">
+                                    @csrf
                                     <div class="form-group row mt-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Subject <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Gate Surveillance Equipment">
+                                            <input type="text" name="title" class="form-control form-control-user" required value="{{ old('title', $payment->title) }}">
                                         </div>
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Category <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option>Maintenance</option>
-                                                <option>Amenities & Services</option>
-                                                <option selected="selected">Security</option>
-                                                <option>Facility Reservation</option>
+                                            <select id="form-select" name="category_id" class="form-control w-100" required>
+                                                <option value="">Select Category</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ old('category_id', $payment->category_id) == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row mt-4">
+                                    <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Household Representative <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Andrei Joaqhim Ali Agbisit">
+                                            <label id="input-label" for="household-select">Household Representative <span style="color: red;">*</span></label><br>
+                                            <select id="household-select" name="user_id" class="form-control w-100 select2" required>
+                                                <option value="">Select Representative</option>
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}" {{ old('user_id', $payment->user_id) == $user->id ? 'selected' : '' }}>
+                                                        {{ $user->fname }} {{ $user->mname ?? '' }} {{ $user->lname }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">Amount <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱560.00">
+                                            <input type="text" name="fee" class="form-control form-control-user" required value="{{ old('fee', $payment->fee) }}">
                                         </div>
                                     </div>
 
                                     <div class="form-group row mt-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label id="input-label" for="form-select">Collector <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option selected="selected">John Doe</option>
-                                                <option>Jane Doe</option>
-                                                <option>Michael Smith</option>
-                                                <option>Mary Smith</option>
+                                            <label id="input-label" for="collector-select">Collector <span style="color: red;">*</span></label><br>
+                                            <select name="collector_id" class="form-control w-100" required>
+                                                <option value="">Select Collector</option>
+                                                @foreach($collectors as $collector)
+                                                    <option value="{{ $collector->id }}" {{ old('collector_id', $payment->collector_id) == $collector->id ? 'selected' : '' }}>
+                                                        {{ $collector->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Mode of Payment <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option>On-site Payment</option>
-                                                <option selected="selected">GCash</option>
+                                            <select name="mode_id" class="form-control w-100" required>
+                                                <option value="1" {{ old('mode_id', $payment->mode_id) == 1 ? 'selected' : '' }}>Gcash</option>
+                                                <option value="2" {{ old('mode_id', $payment->mode_id) == 2 ? 'selected' : '' }}>On-site Payment</option>
                                             </select>
                                         </div>
                                     </div>
@@ -106,14 +117,36 @@
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Date of Payment<span style="color: red;">*</span></p>
-                                            <input type="date" id="form-date" class="form-control form-control-user" required value="2024-01-01">
+                                            <input type="date" name="pay_date" class="form-control form-control-user" required value="{{ old('pay_date', $payment->pay_date) }}">
                                         </div>
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Status <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option selected="selected">PAID</option>
-                                                <option>PENDING</option>
+                                            <select name="status_id" class="form-control w-100" required>
+                                                <option value="1">PAID</option>
+                                                <option value="2">PENDING</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label" for="month-select">Month Intended<span style="color: red;">*</span></label><br>
+                                            <select name="month"class="form-control w-100" required>
+                                                @foreach(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $month)
+                                                    <option value="{{ $month }}" {{ old('month', $payment->month) == $month ? 'selected' : '' }}>{{ $month }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label id="input-label" for="year-select">Year Intended<span style="color: red;">*</span></label><br>
+                                            <select name="year" class="form-control w-100" required>
+                                                <option value="">Select Year</option>
+                                                <!-- Dynamically generate years from current year -->
+                                                @for ($year = now()->year - 10; $year <= now()->year + 20; $year++)
+                                                    <option value="{{ $year }}" {{ old('year', $payment->year) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                                @endfor
                                             </select>
                                         </div>
                                     </div>
@@ -121,9 +154,9 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

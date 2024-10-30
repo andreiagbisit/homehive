@@ -106,6 +106,16 @@ class PaymentCategoryController extends Controller
     }
 
 
+        public function createEntryForAdmin()
+    {
+        $categories = PaymentCategory::all(); // Fetch all categories
+        $users = User::all(); // Fetch all users
+        $collectors = PaymentCollector::all(); // Fetch all collectors
+        
+        return view('collection-mgmt.add-entry-admin', compact('categories', 'users', 'collectors'));
+    }
+
+
 
 
 }

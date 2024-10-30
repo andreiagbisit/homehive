@@ -218,18 +218,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/collection-mgmt/add-entry-super-admin', [PaymentCategoryController::class, 'createEntry'])->name('collection.mgmt.add.entry.superadmin');
 
+    Route::get('/collection-mgmt/add-entry-admin', [PaymentCategoryController::class, 'createEntryForAdmin'])->name('collection.mgmt.add.entry.admin');
+
     Route::post('/collection-mgmt/add-entry-super-admin', [PaymentController::class, 'store'])->name('payment.store');
+
+    Route::post('/collection-mgmt/add-entry-admin', [PaymentController::class, 'store'])->name('payment.store');
 
     Route::get('/collection-mgmt/super-admin', [PaymentController::class, 'index'])->name('collection.mgmt.superadmin');
 
+    Route::get('/collection-mgmt/admin', [PaymentController::class, 'index'])->name('collection.mgmt.admin');
+
     Route::get('/collection-mgmt/view-entry-super-admin/{id}', [PaymentController::class, 'show'])->name('collection.mgmt.view.entry.superadmin');
+
+    Route::get('/collection-mgmt/view-entry-admin/{id}', [PaymentController::class, 'show'])->name('collection.mgmt.view.entry.admin');
 
     Route::get('/collection-mgmt/edit-entry-super-admin/{id}', [PaymentController::class, 'edit'])->name('collection.mgmt.edit.entry.superadmin');
     
     Route::post('/collection-mgmt/edit-entry-super-admin/{id}', [PaymentController::class, 'update'])->name('payment.update');
 
+    Route::get('/collection-mgmt/edit-entry-admin/{id}', [PaymentController::class, 'edit'])->name('collection.mgmt.edit.entry.admin');
+
+    Route::post('/collection-mgmt/edit-entry-admin/{id}', [PaymentController::class, 'update'])->name('payment.update');
+
     Route::delete('/collection-mgmt/delete-payment-super-admin/{id}', [PaymentController::class, 'destroy'])->name('payment.delete');
 
+    Route::delete('/collection-mgmt/delete-payment-admin/{id}', [PaymentController::class, 'destroy'])->name('payment.delete');
 
 
 
@@ -293,21 +306,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // COLLECTION MANAGEMENT
 
-    Route::get('/collection-mgmt/admin', function () {
+    /*Route::get('/collection-mgmt/admin', function () {
         return view('collection-mgmt/superadmin');
-    })->name('collection.mgmt.admin');
+    })->name('collection.mgmt.admin');*/
 
-    Route::get('/collection-mgmt/add-entry-admin', function () {
+    /*Route::get('/collection-mgmt/add-entry-admin', function () {
         return view('collection-mgmt/add-entry-admin');
-    })->name('collection.mgmt.add.entry.admin');
+    })->name('collection.mgmt.add.entry.admin');*/
 
-    Route::get('/collection-mgmt/view-entry-admin', function () {
+    /*Route::get('/collection-mgmt/view-entry-admin', function () {
         return view('collection-mgmt/view-entry-admin');
-    })->name('collection.mgmt.view.entry.admin');
+    })->name('collection.mgmt.view.entry.admin');*/
 
-    Route::get('/collection-mgmt/edit-entry-admin', function () {
+    /*Route::get('/collection-mgmt/edit-entry-admin', function () {
         return view('collection-mgmt/edit-entry-admin');
-    })->name('collection.mgmt.edit.entry.admin');
+    })->name('collection.mgmt.edit.entry.admin');*/
 
     Route::get('/collection-mgmt/add-collector-super-admin', function () {
         return view('collection-mgmt/add-collector-super-admin');
@@ -469,9 +482,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/edit-entry-admin');
     })->name('bulletin.board.edit.entry.admin');*/
 
-    Route::get('/collection-mgmt/admin', function () {
+    /*Route::get('/collection-mgmt/admin', function () {
         return view('collection-mgmt/admin');
-    })->name('collection.mgmt.admin');
+    })->name('collection.mgmt.admin');*/
 
     Route::get('/add-entry/admin', function () {
         return view('add-entry/admin');

@@ -9,57 +9,6 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
-        <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw" style="color: #000;"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter" style="font-size: 90%;">3</span>
-            </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header" style="background-color: #f2aa00; border-color: #f2aa00; font-size: 100%; font-weight: 700;">
-                    NOTIFICATIONS
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div style="color: #000; font-size: 100%; font-weight: 500;">January 1, 2024</div>
-                        <span style="color: #000; font-weight: 300;">Lorem ipsum, dolor sit amet.</span>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-success">
-                            <i class="fas fa-donate text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                    <div style="color: #000; font-size: 100%; font-weight: 500;">January 2, 2024</div>
-                    <span style="color: #000; font-weight: 300;">Consectetur adipiscing elit.</span>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                    <div style="color: #000; font-size: 100%; font-weight: 500;">January 3, 2024</div>
-                    <span style="color: #000; font-weight: 300;">Sed do, eiusmod tempor incididunt.</span>
-                    </div>
-                </a>
-                <a class="dropdown-item text-center font-weight-bold" href="#" style="color: #000; font-size: 100%; font-weight: 400;">SHOW ALL NOTIFICATIONS</a>
-            </div>
-        </li>
-
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->

@@ -32,80 +32,42 @@
     <x-slot name="content">
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Appointments & Reservations</h1>
             </div>
 
-            <!-- Content Rows -->
+            <!-- Facilities Section -->
             <div class="row">
                 <div class="col-lg mb-4">
-
                     <div class="card shadow mb-4">
                         <div class="card-header p-4">
                             <span id="appt-and-res-card-header" class="h4"><i id="i-w_backdrop-2" class="fas fa-building"></i>Facilities</span>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card shadow m-4 py-3 border-left-warning">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/clubhouse.jpg') }}"><hr>
-                                            
-                                            <h2 id="appt-and-res-card-title">Clubhouse</h2>
-
-                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
-                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
-                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
-                                                BOOK RESERVATION
-                                            </a>
+                            @foreach($facilities as $facility)
+                                <div class="col-lg-4">
+                                    <div class="card shadow m-4 py-3 border-left-warning">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <h2 id="appt-and-res-card-title">{{ $facility->name }}</h2>
+                                                <a href="{{ route('appt.and.res.form.facility.reservation') }}"
+                                                   style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;"
+                                                   class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
+                                                    BOOK RESERVATION
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <div class="card shadow m-4 py-3 border-left-warning">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/bball-court.jpg') }}"><hr>
-
-                                            <h2 id="appt-and-res-card-title">Basketball Court</h2>
-
-                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
-                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
-                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
-                                                BOOK RESERVATION
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <div class="card shadow m-4 py-3 border-left-warning">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/pool.jpg') }}"><hr>
-
-                                            <h2 id="appt-and-res-card-title">Swimming Pool</h2>
-
-                                            <a href="{{ route('appt.and.res.form.facility.reservation') }}"
-                                                style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
-                                                class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
-                                                BOOK RESERVATION
-                                            </a>                                          
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Subdivision Sticker Section -->
             <div class="row">
                 <div class="col-lg mb-4">
                     <div class="card shadow mb-4">
@@ -117,13 +79,10 @@
                             <div class="card shadow m-4 py-3 border-left-warning">
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/stickers.jpg') }}"><hr>
-
                                         <h2 id="appt-and-res-card-title">Vehicle Sticker</h2>
-
                                         <a href="{{ route('appt.and.res.form.vehicle.sticker.appointment') }}"
-                                            style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;" 
-                                            class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
+                                           style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;"
+                                           class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                             BOOK APPOINTMENT
                                         </a>
                                     </div>

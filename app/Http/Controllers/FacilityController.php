@@ -48,7 +48,11 @@ class FacilityController extends Controller
         }
 
         // Redirect back to the facilities page with success message
-        return redirect()->route('manage.facilities.superadmin')->with('success', 'Facility added successfully');
+        $route = auth()->user()->account_type_id == 1 
+        ? 'manage.facilities.superadmin' 
+        : 'manage.facilities.admin';
+
+        return redirect()->route($route)->with('success', 'Facility added successfully');
     }
 
     public function manageFacilities()
@@ -121,7 +125,11 @@ class FacilityController extends Controller
         }
     
         // Redirect back with success message
-        return redirect()->route('manage.facilities.superadmin')->with('success', 'Facility updated successfully');
+        $route = auth()->user()->account_type_id == 1 
+        ? 'manage.facilities.superadmin' 
+        : 'manage.facilities.admin';
+
+        return redirect()->route($route)->with('success', 'Facility updated successfully');
     }
     
 
@@ -131,8 +139,23 @@ class FacilityController extends Controller
         $facility = SubdivisionFacility::findOrFail($id);
         $facility->delete();
 
-        return redirect()->route('manage.facilities.superadmin')->with('success', 'Facility deleted successfully');
+        // Redirect based on the user's account type
+            $route = auth()->user()->account_type_id == 1 
+            ? 'manage.facilities.superadmin' 
+            : 'manage.facilities.admin';
+
+        return redirect()->route($route)->with('success', 'Facility deleted successfully');
     }
+
+    public function userViewFacilities()
+    {
+        // Retrieve all active facilities (you may add any necessary filters, e.g., checking for availability)
+        $facilities = SubdivisionFacility::all();
+
+        // Return view with facilities data
+        return view('appt-and-res.user', compact('facilities'));
+    }
+
 
 
 

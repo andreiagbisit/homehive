@@ -279,6 +279,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('/appt-and-res/delete-facility-admin/{id}', [FacilityController::class, 'destroy'])->name('delete.facility.admin');
 
+    Route::get('/appt-and-res/user', [FacilityController::class, 'userViewFacilities'])->name('appt.res');
+
+    
 
 
 
@@ -551,9 +554,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('payment-mgmt/user');
     })->name('payment.mgmt');*/
 
-    Route::get('/appt-and-res/user', function () {
+    /*Route::get('/appt-and-res/user', function () {
         return view('appt-and-res/user');
-    })->name('appt.res');
+    })->name('appt.res');*/
 
     /*Route::get('/payment-mgmt/manage-payment', function () {
         return view('payment-mgmt/manage-payment');

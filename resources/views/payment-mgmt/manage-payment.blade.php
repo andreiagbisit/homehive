@@ -108,6 +108,8 @@
                                             once the reservant has selected their payment collector of choice.
                                         </p>
                                     </div>
+
+                                    <input type="hidden" name="mode_id" id="mode_id" value="{{ $payment->mode_id }}">
                                     <!--
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -329,6 +331,24 @@
                         }
                     });
                 });
+        </script>
+
+        <script>
+            function togglePaymentOptions() {
+                const gcashCheckbox = document.getElementById('gcash');
+                const onsiteCheckbox = document.getElementById('onsite');
+                const modeIdInput = document.getElementById('mode_id');
+
+                if (gcashCheckbox.checked) {
+                    modeIdInput.value = 1; // GCash
+                    onsiteCheckbox.checked = false; // Uncheck "On-site Payment"
+                } else if (onsiteCheckbox.checked) {
+                    modeIdInput.value = 2; // On-Site Payment
+                    gcashCheckbox.checked = false; // Uncheck "GCash"
+                } else {
+                    modeIdInput.value = ''; // Clear if neither is checked
+                }
+            }
         </script>
     </x-slot>
 </x-base>

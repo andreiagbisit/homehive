@@ -158,11 +158,15 @@ class PaymentController extends Controller
         // Validate the form data
         $request->validate([
             'reference_no' => 'nullable|string|max:255',
-            'receipt_img' => 'nullable|file|mimes:jpg,png|max:2048' // max file size of 2MB
+            'receipt_img' => 'nullable|file|mimes:jpg,png|max:2048', // max file size of 2MB
+            'collector_id' => 'required|exists:payment_collector,id',
+            'mode_id' => 'required|exists:payment_mode,id',
         ]);
 
         // Update reference number
         $payment->reference_no = $request->input('reference_no');
+        $payment->collector_id = $request->input('collector_id');
+        $payment->mode_id = $request->input('mode_id');
 
         // Handle file upload to Azure Blob Storage
         if ($request->hasFile('receipt_img')) {

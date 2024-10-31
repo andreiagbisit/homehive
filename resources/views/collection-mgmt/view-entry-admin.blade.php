@@ -115,6 +115,12 @@
                                             </td>
                                         </tr>
 
+                                        <tr>
+                                            <td id="tb-v-head">Reference No.</td>
+                                            <td>
+                                                {{ $payment->reference_no ?? 'No reference number provided.' }}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </form>
                             </div><hr>

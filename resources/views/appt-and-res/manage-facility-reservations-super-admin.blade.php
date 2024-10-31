@@ -43,13 +43,6 @@
                         <span class="text" style="color: #000; font-weight: 500;">Manage Facilities</span>
                     </a>
 
-                    <a href="{{ route('appt.and.res.manage.settings.reservation.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-cogs"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Manage Settings</span>
-                    </a>
-
                     <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-print"></i>

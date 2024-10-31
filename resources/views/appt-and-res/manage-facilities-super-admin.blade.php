@@ -162,7 +162,7 @@
         <script>
             function setDeleteFacilityId(id) {
                 const deleteForm = document.querySelector('#deleteEntryModal form');
-                deleteForm.action = `/appt-and-res/delete-facility/${id}`;
+                deleteForm.action = `{{ route('delete.facility.superadmin', '') }}/${id}`;
             }
         </script>
     </x-slot>

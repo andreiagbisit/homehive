@@ -261,6 +261,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/appt-and-res/manage-facilities-super-admin', [FacilityController::class, 'manageFacilities'])->name('manage.facilities.superadmin');
 
+    Route::get('/appt-and-res/view-facility-super-admin/{id}', [FacilityController::class, 'viewFacility'])->name('appt.and.res.view.facility.superadmin');
+
+    Route::get('/appt-and-res/edit-facility-super-admin/{id}', [FacilityController::class, 'editFacility'])->name('appt.and.res.edit.facility.superadmin');
+
+    Route::match(['put', 'patch', 'post'], 'appt-and-res/update-facility-super-admin/{id}', [FacilityController::class, 'updateFacility'])->name('update.facility.superadmin');
+
+    Route::delete('appt-and-res/delete-facility-super-admin/{id}', [FacilityController::class, 'destroy'])->name('delete.facility.superadmin');
+
+
+
 
 
     // For Manage Role SuperAdmin/Admin View & Edit
@@ -357,17 +367,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/add-facility-admin');
     })->name('appt.and.res.add.facility.admin');
 
-    Route::get('/appt-and-res/view-facility-super-admin', function () {
+    /*Route::get('/appt-and-res/view-facility-super-admin', function () {
         return view('appt-and-res/view-facility-super-admin');
-    })->name('appt.and.res.view.facility.superadmin');
+    })->name('appt.and.res.view.facility.superadmin');*/
 
     Route::get('/appt-and-res/view-facility-admin', function () {
         return view('appt-and-res/view-facility-admin');
     })->name('appt.and.res.view.facility.admin');
 
-    Route::get('/appt-and-res/edit-facility-super-admin', function () {
+    /*Route::get('/appt-and-res/edit-facility-super-admin', function () {
         return view('appt-and-res/edit-facility-super-admin');
-    })->name('appt.and.res.edit.facility.superadmin');
+    })->name('appt.and.res.edit.facility.superadmin');*/
 
     Route::get('/appt-and-res/edit-facility-admin', function () {
         return view('appt-and-res/edit-facility-admin');

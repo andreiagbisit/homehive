@@ -52,17 +52,27 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">ID</td>
-                                            <td>1</td>
+                                            <td>{{ $facility->id }}</td>
                                         </tr>
-
                                         <tr>
                                             <td id="tb-v-head">Facility Name</td>
-                                            <td>Clubhouse</td>
+                                            <td>{{ $facility->name }}</td>
                                         </tr>
-                                        
                                         <tr>
                                             <td id="tb-v-head">Color Hex</td>
-                                            <td>#e74a3b</td>
+                                            <td>{{ $facility->hex_code }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td id="tb-v-head">Fee</td>
+                                            <td>₱{{ number_format($facility->fee, 2) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td id="tb-v-head">Available Days</td>
+                                            <td>{{ implode(', ', $facility->available_days) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td id="tb-v-head">Available Months</td>
+                                            <td>{{ implode(', ', $facility->available_months) }}</td>
                                         </tr>
                                     </table>
                                 </form>
@@ -78,7 +88,7 @@
                                     </p>
 
                                         <div class="card-body">
-                                            <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold text-danger">Clubhouse</h4>
+                                            <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold text-danger">{{ $facility->name }}</h4>
                                             <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold text-danger">2 times</span> by households</h6>
 
                                             <div class="progress mb-4">

@@ -55,8 +55,12 @@ class FacilityController extends Controller
     {
         // Retrieve all facilities with their time slots
         $facilities = SubdivisionFacility::with('timeSlots')->get();
-
-        // Pass facilities data to the view
+    
+        // Determine which view to return based on the route name
+        if (\Route::currentRouteName() === 'manage.facilities.admin') {
+            return view('appt-and-res.manage-facilities-admin', compact('facilities'));
+        }
+    
         return view('appt-and-res.manage-facilities-super-admin', compact('facilities'));
     }
 

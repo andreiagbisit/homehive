@@ -259,7 +259,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/appt-and-res/store', [FacilityController::class, 'store'])->name('appt-and-res.store');
 
+    Route::post('/appt-and-res/store-admin', [FacilityController::class, 'store'])->name('appt-and-res.store.admin');
+
     Route::get('/appt-and-res/manage-facilities-super-admin', [FacilityController::class, 'manageFacilities'])->name('manage.facilities.superadmin');
+
+    Route::get('/appt-and-res/manage-facilities-admin', [FacilityController::class, 'manageFacilities'])->name('manage.facilities.admin');
 
     Route::get('/appt-and-res/view-facility-super-admin/{id}', [FacilityController::class, 'viewFacility'])->name('appt.and.res.view.facility.superadmin');
 
@@ -268,6 +272,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['put', 'patch', 'post'], 'appt-and-res/update-facility-super-admin/{id}', [FacilityController::class, 'updateFacility'])->name('update.facility.superadmin');
 
     Route::delete('appt-and-res/delete-facility-super-admin/{id}', [FacilityController::class, 'destroy'])->name('delete.facility.superadmin');
+    
+    Route::get('/appt-and-res/view-facility-admin/{id}', [FacilityController::class, 'viewFacility'])->name('appt.and.res.view.facility.admin');
+
+    Route::get('/appt-and-res/edit-facility-admin/{id}', [FacilityController::class, 'editFacility'])->name('appt.and.res.edit.facility.admin');
+
+    Route::delete('/appt-and-res/delete-facility-admin/{id}', [FacilityController::class, 'destroy'])->name('delete.facility.admin');
+
 
 
 
@@ -371,17 +382,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/view-facility-super-admin');
     })->name('appt.and.res.view.facility.superadmin');*/
 
-    Route::get('/appt-and-res/view-facility-admin', function () {
+    /*Route::get('/appt-and-res/view-facility-admin', function () {
         return view('appt-and-res/view-facility-admin');
-    })->name('appt.and.res.view.facility.admin');
+    })->name('appt.and.res.view.facility.admin');*/
 
     /*Route::get('/appt-and-res/edit-facility-super-admin', function () {
         return view('appt-and-res/edit-facility-super-admin');
     })->name('appt.and.res.edit.facility.superadmin');*/
 
-    Route::get('/appt-and-res/edit-facility-admin', function () {
+    /*Route::get('/appt-and-res/edit-facility-admin', function () {
         return view('appt-and-res/edit-facility-admin');
-    })->name('appt.and.res.edit.facility.admin');
+    })->name('appt.and.res.edit.facility.admin');*/
 
     Route::get('/appt-and-res/edit-appointment-super-admin', function () {
         return view('appt-and-res/edit-appointment-super-admin');
@@ -477,9 +488,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
 
 
-    Route::get('/appt-and-res/manage-facilities-admin', function () {
+    /*Route::get('/appt-and-res/manage-facilities-admin', function () {
         return view('appt-and-res/manage-facilities-admin');
-    })->name('manage.facilities.admin');
+    })->name('manage.facilities.admin');*/
 
     // Manage Vehicle Sticker Application
 

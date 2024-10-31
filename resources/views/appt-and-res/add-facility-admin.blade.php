@@ -2,26 +2,26 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Collection Management - Add Entry</title>
+                <title>Appointments & Reservations - Add Facility</title>
             </x-slot>
         </x-head>
     </x-slot>
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_admin">
-                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
+            <x-slot name="sidebar_landing_link_super_admin">
+                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_admin"></x-slot>
 
-            <x-slot name="sidebar_content_admin">
-                <x-sidebar-content-admin></x-sidebar-content-admin>
+            <x-slot name="sidebar_content_super_admin">
+                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_super_admin"></x-slot>
+            <x-slot name="sidebar_content_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -52,54 +52,101 @@
                                 Please fill in the necessary details provided with the following fields below to add a new facility within the subdivision that can be reserved by households for reservation. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
 
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
                             <div class="col">
-                                <form class="user">
+                                <form action="{{ route('appt-and-res.store.admin') }}" method="POST" class="user">
+                                    @csrf
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <h4 id="form-header-h4" class="mt-2 mb-3">
                                                 Name <span style="color: red;">*</span>
                                             </h4>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required>
+                                            <input type="text" name="facility_name" id="facility_name" class="form-control form-control-user" required>
+                                        </div>
+
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <h4 id="form-header-h4" class="mt-2 mb-3">
+                                                Reservation Fee <span style="color: red;">*</span>
+                                            </h4>
+                                            <input type="number" name="fee" id="fee" class="form-control form-control-user" required>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Available Days <span style="color: red;">*</span></label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Monday" class="form-check-input" id="monday">
+                                            <label class="form-check-label" for="monday">Monday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Tuesday" class="form-check-input" id="tuesday">
+                                            <label class="form-check-label" for="tuesday">Tuesday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Wednesday" class="form-check-input" id="wednesday">
+                                            <label class="form-check-label" for="wednesday">Wednesday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Thursday" class="form-check-input" id="thursday">
+                                            <label class="form-check-label" for="thursday">Thursday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Friday" class="form-check-input" id="friday">
+                                            <label class="form-check-label" for="friday">Friday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Saturday" class="form-check-input" id="saturday">
+                                            <label class="form-check-label" for="saturday">Saturday</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" name="available_days[]" value="Sunday" class="form-check-input" id="sunday">
+                                            <label class="form-check-label" for="sunday">Sunday</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Available Months <span style="color: red;">*</span></label>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="all_months" name="all_months">
+                                                <label class="form-check-label" for="all_months">Available All Year</label>
+                                            </div>
+                                            <div id="months-checkboxes">
+                                                @foreach(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $month)
+                                                    <div class="form-check">
+                                                        <input type="checkbox" name="available_months[]" value="{{ $month }}" class="form-check-input" id="{{ $month }}">
+                                                        <label class="form-check-label" for="{{ $month }}">{{ $month }}</label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label>Time Slots <span style="color: red;">*</span></label>
+                                        <div id="time-slots-container">
+                                            <!-- First time slot row -->
+                                            <div class="row time-slot">
+                                                <div class="col">
+                                                    <label for="start_times[]">Start Time</label>
+                                                    <input type="time" name="start_times[]" class="form-control" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="end_times[]">End Time</label>
+                                                    <input type="time" name="end_times[]" class="form-control" required>
+                                                </div>
+                                                <button type="button" class="btn btn-sm btn-danger remove-time-slot" style="height: fit-content; margin-top: 24px;">Remove</button>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="add-time-slot" class="btn btn-sm btn-primary mt-2">Add Time Slot</button>
                                     <hr>
-
-                                    <h4 id="form-header-h4" class="pl-2">
-                                        Image
-                                    </h4>
-
-                                    <div class="form-group text-center pl-2">
-                                        <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/clubhouse.jpg') }}"><br><br>
-                                                
-                                                <span id="media-upload-info">
-                                                    <i class="fas fa-image pr-2"></i> clubhouse.jpg | 64 KB
-                                                </span><br><br>
-
-                                        <p id="page-desc">
-                                            * The image's resolution must at least be <b>232x232</b>.<br>
-                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
-                                            <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
-                                        </p>
-
-                                        <!-- File input for profile picture -->
-                                        <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png" required>
-                                        <label class="btn btn-warning btn-icon-split" for="input-file">
-                                            <span class="icon text-white-50">
-                                                    <i class="fas fa-file-upload"></i>
-                                            </span>
-                                            
-                                            <span class="text" style="color: #000; font-weight: 500;">
-                                                Upload New Image
-                                            </span>
-                                        </label><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
-                                        </a>
-                                    </div><hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color <span style="color: red;">*</span>
@@ -165,9 +212,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
-                                                ADD FACILITY
-                                            </a>
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">Add Facility</button>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -218,5 +263,39 @@
 
     <x-slot name="script">
         <x-script></x-script>
+
+        <script>
+            document.getElementById('add-time-slot').addEventListener('click', function() {
+                const container = document.getElementById('time-slots-container');
+                const newSlot = document.createElement('div');
+                newSlot.classList.add('row', 'time-slot', 'mt-2');
+                newSlot.innerHTML = `
+                    <div class="col">
+                        <label for="start_times[]">Start Time</label>
+                        <input type="time" name="start_times[]" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <label for="end_times[]">End Time</label>
+                        <input type="time" name="end_times[]" class="form-control" required>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-danger remove-time-slot" style="height: fit-content; margin-top: 24px;">Remove</button>
+                `;
+                container.appendChild(newSlot);
+
+                // Add event listener to remove button
+                newSlot.querySelector('.remove-time-slot').addEventListener('click', function() {
+                    container.removeChild(newSlot);
+                });
+            });
+
+            // Event listener to disable month checkboxes if "Available All Year" is selected
+            document.getElementById('all_months').addEventListener('change', function() {
+                const monthCheckboxes = document.querySelectorAll('#months-checkboxes input[type="checkbox"]');
+                monthCheckboxes.forEach(checkbox => {
+                    checkbox.disabled = this.checked;
+                    checkbox.checked = false;
+                });
+            });
+        </script>
     </x-slot>
 </x-base>

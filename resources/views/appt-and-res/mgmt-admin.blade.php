@@ -36,15 +36,6 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Appointment & Reservation Management</h1><br>
-
-                <div class="text-center">
-                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;" data-toggle="modal" data-target="#apptResModalManage">>
-                        <span class="icon text-white-50">
-                            <i class="fas fa-grip-horizontal"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Manage</span>
-                    </a>
-                </div>
             </div>
 
             <!-- Content Rows -->

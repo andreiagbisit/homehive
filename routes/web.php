@@ -244,6 +244,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('/collection-mgmt/delete-payment-admin/{id}', [PaymentController::class, 'destroy'])->name('payment.delete');
 
+    Route::get('/payment-mgmt/user', [PaymentController::class, 'userPayments'])->name('payment.mgmt');
+
+    Route::get('/payment-mgmt/manage-payment/{payment}', [PaymentController::class, 'managePayment'])->name('manage.payment');
+
+    Route::post('/payment-mgmt/manage-payment/{id}', [PaymentController::class, 'submitPayment'])->name('payment.submit');
+
+
 
 
 
@@ -508,17 +515,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/user');
     })->name('bulletin.board.user');*/
 
-    Route::get('/payment-mgmt/user', function () {
+    /*Route::get('/payment-mgmt/user', function () {
         return view('payment-mgmt/user');
-    })->name('payment.mgmt');
+    })->name('payment.mgmt');*/
 
     Route::get('/appt-and-res/user', function () {
         return view('appt-and-res/user');
     })->name('appt.res');
 
-    Route::get('/payment-mgmt/manage-payment', function () {
+    /*Route::get('/payment-mgmt/manage-payment', function () {
         return view('payment-mgmt/manage-payment');
-    })->name('manage.payment');
+    })->name('manage.payment');*/
 
     Route::get('/appt-and-res/form-facility-reservation', function () {
         return view('appt-and-res/form-facility-reservation');

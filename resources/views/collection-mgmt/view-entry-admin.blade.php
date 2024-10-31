@@ -103,6 +103,18 @@
                                         <td>{{ $payment->month }} {{ $payment->year }}</td>
                                         </tr>
 
+                                        <tr>
+                                            <td id="tb-v-head">Payment Submission</td>
+                                            <td>
+                                                @if($payment->receipt_img)
+                                                    <img src="https://homehivemedia.blob.core.windows.net/homehivemedia/{{ $payment->receipt_img }}" 
+                                                        alt="GCash Receipt" class="img-fluid" style="max-width: 200px;">
+                                                @else
+                                                    No receipt uploaded.
+                                                @endif
+                                            </td>
+                                        </tr>
+
                                     </table>
                                 </form>
                             </div><hr>

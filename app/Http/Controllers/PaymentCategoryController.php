@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\PaymentCollector;
 use App\Mail\NewCategoryNotification;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Payment;
+
 
 
 class PaymentCategoryController extends Controller
@@ -25,12 +27,34 @@ class PaymentCategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'hex_code' => 'required|string', // Validation for hex color
+            'fee' => 'required|numeric',
         ]);
 
         $category =PaymentCategory::create([
             'name' => $request->name,
             'hex_code' => $request->hex_code,
+            'fee' => $request->fee,
+
         ]);
+
+        // Get all users with the specific account type (e.g., residents)
+        $users = User::where('account_type_id', 3)->get(); // Assuming 3 is for residents
+
+        // Create a payment entry for each user
+        foreach ($users as $user) {
+            Payment::create([
+                'title' => $category->name,
+                'category_id' => $category->id,
+                'user_id' => $user->id,
+                'fee' => $category->fee,
+                'status_id' => 2, // Default status, e.g., 'Pending'
+                'mode_id' => 2, // Default mode of payment, update if necessary
+                'pay_date' => now(),
+                'month' => now()->format('F'),
+                'year' => now()->year,
+                'collector_id' => auth()->id(), // Or specify a default collector
+            ]);
+        }
 
         // Get all users' email addresses
         $users = User::all();

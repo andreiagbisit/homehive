@@ -63,6 +63,15 @@
                                             <input type="text" name="name" id="form-text" class="form-control form-control-user" required>
                                         </div>
                                     </div>
+
+                                    <div class="form-group row mt-4 mb-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <h4 id="form-header-h4" class="mt-4 mb-4">
+                                                Amount<span style="color: red;">*</span>
+                                            </h4>
+                                            <input type="text" name="fee" id="form-text" class="form-control form-control-user" required>
+                                        </div>
+                                    </div>
                                     <hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">

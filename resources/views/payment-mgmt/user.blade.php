@@ -36,6 +36,12 @@
                 <h1 id="header-h1">Payment Management</h1>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -49,6 +55,7 @@
                                     <th>Payment No.</th>
                                     <th>Subject</th>
                                     <th>Category</th>
+                                    <th>Payment For</th>
                                     <th>Amount</th>
                                     <th>Status</th>
                                     <th>Mode of Payment</th>
@@ -57,63 +64,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gate Surveillance Equipment</td>
-                                    <td>Security</td>
-                                    <td>₱560.00</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>01/01/2024</td>
-                                    <td class="text-center"></td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Clubhouse Refubishing Funds</td>
-                                    <td>Maintenance</td>
-                                    <td>₱430.00</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>On-site Payment</td>
-                                    <td>01/02/2024</td>
-                                    <td class="text-center"></td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Swimming Pool Chloride</td>
-                                    <td>Amenities & Services</td>
-                                    <td>₱320.00</td>
-                                    <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <a href="{{ route('manage.payment') }}" class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-arrow-right"></i>
+                                @foreach($payments as $payment)
+                                    <tr>
+                                        <td>{{ $payment->id }}</td>
+                                        <td>{{ $payment->title }}</td>
+                                        <td>{{ $payment->category->name ?? 'N/A' }}</td>
+                                        <td>{{ $payment->month }} {{ $payment->year }}</td>
+                                        <td>₱{{ number_format($payment->fee, 2) }}</td>
+                                        <td>
+                                            <span style="color: {{ $payment->paymentStatus->name == 'PAID' ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                                {{ $payment->paymentStatus->name }}
                                             </span>
-                                            <span class="text" style="color: #000; font-weight: 500;">Manage</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Water Tank Plumbing Fittings</td>
-                                    <td>Maintenance</td>
-                                    <td>₱210.00</td>
-                                    <td><span style="color: #dc6335; font-weight: bold;">PENDING</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <a href="{{ route('manage.payment') }}" class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                            <span class="text" style="color: #000; font-weight: 500;">Manage</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td>
+                                        <td>{{ $payment->pay_date ? $payment->pay_date->format('m/d/Y') : 'N/A' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ route('manage.payment', ['payment' => $payment->id]) }}" class="btn btn-warning btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </span>
+                                                <span class="text" style="color: #000; font-weight: 500;">Manage</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

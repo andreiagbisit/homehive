@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Payment; 
 use App\Models\PaymentCategory;
 use App\Models\User;
-use app\Models\PaymentCollector;
+use App\Models\PaymentCollector;
 use App\Models\PaymentMode;
 use App\Models\PaymentStatus;
+use Illuminate\Support\Facades\Storage;
+
+
+
 
 class PaymentController extends Controller
 {
@@ -123,6 +127,62 @@ class PaymentController extends Controller
     
         return redirect()->route($redirectRoute)->with('success', 'Payment entry deleted successfully.');
     }
+
+    public function userPayments()
+    {
+        // Get the logged-in user's ID
+        $userId = auth()->id();
+
+        // Fetch all payment entries related to this user
+        $payments = Payment::where('user_id', $userId)
+                        ->with(['category', 'paymentStatus', 'paymentMode'])
+                        ->get();
+
+        return view('payment-mgmt.user', compact('payments'));
+    }
+
+    public function managePayment($id)
+    {
+        $payment = Payment::with(['category', 'paymentStatus', 'paymentMode'])->findOrFail($id);
+        $collectors = PaymentCollector::all(); // Fetch all collectors for the dropdown
+    
+        return view('payment-mgmt.manage-payment', compact('payment', 'collectors'));
+    }
+    
+
+
+    public function submitPayment(Request $request, $id)
+    {
+        $payment = Payment::findOrFail($id);
+
+        // Validate the form data
+        $request->validate([
+            'reference_no' => 'nullable|string|max:255',
+            'receipt_img' => 'nullable|file|mimes:jpg,png|max:2048' // max file size of 2MB
+        ]);
+
+        // Update reference number
+        $payment->reference_no = $request->input('reference_no');
+
+        // Handle file upload to Azure Blob Storage
+        if ($request->hasFile('receipt_img')) {
+            $file = $request->file('receipt_img');
+            $filename = 'user-gcash-receipt-payments/' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Store the file in Azure
+            $path = Storage::disk('azure')->put($filename, file_get_contents($file));
+            
+            if ($path) {
+                $payment->receipt_img = $filename;
+            }
+        }
+
+        // Save the payment record
+        $payment->save();
+
+        return redirect()->route('payment.mgmt')->with('success', 'Payment submitted successfully.');
+    }
+
 
 
 }

@@ -15,5 +15,6 @@ class PaymentCategory extends Model
     protected $fillable = [
         'name',
         'hex_code', // Ensure hex_code is added here
+        'fee',
     ];
 }

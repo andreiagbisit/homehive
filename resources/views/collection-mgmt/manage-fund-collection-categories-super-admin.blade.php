@@ -64,6 +64,7 @@
                                     <th>ID</th>
                                     <th>Category</th>
                                     <th>Color Hex</th>
+                                    <th>Amount</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -73,6 +74,7 @@
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td> {{ $category->hex_code }}</td>
+                                        <td>₱{{ number_format($category->fee, 2) }}</td>
                                         <td class="text-center">
                                         <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.view.category.superadmin', $category->id) : route('collection.mgmt.view.category.admin', $category->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
                                                 <span class="icon text-white-50">

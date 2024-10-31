@@ -54,28 +54,35 @@
 
                         <div class="card-body">
                             <div class="col overflow-auto">
-                                <form class="user">
+                                <form method="POST" action="{{ route('payment.submit', ['id' => $payment->id]) }}" enctype="multipart/form-data">
+                                    @csrf
                                     <h5 id="page-desc">I. Details</h5><br>
 
+                                    <!-- payment-mgmt/manage-payment.blade.php -->
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">Payment No.</td>
-                                            <td>1</td>
+                                            <td>{{ $payment->id }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Subject</td>
-                                            <td>Dolor Sit Amet</td>
+                                            <td>{{ $payment->title }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Category</td>
-                                            <td>Consectetur</td>
+                                            <td>{{ $payment->category->name }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="tb-v-head">Payment For</td>
+                                            <td>{{ $payment->month }} {{ $payment->year }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Fee</td>
-                                            <td class="font-weight-bold text-success">₱123.00</td>
+                                            <td class="font-weight-bold text-success">₱{{ number_format($payment->fee, 2) }}</td>
                                         </tr>
                                     </table>
 
@@ -101,7 +108,7 @@
                                             once the reservant has selected their payment collector of choice.
                                         </p>
                                     </div>
-
+                                    <!--
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label id="input-label" for="month-select">Month <span style="color: red;">*</span></label><br>
@@ -125,21 +132,23 @@
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Year <span style="color: red;">*</span></label><br>
                                             <select id="year-select" name="year" class="form-control w-100" required>
-                                                <!-- Dynamic year generation -->
+                                                 Dynamic year generation 
                                                 @for ($year = now()->year - 10; $year <= now()->year + 20; $year++)
                                                 <option value="{{ $year }}">{{ $year }}</option>
                                                 @endfor
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="form-group">
                                         <label id="input-label" for="collector-select">Payment Collector</label><br>
-                                        <select id="collector-select" class="form-control w-50" required>
-                                            <option>John Doe</option>
-                                            <option>Jane Doe</option>
-                                            <option>Michael Smith</option>
-                                            <option>Mary Smith</option>
+                                        <select id="collector-select" name="collector_id" class="form-control w-50" required>
+                                            <option value="">Select a Collector</option>
+                                            @foreach ($collectors as $collector)
+                                                <option value="{{ $collector->id }}" data-qr-code="{{ $collector->gcash_qr_code_path }}">
+                                                    {{ $collector->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -150,7 +159,7 @@
                                     </p>
 
                                     <div id="upload-input-div" class="custom-file mb-5">
-                                        <input id="upload-input-base" class="custom-file-input" type="file" accept=".jpg, .png">
+                                        <input id="upload-input-base" class="custom-file-input" type="file" name="receipt_img" accept=".jpg, .png" onchange="showFileName()">
                                         <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label><br><br>
                                     </div>
 
@@ -161,7 +170,7 @@
                                         <div class="form-group row">
                                             <div class="col-sm-3 mb-3 mb-sm-0">
                                                 <p id="input-label">Reference No.</p>
-                                                <input type="text" class="form-control form-control-user" id="reference-no">
+                                                <input type="text" class="form-control" id="reference_no" name="reference_no" placeholder="Enter Reference No." value="{{ old('reference_no', $payment->reference_no) }}">
                                             </div>
                                         </div>
                                     </div><br>
@@ -231,9 +240,9 @@
                                     <hr>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
-                                                SUBMIT PAYMENT
-                                            </a>
+                                        <button id="appt-and-res-button-submit" type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            SUBMIT PAYMENT
+                                        </button>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -287,5 +296,39 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+            function showFileName() {
+                const input = document.getElementById('upload-input-base');
+                const label = document.getElementById('upload-input-text');
+                label.innerText = input.files[0].name; // Update label text with the file name
+            }
+        </script>
+
+        <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const collectorSelect = document.getElementById('collector-select');
+                    const qrCodeContainer = document.getElementById('qr-code-container');
+
+                    collectorSelect.addEventListener('change', function() {
+                        const selectedOption = collectorSelect.options[collectorSelect.selectedIndex];
+                        const qrCodePath = selectedOption.getAttribute('data-qr-code');
+                        
+                        // Clear previous QR code
+                        qrCodeContainer.innerHTML = '';
+
+                        // Display new QR code if available
+                        if (qrCodePath) {
+                            // Add "homehivemedia" to the base URL path
+                            const fullQrCodeUrl = `https://homehivemedia.blob.core.windows.net/homehivemedia/${qrCodePath}`;
+
+                            const qrCodeImage = document.createElement('img');
+                            qrCodeImage.src = fullQrCodeUrl;
+                            qrCodeImage.className = 'img-fluid mt-3 mb-4';
+                            qrCodeImage.alt = 'GCash QR Code';
+                            qrCodeContainer.appendChild(qrCodeImage);
+                        }
+                    });
+                });
+        </script>
     </x-slot>
 </x-base>

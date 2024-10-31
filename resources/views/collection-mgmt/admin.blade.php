@@ -57,12 +57,15 @@
                         <span class="text" style="color: #000; font-weight: 500;">Manage Collectors</span>
                     </a>
 
-                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-print"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
-                    </a>
+                    <form action="{{ route('generateReport') }}" method="GET" class="d-inline">
+                        <input type="month" name="month" class="form-control d-inline-block" style="width: auto;" required>
+                        <button type="submit" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-print"></i>
+                            </span>
+                            <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 

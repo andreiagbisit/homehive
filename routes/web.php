@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentCategoryController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CollectionManagementController;
 
 
 
@@ -250,6 +251,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/payment-mgmt/manage-payment/{id}', [PaymentController::class, 'submitPayment'])->name('payment.submit');
 
+    Route::get('/collection-mgmt/generate-report', [CollectionManagementController::class, 'generateReport'])->name('generateReport');
 
 
 

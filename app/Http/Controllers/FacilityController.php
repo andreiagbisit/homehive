@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\SubdivisionFacility;
+
+class FacilityController extends Controller
+{
+    public function store(Request $request)
+    {
+        // Validate input data
+        $validatedData = $request->validate([
+            'facility_name' => 'required|string|max:255',
+            'fee' => 'required|numeric',
+            'available_days' => 'required|array',
+            'available_months' => 'nullable|array',
+            'start_times' => 'required|array',
+            'start_times.*' => 'required|date_format:H:i',
+            'end_times' => 'required|array',
+            'end_times.*' => 'required|date_format:H:i',
+            'bulletin-board-category-color-picker' => 'required|string|max:7',
+            'all_months' => 'nullable', // No need to specify boolean
+        ]);
+    
+        // Check if "Available All Year" is selected
+        $allMonthsSelected = $request->input('all_months', false); // Default to false if not present
+        $availableMonths = $allMonthsSelected
+            ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            : ($validatedData['available_months'] ?? []);
+    
+        // Create the facility entry
+        $facility = SubdivisionFacility::create([
+            'name' => $validatedData['facility_name'],
+            'fee' => $validatedData['fee'],
+            'available_days' => $validatedData['available_days'],
+            'available_months' => $availableMonths,
+            'hex_code' => $validatedData['bulletin-board-category-color-picker'],
+        ]);
+    
+        // Save each time slot
+        foreach ($validatedData['start_times'] as $index => $startTime) {
+            $facility->timeSlots()->create([
+                'start_time' => $startTime,
+                'end_time' => $validatedData['end_times'][$index],
+            ]);
+        }
+
+        // Redirect back to the facilities page with success message
+        return redirect()->route('manage.facilities.superadmin')->with('success', 'Facility added successfully');
+    }
+
+    public function manageFacilities()
+    {
+        // Retrieve all facilities with their time slots
+        $facilities = SubdivisionFacility::with('timeSlots')->get();
+
+        // Pass facilities data to the view
+        return view('appt-and-res.manage-facilities-super-admin', compact('facilities'));
+    }
+}

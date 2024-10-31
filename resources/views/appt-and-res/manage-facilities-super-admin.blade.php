@@ -45,6 +45,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -57,33 +63,52 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Facility</th>
-                                    <th>Image</th>
                                     <th>Color Hex</th>
+                                    <th>Fee</th>
+                                    <th>Available Days</th>
+                                    <th>Available Months</th>
+                                    <th>Time Slots</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($facilities as $facility)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Clubhouse</td>
-                                    <td><img id="table-facility-pic" src="{{ url('img/clubhouse.jpg') }}"></td>
-                                    <td>#e74a3b</td>
+                                    <td>{{ $facility->id }}</td>
+                                    <td>{{ $facility->name }}</td>
+                                    <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
+                                    <td>₱{{ number_format($facility->fee, 2) }}</td>
+                                    <td>
+                                        @foreach($facility->available_days as $day)
+                                            <span class="badge badge-primary">{{ $day }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach($facility->available_months as $month)
+                                            <span class="badge badge-secondary">{{ $month }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach($facility->timeSlots as $slot)
+                                            <div>{{ $slot->start_time }} - {{ $slot->end_time }}</div>
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.facility.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('appt.and.res.view.facility.superadmin', $facility->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-binoculars"></i>
                                             </span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('appt.and.res.edit.facility.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
+                                        <a href="{{ route('appt.and.res.edit.facility.superadmin', $facility->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                             <span class="text">Edit</span>
                                         </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteFacilityId({{ $facility->id }})">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash-alt"></i>
                                             </span>
@@ -91,64 +116,7 @@
                                         </a>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Basketball Court</td>
-                                    <td><img id="table-facility-pic" src="{{ url('img/bball-court.jpg') }}"></td>
-                                    <td>#1cc88a</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.facility.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.facility.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Swimming Pool</td>
-                                    <td><img id="table-facility-pic" src="{{ url('img/pool.jpg') }}"></td>
-                                    <td>#4e73df</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.facility.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.facility.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -191,5 +159,11 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+            function setDeleteFacilityId(id) {
+                const deleteForm = document.querySelector('#deleteEntryModal form');
+                deleteForm.action = `/appt-and-res/delete-facility/${id}`;
+            }
+        </script>
     </x-slot>
 </x-base>

@@ -15,6 +15,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PaymentCategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CollectionManagementController;
+use App\Http\Controllers\FacilityController;
 
 
 
@@ -256,6 +257,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
+    Route::post('/appt-and-res/store', [FacilityController::class, 'store'])->name('appt-and-res.store');
+
+    Route::get('/appt-and-res/manage-facilities-super-admin', [FacilityController::class, 'manageFacilities'])->name('manage.facilities.superadmin');
+
+
 
     // For Manage Role SuperAdmin/Admin View & Edit
     Route::get('/edit-entry/super-admin', function () {
@@ -454,9 +460,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Manage Facilities 
 
-    Route::get('/appt-and-res/manage-facilities-super-admin', function () {
+    /*Route::get('/appt-and-res/manage-facilities-super-admin', function () {
         return view('appt-and-res/manage-facilities-super-admin');
-    })->name('manage.facilities.superadmin');
+    })->name('manage.facilities.superadmin');*/
+
+    
+
 
     Route::get('/appt-and-res/manage-facilities-admin', function () {
         return view('appt-and-res/manage-facilities-admin');

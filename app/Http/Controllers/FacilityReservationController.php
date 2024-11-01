@@ -16,7 +16,9 @@ use Carbon\CarbonPeriod;
 use App\Mail\FacilityReservationNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FacilityReservationPaidNotification; // Import the new mailable class
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Models\Facility;
 
 class FacilityReservationController extends Controller
 {
@@ -159,11 +161,14 @@ class FacilityReservationController extends Controller
 
     public function manageReservations()
     {
+        // Retrieve all facilities
+        $facilities = SubdivisionFacility::all();
+
         // Fetch reservations with related details for users, facilities, and collectors
         $reservations = FacilityReservation::with(['user', 'facility', 'collector', 'paymentStatus'])
                         ->get();
     
-        return view('appt-and-res.manage-facility-reservations-admin', compact('reservations'));
+        return view('appt-and-res.manage-facility-reservations-admin', compact('reservations','facilities'));
     }
 
         public function destroy($id)
@@ -304,11 +309,14 @@ class FacilityReservationController extends Controller
     
     public function manageReservationsSuperAdmin()
     {
+        // Retrieve all facilities
+        $facilities = SubdivisionFacility::all();
+
         // Fetch reservations with related details for users, facilities, and collectors
         $reservations = FacilityReservation::with(['user', 'facility', 'collector', 'paymentStatus'])->get();
         
         // Return the view with the reservations data
-        return view('appt-and-res.manage-facility-reservations-super-admin', compact('reservations'));
+        return view('appt-and-res.manage-facility-reservations-super-admin', compact('reservations', 'facilities'));
     }
 
     public function viewReservationSuperAdmin($id)
@@ -390,6 +398,56 @@ class FacilityReservationController extends Controller
 
 
 
+    public function generateReport(Request $request)
+    {
+        $query = FacilityReservation::query();
+
+        // Apply filters
+        if ($request->filled('facility')) {
+            $query->where('facility_id', $request->facility);
+        }
+
+        if ($request->filled('fee')) {
+            switch ($request->fee) {
+                case 'low':
+                    $query->where('fee', '<', 1000);
+                    break;
+                case 'medium':
+                    $query->whereBetween('fee', [1000, 5000]);
+                    break;
+                case 'high':
+                    $query->where('fee', '>', 5000);
+                    break;
+            }
+        }
+
+        if ($request->filled('status')) {
+            $query->where('payment_status', $request->status === 'paid' ? 1 : 0);
+        }
+
+        if ($request->filled('month')) {
+            $query->whereMonth('appt_date', Carbon::parse($request->month)->month)
+                ->whereYear('appt_date', Carbon::parse($request->month)->year);
+        }
+
+        // Get filtered results
+        $reservations = $query->get();
+
+        // Calculate total revenue
+        $totalRevenue = $reservations->sum('fee');
+
+        // Generate PDF
+        $dompdf = new Dompdf();
+        $view = view('reports.facility_reservations', compact('reservations', 'totalRevenue'))->render();
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        return $dompdf->stream('Facility_Reservations_Report.pdf');
+    }
+
+    
+    
 
     
 

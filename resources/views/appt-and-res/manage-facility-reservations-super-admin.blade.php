@@ -35,20 +35,44 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Manage Facility Reservations</h1><br>
 
+                
+
                 <div class="text-center">
-                    <a href="{{ route('manage.facilities.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                    <a href="{{ route('manage.facilities.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
                         <span class="icon text-white-50">
                             <i class="fas fa-school"></i>
                         </span>
                         <span class="text" style="color: #000; font-weight: 500;">Manage Facilities</span>
                     </a>
 
-                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-print"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
-                    </a>
+                    <form method="GET" action="{{ route('generate.facility.reservation.report') }}" class="d-flex align-items-center">
+                        <select name="facility" class="form-control mr-2" style="width: 200px;">
+                            <option value="">Select Facility</option>
+                            @foreach($facilities as $facility)
+                                <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+                            @endforeach
+                        </select>
+
+                        <select name="fee" class="form-control mr-2" style="width: 200px;">
+                            <option value="">Select Fee Range</option>
+                            <option value="low">Below 1000</option>
+                            <option value="medium">1000-5000</option>
+                            <option value="high">Above 5000</option>
+                        </select>
+
+                        <select name="status" class="form-control mr-2" style="width: 200px;">
+                            <option value="">Select Status</option>
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                        </select>
+
+                        <input type="month" name="month" class="form-control mr-2" style="width: 200px;">
+
+                        <button type="submit" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50"><i class="fas fa-print"></i></span>
+                            <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 

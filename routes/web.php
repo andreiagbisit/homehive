@@ -20,6 +20,7 @@ use App\Http\Controllers\FacilityReservationController;
 
 
 
+
 // Home route - redirect to login if not authenticated
 Route::get('/', function () {
     if (Auth::check()) {
@@ -312,8 +313,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/appt-and-res/update-reservation-super-admin/{id}', [FacilityReservationController::class, 'updateReservationSuperAdmin'])->name('update.reservation.superadmin');
 
-
-    
+    Route::get('/appt-and-res/generate-facility-reservation-report', [FacilityReservationController::class, 'generateReport'])
+    ->name('generate.facility.reservation.report');
 
     
 

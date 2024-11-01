@@ -37,6 +37,12 @@
                 <h1 id="header-h1">Appointments & Reservations</h1>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Facilities Section -->
             <div class="row">
                 <div class="col-lg mb-4">

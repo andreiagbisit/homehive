@@ -72,14 +72,19 @@
                                     <!-- Time Slot Selection -->
                                     <div class="form-group">
                                         <label for="time" id="input-label">Select a Time Slot <span style="color: red;">*</span></label>
-                                        <select name="appt_time" id="time" class="form-control form-control-user" required>
+                                        <select name="appt_time" id="time-slot" class="form-control form-control-user" required onchange="setAppointmentTimes()">
+                                            <option value="">Select Time Slot</option>
                                             @foreach($facility->timeSlots as $slot)
-                                                <option value="{{ $slot->start_time }} - {{ $slot->end_time }}">
+                                                <option value="{{ $slot->start_time }}|{{ $slot->end_time }}">
                                                     {{ $slot->start_time }} - {{ $slot->end_time }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    <!-- Hidden inputs to store the start and end times separately -->
+                                    <input type="hidden" name="appt_start_time" id="appt_start_time">
+                                    <input type="hidden" name="appt_end_time" id="appt_end_time">
 
                                     <hr>
 
@@ -106,16 +111,27 @@
                                             <select name="collector_id" id="collector-select" class="form-control w-50">
                                                 <option value="">Select Collector</option>
                                                 @foreach($collectors as $collector)
-                                                    <option value="{{ $collector->id }}">{{ $collector->name }}</option>
+                                                    <option value="{{ $collector->id }}" data-qr-code="{{ $collector->gcash_qr_code_path }}">{{ $collector->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <!-- Collector QR Code Display -->
+                                        <div id="collector-qr-code" style="display: none; margin-top: 10px;">
+                                            <p>Collector QR Code:</p>
+                                            <img id="qr-code-img" src="" alt="Collector QR Code" style="max-width: 50%; height: auto; border: 1px solid #ddd; padding: 5px;">
                                         </div>
 
                                         <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt below. The receipt can be downloaded from the GCash app.</p>
 
                                         <div class="custom-file mb-5">
-                                            <input id="upload-input-base" name="receipt" type="file" class="custom-file-input" accept=".jpg, .png">
+                                            <input id="upload-input-base" name="receipt" type="file" class="custom-file-input" accept=".jpg, .png" onchange="showPreview(event)">
                                             <label class="custom-file-label" for="upload-input-base">Upload Receipt</label>
+                                        </div>
+
+                                        <div id="image-preview" style="display: none; margin-top: 10px;">
+                                            <p>Receipt Preview:</p>
+                                            <img id="preview-img" src="#" alt="Receipt Preview" style="max-width: 50%; height: auto; border: 1px solid #ddd; padding: 5px;">
                                         </div>
 
                                         <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, input the Reference No. from the receipt below.</p>
@@ -143,7 +159,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -187,8 +202,104 @@
         <script>
             function togglePaymentOptions() {
                 const gcashFields = document.getElementById('gcash-fields');
+                const paymentMode = document.querySelector('input[name="payment_mode"]:checked').value;
+
+                gcashFields.style.display = paymentMode === 'gcash' ? 'block' : 'none';
+
+                // Send AJAX request to update the payment mode
+                updatePaymentMode(paymentMode);
+            }
+
+            function updatePaymentMode(paymentMode) {
+                const facilityId = document.querySelector('input[name="facility_id"]').value;
+
+                fetch(`/update-payment-mode/${facilityId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ payment_mode: paymentMode })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Payment mode updated successfully.');
+                    } else {
+                        console.error('Error updating payment mode.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+            function showPreview(event) {
+                const preview = document.getElementById('image-preview');
+                const previewImg = document.getElementById('preview-img');
+                
+                if (event.target.files && event.target.files[0]) {
+                    preview.style.display = 'block';
+                    previewImg.src = URL.createObjectURL(event.target.files[0]);
+                    previewImg.onload = function() {
+                        URL.revokeObjectURL(previewImg.src); // Free up memory
+                    };
+                } else {
+                    preview.style.display = 'none';
+                    previewImg.src = '';
+                }
+            }
+
+            const baseUrl = "https://homehivemedia.blob.core.windows.net/homehivemedia";
+
+            function togglePaymentOptions() {
+                const gcashFields = document.getElementById('gcash-fields');
                 gcashFields.style.display = document.getElementById('gcash').checked ? 'block' : 'none';
             }
+
+            function showPreview(event) {
+                const preview = document.getElementById('image-preview');
+                const previewImg = document.getElementById('preview-img');
+                
+                if (event.target.files && event.target.files[0]) {
+                    preview.style.display = 'block';
+                    previewImg.src = URL.createObjectURL(event.target.files[0]);
+                    previewImg.onload = function() {
+                        URL.revokeObjectURL(previewImg.src); // Free up memory
+                    };
+                } else {
+                    preview.style.display = 'none';
+                    previewImg.src = '';
+                }
+            }
+
+            document.getElementById('collector-select').addEventListener('change', function() {
+                const selectedCollector = this.options[this.selectedIndex];
+                let qrCodePath = selectedCollector.getAttribute('data-qr-code');
+
+                const qrCodeContainer = document.getElementById('collector-qr-code');
+                const qrCodeImg = document.getElementById('qr-code-img');
+
+                if (qrCodePath) {
+                    // Prepend base URL if needed
+                    if (!qrCodePath.startsWith('http')) {
+                        qrCodePath = `${baseUrl}/${qrCodePath}`;
+                    }
+                    qrCodeImg.src = qrCodePath;
+                    qrCodeContainer.style.display = 'block';
+                } else {
+                    qrCodeContainer.style.display = 'none';
+                    qrCodeImg.src = '';
+                }
+            });
+
+            function setAppointmentTimes() {
+                const timeSlot = document.getElementById('time-slot').value;
+                const [startTime, endTime] = timeSlot.split('|');
+                
+                document.getElementById('appt_start_time').value = startTime;
+                document.getElementById('appt_end_time').value = endTime;
+            }
+
+
         </script>
 
     </x-slot>

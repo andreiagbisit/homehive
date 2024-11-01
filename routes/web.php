@@ -287,6 +287,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/facility-reservation/store', [FacilityReservationController::class, 'store'])->name('facility-reservation.store');
 
+    Route::get('/appt-and-res/manage-facility-reservations-admin', [FacilityReservationController::class, 'manageReservations'])
+    ->name('manage.facility.reservations.admin');
+
+    Route::delete('/appt-and-res/delete-reservation-admin/{id}', [FacilityReservationController::class, 'destroy'])
+    ->name('delete.reservation.admin');
+
+    Route::post('/facility-reservation/store', [FacilityReservationController::class, 'store'])->name('facility-reservation.store');
+
+    Route::post('/update-payment-mode/{facility}', [FacilityReservationController::class, 'updatePaymentMode']);
+
+    
+
     
 
 
@@ -538,9 +550,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('add-entry/admin');
     })->name('add.entry.admin');
 
-    Route::get('/appt-and-res/manage-facility-reservations-admin', function () {
+    /*Route::get('/appt-and-res/manage-facility-reservations-admin', function () {
         return view('appt-and-res/manage-facility-reservations-admin');
-    })->name('manage.facility.reservations.admin');
+    })->name('manage.facility.reservations.admin');*/
 
     Route::get('/appt-and-res/manage-vehicle-sticker-applications-admin', function () {
         return view('appt-and-res/manage-vehicle-sticker-applications-admin');

@@ -52,6 +52,15 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <!-- Tables -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -65,10 +74,7 @@
                                     <th>ID</th>
                                     <th>Name of Applicant</th>
                                     <th>Facility Reserved</th>
-                                    <th>Start Date of Reservation</th>
-                                    <th>End Date of Reservation</th>
-                                    <th>Duration Start Time of Reservation</th>
-                                    <th>Duration End Time of Reservation</th>
+                                    <th>Date of Reservation</th>
                                     <th>Reservation Fee</th>
                                     <th>Reservation Fee Payment Status</th>
                                     <th>Mode of Payment</th>
@@ -80,122 +86,49 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($reservations as $reservation)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Andrei Joaqhim Ali Agbisit</td>
-                                    <td>Clubhouse</td>
-                                    <td>01/03/2024</td>
-                                    <td>01/04/2024</td>
-                                    <td>1:00 PM</td>
-                                    <td>1:30 PM</td>
-                                    <td>₱500.00</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>John Doe</td>
-                                    <td>01/01/2024</td>
-                                    <td>01/02/2024</td>
-                                    <td>2:00 PM</td>
+                                    <td>{{ $reservation->id }}</td>
+                                    <td>{{ $reservation->user->name }}</td>
+                                    <td>{{ $reservation->facility->name }}</td>
+                                    <td>{{ $reservation->start_date->format('m/d/Y') }}</td>
+                                    <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                                    <td>
+                                        <span style="color: {{ $reservation->paymentStatus && $reservation->paymentStatus->name == 'PAID' ? '#28a745' : '#dc3545' }}; font-weight: bold;">
+                                            {{ $reservation->paymentStatus ? $reservation->paymentStatus->name : 'N/A' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if ($reservation->payment_mode_id == 1)
+                                            GCash
+                                        @elseif ($reservation->payment_mode_id == 2)
+                                            On-Site
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>{{ $reservation->collector->name ?? 'N/A' }}</td>
+                                    <td>{{ $reservation->payment_date ? $reservation->payment_date->format('m/d/Y') : 'N/A' }}</td>
+                                    <td>{{ $reservation->appt_date->format('m/d/Y') }}</td>
+                                    <td>{{ $reservation->appt_start_time }} - {{ $reservation->appt_end_time }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.reservation.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
+                                        <a href="{{ route('appt.and.res.view.reservation.admin', $reservation->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50"><i class="fas fa-binoculars"></i></span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('appt.and.res.edit.reservation.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
+                                        <a href="{{ route('appt.and.res.edit.reservation.admin', $reservation->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
+                                            <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
                                             <span class="text">Edit</span>
                                         </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteReservationId({{ $reservation->id }})">
+                                            <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
                                             <span class="text">Delete</span>
                                         </a>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jio Rhey Detros</td>
-                                    <td>Basketball Court</td>
-                                    <td>01/07/2024</td>
-                                    <td>01/08/2024</td>
-                                    <td>2:30 PM</td>
-                                    <td>3:00 PM</td>
-                                    <td>₱600.00</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>On-site Payment</td>
-                                    <td>Jane Doe</td>
-                                    <td>01/05/2024</td>
-                                    <td>01/06/2024</td>
-                                    <td>3:30 PM</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.reservation.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.reservation.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Edlan Vere Perez</td>
-                                    <td>Swimming Pool</td>
-                                    <td>01/11/2024</td>
-                                    <td>01/12/2024</td>
-                                    <td>4:00 PM</td>
-                                    <td>4:30 PM</td>
-                                    <td>₱600.00</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>Michael Smith</td>
-                                    <td>01/09/2024</td>
-                                    <td>01/10/2024</td>
-                                    <td>5:00 PM</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.reservation.admin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.reservation.admin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -238,5 +171,13 @@
 
     <x-slot name="script">
         <x-script></x-script>
+
+        <script>
+            function setDeleteReservationId(id) {
+                const deleteForm = document.querySelector('#deleteEntryModal form');
+                deleteForm.action = `{{ url('/appt-and-res/delete-reservation-admin') }}/${id}`;
+            }
+        </script>
+
     </x-slot>
 </x-base>

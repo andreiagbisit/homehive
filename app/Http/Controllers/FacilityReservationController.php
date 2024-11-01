@@ -13,6 +13,10 @@ use App\Models\FacilityReservation; // Adjust based on your models folder struct
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Carbon\CarbonPeriod;
+use App\Mail\FacilityReservationNotification;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FacilityReservationPaidNotification; // Import the new mailable class
+
 
 class FacilityReservationController extends Controller
 {
@@ -54,7 +58,7 @@ class FacilityReservationController extends Controller
         $paymentDate = $paymentModeId === 1 ? now() : null;
 
         // Create the reservation
-        FacilityReservation::create([
+        $reservation = FacilityReservation::create([
             'user_id' => auth()->id(),
             'facility_id' => $request->facility_id,
             'start_date' => $request->appt_date,
@@ -69,6 +73,14 @@ class FacilityReservationController extends Controller
             'receipt_path' => $receiptPath,
             'payment_date' => $request->payment_mode === 'gcash' ? now() : null,
         ]);
+
+                // Fetch superadmins and admins to notify
+        $admins = User::whereIn('account_type_id', [1, 2])->get();
+
+        // Send email to each superadmin and admin
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new FacilityReservationNotification($reservation, $admin));
+        }
 
         return redirect()->route('appt.res')->with('success', 'Facility reservation submitted successfully.');
     }
@@ -279,6 +291,12 @@ class FacilityReservationController extends Controller
         // Save the updated reservation
         $reservation->save();
 
+            // Check if the status was updated to PAID
+        if ($request->status == 1) { // Assuming 1 means PAID
+            // Send notification email to the user
+            Mail::to($reservation->user->email)->send(new FacilityReservationPaidNotification($reservation));
+        }
+
         // Redirect back with a success message
         return redirect()->route('manage.facility.reservations.admin')->with('success', 'Reservation updated successfully.');
         
@@ -358,6 +376,12 @@ class FacilityReservationController extends Controller
         $reservation->payment_date = $request->payment_date ? Carbon::parse($request->payment_date) : null;
 
         $reservation->save();
+
+            // Check if the status was updated to PAID
+        if ($request->status == 1) { // Assuming 1 means PAID
+            // Send notification email to the user
+            Mail::to($reservation->user->email)->send(new FacilityReservationPaidNotification($reservation));
+        }
 
         // Redirect to the superadmin management page
         return redirect()->route('manage.facility.reservations.superadmin')->with('success', 'Reservation updated successfully.');

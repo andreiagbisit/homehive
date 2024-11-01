@@ -55,9 +55,6 @@
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
             @endif
 
@@ -80,8 +77,7 @@
                                     <th>Mode of Payment</th>
                                     <th>Payment Collector</th>
                                     <th>Date of Payment</th>
-                                    <th>Date of Appointment</th>
-                                    <th>Time of Appointment</th>
+                                    <th>Time of Reservation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -89,13 +85,17 @@
                                 @foreach($reservations as $reservation)
                                 <tr>
                                     <td>{{ $reservation->id }}</td>
-                                    <td>{{ $reservation->user->name }}</td>
+                                    <td>
+                                        {{ $reservation->user->fname }}
+                                        {{ $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
+                                        {{ $reservation->user->lname }}
+                                    </td>
                                     <td>{{ $reservation->facility->name }}</td>
                                     <td>{{ $reservation->start_date->format('m/d/Y') }}</td>
                                     <td>₱{{ number_format($reservation->fee, 2) }}</td>
                                     <td>
-                                        <span style="color: {{ $reservation->paymentStatus && $reservation->paymentStatus->name == 'PAID' ? '#28a745' : '#dc3545' }}; font-weight: bold;">
-                                            {{ $reservation->paymentStatus ? $reservation->paymentStatus->name : 'N/A' }}
+                                        <span style="color: {{ $reservation->payment_status == 1 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
+                                            {{ $reservation->payment_status == 1 ? 'PAID' : 'PENDING' }}
                                         </span>
                                     </td>
                                     <td>
@@ -109,7 +109,6 @@
                                     </td>
                                     <td>{{ $reservation->collector->name ?? 'N/A' }}</td>
                                     <td>{{ $reservation->payment_date ? $reservation->payment_date->format('m/d/Y') : 'N/A' }}</td>
-                                    <td>{{ $reservation->appt_date->format('m/d/Y') }}</td>
                                     <td>{{ $reservation->appt_start_time }} - {{ $reservation->appt_end_time }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('appt.and.res.view.reservation.admin', $reservation->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">

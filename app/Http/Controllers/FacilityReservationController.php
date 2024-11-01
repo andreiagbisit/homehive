@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Models\SubdivisionFacility; // Adjust based on your models folder structure
 use App\Models\FacilityTimeSlot;    // Adjust based on your models folder structure
@@ -10,7 +11,8 @@ use App\Models\PaymentCollector;    // Adjust based on your models folder struct
 use Carbon\Carbon;                  // Carbon for date handling
 use App\Models\FacilityReservation; // Adjust based on your models folder structure
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\User;
+use Carbon\CarbonPeriod;
 
 class FacilityReservationController extends Controller
 {
@@ -75,23 +77,26 @@ class FacilityReservationController extends Controller
     
     public function showReservationForm($id)
     {
-        // Retrieve the facility based on ID
         $facility = SubdivisionFacility::with('timeSlots')->findOrFail($id);
-    
-        // Extract available days and months for selection options
         $availableDays = $facility->available_days;
         $availableMonths = $facility->available_months;
-    
-        // Calculate available dates based on the available days and months
         $availableDates = $this->calculateAvailableDates($availableDays, $availableMonths);
     
         // Retrieve all collectors for GCash payment option
         $collectors = PaymentCollector::select('id', 'name', 'gcash_qr_code_path')->get();
     
-        // Pass data to the reservation form view
-        return view('appt-and-res.form-facility-reservation', compact('facility', 'availableDates', 'collectors'));
-    }
+        // Fetch existing reservations for this facility and identify booked slots
+        $bookedSlots = FacilityReservation::where('facility_id', $id)
+                        ->whereIn('appt_date', $availableDates)
+                        ->get()
+                        ->groupBy('appt_date')
+                        ->map(function ($reservations) {
+                            return $reservations->pluck('appt_start_time')->toArray();
+                        });
     
+        return view('appt-and-res.form-facility-reservation', compact('facility', 'availableDates', 'collectors', 'bookedSlots'));
+    }
+
 
     // Helper function to calculate dates based on days of the week and months
     private function calculateAvailableDates($availableDays, $availableMonths)
@@ -178,6 +183,109 @@ class FacilityReservationController extends Controller
 
         return response()->json(['success' => false, 'message' => 'Reservation not found'], 404);
     }
+
+    public function show($id)
+    {
+        $reservation = FacilityReservation::with(['user', 'facility', 'collector', 'paymentStatus'])->findOrFail($id);
+        
+        return view('appt-and-res.view-reservation-admin', compact('reservation'));
+    }
+
+    public function edit($id)
+    {
+        $reservation = FacilityReservation::findOrFail($id);
+        $facility = SubdivisionFacility::with(['availableDates', 'timeSlots'])->find($reservation->facility_id);
+        
+        $availableDays = $facility->available_days; // E.g., ['Saturday', 'Sunday']
+        $availableMonths = $facility->available_months; // E.g., ['January', 'February', ...]
+    
+        // Generate dates for the entire year
+        $currentYear = Carbon::now()->year;
+        $generatedDates = [];
+    
+        foreach ($availableMonths as $month) {
+            // Calculate the first day of the month
+            $startDate = Carbon::createFromFormat('F Y', "$month $currentYear")->startOfMonth();
+            $endDate = $startDate->copy()->endOfMonth();
+    
+            // Use CarbonPeriod to generate dates within this month
+            foreach ($availableDays as $day) {
+                $period = CarbonPeriod::create($startDate->next($day), '1 week', $endDate);
+                foreach ($period as $date) {
+                    $generatedDates[] = $date->format('Y-m-d');
+                }
+            }
+        }
+    
+        // Remove duplicates and sort the dates
+        $availableDates = collect($generatedDates)->unique()->sort();
+    
+        $availableTimeSlots = $facility->timeSlots; // Assuming this returns time slots for the facility
+        $users = User::all();
+        $collectors = PaymentCollector::all();
+    
+        return view('appt-and-res.edit-reservation-admin', compact('reservation', 'availableDates', 'availableTimeSlots', 'users', 'collectors', 'facility'));
+    }
+
+    private function generateAvailableDates($facility)
+    {
+        $availableDays = $facility->available_days; // e.g., [6, 0] for Saturday and Sunday
+        $availableMonths = $facility->available_months; // e.g., [1, 2, ..., 12] for all months
+
+        $startDate = Carbon::now()->startOfYear();
+        $endDate = Carbon::now()->endOfYear();
+        $availableDates = [];
+
+        foreach ($availableMonths as $month) {
+            $period = CarbonPeriod::create($startDate->copy()->month($month)->startOfMonth(), $endDate->copy()->month($month)->endOfMonth());
+
+            foreach ($period as $date) {
+                if (in_array($date->dayOfWeek, $availableDays)) {
+                    $availableDates[] = $date->format('Y-m-d');
+                }
+            }
+        }
+
+        return $availableDates;
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming data
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'appt_date' => 'required|date',
+            'appt_start_time' => 'required|date_format:H:i:s',
+            'appt_end_time' => 'required|date_format:H:i:s',
+            'fee' => 'required|numeric',
+            'status' => 'required|in:1,2', // Assuming 1 for PAID, 2 for PENDING
+            'payment_mode' => 'required|in:1,2', // Assuming 1 for GCash, 2 for On-site Payment
+            'payment_collector_id' => 'nullable|exists:payment_collector,id', // Updated to the correct column
+            'payment_date' => 'nullable|date',
+        ]);
+
+        // Find the reservation and update with validated data
+        $reservation = FacilityReservation::findOrFail($id);
+        $reservation->user_id = $request->user_id;
+        $reservation->appt_date = Carbon::parse($request->appt_date);
+        $reservation->appt_start_time = $request->appt_start_time;
+        $reservation->appt_end_time = $request->appt_end_time;
+        $reservation->fee = $request->fee;
+        $reservation->payment_status = $request->status;
+        $reservation->payment_mode_id = $request->payment_mode;
+        $reservation->payment_collector_id = $request->payment_collector_id; // Updated to the correct column
+        $reservation->payment_date = $request->payment_date ? Carbon::parse($request->payment_date) : null;
+
+        // Save the updated reservation
+        $reservation->save();
+
+        // Redirect back with a success message
+        return redirect()->route('manage.facility.reservations.admin')->with('success', 'Reservation updated successfully.');
+        
+    }
+    
+
+    
 
 
 }

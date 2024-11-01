@@ -104,7 +104,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td id="tb-v-head">Payment Submission</td>
+                                            <td id="tb-v-head">Receipt</td>
                                             <td>
                                                 @if($payment->receipt_img)
                                                     <img src="https://homehivemedia.blob.core.windows.net/homehivemedia/{{ $payment->receipt_img }}" 

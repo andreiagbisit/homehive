@@ -50,75 +50,83 @@
                         <div class="card-body">
                             <div class="col overflow-auto mt-4 mb-4">
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
-                                        <tr>
-                                            <td id="tb-v-head">ID</td>
-                                            <td>1</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">ID</td>
+                                        <td>{{ $reservation->id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Name of Applicant</td>
+                                        <td>
+                                            {{ $reservation->user->fname }}
+                                            {{ $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
+                                            {{ $reservation->user->lname }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Facility Reserved</td>
+                                        <td>{{ $reservation->facility->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Date of Reservation</td>
+                                        <td>{{ $reservation->start_date->format('m/d/Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Reservation Fee</td>
+                                        <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Reservation Fee Payment Status</td>
+                                        <td>
+                                        <span style="color: {{ $reservation->payment_status == 1 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
+                                            {{ $reservation->payment_status == 1 ? 'PAID' : 'PENDING' }}
+                                        </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Mode of Payment</td>
+                                        <td>
+                                            @if ($reservation->payment_mode_id == 1)
+                                                GCash
+                                            @elseif ($reservation->payment_mode_id == 2)
+                                                On-Site
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Payment Collector</td>
+                                        <td>{{ $reservation->collector->name ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Date of Payment</td>
+                                        <td>{{ $reservation->payment_date ? $reservation->payment_date->format('m/d/Y') : 'N/A' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Date of Appointment</td>
+                                        <td>{{ $reservation->appt_date->format('m/d/Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Time of Appointment</td>
+                                        <td>{{ $reservation->appt_start_time }} - {{ $reservation->appt_end_time }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Name of Applicant</td>
-                                            <td>Andrei Joaqhim Ali Agbisit</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Receipt</td>
+                                        <td>
+                                            @if ($reservation->receipt_path)
+                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="max-width: 200px; max-height: 200px;">
+                                            @else
+                                                No receipt uploaded.
+                                            @endif
+                                        </td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Facility Reserved</td>
-                                            <td>Clubhouse</td>
-                                        </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Reference No.</td>
+                                        <td>{{ $reservation->reference_no ?? 'No reference number provided.' }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Start Date of Reservation</td>
-                                            <td>01/03/2024</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">End Date of Reservation</td>
-                                            <td>01/04/2024</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Duration Start time of Reservation</td>
-                                            <td><b>1:00 PM</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Duration End time of Reservation</td>
-                                            <td><b>1:30 PM</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Reservation Fee</td>
-                                            <td><b>GCash</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Mode of Payment</td>
-                                            <td><b>GCash</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Payment Collector</td>
-                                            <td><b>John Doe</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Date of Payment</td>
-                                            <td><b>01/01/2024</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Date of Appointment</td>
-                                            <td><b>01/02/2024</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Time of Appointment</td>
-                                            <td><b>01/02/2024</b></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Reservation Fee Payment Status</td>
-                                            <td><b>01/02/2024</b>PAID</td>
-                                        </tr>
                                     </table>
                                 </form>
                             </div><hr>

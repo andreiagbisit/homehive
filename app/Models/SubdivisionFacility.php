@@ -45,4 +45,10 @@ class SubdivisionFacility extends Model
     {
         return json_decode($value, true);
     }
+
+    public function availableDates()
+    {
+        return $this->hasMany(FacilityDate::class, 'facility_id');
+    }
+    
 }

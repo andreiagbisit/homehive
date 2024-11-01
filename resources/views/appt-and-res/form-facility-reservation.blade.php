@@ -62,9 +62,9 @@
                                     <!-- Date Selection Dropdown -->
                                     <div class="form-group">
                                         <label for="date" id="input-label">Select a Date <span style="color: red;">*</span></label>
-                                        <select name="appt_date" id="date" class="form-control form-control-user" required>
+                                        <select name="appt_date" id="date" class="form-control form-control-user" required onchange="filterTimeSlots()">
                                             @foreach($availableDates as $date)
-                                                <option value="{{ $date->format('Y-m-d') }}">{{ $date->format('l, F j, Y') }}</option>
+                                                <option value="{{ $date->format('Y-m-d') }}">{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -72,10 +72,11 @@
                                     <!-- Time Slot Selection -->
                                     <div class="form-group">
                                         <label for="time" id="input-label">Select a Time Slot <span style="color: red;">*</span></label>
-                                        <select name="appt_time" id="time-slot" class="form-control form-control-user" required onchange="setAppointmentTimes()">
+                                        <select name="appt_time" id="time-slot" class="form-control form-control-user" required>
                                             <option value="">Select Time Slot</option>
                                             @foreach($facility->timeSlots as $slot)
-                                                <option value="{{ $slot->start_time }}|{{ $slot->end_time }}">
+                                                <option value="{{ $slot->start_time }}|{{ $slot->end_time }}" 
+                                                    {{ isset($bookedSlots[$date->format('Y-m-d')]) && in_array($slot->start_time, $bookedSlots[$date->format('Y-m-d')]) ? 'disabled' : '' }}>
                                                     {{ $slot->start_time }} - {{ $slot->end_time }}
                                                 </option>
                                             @endforeach
@@ -299,6 +300,18 @@
                 document.getElementById('appt_end_time').value = endTime;
             }
 
+            const bookedSlots = @json($bookedSlots);
+
+            function filterTimeSlots() {
+                const selectedDate = document.getElementById('date').value;
+                const timeSlotSelect = document.getElementById('time-slot');
+
+                for (let i = 0; i < timeSlotSelect.options.length; i++) {
+                    const option = timeSlotSelect.options[i];
+                    const [startTime] = option.value.split('|');
+                    option.disabled = bookedSlots[selectedDate] && bookedSlots[selectedDate].includes(startTime);
+                }
+            }
 
         </script>
 

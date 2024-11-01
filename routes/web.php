@@ -16,6 +16,7 @@ use App\Http\Controllers\PaymentCategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CollectionManagementController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\FacilityReservationController;
 
 
 
@@ -280,6 +281,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/appt-and-res/delete-facility-admin/{id}', [FacilityController::class, 'destroy'])->name('delete.facility.admin');
 
     Route::get('/appt-and-res/user', [FacilityController::class, 'userViewFacilities'])->name('appt.res');
+
+    Route::get('/appt-and-res/form-facility-reservation/{facility}', [FacilityReservationController::class, 'showReservationForm'])
+    ->name('appt.and.res.form.facility.reservation');
+
+    Route::post('/facility-reservation/store', [FacilityReservationController::class, 'store'])->name('facility-reservation.store');
 
     
 
@@ -562,9 +568,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('payment-mgmt/manage-payment');
     })->name('manage.payment');*/
 
-    Route::get('/appt-and-res/form-facility-reservation', function () {
+    /*Route::get('/appt-and-res/form-facility-reservation', function () {
         return view('appt-and-res/form-facility-reservation');
-    })->name('appt.and.res.form.facility.reservation');
+    })->name('appt.and.res.form.facility.reservation');*/
+
+
+
 
     Route::get('/appt-and-res/form-vehicle-sticker-appointment', function () {
         return view('appt-and-res/form-vehicle-sticker-appointment');

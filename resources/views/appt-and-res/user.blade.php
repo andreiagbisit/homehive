@@ -52,7 +52,7 @@
                                         <div class="card-body">
                                             <div class="text-center">
                                                 <h2 id="appt-and-res-card-title">{{ $facility->name }}</h2>
-                                                <a href="{{ route('appt.and.res.form.facility.reservation') }}"
+                                                <a href="{{ route('appt.and.res.form.facility.reservation', ['facility' => $facility->id]) }}"
                                                    style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;"
                                                    class="d-inline-flex btn btn-warning btn-user btn-block font-weight-bold col-sm-6">
                                                     BOOK RESERVATION

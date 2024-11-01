@@ -8,15 +8,30 @@ class CreatePaymentCollectorTable extends Migration
 {
     public function up()
     {
-        Schema::create('payment_collector', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id')->autoIncrement();
-            $table->string('name');
-            $table->timestamps();
+        Schema::table('vehicle_sticker_application', function (Blueprint $table) {
+            // Drop the foreign key constraint
+            $table->dropForeign(['payment_collector_id']);
+    
+            // Change the column to be nullable
+            $table->unsignedTinyInteger('payment_collector_id')->nullable()->change();
+    
+            // Re-add the foreign key constraint
+            $table->foreign('payment_collector_id')->references('id')->on('payment_collector')->onDelete('set null');
         });
     }
-
+    
     public function down()
     {
-        Schema::dropIfExists('payment_collector');
+        Schema::table('vehicle_sticker_application', function (Blueprint $table) {
+            // Drop the foreign key constraint
+            $table->dropForeign(['payment_collector_id']);
+    
+            // Change the column to not be nullable (rollback)
+            $table->unsignedTinyInteger('payment_collector_id')->nullable(false)->change();
+    
+            // Re-add the foreign key constraint
+            $table->foreign('payment_collector_id')->references('id')->on('payment_collector')->onDelete('restrict');
+        });
     }
+    
 };

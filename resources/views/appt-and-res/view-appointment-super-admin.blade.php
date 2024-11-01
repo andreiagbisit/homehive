@@ -52,62 +52,69 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">ID</td>
-                                            <td>1</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Name of Applicant</td>
-                                            <td>Andrei Joaqhim Ali Agbisit</td>
+                                            <td>{{ $application->id }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Registered Vehicle Owner</td>
-                                            <td>Lorem Agbisit</td>
+                                            <td>{{ $application->registered_owner }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Vehicle Make</td>
-                                            <td>Toyota</td>
+                                            <td>{{ $application->make }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Vehicle Series</td>
-                                            <td>Sprinter Trueno AE86</td>
+                                            <td>{{ $application->series }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Vehicle Color</td>
-                                            <td><b>Black & White</b></td>
+                                            <td>{{ $application->color }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Vehicle Plate No.</td>
-                                            <td><b>ABC 1234</b></td>
+                                            <td>{{ $application->plate_no }}</td>
                                         </tr>
-
+                                        
                                         <tr>
                                             <td id="tb-v-head">Mode of Payment</td>
-                                            <td><b>GCash</b></td>
+                                            <td>{{ $application->payment_mode_id == 1 ? 'GCash' : 'On-site Payment' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Payment Collector</td>
-                                            <td><b>John Doe</b></td>
+                                            <td>{{ $application->collector->name ?? 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Date of Payment</td>
-                                            <td><b>01/01/2024</b></td>
+                                            <td><b>{{ $application->date_of_payment ? $application->date_of_payment->format('m/d/Y') : 'N/A' }}</b></td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Date of Appointment</td>
-                                            <td><b>01/01/2024</b></td>
+                                            <td><b>{{ $application->appt_date ? $application->appt_date->format('m/d/Y') : 'N/A' }}</b></td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Time of Appointment</td>
-                                            <td><b>01/01/2024</b></td>
+                                            <td><b>{{ $application->appt_time ? \Carbon\Carbon::parse($application->appt_time)->format('H:i') : 'N/A' }}</b></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td id="tb-v-head">Receipt </td>
+                                            <td>
+                                            @if ($application->receipt_img)
+                                                <img src="https://homehivemedia.blob.core.windows.net/homehivemedia/{{ $application->receipt_img }}"
+                                                    alt="GCash Receipt" class="img-fluid" style="max-width: 200px;"> 
+                                                @else
+                                                    <b>No receipt uploaded.</b>
+                                            @endif
+                                            </td>
                                         </tr>
                                     </table>
                                 </form>

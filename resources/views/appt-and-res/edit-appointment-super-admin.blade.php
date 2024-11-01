@@ -52,21 +52,28 @@
                             Fill in what is being asked to set preferences in initializing an online facility reservation. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
 
-                            <div class="col">
-                                <form class="user">
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Reservation Fee <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱200.00">
-                                        </div>
-                                    </div>
-                                    <hr>
+                                <div class="col">
+                                    <form method="POST" action="{{ route('update.application.status', ['id' => $application->id]) }}" class="user">
+                                        @csrf
+                                        @method('PUT')
 
-                                    <div class="form-group row">
+                                        <div class="form-group row mt-4">
+                                            <div class="col-sm-6">
+                                                <label id="input-label" for="status-select">Status <span style="color: red;">*</span></label><br>
+                                                <select name="status" class="form-control w-100" required>
+                                                    <option value="1" {{ $application->status == 1 ? 'selected' : '' }}>PAID</option>
+                                                    <option value="2" {{ $application->status == 2 ? 'selected' : '' }}>PENDING</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

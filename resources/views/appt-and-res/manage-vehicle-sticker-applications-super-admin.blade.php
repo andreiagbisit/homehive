@@ -52,6 +52,12 @@
                 </div>
             </div>
 
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <!-- Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -63,7 +69,6 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name of Applicant</th>
                                     <th>Registered Vehicle Owner</th>
                                     <th>Vehicle Make</th>
                                     <th>Vehicle Series</th>
@@ -79,157 +84,42 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($applications as $application)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Andrei Joaqhim Ali Agbisit</td>
-                                    <td>Lorem Agbisit</td>
-                                    <td>Toyota</td>
-                                    <td>Sprinter Trueno AE86</td>
-                                    <td>Black & White</td>
-                                    <td>ABC 1234</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>John Doe</td>
-                                    <td>01/01/2024</td>
-                                    <td>01/02/2024</td>
-                                    <td>1:00 PM</td>
+                                    <td>{{ $application->id }}</td>
+                                    <td>{{ $application->registered_owner }}</td>
+                                    <td>{{ $application->make }}</td>
+                                    <td>{{ $application->series }}</td>
+                                    <td>{{ $application->color }}</td>
+                                    <td>{{ $application->plate_no }}</td>
+                                    <td>
+                                        <span style="color: {{ $application->status == 1 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
+                                            {{ $application->status == 1 ? 'PAID' : 'PENDING' }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $application->payment_mode_id == 1 ? 'GCash' : 'On-site Payment' }}</td>
+                                    <td>{{ $application->collector->name ?? 'N/A' }}</td>
+                                    <td>{{ $application->date_of_payment ? $application->date_of_payment->format('m/d/Y') : 'N/A' }}</td>
+                                    <td>{{ $application->appt_date ? $application->appt_date->format('m/d/Y') : 'N/A' }}</td>
+                                    <td>{{ $application->appt_time ?? 'N/A' }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.appointment.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
+                                        <a href="{{ route('appt.and.res.view.appointment.superadmin', ['id' => $application->id]) }}" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50"><i class="fas fa-binoculars"></i></span>
                                             <span class="text">View</span>
                                         </a><br>
 
-                                        <a href="{{ route('appt.and.res.edit.appointment.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
+                                        <a href="{{ route('appt.and.res.edit.appointment.superadmin', $application->id) }}" class="btn btn-success btn-icon-split">
+                                            <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
                                             <span class="text">Edit</span>
                                         </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
+                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $application->id }})">
+                                            <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
                                             <span class="text">Delete</span>
                                         </a>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jio Rhey Detros</td>
-                                    <td>Ipsum Detros</td>
-                                    <td>Mazda</td>
-                                    <td>FD RX-7</td>
-                                    <td>Black & Orange</td>
-                                    <td>DEF 4567</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>On-site Payment</td>
-                                    <td>Jane Doe</td>
-                                    <td>01/03/2024</td>
-                                    <td>01/04/2024</td>
-                                    <td>1:30 PM</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.appointment.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.appointment.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Edlan Vere Perez</td>
-                                    <td>Dolor Perez</td>
-                                    <td>Mitsubishi</td>
-                                    <td>1998 Eclipse GSX</td>
-                                    <td>Green and Black with Blue Stripes</td>
-                                    <td>GHI 9876</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>On-site Payment</td>
-                                    <td>Michael Smith</td>
-                                    <td>01/05/2024</td>
-                                    <td>01/06/2024</td>
-                                    <td>2:00 PM</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.appointment.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.appointment.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Terrence Liam Tongol</td>
-                                    <td>Sit Tongol</td>
-                                    <td>Nissan</td>
-                                    <td>Skyline GT-R R34</td>
-                                    <td>Gray with Blue Overalls</td>
-                                    <td>JKL 5432</td>
-                                    <td><span style="color: #28a745; font-weight: bold;">PAID</span></td>
-                                    <td>GCash</td>
-                                    <td>Mary Smith</td>
-                                    <td>01/07/2024</td>
-                                    <td>01/08/2024</td>
-                                    <td>2:30 PM</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.appointment.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('appt.and.res.edit.appointment.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 5%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -272,5 +162,11 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+            function setDeleteEntryUrl(id) {
+                const deleteForm = document.querySelector('#deleteEntryModal form');
+                deleteForm.action = `/appt-and-res/manage-vehicle-sticker-applications-super-admin/${id}`; // Adjust the URL as needed for your route
+            }
+        </script>
     </x-slot>
 </x-base>

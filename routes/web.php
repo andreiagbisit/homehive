@@ -17,6 +17,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CollectionManagementController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FacilityReservationController;
+use App\Http\Controllers\VehicleStickerController;
+
 
 
 
@@ -316,7 +318,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/appt-and-res/generate-facility-reservation-report', [FacilityReservationController::class, 'generateReport'])
     ->name('generate.facility.reservation.report');
 
-    
+
+
+
+    Route::post('/vehicle-sticker-settings', [VehicleStickerController::class, 'storeSettings'])->name('vehicle.sticker.settings.store');
+
+    Route::get('/vehicle-sticker-settings', [VehicleStickerController::class, 'createSettings'])->name('vehicle.sticker.settings.create');
+
+    Route::get('/appt-and-res/manage-vehicle-sticker-applications-super-admin', [VehicleStickerController::class, 'index'])->name('manage.vehicle.sticker.applications.super.admin');
+
+    Route::post('/vehicle-sticker-appointment/store', [VehicleStickerController::class, 'storeApplication'])->name('vehicle.sticker.appointment.store');
+
+    Route::get('appt-and-res/vehicle-sticker-appointment', [VehicleStickerController::class, 'createApplication'])->name('appt.and.res.form.vehicle.sticker.appointment');
+
+    Route::get('/appt-and-res/view-appointment-super-admin/{id}', [VehicleStickerController::class, 'viewApplication'])->name('appt.and.res.view.appointment.superadmin');
+
+    Route::get('/appt-and-res/edit-appointment-super-admin/{id}', [VehicleStickerController::class, 'editApplication'])->name('appt.and.res.edit.appointment.superadmin');
+
+    Route::put('/appt-and-res/update-status/{id}', [VehicleStickerController::class, 'updateApplicationStatus'])->name('update.application.status');
+
+    Route::delete('/appt-and-res/manage-vehicle-sticker-applications-super-admin/{id}', [VehicleStickerController::class, 'destroy'])->name('vehicle.sticker.application.destroy');
+
+
 
 
 
@@ -432,17 +455,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/edit-facility-admin');
     })->name('appt.and.res.edit.facility.admin');*/
 
-    Route::get('/appt-and-res/edit-appointment-super-admin', function () {
+    /*Route::get('/appt-and-res/edit-appointment-super-admin', function () {
         return view('appt-and-res/edit-appointment-super-admin');
-    })->name('appt.and.res.edit.appointment.superadmin');
+    })->name('appt.and.res.edit.appointment.superadmin');*/
 
     Route::get('/appt-and-res/edit-appointment-admin', function () {
         return view('appt-and-res/edit-appointment-admin');
     })->name('appt.and.res.edit.appointment.admin');
 
-    Route::get('/appt-and-res/view-appointment-super-admin', function () {
-        return view('appt-and-res/view-appointment-super-admin');
-    })->name('appt.and.res.view.appointment.superadmin');
+
+   
 
     Route::get('/appt-and-res/view-appointment-admin', function () {
         return view('appt-and-res/view-appointment-admin');
@@ -539,9 +561,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // View and Edit of Vehicle Sticker Application
 
-    Route::get('/appt-and-res/manage-vehicle-sticker-applications-super-admin', function () {
+    /*Route::get('/appt-and-res/manage-vehicle-sticker-applications-super-admin', function () {
         return view('appt-and-res/manage-vehicle-sticker-applications-super-admin');
-    })->name('manage.vehicle.sticker.applications.super.admin');
+    })->name('manage.vehicle.sticker.applications.super.admin');*/
 
     Route::get('/add-entry/super-admin', function () {
         return view('add-entry/super-admin');
@@ -609,9 +631,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-    Route::get('/appt-and-res/form-vehicle-sticker-appointment', function () {
+    /*Route::get('/appt-and-res/form-vehicle-sticker-appointment', function () {
         return view('appt-and-res/form-vehicle-sticker-appointment');
-    })->name('appt.and.res.form.vehicle.sticker.appointment');
+    })->name('appt.and.res.form.vehicle.sticker.appointment');*/
 
 });
 

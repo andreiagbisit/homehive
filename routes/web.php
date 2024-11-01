@@ -304,9 +304,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::match(['put', 'patch'], '/reservation/update/{id}', [FacilityReservationController::class, 'update'])->name('reservation.update');
 
+    Route::get('/appt-and-res/manage-facility-reservations-super-admin', [FacilityReservationController::class, 'manageReservationsSuperAdmin'])->name('manage.facility.reservations.superadmin');
 
+    Route::get('/appt-and-res/view-reservation-super-admin/{id}', [FacilityReservationController::class, 'viewReservationSuperAdmin'])->name('appt.and.res.view.reservation.superadmin');
 
+    Route::get('/appt-and-res/edit-reservation-super-admin/{id}', [FacilityReservationController::class, 'editReservationSuperAdmin'])->name('appt.and.res.edit.reservation.superadmin');
 
+    Route::put('/appt-and-res/update-reservation-super-admin/{id}', [FacilityReservationController::class, 'updateReservationSuperAdmin'])->name('update.reservation.superadmin');
 
 
     
@@ -447,17 +451,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/view-reservation-admin');
     })->name('appt.and.res.view.reservation.admin');*/
 
-    Route::get('/appt-and-res/view-reservation-super-admin', function () {
+    /*Route::get('/appt-and-res/view-reservation-super-admin', function () {
         return view('appt-and-res/view-reservation-super-admin');
-    })->name('appt.and.res.view.reservation.superadmin');
+    })->name('appt.and.res.view.reservation.superadmin');*/
 
     /*Route::get('/appt-and-res/view-reservation-admin', function () {
         return view('appt-and-res/view-reservation-admin');
     })->name('appt.and.res.view.reservation.admin');*/
 
-    Route::get('/appt-and-res/edit-reservation-superadmin', function () {
+    /*Route::get('/appt-and-res/edit-reservation-superadmin', function () {
         return view('appt-and-res/edit-reservation-superadmin');
-    })->name('appt.and.res.edit.reservation.superadmin');
+    })->name('appt.and.res.edit.reservation.superadmin');*/
+
+    
+
 
     /*Route::get('/appt-and-res/edit-reservation-admin', function () {
         return view('appt-and-res/edit-reservation-admin');
@@ -508,9 +515,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Manage Facility Reservation
 
-    Route::get('/appt-and-res/manage-facility-reservations-super-admin', function () {
+    /*Route::get('/appt-and-res/manage-facility-reservations-super-admin', function () {
         return view('appt-and-res/manage-facility-reservations-super-admin');
-    })->name('manage.facility.reservations.superadmin');
+    })->name('manage.facility.reservations.superadmin');*/
 
     // View and Edit of Facility Reservation 
 

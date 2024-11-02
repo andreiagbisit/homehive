@@ -339,6 +339,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('/appt-and-res/manage-vehicle-sticker-applications-super-admin/{id}', [VehicleStickerController::class, 'destroy'])->name('vehicle.sticker.application.destroy');
 
+    Route::get('/vehicle-sticker-report', [VehicleStickerController::class, 'generateReport'])->name('vehicle.sticker.report');
+
 
 
 

@@ -43,12 +43,29 @@
                         <span class="text" style="color: #000; font-weight: 500;">Manage Settings</span>
                     </a>
 
-                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-print"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
-                    </a>
+                    <!-- Filter Form -->
+                    <form method="GET" action="{{ route('vehicle.sticker.report') }}" class="d-inline">
+                        <select name="month" class="form-control d-inline w-auto" required>
+                            <option value="">Select Month</option>
+                            @foreach(range(1, 12) as $month)
+                                <option value="{{ $month }}">{{ date("F", mktime(0, 0, 0, $month, 1)) }}</option>
+                            @endforeach
+                        </select>
+                        <select name="year" class="form-control d-inline w-auto" required>
+                            <option value="">Select Year</option>
+                            @for($year = date('Y') - 5; $year <= date('Y') + 5; $year++)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
+                        
+                        <!-- Generate Report Button -->
+                        <button type="submit" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-print"></i>
+                            </span>
+                            <span class="text" style="color: #000; font-weight: 500;">Generate Report</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 

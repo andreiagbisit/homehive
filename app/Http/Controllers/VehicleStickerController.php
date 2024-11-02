@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\VehicleStickerApplicationDetails;
 use App\Models\VehicleStickerApplication;
 use App\Models\PaymentCollector;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VehicleStickerApplicationNotification;
+use App\Models\User;
+use App\Mail\VehicleRegistrationConfirmed;
+
+
 
 
 
@@ -79,21 +86,29 @@ class VehicleStickerController extends Controller
          $fee = $details ? $details->vehicle_sticker_fee : 0;
      
          // Create the application record
-         VehicleStickerApplication::create([
-             'user_id' => auth()->id(),
-             'registered_owner' => $request->input('registered_owner'),
-             'make' => $request->input('make'),
-             'series' => $request->input('series'),
-             'color' => $request->input('color'),
-             'plate_no' => $request->input('plate_no'),
-             'fee' => $fee,
-             'payment_mode_id' => $request->input('payment_mode_id'),
-             'payment_collector_id' => $request->input('payment_collector_id'),
-             'appt_date' => $request->input('appt_date'),
-             'appt_time' => $request->input('appt_time'),
-             'date_of_payment' => $request->input('date_of_payment'),
-             'receipt_img' => $receiptPath,
-         ]);
+        $application = VehicleStickerApplication::create([
+            'user_id' => auth()->id(),
+            'registered_owner' => $request->input('registered_owner'),
+            'make' => $request->input('make'),
+            'series' => $request->input('series'),
+            'color' => $request->input('color'),
+            'plate_no' => $request->input('plate_no'),
+            'fee' => $fee,
+            'payment_mode_id' => $request->input('payment_mode_id'),
+            'payment_collector_id' => $request->input('payment_collector_id'),
+            'appt_date' => $request->input('appt_date'),
+            'appt_time' => $request->input('appt_time'),
+            'date_of_payment' => $request->input('date_of_payment'),
+            'receipt_img' => $receiptPath,
+        ]);
+
+         // Get all superadmins and admins
+        $admins = User::whereIn('account_type_id', [1, 2])->get();
+
+        // Send email to each admin
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new VehicleStickerApplicationNotification($application));
+        }
      
          // Redirect with success message
          return redirect()->route('appt.res')->with('success', 'Vehicle Sticker Application submitted successfully.');
@@ -154,6 +169,13 @@ class VehicleStickerController extends Controller
         $application->status = $request->input('status');
         $application->save();
 
+        // Check if the status is "paid" (assuming "1" represents "paid")
+        if ($application->status == 1) {
+            // Send email to the user who submitted the application
+            Mail::to($application->user->email)->send(new VehicleRegistrationConfirmed($application));
+        }
+
+
         return redirect()->route('manage.vehicle.sticker.applications.super.admin')->with('success', 'Application status updated successfully.');
     }
 
@@ -168,7 +190,33 @@ class VehicleStickerController extends Controller
     }
 
 
+    public function generateReport(Request $request)
+    {
+        // Validate input for month and year
+        $request->validate([
+            'month' => 'required|integer|min:1|max:12',
+            'year' => 'required|integer|min:' . (date('Y') - 5) . '|max:' . (date('Y') + 5),
+        ]);
 
+        // Fetch applications based on filters
+        $applications = VehicleStickerApplication::with('collector')
+            ->whereMonth('date_of_payment', $request->month)
+            ->whereYear('date_of_payment', $request->year)
+            ->get();
+
+        // Calculate the total fee
+        $totalFee = $applications->sum('fee');
+
+        // Create Dompdf instance and load view
+        $dompdf = new Dompdf();
+        $view = view('reports.vehicle-sticker', compact('applications', 'totalFee', 'request'))->render();
+        $dompdf->loadHtml($view);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // Stream the PDF for download
+        return $dompdf->stream('vehicle_sticker_report_' . $request->month . '_' . $request->year . '.pdf');
+    }
     
 
     

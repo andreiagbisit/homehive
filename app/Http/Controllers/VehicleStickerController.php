@@ -176,19 +176,32 @@ class VehicleStickerController extends Controller
         }
 
 
-        return redirect()->route('manage.vehicle.sticker.applications.super.admin')->with('success', 'Application status updated successfully.');
+            // Check the authenticated user's role and redirect accordingly
+        if (auth()->user()->account_type_id == 1) { // Super Admin
+            return redirect()->route('manage.vehicle.sticker.applications.super.admin')->with('success', 'Application status updated successfully.');
+        } elseif (auth()->user()->account_type_id == 2) { // Admin
+            return redirect()->route('manage.vehicle.sticker.applications.admin')->with('success', 'Application status updated successfully.');
+        }
     }
 
     public function destroy($id)
     {
-            // Find the application by ID
+        // Find the application by ID and delete it
         $application = VehicleStickerApplication::findOrFail($id);
         $application->delete();
-        
-        return redirect()->route('manage.vehicle.sticker.applications.super.admin')
-                        ->with('success', 'Vehicle Sticker Application deleted successfully.');
-    }
 
+        // Redirect based on user role
+        if (auth()->user()->account_type_id == 1) { // Super Admin
+            return redirect()->route('manage.vehicle.sticker.applications.super.admin')
+                            ->with('success', 'Vehicle Sticker Application deleted successfully.');
+        } elseif (auth()->user()->account_type_id == 2) { // Admin
+            return redirect()->route('manage.vehicle.sticker.applications.admin')
+                            ->with('success', 'Vehicle Sticker Application deleted successfully.');
+        }
+
+        // Fallback redirection if necessary
+        return redirect()->back()->with('success', 'Vehicle Sticker Application deleted successfully.');
+    }
 
     public function generateReport(Request $request)
     {
@@ -218,8 +231,68 @@ class VehicleStickerController extends Controller
         return $dompdf->stream('vehicle_sticker_report_' . $request->month . '_' . $request->year . '.pdf');
     }
     
+        public function storeSettingsAdmin(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'registered_vehicles' => 'required|integer',
+            'vehicle_sticker_fee' => 'required|numeric',
+            'hex_code' => 'required|string|max:7',
+        ]);
 
-    
+        // Find the first record or create a new one if none exists
+        $details = VehicleStickerApplicationDetails::first();
+
+        if ($details) {
+            // Update the existing record
+            $details->update([
+                'registered_vehicles' => $request->input('registered_vehicles'),
+                'vehicle_sticker_fee' => $request->input('vehicle_sticker_fee'),
+                'hex_code' => $request->input('hex_code'),
+            ]);
+        } else {
+            // Create a new record if none exists
+            VehicleStickerApplicationDetails::create([
+                'registered_vehicles' => $request->input('registered_vehicles'),
+                'vehicle_sticker_fee' => $request->input('vehicle_sticker_fee'),
+                'hex_code' => $request->input('hex_code'),
+            ]);
+        }
+
+        // Redirect with a success message
+        return redirect()->route('manage.vehicle.sticker.applications.admin')->with('success', 'Settings saved successfully.');
+    }
+
+
+    public function indexAdmin()
+    {
+        // Fetch all applications and pass them to the view
+        $applications = VehicleStickerApplication::with('collector') // Include necessary relationships
+                            ->get();
+
+        // Return the view for the admin with the applications data
+        return view('appt-and-res.manage-vehicle-sticker-applications-admin', compact('applications'));
+    }
+
+    public function viewApplicationAdmin($id)
+    {
+        // Retrieve the application with relationships (adjust as needed)
+        $application = VehicleStickerApplication::with('collector', 'user')->findOrFail($id);
+
+        // Return the view for admin
+        return view('appt-and-res.view-appointment-admin', compact('application'));
+    }
+
+    public function editApplicationAdmin($id)
+    {
+        // Retrieve the application (with relationships if needed)
+        $application = VehicleStickerApplication::with('collector', 'user')->findOrFail($id);
+
+        // Return the edit view for admin
+        return view('appt-and-res.edit-appointment-admin', compact('application'));
+    }
+
+
 }
 
 

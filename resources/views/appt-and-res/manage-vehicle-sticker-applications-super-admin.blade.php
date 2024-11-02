@@ -179,11 +179,18 @@
 
     <x-slot name="script">
         <x-script></x-script>
-        <script>
-            function setDeleteEntryUrl(id) {
-                const deleteForm = document.querySelector('#deleteEntryModal form');
-                deleteForm.action = `/appt-and-res/manage-vehicle-sticker-applications-super-admin/${id}`; // Adjust the URL as needed for your route
+            <script>
+        function setDeleteEntryUrl(id) {
+            const deleteForm = document.querySelector('#deleteEntryModal form');
+
+            // Set the action URL based on the user type
+            const userType = {{ auth()->user()->account_type_id }};
+            if (userType === 1) {
+                deleteForm.action = `/appt-and-res/manage-vehicle-sticker-applications-super-admin/${id}`;
+            } else if (userType === 2) {
+                deleteForm.action = `/appt-and-res/manage-vehicle-sticker-applications-admin/${id}`;
             }
+        }
         </script>
     </x-slot>
 </x-base>

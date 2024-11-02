@@ -9,19 +9,19 @@
     
     <x-slot name="sidebar_base">
         <x-sidebar-base>
-            <x-slot name="sidebar_landing_link_admin">
-                <x-sidebar-landing-link-admin></x-sidebar-landing-link-admin>
+            <x-slot name="sidebar_landing_link_super_admin">
+                <x-sidebar-landing-link-super-admin></x-sidebar-landing-link-super-admin>
             </x-slot>
 
             <x-slot name="sidebar_landing_link_user"></x-slot>
-            <x-slot name="sidebar_landing_link_super_admin"></x-slot>
+            <x-slot name="sidebar_landing_link_admin"></x-slot>
 
-            <x-slot name="sidebar_content_admin">
-                <x-sidebar-content-admin></x-sidebar-content-admin>
+            <x-slot name="sidebar_content_super_admin">
+                <x-sidebar-content-super-admin></x-sidebar-content-super-admin>
             </x-slot>
             
             <x-slot name="sidebar_content_user"></x-slot>
-            <x-slot name="sidebar_content_super_admin"></x-slot>
+            <x-slot name="sidebar_content_admin"></x-slot>
         </x-sidebar-base>
     </x-slot>
 
@@ -37,7 +37,7 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Manage Vehicle Sticker Applications - Manage Settings</h1>
             </div>
-
+            
             <!-- Content Row -->
             <div class="row">
                 <div class="col-lg-6 mb-4">
@@ -53,37 +53,25 @@
                             </p>
 
                             <div class="col">
-                                <form class="user">
+                                <form class="user" method="POST" action="{{ route('vehicle.sticker.settings.store.admin') }}">
+                                    @csrf
+                                    
                                     <div class="form-group row mt-4 mb-5">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                            <p id="input-label">
-                                                Reservation Fee <span style="color: red;">*</span>
-                                            </p>
-
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱200.00">
-                                        </div>
-
-                                        <div class="col-sm-6">
-
                                             <p id="input-label">
                                                 Maximum Number of Vehicles per Household <span style="color: red;">*</span>
                                             </p>
-
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="5">
+                                            <input type="text" name="registered_vehicles" id="form-text" class="form-control form-control-user" required value="{{ $details->registered_vehicles ?? '' }}">
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row mt-4 mb-5">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-
+                                        <div class="col-sm-6">
                                             <p id="input-label">
                                                 Vehicle Sticker Fee <span style="color: red;">*</span>
                                             </p>
-
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱300.00">
+                                            <input type="text" name="vehicle_sticker_fee" id="form-text" class="form-control form-control-user" required placeholder="₱" value="{{ $details->vehicle_sticker_fee ?? '' }}">
                                         </div>
                                     </div>
+
                                     <hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
@@ -98,7 +86,7 @@
                                             The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
                                         </b>
                                     </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
+                                    <input type="color" id="bulletin-board-category-color-picker" name="hex_code" required value="{{ $details->hex_code ?? '#000000' }}">
                                     <hr>
 
                                     <div class="pl-3 pr-3 mt-4">
@@ -127,29 +115,28 @@
                                         <script>
                                             // Function to apply the initial values based on the predefined input values
                                             function applyInitialValues() {
-                                                // Fetch the predefined values from the input fields
-                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+                                                var colorPicker = document.getElementById('bulletin-board-category-color-picker');
+                                                var colorCard = document.getElementById('payment-tally-category-card-2');
 
-                                                // Apply the predefined color to the bulletin board entry and circle icon
-                                                document.getElementById('payment-tally-category-card-2').style.backgroundColor = defaultColor;
+                                                // Set initial color based on the input value
+                                                colorCard.style.backgroundColor = colorPicker.value;
+
+                                                // Update color preview dynamically on color picker change
+                                                colorPicker.addEventListener('input', function(event) {
+                                                    colorCard.style.backgroundColor = event.target.value;
+                                                });
                                             }
 
                                             // Apply the initial values when the page loads
                                             window.onload = applyInitialValues;
-
-                                            document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
-                                                var selectedColor = event.target.value;
-
-                                                document.getElementById('payment-tally-category-card-2').style.backgroundColor = selectedColor;
-                                            });
                                         </script>
                                     </div><br><hr>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

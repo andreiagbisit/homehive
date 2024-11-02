@@ -337,13 +337,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/appt-and-res/update-status/{id}', [VehicleStickerController::class, 'updateApplicationStatus'])->name('update.application.status');
 
-    Route::delete('/appt-and-res/manage-vehicle-sticker-applications-super-admin/{id}', [VehicleStickerController::class, 'destroy'])->name('vehicle.sticker.application.destroy');
+    Route::delete('/appt-and-res/manage-vehicle-sticker-applications-super-admin/{id}', [VehicleStickerController::class, 'destroy'])
+    ->name('vehicle.sticker.application.destroy.superadmin');
+
+    Route::delete('/appt-and-res/manage-vehicle-sticker-applications-admin/{id}', [VehicleStickerController::class, 'destroy'])
+    ->name('vehicle.sticker.application.destroy.admin');
 
     Route::get('/vehicle-sticker-report', [VehicleStickerController::class, 'generateReport'])->name('vehicle.sticker.report');
 
+    Route::post('/appt-and-res/manage-settings-sticker-appt-admin', [VehicleStickerController::class, 'storeSettingsAdmin'])->name('vehicle.sticker.settings.store.admin');
 
+    Route::get('/appt-and-res/manage-vehicle-sticker-applications-admin', [VehicleStickerController::class, 'indexAdmin'])->name('manage.vehicle.sticker.applications.admin');
 
+    Route::get('/appt-and-res/view-appointment-admin/{id}', [VehicleStickerController::class, 'viewApplicationAdmin'])->name('appt.and.res.view.appointment.admin');
 
+    Route::get('/appt-and-res/edit-appointment-admin/{id}', [VehicleStickerController::class, 'editApplicationAdmin'])->name('appt.and.res.edit.appointment.admin');
 
 
 
@@ -461,16 +469,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/edit-appointment-super-admin');
     })->name('appt.and.res.edit.appointment.superadmin');*/
 
-    Route::get('/appt-and-res/edit-appointment-admin', function () {
+    /*Route::get('/appt-and-res/edit-appointment-admin', function () {
         return view('appt-and-res/edit-appointment-admin');
-    })->name('appt.and.res.edit.appointment.admin');
+    })->name('appt.and.res.edit.appointment.admin');*/
+
+    
 
 
    
 
-    Route::get('/appt-and-res/view-appointment-admin', function () {
+    /*Route::get('/appt-and-res/view-appointment-admin', function () {
         return view('appt-and-res/view-appointment-admin');
-    })->name('appt.and.res.view.appointment.admin');
+    })->name('appt.and.res.view.appointment.admin');*/
+
+    
+
 
     /*Route::get('/appt-and-res/view-reservation-admin', function () {
         return view('appt-and-res/view-reservation-admin');
@@ -600,10 +613,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('appt-and-res/manage-facility-reservations-admin');
     })->name('manage.facility.reservations.admin');*/
 
-    Route::get('/appt-and-res/manage-vehicle-sticker-applications-admin', function () {
+    /*Route::get('/appt-and-res/manage-vehicle-sticker-applications-admin', function () {
         return view('appt-and-res/manage-vehicle-sticker-applications-admin');
-    })->name('manage.vehicle.sticker.applications.admin');
+    })->name('manage.vehicle.sticker.applications.admin');*/
 
+    
 
     // User Routes
     Route::get('/dashboard/user', function () {

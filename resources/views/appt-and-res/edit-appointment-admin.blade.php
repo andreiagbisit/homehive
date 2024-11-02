@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Vehicle Sticker Applications - Edit Appointment</h1>
+                <h1 id="header-h1">Manage Facility Reservations - Manage Rules</h1>
             </div>
             
             <!-- Content Row -->
@@ -44,137 +44,36 @@
                     <!-- Approach -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Existing Appointment</h6>
+                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Existing Preferences</h6>
                         </div>
 
                         <div class="card-body">
                             <p class="mb-4" style="color: #000;">
-                            Please fill in the necessary details provided with the following fields below to edit an existing appointment initiated by households regarding the procurement of the subdivision's vehicle sticker. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
+                            Fill in what is being asked to set preferences in initializing an online facility reservation. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
 
-                            <div class="col">
-                                <form class="user">
-                                    <div class="form-group row mt-4">
+                                <div class="col">
+                                    <form method="POST" action="{{ route('update.application.status', ['id' => $application->id]) }}" class="user">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div class="form-group row mt-4">
+                                            <div class="col-sm-6">
+                                                <label id="input-label" for="status-select">Status <span style="color: red;">*</span></label><br>
+                                                <select name="status" class="form-control w-100" required>
+                                                    <option value="1" {{ $application->status == 1 ? 'selected' : '' }}>PAID</option>
+                                                    <option value="2" {{ $application->status == 2 ? 'selected' : '' }}>PENDING</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Name of Applicant <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Andrei Joaqhim Ali Agbisit">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Registered Vehicle Owner <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Lorem Agbisit">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Vehicle Make <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Toyota">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Vehicle Series <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Sprinter Trueno AE86">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Vehicle Color <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Black & White">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Vehicle Plate No. <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="ABC 1234">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6">
-                                            <label id="input-label" for="form-select">Mode of Payment <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option>On-site Payment</option>
-                                                <option selected="selected">GCash</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <label id="input-label" for="form-select">Payment Collector <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option selected="selected">John Doe</option>
-                                                <option>Jane Doe</option>
-                                                <option>Michael Smith</option>
-                                                <option>Mary Smith</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mb-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Date of Appointment<span style="color: red;">*</span></p>
-                                            <input type="date" id="form-date" class="form-control form-control-user" required value="2024-01-01">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Time of Appointment<span style="color: red;">*</span></p>
-                                            <input type="text" id="form-date" class="form-control form-control-user" required value="1:00 PM">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mb-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Date of Payment<span style="color: red;">*</span></p>
-                                            <input type="date" id="form-date" class="form-control form-control-user" required value="2024-01-01">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <label id="input-label" for="form-select">Payment Status <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option selected="selected">PAID</option>
-                                                <option>PENDING</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Household Representative <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Andrei Joaqhim Ali Agbisit">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Amount <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="₱560.00">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row mt-4">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label id="input-label" for="form-select">Collector <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option selected="selected">John Doe</option>
-                                                <option>Jane Doe</option>
-                                                <option>Michael Smith</option>
-                                                <option>Mary Smith</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <label id="input-label" for="form-select">Mode of Payment <span style="color: red;">*</span></label><br>
-                                            <select id="form-select" class="form-control w-100" required>
-                                                <option>On-site Payment</option>
-                                                <option selected="selected">GCash</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

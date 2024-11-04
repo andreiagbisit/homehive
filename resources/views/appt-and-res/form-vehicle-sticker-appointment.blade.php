@@ -162,7 +162,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('appt.res') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

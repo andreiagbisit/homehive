@@ -7,6 +7,9 @@
 
     {{ $title }}
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url('img/logo-4.png') }}">
+
     <!-- Custom fonts for this template -->
     <link href="{{ url('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link

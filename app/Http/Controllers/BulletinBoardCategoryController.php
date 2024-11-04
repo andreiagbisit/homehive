@@ -149,10 +149,7 @@ class BulletinBoardCategoryController extends Controller
         $entries = BulletinBoardEntry::with('category')->get()->map(function($entry) {
             return [
                 'title' => $entry->title,
-                'start' => $entry->post_date,
-                'backgroundColor' => $entry->category->hex_code ?? '#cccccc', // Default color if no category
-                'borderColor' => $entry->category->hex_code ?? '#cccccc',
-                'textColor' => '#000000',
+                'start' => $entry->post_date_for_calendar,
                 'className' => 'event-' . strtolower($entry->category->name ?? 'Uncategorized'),
                 'extendedProps' => [
                     'category' => $entry->category->name ?? 'Uncategorized',

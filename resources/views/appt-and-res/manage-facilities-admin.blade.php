@@ -33,16 +33,16 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Subdivision Facilities HELLO</h1><br>
+                <h1 id="header-h1">Manage Subdivision Facilities</h1>
+            </div>
 
-                <div class="text-center">   
-                    <a href="{{ route('appt.and.res.add.facility.admin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Add Facility</span>
-                    </a>
-                </div>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">   
+                <a href="{{ route('appt.and.res.add.facility.admin') }}" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text" style="color: #000; font-weight: 500;">Add Facility</span>
+                </a>
             </div>
 
             @if(session('success'))
@@ -52,73 +52,78 @@
             @endif
 
             <!-- Table -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Available Facilities</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Facility</th>
-                                    <th>Color Hex</th>
-                                    <th>Fee</th>
-                                    <th>Available Days</th>
-                                    <th>Available Months</th>
-                                    <th>Time Slots</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($facilities as $facility)
-                                <tr>
-                                    <td>{{ $facility->id }}</td>
-                                    <td>{{ $facility->name }}</td>
-                                    <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
-                                    <td>₱{{ number_format($facility->fee, 2) }}</td>
-                                    <td>
-                                        @foreach($facility->available_days as $day)
-                                            <span class="badge badge-primary">{{ $day }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach($facility->available_months as $month)
-                                            <span class="badge badge-secondary">{{ $month }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach($facility->timeSlots as $slot)
-                                            <div>{{ $slot->start_time }} - {{ $slot->end_time }}</div>
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('appt.and.res.view.facility.admin', $facility->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+            <div class="row">
+                <div class="col-lg-9 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold" style="color: #000;">List of Available Facilities</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Facility</th>
+                                            <th>Color Hex</th>
+                                            <th>Fee</th>
+                                            <th>Available Days</th>
+                                            <th>Available Months</th>
+                                            <th>Time Slots</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($facilities as $facility)
+                                        <tr>
+                                            <td>{{ $facility->id }}</td>
+                                            <td>{{ $facility->name }}</td>
+                                            <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
+                                            <td><b>₱{{ number_format($facility->fee, 2) }}</b></td>
+                                            <td>
+                                                @foreach($facility->available_days as $day)
+                                                    <h4 class="d-inline">
+                                                        <span class="badge badge-primary">{{ $day }}</span>
+                                                    </h4>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($facility->available_months as $month)
+                                                    <h4 class="d-inline">
+                                                        <span class="badge badge-success">{{ $month }}</span>
+                                                    </h4>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($facility->timeSlots as $slot)
+                                                    <div>{{ $slot->start_time }} - {{ $slot->end_time }}</div>
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center" style="display: flex;">
+                                                <a href="{{ route('appt.and.res.view.facility.admin', $facility->id) }}" class="btn btn-primary btn-icon-split" title="View Entry" style="margin-right: 2%;">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-binoculars"></i>
+                                                    </span>
+                                                </a><br>
 
-                                        <a href="{{ route('appt.and.res.edit.facility.admin', $facility->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
+                                                <a href="{{ route('appt.and.res.edit.facility.admin', $facility->id) }}" class="btn btn-success btn-icon-split" title="Edit Entry" style="margin-right: 2%;">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-edit"></i>
+                                                    </span>
+                                                </a><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteFacilityId({{ $facility->id }})">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                <a href="#" class="btn btn-danger btn-icon-split" title="Delete Entry" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteFacilityId({{ $facility->id }})">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

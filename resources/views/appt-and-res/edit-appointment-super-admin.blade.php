@@ -2,7 +2,7 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Manage Vehicle Sticker Applications - Edit Appointment</title>
+                <title>Manage Vehicle Sticker Applications - Edit Payment Status</title>
             </x-slot>
         </x-head>
     </x-slot>
@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Facility Reservations - Manage Rules</h1>
+                <h1 id="header-h1">Manage Vehicle Sticker Applications - Edit Payment Status</h1>
             </div>
             
             <!-- Content Row -->
@@ -44,12 +44,12 @@
                     <!-- Approach -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Existing Preferences</h6>
+                            <h6 id="card-h6" class="m-0 font-weight-bold">Edit Entry Payment Status</h6>
                         </div>
 
                         <div class="card-body">
                             <p class="mb-4" style="color: #000;">
-                            Fill in what is being asked to set preferences in initializing an online facility reservation. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
+                                Change the current status of the chosen vehicle sticker appointment entry. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                             </p>
 
                                 <div class="col">
@@ -59,13 +59,16 @@
 
                                         <div class="form-group row mt-4">
                                             <div class="col-sm-6">
-                                                <label id="input-label" for="status-select">Status <span style="color: red;">*</span></label><br>
-                                                <select name="status" class="form-control w-100" required>
+                                            <h4 id="form-header-h4">
+                                                Payment Status <span style="color: red;">*</span>
+                                            </h4>
+
+                                                <select id="collector-select" name="status" class="form-control w-100" required>
                                                     <option value="1" {{ $application->status == 1 ? 'selected' : '' }}>PAID</option>
                                                     <option value="2" {{ $application->status == 2 ? 'selected' : '' }}>PENDING</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div><br>
 
                                         <hr>
 
@@ -77,7 +80,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.vehicle.sticker.applications.super.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

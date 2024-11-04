@@ -144,7 +144,7 @@
                                     </h4>
 
                                     <div class="form-group text-center">
-                                    <img class="img-circle profile-avatar border border-secondary rounded-circle" 
+                                    <img class="img-circle profile-avatar border border-secondary rounded-circle mb-5" 
                                                  src="{{ $user->profile_picture ?: 'https://homehivemedia.blob.core.windows.net/homehivemedia/profile-pictures/default-profile.png' }}"
                                                  style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
                                         <!--
@@ -180,6 +180,7 @@
                                     </div>
                                     <hr> -->
 
+                                    <hr><br>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">
@@ -188,7 +189,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('account.management.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

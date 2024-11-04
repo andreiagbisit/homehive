@@ -77,8 +77,8 @@
                                         <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
                                     </p>
 
-                                    <div id="payment-tally-category-card-2" class="card-body bg-danger">
-                                        <h4 id="payment-tally-h4" class="text-light">Maintenance</h4>
+                                    <div id="payment-tally-category-card-2" class="card-body" style="background-color: {{ $category->hex_code }};">
+                                        <h4 id="payment-tally-h4" class="text-light">{{ $category->name }}</h4>
                                         <div class="col-auto">
                                             <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
                                         </div>
@@ -93,7 +93,7 @@
                                 </div><br><hr>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('manage.fund.collection.categories.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

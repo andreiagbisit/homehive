@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Collection Management - Add Category LALA</h1>
+                <h1 id="header-h1">Collection Management - Add Category</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -58,7 +58,7 @@
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <h4 id="form-header-h4" class="mt-4 mb-4">
-                                                Name<span style="color: red;">*</span>
+                                                Name <span style="color: red;">*</span>
                                             </h4>
                                             <input type="text" name="name" id="form-text" class="form-control form-control-user" required>
                                         </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <h4 id="form-header-h4" class="mt-4 mb-4">
-                                                Amount<span style="color: red;">*</span>
+                                                Amount <span style="color: red;">*</span>
                                             </h4>
                                             <input type="text" name="fee" id="form-text" class="form-control form-control-user" required>
                                         </div>
@@ -134,11 +134,11 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">ADD CATEGORY</button>
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">ADD CATEGORY</button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.fund.collection.categories.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

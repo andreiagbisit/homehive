@@ -87,7 +87,7 @@
                                         <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
                                     </p>
                                     <div id="sample-bulletin-board-entry">
-                                        Bulletin Board Entry Title
+                                        {{ $category->name }}
                                     </div><br>
 
                                     <p id="page-desc">
@@ -132,7 +132,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 SAVE CHANGES
                                             </a>
                                         </div>

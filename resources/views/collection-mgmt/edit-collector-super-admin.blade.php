@@ -75,8 +75,8 @@
 
                                     <div class="form-group text-center">
                                     <!-- Preview existing QR code if available -->
-                                    <img id="qr-code-preview" src="{{ $collector->gcash_qr_code_path ? Storage::disk('azure')->url($collector->gcash_qr_code_path) : '' }}" 
-                                        style="display: {{ $collector->gcash_qr_code_path ? 'block' : 'none' }}; max-width: 200px; margin-bottom: 10px;">
+                                    <img class="d-inline justify-content-center" id="qr-code-preview" src="{{ $collector->gcash_qr_code_path ? Storage::disk('azure')->url($collector->gcash_qr_code_path) : '' }}" 
+                                        style="display: {{ $collector->gcash_qr_code_path ? 'block' : 'none' }}; max-width: 300px; margin-bottom: 10px;">
                                     <br><br>
 
                                     <!-- Display error message if QR code upload fails validation -->
@@ -111,11 +111,11 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">SAVE CHANGES</button>
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">SAVE CHANGES</button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('collection.mgmt.manage.collectors.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

@@ -2,7 +2,7 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>- Add Entry</title>
+                <title>Bulletin Board - View Post Category</title>
             </x-slot>
         </x-head>
     </x-slot>
@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Fund Collection Categories - View Category</h1>
+                <h1 id="header-h1">Bulletin Board - View Post Category</h1>
             </div>
             <!-- Content Row -->
             <div class="row">
@@ -49,23 +49,22 @@
 
                         <div class="card-body">
                             <div class="col overflow-auto mt-4 mb-4">
-                                    <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
-                                        <tr>
-                                            <td id="tb-v-head">ID</td>
-                                            <td>{{ $category->id }}</td>
-                                        </tr>
+                                <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
+                                    <tr>
+                                        <td id="tb-v-head">ID</td>
+                                        <td>{{ $category->id }}</td>
+                                    </tr>
 
-                                        <tr>
-                                            <td id="tb-v-head">Category Name</td>
-                                            <td>{{ $category->name }}</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td id="tb-v-head">Color Hex</td>
-                                            <td>{{ $category->hex_code }}</td>
-                                        </tr>
-                                    </table>
-                                </form>
+                                    <tr>
+                                        <td id="tb-v-head">Category Name</td>
+                                        <td>{{ $category->name }}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td id="tb-v-head">Color Hex</td>
+                                        <td><span style="color: {{ $category->hex_code }}; font-weight: bold;">{{ $category->hex_code }}</span></td>
+                                    </tr>
+                                </table>
                             </div><hr><br>
 
                                 <div class="pl-3 pr-3">
@@ -74,26 +73,22 @@
                                     </h4>
 
                                     <p id="page-desc">
-                                        <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
                                     </p>
+                                    <div id="sample-bulletin-board-entry" style="background-color: {{ $category->hex_code }};">
+                                        {{ $category->name }}
+                                    </div><br>
 
-                                    <div id="payment-tally-category-card-2" class="card-body bg-danger">
-                                        <h4 id="payment-tally-h4" class="text-light">Maintenance</h4>
-                                        <div class="col-auto">
-                                            <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
-                                        </div>
-
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><br><hr>
+                                    <p id="page-desc">
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
+                                    </p>
+                                    <p id="chart-category" class="mr-2 mb-4">
+                                        <i id="category-circle-icon" class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> <span id="{{ $category->name }}"></span><br>
+                                    </p>
+                                </div><br><hr><br>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('bulletin.board.manage.categories.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

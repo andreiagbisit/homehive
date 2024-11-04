@@ -85,6 +85,8 @@
                             <div class="card shadow m-4 py-3 border-left-warning">
                                 <div class="card-body">
                                     <div class="text-center">
+                                        <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/car.png') }}">
+                                        <hr>
                                         <h2 id="appt-and-res-card-title">Vehicle Sticker</h2>
                                         <a href="{{ route('appt.and.res.form.vehicle.sticker.appointment') }}"
                                            style="color: #000; font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5; flex-direction: column;"

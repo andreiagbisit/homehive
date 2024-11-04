@@ -52,80 +52,100 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="col-lg-6 mb-4" style="color: #000;">
-                                Please fill in the necessary details below to add a new category. 
-                                Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
-                            </p>
-
-                            <form method="POST" action="{{ route('bulletin.board.store.category') }}" class="user">
-                                @csrf
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mt-4 mb-4">
-                                        <h4>Name <span style="color: red;">*</span></h4>
-                                        <input type="text" name="name" id="form-text" 
-                                               class="form-control form-control-user" required>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <h4 class="mt-4 mb-4">Assigned Color <span style="color: red;">*</span></h4>
-                                <input type="color" name="hex_code" id="bulletin-board-category-color-picker" required>
-                                <hr>
-
-                                <h4 class="mt-4">Assigned Color Preview</h4>
-                                <p id="page-desc">
-                                    <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
-                                </p>
-                                <div id="sample-bulletin-board-entry">
-                                    Bulletin Board Entry Title
-                                </div><br>
-
-                                <p id="page-desc">
-                                    <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
-                                </p>
-                                <p id="chart-category" class="mr-2 mb-4">
-                                    <i id="category-circle-icon" class="fas fa-circle"></i> 
-                                    <span id="category-name"></span>
+                            <div class="col">
+                                <p class="mb-4" style="color: #000;">
+                                    Please fill in the necessary details below to add a new category. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
 
-                                <script>
-                                    // Function to apply initial values
-                                    function applyInitialValues() {
-                                        let defaultText = document.getElementById('form-text').value;
-                                        let defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+                                <form method="POST" action="{{ route('bulletin.board.store.category') }}" class="user">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mt-4 mb-4">
+                                            <h4 id="form-header-h4">
+                                                Name <span style="color: red;">*</span>
+                                            </h4>
 
-                                        document.getElementById('category-name').innerText = defaultText;
-                                        document.getElementById('sample-bulletin-board-entry').style.backgroundColor = defaultColor;
-                                        document.getElementById('category-circle-icon').style.color = defaultColor;
-                                    }
-
-                                    window.onload = applyInitialValues;
-
-                                    document.getElementById('form-text').addEventListener('input', function(event) {
-                                        document.getElementById('category-name').innerText = event.target.value;
-                                    });
-
-                                    document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
-                                        let selectedColor = event.target.value;
-                                        document.getElementById('sample-bulletin-board-entry').style.backgroundColor = selectedColor;
-                                        document.getElementById('category-circle-icon').style.color = selectedColor;
-                                    });
-                                </script>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">
-                                            ADD CATEGORY
-                                        </button>
+                                            <input type="text" name="name" id="form-text" 
+                                                class="form-control form-control-user" required>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <a href="#" onclick="history.go(-1)" 
-                                           class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
-                                            BACK
-                                        </a>
+                                    <hr>
+
+                                    <h4 id="form-header-h4" class="mt-4 mb-4">
+                                        Assigned Color <span style="color: red;">*</span>
+                                    </h4>
+
+                                    <p id="page-desc">
+                                        Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
+                                        <br><br>
+                                        <span style="color: red;">*</span>
+                                        <b>
+                                            The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
+                                        </b>
+                                    </p>
+
+                                    <input type="color" name="hex_code" id="bulletin-board-category-color-picker" required>
+                                    <hr>
+
+                                    <h4 id="form-header-h4" class="mt-4">
+                                        Assigned Color Preview
+                                    </h4>
+
+                                    <p id="page-desc">
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
+                                    </p>
+                                    <div id="sample-bulletin-board-entry">
+                                        Bulletin Board Entry Title
+                                    </div><br>
+
+                                    <p id="page-desc">
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
+                                    </p>
+                                    <p id="chart-category" class="mr-2 mb-4">
+                                        <i id="category-circle-icon" class="fas fa-circle"></i> 
+                                        <span id="category-name"></span>
+                                    </p>
+
+                                    <script>
+                                        // Function to apply initial values
+                                        function applyInitialValues() {
+                                            let defaultText = document.getElementById('form-text').value;
+                                            let defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+
+                                            document.getElementById('category-name').innerText = defaultText;
+                                            document.getElementById('sample-bulletin-board-entry').style.backgroundColor = defaultColor;
+                                            document.getElementById('category-circle-icon').style.color = defaultColor;
+                                        }
+
+                                        window.onload = applyInitialValues;
+
+                                        document.getElementById('form-text').addEventListener('input', function(event) {
+                                            document.getElementById('category-name').innerText = event.target.value;
+                                        });
+
+                                        document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
+                                            let selectedColor = event.target.value;
+                                            document.getElementById('sample-bulletin-board-entry').style.backgroundColor = selectedColor;
+                                            document.getElementById('category-circle-icon').style.color = selectedColor;
+                                        });
+                                    </script>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
+                                                ADD CATEGORY
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="{{ route('bulletin.board.manage.categories.admin') }}"
+                                            class="btn btn-secondary btn-user btn-block font-weight-bold text-white"
+                                            style="font-size: 16px;">
+                                                BACK
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

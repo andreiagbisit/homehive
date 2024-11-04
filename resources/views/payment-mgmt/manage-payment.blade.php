@@ -154,7 +154,7 @@
                                         </select>
                                     </div>
 
-                                    <div id="qr-code-container"></div><br><br>
+                                    <div id="qr-code-container"></div>
 
                                     <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt with the provided upload form below. 
                                         The payment receipt from the GCash app that can be downloaded on your device.
@@ -170,9 +170,9 @@
 
                                     <div id="reference-no-div">
                                         <div class="form-group row">
-                                            <div class="col-sm-3 mb-3 mb-sm-0">
+                                            <div class="col-sm-3 mb-3">
                                                 <p id="input-label">Reference No.</p>
-                                                <input type="text" class="form-control" id="reference_no" name="reference_no" placeholder="Enter Reference No." value="{{ old('reference_no', $payment->reference_no) }}">
+                                                <input id="collector-select" type="text" class="form-control" id="reference_no" name="reference_no" placeholder="XXXX XXXX X" value="{{ old('reference_no', $payment->reference_no) }}">
                                             </div>
                                         </div>
                                     </div><br>
@@ -248,7 +248,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('payment.mgmt') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

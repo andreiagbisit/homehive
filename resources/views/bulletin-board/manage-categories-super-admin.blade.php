@@ -33,148 +33,79 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Bulletin Board Post Categories</h1><br>
-
-                <div class="text-center">
-                    <a href="{{ route('bulletin.board.add.category.superadmin') }}" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Add Category</span>
-                    </a>
-                </div>
+                <h1 id="header-h1">Manage Bulletin Board Post Categories</h1>
             </div>
 
+            <div class="d-sm-flex mb-4">
+                <a href="{{ route('bulletin.board.add.category.superadmin') }}" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text" style="color: #000; font-weight: 500;">Add Category</span>
+                </a>
+            </div>
+
+            @if(session('success'))
+                        <div class="alert alert-success">
+                        {{ session('success') }}
+                        </div>
+            @endif 
+
             <!-- Tables -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Post Categories</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Category</th>
-                                    <th>Color Hex</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Announcement</td>
-                                    <td>#e74a3b</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
+            <div class="row">
+                <div class="col-lg-5 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold" style="color: #000;">List of Post Categories</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            <th>Color Hex</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($categories as $category) 
+                                            <tr>
+                                                <td>{{ $category->id }}</td>
+                                                <td>{{ $category->name }}</td>
+                                                <td><span style="color: {{ $category->hex_code }}; font-weight: bold;">{{ $category->hex_code }}</span></td>
+                                                <td class="text-center" style="display: flex; justify-content: center;">
+                                                <a href="{{ route('bulletin.board.view.category.superadmin', ['id' => $category->id]) }}" 
+                                                class="btn btn-primary btn-icon-split" title="View Entry" style="margin-right: 2px;">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-binoculars"></i>
+                                                    </span>
+                                                </a>
 
-                                        <a href="{{ route('bulletin.board.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
+                                                    <a href="{{ route('bulletin.board.edit.category.superadmin', $category->id) }}" 
+                                                    class="btn btn-success btn-icon-split" title="Edit Entry" style="margin-right: 2px;">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>2</td>
-                                    <td>Reminder</td>
-                                    <td>#1cc88a</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Event</td>
-                                    <td>#4e73df</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Interruption</td>
-                                    <td>#f6c23e</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('bulletin.board.view.category.superadmin') }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-binoculars"></i>
-                                            </span>
-                                            <span class="text">View</span>
-                                        </a><br>
-
-                                        <a href="{{ route('bulletin.board.edit.category.superadmin') }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edit</span>
-                                        </a><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                    <a href="#" class="btn btn-danger btn-icon-split" 
+                                                    title="Delete Entry"
+                                                    data-toggle="modal" 
+                                                    data-target="#deleteEntryModal" 
+                                                    data-entry-url="{{ route('bulletin.board.delete.category.superadmin', $category->id) }}">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,5 +146,14 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+        $('#deleteEntryModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);  // Button that triggered the modal
+            var entryUrl = button.data('entry-url');  // Extract delete URL from data attribute
+
+            var modal = $(this);
+            modal.find('#delete-entry-form').attr('action', entryUrl);  // Set the form action to the delete URL
+        });
+    </script>
     </x-slot>
 </x-base>

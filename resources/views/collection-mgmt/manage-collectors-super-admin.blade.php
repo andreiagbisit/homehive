@@ -33,17 +33,17 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage GCash Collectors</h1><br>
+                <h1 id="header-h1">Manage GCash Collectors</h1>
+            </div>
 
-                <div class="text-center">
-                    <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.add.collector.superadmin') : route('collection.mgmt.add.collector.admin') }}" 
-                        class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Add Collector</span>
-                    </a>
-                </div>
+            <div class="d-sm-flex mb-4">
+                <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.add.collector.superadmin') : route('collection.mgmt.add.collector.admin') }}" 
+                    class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text" style="color: #000; font-weight: 500;">Add Collector</span>
+                </a>
             </div>
 
             @if(session('success'))
@@ -53,61 +53,62 @@
              @endif
              
             <!-- Tables -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Online Payment (GCash) Collectors</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Collector Name</th>
-                                    <th>GCash No.</th>
-                                    <th>GCash QR Code</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($collectors as $collector)
-                                    <tr>
-                                        <td>{{ $collector->id }}</td>
-                                        <td>{{ $collector->name }}</td>
-                                        <td>{{ $collector->collector_gcash_number }}</td>
-                                        <td class="text-center">
-                                            @if ($collector->gcash_qr_code_path)
-                                                <img src="{{ Storage::disk('azure')->url(path: $collector->gcash_qr_code_path) }}" alt="GCash QR Code" style="width: 80px; height: auto;">
-                                            @else
-                                                <span>No QR Code</span>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                        <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.view.collector.admin', $collector->id) : route('collection.mgmt.view.collector.superadmin', $collector->id) }}" class="btn btn-primary btn-icon-split" style="margin-bottom: 2%;">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-binoculars"></i>
-                                                </span>
-                                                <span class="text">View</span>
-                                            </a><br>
+            <div class="row">
+                <div class="col-lg-6 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold" style="color: #000;">List of Online Payment (GCash) Collectors</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Collector Name</th>
+                                            <th>GCash No.</th>
+                                            <th>GCash QR Code</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($collectors as $collector)
+                                            <tr>
+                                                <td>{{ $collector->id }}</td>
+                                                <td>{{ $collector->name }}</td>
+                                                <td>{{ $collector->collector_gcash_number }}</td>
+                                                <td class="text-center" style="display: flex; justify-content: center;">
+                                                    @if ($collector->gcash_qr_code_path)
+                                                        <img src="{{ Storage::disk('azure')->url(path: $collector->gcash_qr_code_path) }}" alt="GCash QR Code" style="width: 200px; height: auto;">
+                                                    @else
+                                                        <span>No QR Code</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.view.collector.admin', $collector->id) : route('collection.mgmt.view.collector.superadmin', $collector->id) }}" class="btn btn-primary btn-icon-split" title="View Entry" style="margin-bottom: 5%;">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-binoculars"></i>
+                                                        </span>
+                                                    </a><br>
 
-                                            <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.edit.collector.admin', $collector->id) : route('collection.mgmt.edit.collector.superadmin', $collector->id) }}" class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-edit"></i>
-                                                </span>
-                                                <span class="text">Edit</span>
-                                            </a><br>
+                                                    <a href="{{ auth()->user()->account_type_id == 2 ? route('collection.mgmt.edit.collector.admin', $collector->id) : route('collection.mgmt.edit.collector.superadmin', $collector->id) }}" class="btn btn-success btn-icon-split" title="Edit Entry" style="margin-bottom: 5%;">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a><br>
 
-                                            <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $collector->id }})">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </span>
-                                                <span class="text">Delete</span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                    <a href="#" class="btn btn-danger btn-icon-split" title="Delete Entry" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $collector->id }})">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

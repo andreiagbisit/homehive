@@ -76,9 +76,11 @@
 
                                     
                                     <!-- Privilege Dropdown -->
-                                    <div class="form-group row">
+                                    <div class="form-group row mb-5">
                                         <div class="col-sm-6">
-                                            <label for="account_type_id" class="form-label">Privileges</label>
+                                            <h4 id="form-header-h4" class="mt-4">
+                                                Privilege Type <span style="color: red;"></span>
+                                            </h4>
                                             <select 
                                                 name="account_type_id" 
                                                 id="account_type_id" 
@@ -91,7 +93,7 @@
                                                 </option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div><hr><br>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -101,7 +103,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.roles') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

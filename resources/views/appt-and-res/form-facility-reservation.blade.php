@@ -56,31 +56,32 @@
                                 <form action="{{ route('facility-reservation.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="facility_id" value="{{ $facility->id }}">
-                                    <h5 id="page-desc">I. Select Date and Time</h5>
+                                    <h5 id="page-desc">I. Select Date and Time Slot</h5>
                                     <br>
                                     
                                     <!-- Date Selection Dropdown -->
-                                    <div class="form-group">
-                                        <label for="date" id="input-label">Select a Date <span style="color: red;">*</span></label>
-                                        <select name="appt_date" id="date" class="form-control form-control-user" required onchange="filterTimeSlots()">
-                                            @foreach($availableDates as $date)
-                                                <option value="{{ $date->format('Y-m-d') }}">{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="date" id="input-label">Date <span style="color: red;">*</span></label>
+                                            <select id="collector-select" name="appt_date" id="date" class="form-control form-control-user" required onchange="filterTimeSlots()">
+                                                @foreach($availableDates as $date)
+                                                    <option value="{{ $date->format('Y-m-d') }}">{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                    <!-- Time Slot Selection -->
-                                    <div class="form-group">
-                                        <label for="time" id="input-label">Select a Time Slot <span style="color: red;">*</span></label>
-                                        <select name="appt_time" id="time-slot" class="form-control form-control-user" required>
-                                            <option value="">Select Time Slot</option>
-                                            @foreach($facility->timeSlots as $slot)
-                                                <option value="{{ $slot->start_time }}|{{ $slot->end_time }}" 
-                                                    {{ isset($bookedSlots[$date->format('Y-m-d')]) && in_array($slot->start_time, $bookedSlots[$date->format('Y-m-d')]) ? 'disabled' : '' }}>
-                                                    {{ $slot->start_time }} - {{ $slot->end_time }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <div class="col-sm-6">
+                                            <label for="time" id="input-label">Time Slot <span style="color: red;">*</span></label>
+                                            <select id="collector-select" name="appt_time" id="time-slot" class="form-control form-control-user" required>
+                                                <option value="">Select Time Slot</option>
+                                                @foreach($facility->timeSlots as $slot)
+                                                    <option value="{{ $slot->start_time }}|{{ $slot->end_time }}" 
+                                                        {{ isset($bookedSlots[$date->format('Y-m-d')]) && in_array($slot->start_time, $bookedSlots[$date->format('Y-m-d')]) ? 'disabled' : '' }}>
+                                                        {{ $slot->start_time }} - {{ $slot->end_time }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <!-- Hidden inputs to store the start and end times separately -->
@@ -116,7 +117,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
+                                        
                                         <!-- Collector QR Code Display -->
                                         <div id="collector-qr-code" style="display: none; margin-top: 10px;">
                                             <p>Collector QR Code:</p>
@@ -125,9 +126,9 @@
 
                                         <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt below. The receipt can be downloaded from the GCash app.</p>
 
-                                        <div class="custom-file mb-5">
+                                        <div id="upload-input-div" class="custom-file mb-5">
                                             <input id="upload-input-base" name="receipt" type="file" class="custom-file-input" accept=".jpg, .png" onchange="showPreview(event)">
-                                            <label class="custom-file-label" for="upload-input-base">Upload Receipt</label>
+                                            <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
                                         </div>
 
                                         <div id="image-preview" style="display: none; margin-top: 10px;">
@@ -135,11 +136,13 @@
                                             <img id="preview-img" src="#" alt="Receipt Preview" style="max-width: 50%; height: auto; border: 1px solid #ddd; padding: 5px;">
                                         </div>
 
-                                        <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, input the Reference No. from the receipt below.</p>
+                                        <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.</p>
 
                                         <div class="form-group">
                                             <p id="input-label">Reference No.</p>
-                                            <input type="text" name="reference_no" class="form-control form-control-user" placeholder="Reference Number">
+                                            <div class="col-sm-3 mb-3">
+                                                <input id="collector-select" type="text" class="form-control" name="reference_no" placeholder="XXXX XXXX X">
+                                            </div>
                                         </div>
                                     </div>
                                     <br>
@@ -147,11 +150,13 @@
                                     <hr>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">SUBMIT PAYMENT</button>
+                                            <button id="appt-and-res-button-submit" type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                                SUBMIT PAYMENT
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('appt.res') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

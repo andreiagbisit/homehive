@@ -43,53 +43,57 @@
             @endif
 
             <!-- Table -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Successful and Pending Funds</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Payment No.</th>
-                                    <th>Subject</th>
-                                    <th>Category</th>
-                                    <th>Payment For</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Mode of Payment</th>
-                                    <th>Date of Payment</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($payments as $payment)
-                                    <tr>
-                                        <td>{{ $payment->id }}</td>
-                                        <td>{{ $payment->title }}</td>
-                                        <td>{{ $payment->category->name ?? 'N/A' }}</td>
-                                        <td>{{ $payment->month }} {{ $payment->year }}</td>
-                                        <td>₱{{ number_format($payment->fee, 2) }}</td>
-                                        <td>
-                                            <span style="color: {{ $payment->paymentStatus->name == 'PAID' ? '#28a745' : '#dc6335' }}; font-weight: bold;">
-                                                {{ $payment->paymentStatus->name }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td>
-                                        <td>{{ $payment->pay_date ? $payment->pay_date->format('m/d/Y') : 'N/A' }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('manage.payment', ['payment' => $payment->id]) }}" class="btn btn-warning btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-arrow-right"></i>
-                                                </span>
-                                                <span class="text" style="color: #000; font-weight: 500;">Manage</span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+            <div class="row">
+                <div class="col-lg-8 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold" style="color: #000;">List of Successful and Pending Funds</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Payment No.</th>
+                                            <th>Subject</th>
+                                            <th>Category</th>
+                                            <th>Payment For</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Mode of Payment</th>
+                                            <th>Date of Payment</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($payments as $payment)
+                                            <tr>
+                                                <td>{{ $payment->id }}</td>
+                                                <td>{{ $payment->title }}</td>
+                                                <td>{{ $payment->category->name ?? 'N/A' }}</td>
+                                                <td>{{ $payment->month }} {{ $payment->year }}</td>
+                                                <td><b>₱{{ number_format($payment->fee, 2) }}</b></td>
+                                                <td>
+                                                    <span style="color: {{ $payment->paymentStatus->name == 'Paid' ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                                        {{ $payment->paymentStatus->name }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td>
+                                                <td>{{ $payment->pay_date ? $payment->pay_date->format('m/d/Y') : 'N/A' }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('manage.payment', ['payment' => $payment->id]) }}" class="btn btn-warning btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-arrow-right"></i>
+                                                        </span>
+                                                        <span class="text" style="color: #000; font-weight: 500;">Manage</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

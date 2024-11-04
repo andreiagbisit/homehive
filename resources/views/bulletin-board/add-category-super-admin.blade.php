@@ -75,6 +75,7 @@
                                             The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
                                         </b>
                                     </p>
+
                                     <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
                                     <hr>
 
@@ -130,13 +131,15 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 ADD CATEGORY
                                             </a>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('bulletin.board.manage.categories.superadmin') }}"
+                                            class="btn btn-secondary btn-user btn-block font-weight-bold text-white"
+                                            style="font-size: 16px;">
                                                 BACK
                                             </a>
                                         </div>

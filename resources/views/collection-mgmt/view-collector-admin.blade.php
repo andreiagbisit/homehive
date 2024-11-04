@@ -124,7 +124,7 @@
                             </div>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('collection.mgmt.manage.collectors.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

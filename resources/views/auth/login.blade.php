@@ -10,15 +10,12 @@
     <x-slot name="account_form_container_child_login_forgot">
         <x-base-account-form-login-forgot-outer-row>
             <x-slot name="content_login_forgot">
-                <div id="login-form-img" class="col-lg-6 d-none d-lg-block" 
-                     style="background-image: url('img/login.png');"></div>
-                
-                <div class="col-lg-6">
+                <div class="col-lg-9" style="display: flex; justify-content: center;">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4" style="font-weight: bold;">
-                                This is HomeHive, a unified subdivision management system.
-                            </h1>
+                            <img class="img-fluid mt-1 mb-4" src="{{ url('img/logo-1.png') }}">
+
+                            <img class="img-fluid mt-4 mb-4" src="{{ url('img/house.png') }}">
 
                             <!-- Flash message for successful registration -->
                             @if(session('status'))
@@ -53,18 +50,7 @@
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
-                            </div>
-
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" name="remember" 
-                                           class="custom-control-input" id="remember_me">
-                                    <label class="custom-control-label" for="remember_me" 
-                                           style="color: #000; font-weight: bold;">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                            </div><br>
 
                             <button type="submit"
                                     style="color: #000; border-radius: 35rem; 
@@ -88,6 +74,10 @@
                                     Create New Account
                                 </a>
                             @endif
+                        </div><br>
+
+                        <div class="text-center">
+                            <p id="page-desc" style="font-weight: 300;">Developed by <span style="font-weight: 700;">BindBytes</span></p>
                         </div>
                     </div>
                 </div>

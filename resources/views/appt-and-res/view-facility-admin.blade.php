@@ -49,23 +49,32 @@
 
                         <div class="card-body">
                             <div class="col overflow-auto mt-4 mb-4">
-                                    <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
-                                        <tr>
-                                            <td id="tb-v-head">ID</td>
-                                            <td>1</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Facility Name</td>
-                                            <td>Clubhouse</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td id="tb-v-head">Color Hex</td>
-                                            <td>#e74a3b</td>
-                                        </tr>
-                                    </table>
-                                </form>
+                                <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
+                                    <tr>
+                                        <td id="tb-v-head">ID</td>
+                                        <td>{{ $facility->id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Facility Name</td>
+                                        <td>{{ $facility->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Color Hex</td>
+                                        <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Fee</td>
+                                        <td><b>₱{{ number_format($facility->fee, 2) }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Available Days</td>
+                                        <td>{{ implode(', ', $facility->available_days) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="tb-v-head">Available Months</td>
+                                        <td>{{ implode(', ', $facility->available_months) }}</td>
+                                    </tr>
+                                </table>
                             </div><hr><br>
 
                                 <div class="pl-3 pr-3">
@@ -77,18 +86,18 @@
                                         <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
                                     </p>
 
-                                        <div class="card-body">
-                                            <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold text-danger">Clubhouse</h4>
-                                            <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold text-danger">2 times</span> by households</h6>
+                                    <div class="card-body">
+                                        <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold" style="color: {{ $facility->hex_code }};">{{ $facility->name }}</h4>
+                                        <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold" style="color: {{ $facility->hex_code }};">2 times</span> by households</h6>
 
-                                            <div class="progress mb-4">
-                                                <div id="dashboard-facility-progress-bar" class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                        <div class="progress mb-4">
+                                            <div id="dashboard-facility-progress-bar" class="progress-bar" role="progressbar" style="background-color: {{ $facility->hex_code }}; width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
+                                    </div>
                                 </div><br><hr>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('manage.facilities.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

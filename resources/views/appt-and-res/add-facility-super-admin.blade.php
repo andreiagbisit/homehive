@@ -80,73 +80,84 @@
                                             </h4>
                                             <input type="number" name="fee" id="fee" class="form-control form-control-user" required>
                                         </div>
-                                    </div>
+                                    </div><hr>
 
-                                    <div class="form-group">
-                                        <label>Available Days <span style="color: red;">*</span></label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Monday" class="form-check-input" id="monday">
-                                            <label class="form-check-label" for="monday">Monday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Tuesday" class="form-check-input" id="tuesday">
-                                            <label class="form-check-label" for="tuesday">Tuesday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Wednesday" class="form-check-input" id="wednesday">
-                                            <label class="form-check-label" for="wednesday">Wednesday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Thursday" class="form-check-input" id="thursday">
-                                            <label class="form-check-label" for="thursday">Thursday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Friday" class="form-check-input" id="friday">
-                                            <label class="form-check-label" for="friday">Friday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Saturday" class="form-check-input" id="saturday">
-                                            <label class="form-check-label" for="saturday">Saturday</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="available_days[]" value="Sunday" class="form-check-input" id="sunday">
-                                            <label class="form-check-label" for="sunday">Sunday</label>
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <h4 id="form-header-h4" class="mt-2 mb-3">
+                                                Available Days <span style="color: red;">*</span>
+                                            </h4>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Sunday" class="form-check-input" id="sunday">
+                                                <label id="page-desc" class="form-check-label" for="sunday">Sunday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Monday" class="form-check-input" id="monday">
+                                                <label id="page-desc" class="form-check-label" for="monday">Monday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Tuesday" class="form-check-input" id="tuesday">
+                                                <label id="page-desc" class="form-check-label" for="tuesday">Tuesday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Wednesday" class="form-check-input" id="wednesday">
+                                                <label id="page-desc" class="form-check-label" for="wednesday">Wednesday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Thursday" class="form-check-input" id="thursday">
+                                                <label id="page-desc" class="form-check-label" for="thursday">Thursday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Friday" class="form-check-input" id="friday">
+                                                <label id="page-desc" class="form-check-label" for="friday">Friday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="available_days[]" value="Saturday" class="form-check-input" id="saturday">
+                                                <label id="page-desc" class="form-check-label" for="saturday">Saturday</label>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Available Months <span style="color: red;">*</span></label>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <h4 id="form-header-h4" class="mt-2 mb-3">
+                                                Available Months <span style="color: red;">*</span>
+                                            </h4>
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input" id="all_months" name="all_months">
-                                                <label class="form-check-label" for="all_months">Available All Year</label>
-                                            </div>
+                                                <label id="page-desc" class="form-check-label" for="all_months">Available All Year</label>
+                                            </div><br>
                                             <div id="months-checkboxes">
                                                 @foreach(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $month)
                                                     <div class="form-check">
                                                         <input type="checkbox" name="available_months[]" value="{{ $month }}" class="form-check-input" id="{{ $month }}">
-                                                        <label class="form-check-label" for="{{ $month }}">{{ $month }}</label>
+                                                        <label id="page-desc" class="form-check-label" for="{{ $month }}">{{ $month }}</label>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
+                                    </div><hr>
 
-                                        <div class="form-group">
-                                        <label>Time Slots <span style="color: red;">*</span></label>
-                                        <div id="time-slots-container">
-                                            <!-- First time slot row -->
-                                            <div class="row time-slot">
-                                                <div class="col">
-                                                    <label for="start_times[]">Start Time</label>
-                                                    <input type="time" name="start_times[]" class="form-control" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="end_times[]">End Time</label>
-                                                    <input type="time" name="end_times[]" class="form-control" required>
-                                                </div>
-                                                <button type="button" class="btn btn-sm btn-danger remove-time-slot" style="height: fit-content; margin-top: 24px;">Remove</button>
+                                    <h4 id="form-header-h4" class="mt-4 mb-3">
+                                        Time Slots <span style="color: red;">*</span>
+                                    </h4>
+                                    
+                                    <div id="time-slots-container">
+                                        <div class="row time-slot">
+                                            <div class="col">
+                                                <label for="start_times[]" id="page-desc" style="font-weight: 700;">Start Time</label>
+                                                <input id="collector-select" type="time" name="start_times[]" class="form-control" style="margin-bottom: 8px;" required>
                                             </div>
+
+                                            <div class="col">
+                                                <label for="end_times[]" id="page-desc" style="font-weight: 700;">End Time</label>
+                                                <input id="collector-select" type="time" name="end_times[]" class="form-control" required>
+                                            </div>
+                                            
+                                            <button type="button" id="time-slot-button-remove" class="btn btn-sm btn-danger remove-time-slot">REMOVE</button>
                                         </div>
-                                        <button type="button" id="add-time-slot" class="btn btn-sm btn-primary mt-2">Add Time Slot</button>
-                                    <hr>
+                                    </div>
+                                    
+                                    <button type="button" id="add-time-slot" class="btn btn-sm btn-primary mt-2">ADD</button>
+                                    <br><hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color <span style="color: red;">*</span>
@@ -183,7 +194,7 @@
 
                                         <script>
                                             function applyInitialValues() {
-                                                var defaultText = document.getElementById('form-text').value;
+                                                var defaultText = document.getElementById('facility_name').value;
                                                 document.getElementById('dashboard-facility-reservation-name-percentage').innerText = defaultText;
 
                                                 var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
@@ -195,7 +206,7 @@
 
                                             window.onload = applyInitialValues;
 
-                                            document.getElementById('form-text').addEventListener('input', function(event) {
+                                            document.getElementById('facility_name').addEventListener('input', function(event) {
                                                 var inputText = event.target.value;
                                                 document.getElementById('dashboard-facility-reservation-name-percentage').innerText = inputText;
                                             });
@@ -208,15 +219,17 @@
                                                 document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = selectedColor;
                                             });
                                         </script>
-                                    </div><br><hr>
+                                    </div><hr><br>
 
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">Add Facility</button>
+                                        <div class="col-sm-6 mb-3">
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
+                                                ADD FACILITY
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.facilities.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>
@@ -263,7 +276,6 @@
 
     <x-slot name="script">
         <x-script></x-script>
-
         <script>
             document.getElementById('add-time-slot').addEventListener('click', function() {
                 const container = document.getElementById('time-slots-container');
@@ -271,14 +283,16 @@
                 newSlot.classList.add('row', 'time-slot', 'mt-2');
                 newSlot.innerHTML = `
                     <div class="col">
-                        <label for="start_times[]">Start Time</label>
-                        <input type="time" name="start_times[]" class="form-control" required>
+                        <label for="start_times[]" id="page-desc" style="font-weight: 700;">Start Time</label>
+                        <input id="collector-select" type="time" name="start_times[]" class="form-control" style="margin-bottom: 8px;" required>
                     </div>
+
                     <div class="col">
-                        <label for="end_times[]">End Time</label>
-                        <input type="time" name="end_times[]" class="form-control" required>
+                        <label for="end_times[]" id="page-desc" style="font-weight: 700;">End Time</label>
+                        <input id="collector-select" type="time" name="end_times[]" class="form-control" required>
                     </div>
-                    <button type="button" class="btn btn-sm btn-danger remove-time-slot" style="height: fit-content; margin-top: 24px;">Remove</button>
+                    
+                    <button type="button" id="time-slot-button-remove" class="btn btn-sm btn-danger remove-time-slot">REMOVE</button>
                 `;
                 container.appendChild(newSlot);
 

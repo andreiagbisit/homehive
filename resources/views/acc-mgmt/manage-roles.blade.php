@@ -43,51 +43,55 @@
             @endif
 
             <!-- Tables -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold" style="color: #000;">List of Created System User Roles</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $user) <!-- Iterate through the users -->
-                                    <tr>
-                                        <td>{{ $user->fname }} {{ $user->mname ?? '' }} {{ $user->lname }}</td>
-                                        
-                                        <!-- Display the user type based on account_type_id -->
-                                        <td>
-                                            @if ($user->account_type_id == 1)
-                                                Super Admin
-                                            @elseif ($user->account_type_id == 2)
-                                                Admin
-                                            @elseif ($user->account_type_id == 3)
-                                                Resident
-                                            @else
-                                                Unknown
-                                            @endif
-                                        </td>
+            <div class="row">
+                <div class="col-lg-5 mb-2">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold" style="color: #000;">List of Created System User Roles</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($users as $user) <!-- Iterate through the users -->
+                                            <tr>
+                                                <td>{{ $user->fname }} {{ $user->mname ?? '' }} {{ $user->lname }}</td>
+                                                
+                                                <!-- Display the user type based on account_type_id -->
+                                                <td>
+                                                    @if ($user->account_type_id == 1)
+                                                        Super Admin
+                                                    @elseif ($user->account_type_id == 2)
+                                                        Admin
+                                                    @elseif ($user->account_type_id == 3)
+                                                        Resident
+                                                    @else
+                                                        Unknown
+                                                    @endif
+                                                </td>
 
-                                        <td class="text-center">
-                                            <a href="{{ route('acc.mgmt.edit.entry.role', $user->id) }}" 
-                                            class="btn btn-success btn-icon-split" style="margin-bottom: 2%;">
-                                                <span class="icon text-white-50">
-                                                    <i class="fas fa-edit"></i>
-                                                </span>
-                                                <span class="text">Edit</span>
-                                            </a><br>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                <td class="text-center">
+                                                    <a href="{{ route('acc.mgmt.edit.entry.role', $user->id) }}" 
+                                                    class="btn btn-success btn-icon-split"
+                                                    title="Edit Entry">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-edit"></i>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -38,7 +38,7 @@
                 <h1 id="header-h1">Bulletin Board</h1>
             </div>
 
-            <a href="#" class="btn btn-warning btn-icon-split mb-3" data-toggle="modal" data-target="#bulletinEntryModalAdd">
+            <a href="#" class="btn btn-warning btn-icon-split mb-4" data-toggle="modal" data-target="#bulletinEntryModalAdd">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -62,18 +62,11 @@
                         </div>
                         <div class="pt-4 pb-4 card-body d-flex justify-content-center">
                             <div class="small">
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-danger"></i> Announcement<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Reminder<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Event<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-warning"></i> Interruption
-                                </span>
+                                @foreach ($categories as $category)
+                                    <span id="chart-category" class="mr-2">
+                                        <i class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> {{ $category->name }}<br>
+                                    </span>
+                                @endforeach
                             </div>
                         </div>
 

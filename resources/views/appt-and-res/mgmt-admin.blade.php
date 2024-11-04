@@ -44,7 +44,7 @@
                     <div class="card shadow mb-4 py-3 border-left-warning">
                         <div class="card-body">
                             <div class="text-center">
-                                <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/facilities.jpg') }}">
+                                <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/building.png') }}">
                                 <hr>
                                 <h2 id="appt-and-res-card-link"><i id="i-w_backdrop-1" class="fas fa-building"></i>Facilities</h2>
                                 <a href="{{ route('manage.facility.reservations.admin') }}" 
@@ -61,7 +61,7 @@
                     <div class="card shadow mb-4 py-3 border-left-warning">
                         <div class="card-body">
                             <div class="text-center">
-                                <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/stickers.jpg') }}">
+                                <img id="appt-and-res-img" class="img-fluid mt-3 mb-4" src="{{ url('img/car.png') }}">
                                 <hr>
                                 <h2 id="appt-and-res-card-link"><i id="i-w_backdrop-1" class="fas fa-car-side"></i>Vehicle Sticker</h2>
 

@@ -37,7 +37,7 @@
                 <h1 id="header-h1">Bulletin Board</h1>
             </div>
 
-            <a href="#" class="btn btn-warning btn-icon-split mb-3" data-toggle="modal" data-target="#bulletinEntryModalAdd">
+            <a href="#" class="btn btn-warning btn-icon-split mb-4" data-toggle="modal" data-target="#bulletinEntryModalAdd">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -134,8 +134,8 @@
                                 <!-- Category Box -->
                                 <div class="info-box-category" id="modalCategoryBox">
                                     <i class="fas fa-tags icon-box-category"></i> 
-                                    <span><strong>Category</strong> <span id="icon-box-divider">|</span></span>&nbsp;
-                                    <span id="modalCategory"></span>
+                                    <span style="color: #fff;"><strong>Category</strong> <span id="icon-box-divider">|</span></span>&nbsp;
+                                    <span id="modalCategory" style="color: #fff;"></span>
                                 </div>
 
                                 <!-- Published Box -->
@@ -235,7 +235,7 @@
                     if (categoryColors[eventCategory]) {
                         event.backgroundColor = categoryColors[eventCategory]; // Set the background color
                         event.borderColor = categoryColors[eventCategory];     // Set the border color
-                        event.textColor = '#000000';
+                        event.textColor = '#ffffff';
                     } else {
                         // Optionally, set a default color for 'Uncategorized' events
                         event.backgroundColor = '#cccccc'; // Light gray or any other fallback color
@@ -272,6 +272,12 @@
                                 console.log("Setting Entry ID:", entryId);
                                 
                                 var formAction = '/bulletin-board/admin/' + entryId; // Create the delete URL
+
+                                // Open the delete modal without a new backdrop
+                                $('#deleteEntryModal').modal({
+                                    backdrop: false, // Ensures no new backdrop is created
+                                    show: true
+                                });
 
                                 // Open the modal
                                 $('#delete-entry-form').attr('action', formAction); // Set the form action
@@ -355,34 +361,12 @@
                 // Render the calendar
                 calendar.render();
 
-                $('#deleteEntryModal').on('show.bs.modal', function () {
-                    // Ensure delete modal is on top of other modals
-                    var zIndex = 1050 + 10; // Assign a base z-index to delete modal and its backdrop
-                    $(this).css('z-index', zIndex);
-                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-                });
-
-                $('#deleteEntryModal').on('hidden.bs.modal', function () {
-                    // Remove backdrop specific to delete modal
-                    $('.modal-backdrop').not('.modal-stack').removeClass('modal-stack').remove();
-
-                    // Check if any other modals are still open and ensure their backdrop stays
-                    if ($('#bulletinEntryModal').hasClass('show')) {
-                        $('<div class="modal-backdrop fade show"></div>').appendTo(document.body);
+                // Ensure that all backdrops are removed when modals are closed
+                $('#deleteEntryModal, #bulletinEntryModal, #bulletinEntryModalAdd').on('hidden.bs.modal', function () {
+                    if ($('.modal.show').length === 0) {
+                        $('.modal-backdrop').remove();
                     }
                 });
-
-                $('#bulletinEntryModal').on('hidden.bs.modal', function () {
-                    // Ensure the backdrop is completely removed when the modal is closed
-                    $('.modal-backdrop').remove();
-                });
-
-                // Adding a similar check for the add modal
-                $('#bulletinEntryModalAdd').on('hidden.bs.modal', function () {
-                    // Ensure that the backdrop is removed when the add entry modal is closed
-                    $('.modal-backdrop').remove();
-                });
-
             });
         </script>
 

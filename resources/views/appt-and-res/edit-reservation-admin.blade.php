@@ -53,15 +53,16 @@
                             </p>
 
                             <div class="col">
-                                <form action="{{ route('reservation.update', $reservation->id) }}" method="POST">
+                            <form action="{{ route('update.reservation.admin', $reservation->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
 
                                     <!-- Name of Applicant Dropdown -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Name of Applicant</label>
-                                        <div class="col-sm-10">
-                                            <select name="user_id" class="form-control" required>
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <p id="input-label">Applicant <span style="color: red;">*</span></p>    
+
+                                            <select id="applicant-select" name="user_id" class="form-control" required>
                                                 <option value="">Select User</option>
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}" {{ $reservation->user_id == $user->id ? 'selected' : '' }}>
@@ -70,46 +71,40 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Facility Reserved</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-6">
+                                            <label id="input-label" for="form-control-plaintext">Facility Reserved</label>
                                             <p class="form-control-plaintext">{{ $facility->name }}</p>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Reservation Fee</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="fee" class="form-control" value="{{ $reservation->fee }}" required>
+                                    <div class="form-group row mt-4">    
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label">Reservation Fee</label>
+                                            <input id="reservation-fee" type="text" name="fee" class="form-control" value="{{ $reservation->fee }}" required>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Reservation Fee Payment Status</label>
-                                        <div class="col-sm-10">
-                                            <select name="status" class="form-control" required>
+                                        <div class="col-sm-6">
+                                            <label id="input-label">Reservation Fee Payment Status</label>
+                                            <select id="reservation-fee" name="status" class="form-control" required>
                                                 <option value="1" {{ $reservation->payment_status == 'PAID' ? 'selected' : '' }}>PAID</option>
                                                 <option value="2" {{ $reservation->payment_status == 'PENDING' ? 'selected' : '' }}>PENDING</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Mode of Payment</label>
-                                        <div class="col-sm-10">
-                                            <select name="payment_mode" class="form-control" required>
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label">Mode of Payment</label>
+                                            <select id="fee-status" name="payment_mode" class="form-control" required>
                                                 <option value="1" {{ $reservation->payment_mode_id == 1 ? 'selected' : '' }}>GCash</option>
                                                 <option value="2" {{ $reservation->payment_mode_id == 2 ? 'selected' : '' }}>On-site Payment</option>
                                             </select>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Payment Collector</label>
-                                        <div class="col-sm-10">
-                                            <select name="payment_collector_id" class="form-control" required>
+                                        <div class="col-sm-6">
+                                            <label id="input-label">Payment Collector</label>
+                                            <select id="collector-select" name="payment_collector_id" class="form-control" required>
                                                 @foreach ($collectors as $collector)
                                                     <option value="{{ $collector->id }}" {{ $reservation->payment_collector_id == $collector->id ? 'selected' : '' }}>
                                                         {{ $collector->name }}
@@ -119,18 +114,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Date of Payment</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" name="payment_date" class="form-control" value="{{ $reservation->payment_date ? $reservation->payment_date->format('Y-m-d') : '' }}">
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label">Date of Payment</label>
+                                            <input id="payment-date" type="date" name="payment_date" class="form-control" value="{{ $reservation->payment_date ? $reservation->payment_date->format('Y-m-d') : '' }}">
                                         </div>
-                                    </div>
 
-                                    <!-- Date of Appointment -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Date of Reservation</label>
-                                        <div class="col-sm-10">
-                                            <select name="appt_date" class="form-control" required>
+                                        <div class="col-sm-6">
+                                            <label id="input-label">Date of Reservation</label>
+                                            <select id="reservation-date" name="appt_date" class="form-control" required>
                                                 @foreach($availableDates as $date)
                                                     <option value="{{ $date }}" {{ $reservation->appt_date->format('Y-m-d') == $date ? 'selected' : '' }}>
                                                         {{ \Carbon\Carbon::parse($date)->format('Y-m-d') }}
@@ -141,10 +133,10 @@
                                     </div>
 
                                     <!-- Time of Appointment -->
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Time of Reservation</label>
-                                        <div class="col-sm-5">
-                                            <select name="appt_start_time" class="form-control" required>
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label id="input-label">Start Time of Reservation</label>
+                                            <select id="reservation-date" name="appt_start_time" class="form-control" required>
                                                 @foreach($availableTimeSlots as $slot)
                                                     <option value="{{ $slot->start_time }}" {{ $reservation->appt_start_time == $slot->start_time ? 'selected' : '' }}>
                                                         {{ $slot->start_time }}
@@ -152,8 +144,10 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-5">
-                                            <select name="appt_end_time" class="form-control" required>
+
+                                        <div class="col-sm-6">
+                                            <label id="input-label">End Time of Reservation</label>
+                                            <select id="reservation-date" name="appt_end_time" class="form-control" required>
                                                 @foreach($availableTimeSlots as $slot)
                                                     <option value="{{ $slot->end_time }}" {{ $reservation->appt_end_time == $slot->end_time ? 'selected' : '' }}>
                                                         {{ $slot->end_time }}
@@ -161,14 +155,14 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div><br><hr><br>
 
                                     <div class="form-group row">
-                                        <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <div class="col-sm-6 mb-3">
+                                            <button type="submit" id="appt-and-res-button-submit" class="btn btn-warning btn-user btn-block font-weight-bold">SAVE CHANGES</button>
                                         </div>
-                                        <div class="col-sm-6 text-right">
-                                            <a href="{{ route('manage.facilities.admin') }}" class="btn btn-secondary">Back</a>
+                                        <div class="col-sm-6">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.facility.reservations.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">BACK</a>
                                         </div>
                                     </div>
                                 </form>

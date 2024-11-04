@@ -25,11 +25,8 @@
 }
 
 #appt-and-res-img {
-    width: 390px;
     height: 300px;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    object-fit: contain;
 }
 
 #appt-and-res-mgmt-admin-types-link {
@@ -117,7 +114,7 @@
     margin-left: 20px;
 }
 
-#collector-select {
+#collector-select, #account_type_id {
     font-size: 16px;
     width: 95%;
     height: 50px;
@@ -158,7 +155,7 @@
     color: #000;
 }
 
-#form-select {
+#form-select, #household-select, #collector-select, #payment-select, #status-select, #month-dropdown-select, #year-dropdown-select, #applicant-select, #reservation-fee, #fee-status, #payment-date, #reservation-date {
     font-size: 16px;
     width: 95%;
     height: 50px;
@@ -268,8 +265,16 @@
 }
 
 #qr-code-container {
-    width: 240px;
-    height: 320px;
+    width: 370px;
+    height: 710px;
+    margin-bottom: 10px;
+}
+
+#report-generation-select {
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    border-radius: 10rem;
 }
 
 #sample-bulletin-board-entry {
@@ -340,6 +345,18 @@
     font-size: 18px;
     font-weight: bold;
     background-color: #f3f3f3;
+}
+
+#time-slot-button-remove, #add-time-slot {
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#time-slot-button-remove {
+    height: fit-content;
+    margin-top: 37px;
 }
 
 #transaction-mode-rate-content {

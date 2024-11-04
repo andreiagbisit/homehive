@@ -92,17 +92,17 @@
 
                                         <tr>
                                             <td id="tb-v-head">Date of Payment</td>
-                                            <td><b>{{ $application->date_of_payment ? $application->date_of_payment->format('m/d/Y') : 'N/A' }}</b></td>
+                                            <td>{{ $application->date_of_payment ? $application->date_of_payment->format('m/d/Y') : 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Date of Appointment</td>
-                                            <td><b>{{ $application->appt_date ? $application->appt_date->format('m/d/Y') : 'N/A' }}</b></td>
+                                            <td>{{ $application->appt_date ? $application->appt_date->format('m/d/Y') : 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">Time of Appointment</td>
-                                            <td><b>{{ $application->appt_time ? \Carbon\Carbon::parse($application->appt_time)->format('H:i') : 'N/A' }}</b></td>
+                                            <td>{{ $application->appt_time ? \Carbon\Carbon::parse($application->appt_time)->format('H:i') : 'N/A' }}</td>
                                         </tr>
 
                                         <tr>
@@ -112,7 +112,7 @@
                                                 <img src="https://homehivemedia.blob.core.windows.net/homehivemedia/{{ $application->receipt_img }}"
                                                     alt="GCash Receipt" class="img-fluid" style="max-width: 200px;"> 
                                                 @else
-                                                    <b>No receipt uploaded.</b>
+                                                    No receipt uploaded.
                                             @endif
                                             </td>
                                         </tr>
@@ -121,7 +121,7 @@
                             </div><hr>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('manage.vehicle.sticker.applications.super.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

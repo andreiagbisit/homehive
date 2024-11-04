@@ -161,18 +161,6 @@
 
                                     <h5 id="page-desc">V. Account Password</h5><br>
 
-                                    <!-- Disabled password field just to display the current password -->
-                                    <p style="color: #000; font-weight: 500; margin-bottom: 2%;">Password <span style="color: red;"></span></p>
-
-                                    <div class="col-sm-4">
-                                        <input id="pw-field" type="password" name="password" class="form-control form-control-user">
-                                    </div><br>
-
-                                    <h6 class="btn ml-3">
-                                        <input type="checkbox" class="form-check-input" id="show-pw" onclick="showPassword()">
-                                        <label id="checkbox-label" class="form-check-label" for="show-pw">Show Password</label>
-                                    </h6><br>
-
                                     <!-- Change Password Modal Trigger -->
                                     <a style="margin-bottom: 2%;" class="btn btn-warning btn-icon-split" href="#" data-toggle="modal" data-target="#changePasswordModal">
                                         <span class="icon text-white-50">
@@ -220,7 +208,7 @@
 
                                                 <!-- Back Button -->
                                                 <div class="col-sm-6">
-                                                    <a id="appt-and-res-button-submit" href="{{ url()->previous() }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                                    <a id="appt-and-res-button-submit" href="{{ route('profile.details') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                         BACK
                                                     </a>
                                                 </div>

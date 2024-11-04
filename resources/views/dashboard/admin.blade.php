@@ -36,15 +36,15 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Dashboard</h1>
+            </div>
 
-                <div class="text-center">
-                    <a href="#" class="btn btn-warning btn-icon-split" style="margin-bottom: 2%;" data-toggle="modal" data-target="#dashboardModalEdit">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-poll"></i>
-                        </span>
-                        <span class="text" style="color: #000; font-weight: 500;">Manage Dashboard</span>
-                    </a>
-                </div>
+            <div class="d-sm-flex mb-4">
+                <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#dashboardModalEdit">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-poll"></i>
+                    </span>
+                    <span class="text" style="color: #000; font-weight: 500;">Manage Dashboard</span>
+                </a>
             </div>
 
             <!-- Content Rows -->

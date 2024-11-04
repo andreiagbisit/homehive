@@ -68,4 +68,3 @@
         $('#delete-entry-form').attr('action', formAction);
     });
 </script>
-

@@ -62,7 +62,7 @@
                                         
                                         <tr>
                                             <td id="tb-v-head">Color Hex</td>
-                                            <td>{{ $category->hex_code }}</td>
+                                            <td><span style="color: {{ $category->hex_code }}; font-weight: bold;">{{ $category->hex_code }}</span></td>
                                         </tr>
                                     </table>
                                 </form>
@@ -74,21 +74,26 @@
                                         </h4>
 
                                         <p id="page-desc">
-                                            <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
+                                            <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
                                         </p>
 
-                                        <div class="card-body">
-                                            <h4 id="dashboard-facility-reservation-name-percentage text-danger" class="font-weight-bold"></h4>
-                                            <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency text-danger" class="font-weight-bold">2 times</span> by households</h6>
+                                        <div id="payment-tally-category-card-2" class="card-body" style="background-color: {{ $category->hex_code }};">
+                                            <h4 id="payment-tally-h4" class="text-light">{{ $category->name }}</h4>
+                                            <div class="col-auto">
+                                                <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
+                                            </div>
 
-                                            <div class="progress mb-4">
-                                                <div id="dashboard-facility-progress-bar bg-danger" class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div><br><hr>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('manage.fund.collection.categories.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

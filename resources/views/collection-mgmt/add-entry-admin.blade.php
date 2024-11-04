@@ -75,7 +75,7 @@
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label id="input-label" for="household-select">Household Representative <span style="color: red;">*</span></label><br>
-                                            <select id="household-select" name="user_id" class="form-control w-100 select2" required>
+                                            <select id="household-select" name="user_id" class="form-control w-100" required>
                                                 <option value="">Select Representative</option>
                                                 @foreach($users as $user)
                                                     <option value="{{ $user->id }}">
@@ -94,7 +94,7 @@
                                     <div class="form-group row mt-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label id="input-label" for="collector-select">Collector <span style="color: red;">*</span></label><br>
-                                            <select name="collector_id" class="form-control w-100" required>
+                                            <select id="collector-select" name="collector_id" class="form-control w-100" required>
                                                 <option value="">Select Collector</option>
                                                 @foreach($collectors as $collector)
                                                     <option value="{{ $collector->id }}">{{ $collector->name }}</option>
@@ -104,7 +104,7 @@
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Mode of Payment <span style="color: red;">*</span></label><br>
-                                            <select name="mode_id" class="form-control w-100" required>
+                                            <select id="payment-select" name="mode_id" class="form-control w-100" required>
                                                 <option value="1">Gcash</option>
                                                 <option value="2">On-site Payment</option>
                                             </select>
@@ -119,7 +119,7 @@
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="form-select">Status <span style="color: red;">*</span></label><br>
-                                            <select name="status_id" class="form-control w-100" required>
+                                            <select id="status-select" name="status_id" class="form-control w-100" required>
                                                 <option value="1">PAID</option>
                                                 <option value="2">PENDING</option>
                                             </select>
@@ -129,7 +129,7 @@
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label id="input-label" for="month-select">Month Intended<span style="color: red;">*</span></label><br>
-                                            <select name="month"class="form-control w-100" required>
+                                            <select id="month-dropdown-select" name="month"class="form-control w-100" required>
                                                 <option value="">Select Month</option>
                                                 <option value="January">January</option>
                                                 <option value="February">February</option>
@@ -148,7 +148,7 @@
 
                                         <div class="col-sm-6">
                                             <label id="input-label" for="year-select">Year Intended<span style="color: red;">*</span></label><br>
-                                            <select name="year" class="form-control w-100" required>
+                                            <select id="year-dropdown-select" name="year" class="form-control w-100" required>
                                                 <option value="">Select Year</option>
                                                 <!-- Dynamically generate years from current year -->
                                                 @for ($year = now()->year - 10; $year <= now()->year + 20; $year++)
@@ -167,7 +167,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('collection.mgmt.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

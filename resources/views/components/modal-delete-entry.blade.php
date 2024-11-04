@@ -11,17 +11,23 @@
                 Are you sure you want to permanently delete this entry? This action cannot be undone.
             </div>
 
-            <div class="modal-footer d-inline">
-                <form id="delete-entry-form" method="POST" action="">
+            <div class="modal-footer" style="justify-content: center;">
+                <form style="display: contents;" id="delete-entry-form" class="text-center" method="POST" action="">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-user btn-block font-weight-bold">
-                        Delete Entry
+                    <button type="submit" 
+                            class="btn btn-danger btn-user btn-block font-weight-bold col-sm-5"
+                            style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;">
+                        DELETE ENTRY
                     </button>
                 </form>
-                    <div class="form-group">
-                    <button class="btn btn-secondary btn-user btn-block font-weight-bold" type="button" data-dismiss="modal">Cancel</button>
-                </div>
+
+                <button type="button"
+                        data-dismiss="modal"
+                        class="btn btn-secondary btn-user btn-block font-weight-bold col-sm-5"
+                        style="font-weight: bold; border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;">
+                    CANCEL
+                </button>
             </div>
         </div>
     </div>

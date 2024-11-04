@@ -66,7 +66,7 @@
                                     <hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
-                                        Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
+                                        Assigned Color Preview <span style="color: red;">*</span>
                                     </h4>
 
                                     <p id="page-desc">
@@ -80,16 +80,70 @@
                                     <input type="color" name="hex_code" id="bulletin-board-category-color-picker" required value="{{ $category->hex_code }}">
                                     <hr>
 
+                                    <div class="pl-3 pr-3 mt-4">
+                                        <h4 id="form-header-h4">
+                                            Assigned Color Preview
+                                        </h4>
+
+                                        <p id="page-desc">
+                                            <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
+                                        </p>
+
+                                        <div id="payment-tally-category-card-2" class="card-body">
+                                            <h4 id="payment-tally-h4" class="text-light"></h4>
+                                            <div class="col-auto">
+                                                <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            // Function to apply the initial values based on the predefined input values
+                                            function applyInitialValues() {
+                                                // Fetch the predefined values from the input fields
+                                                var defaultText = document.getElementById('form-text').value;
+                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+
+                                                // Apply the predefined text to the category name
+                                                document.getElementById('payment-tally-h4').innerText = defaultText;
+
+                                                // Apply the predefined color to the bulletin board entry and circle icon
+                                                document.getElementById('payment-tally-category-card-2').style.backgroundColor = defaultColor;
+                                            }
+
+                                            // Apply the initial values when the page loads
+                                            window.onload = applyInitialValues;
+
+                                            // Update values in real time based on user input
+                                            document.getElementById('form-text').addEventListener('input', function(event) {
+                                                var inputText = event.target.value;
+                                                document.getElementById('payment-tally-h4').innerText = inputText;
+                                            });
+
+                                            document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
+                                                var selectedColor = event.target.value;
+
+                                                document.getElementById('payment-tally-category-card-2').style.backgroundColor = selectedColor;
+                                            });
+                                        </script>
+                                    </div><br><hr>
+
                                     <!-- Rest of your form remains the same -->
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 SAVE CHANGES
                                             </button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('manage.fund.collection.categories.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

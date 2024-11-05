@@ -18,6 +18,7 @@ use App\Http\Controllers\CollectionManagementController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FacilityReservationController;
 use App\Http\Controllers\VehicleStickerController;
+use App\Http\Controllers\DashboardController;
 
 
 
@@ -97,9 +98,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Super Admin Routes
-    Route::get('/dashboard/super-admin', function () {
-        return view('dashboard/super-admin');
-    })->name('dashboard.superadmin');
+
+    Route::get('/dashboard/super-admin', [DashboardController::class, 'index'])->name('dashboard.superadmin');
+
+    Route::get('/dashboard/monthly-revenue', [DashboardController::class, 'getMonthlyRevenue'])->name('dashboard.monthly.revenue');
+
+    
 
     // ACCOUNT MANAGEMENT
 

@@ -77,7 +77,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-primary text-uppercase mb-1">HOA Officer / Admin-Type Accounts</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">9</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $hoaOfficerCount }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -93,7 +93,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-info text-uppercase mb-1">Household Accounts</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">480</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $householdAccountsCount }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -109,7 +109,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-info text-uppercase mb-1">Households Invoiced</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">160</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $householdsInvoicedCount }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -125,7 +125,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-success text-uppercase mb-1">Payment Collectors</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">4</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $paymentCollectorsCount }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -141,7 +141,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-warning text-uppercase mb-1">Fund Collection Earnings (Monthly)</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">₱37,500</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">₱{{ number_format($monthlyFundCollection, 2) }}</div>
                                 </div>
 
                                 <div class="col-auto">
@@ -157,7 +157,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-warning text-uppercase mb-1">Fund Collection Earnings (Annual)</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">₱450,000</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">₱{{ number_format($annualFundCollection, 2) }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -173,7 +173,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-danger text-uppercase mb-1">Facility Reservation Requests</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">8</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $facilityReservationRequests }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -189,7 +189,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div id="tally-card-title" class="font-weight-bold text-danger text-uppercase mb-1">Vehicle Sticker Requests</div>
-                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">12</div>
+                                    <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $vehicleStickerRequests }}</div>
                                 </div>
                                 
                                 <div class="col-auto">
@@ -207,8 +207,9 @@
                         <div class="card-header py-3">
                             <h6 id="card-h6" class="m-0">Subdivision Fund Collection</h6>
                         </div>
+
                         <div class="card-body">
-                            <h1 id="dashboard-amount-value" class="text-center">₱450,000</h1>
+                            <h1 id="dashboard-amount-value" class="text-center">₱{{ number_format((float) array_sum($categoryTotals), 2) }}</h1>
                             <p id="payment-total-amount-desc" class="text-center">Total Amount</p>
 
                             <div class="chart-pie pt-4">
@@ -216,21 +217,11 @@
                             </div><hr>
                             
                             <div class="mt-4 text-center small">
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-danger"></i> Maintenance<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Amenities & Services<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Security<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Facility Reservation<br>
-                                </span>
-                                <span id="chart-category" class="mr-2">
-                                    <i class="fas fa-circle text-warning"></i> Vehicle Sticker
-                                </span>
+                                @foreach ($categoryNames as $index => $name)
+                                    <span id="chart-category" class="mr-2">
+                                        <i class="fas fa-circle" style="color: {{ $categoryColors[$index] }}"></i> {{ $name }}<br>
+                                    </span>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -254,86 +245,27 @@
                             <h6 id="card-h6" class="m-0">Collections Tallied per Category</h6>
                         </div>
                         <div style="height: 609px;" class="card-body overflow-auto">
-
-                            <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-danger">
-                                    <h4 id="payment-tally-h4" class="text-light">Maintenance</h4>
-                                    <div class="col-auto">
-                                        <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            @foreach ($categoryNames as $index => $name)
+                                <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg"> <!-- Added rounded-lg -->
+                                    <div class="card-body" style="background-color: {{ $categoryColors[$index] }};">
+                                        <h4 id="payment-tally-h4" class="text-light">{{ $name }}</h4>
+                                        <div class="col-auto">
+                                            <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">
+                                                {{ $categoryPercentages[$index] }}% 
+                                                <span id="payment-tally-percentage-desc" class="h6">({{ $categoryTotals[$index] }} collections made)</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-dark" role="progressbar" 
+                                                    style="width: {{ $categoryPercentages[$index] }}%;" 
+                                                    aria-valuenow="{{ $categoryPercentages[$index] }}" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-success">
-                                    <h4 id="payment-tally-h4" class="text-light">Amenities & Services</h4>
-                                    <div class="col-auto">
-                                        <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">40% <span id="payment-tally-percentage-desc" class="h6">(4 collections made)</span></div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-primary">                                    
-                                    <h4 id="payment-tally-h4" class="text-light">Security</h4>
-                                    <div class="col-auto">
-                                        <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">60% <span id="payment-tally-percentage-desc" class="h6">(6 collections made)</span></div>
-                                    </div>
-                                    
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-info">
-                                    <h4 id="payment-tally-h4" class="text-light">Facility Reservation</h4>
-                                    <div class="col-auto">
-                                        <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">80% <span id="payment-tally-percentage-desc" class="h6">(8 collections made)</span></div>
-                                    </div>
-                                    
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg">
-                                <div id="payment-tally-category-card" class="card-body bg-warning">
-                                    <h4 id="payment-tally-h4" class="text-light">Vehicle Sticker</h4>
-                                    <div class="col-auto">
-                                        <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">90% <span id="payment-tally-percentage-desc" class="h6">(9 collections made)</span></div>
-                                    </div>
-                                    
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -341,8 +273,8 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <!--
-                    <div class="card shadow mb-4">
+                    
+                <!--    <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 id="card-h6" class="m-0">Facility Reservation Rate</h6>
                         </div>
@@ -370,8 +302,7 @@
                                 <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
-                    </div>
-                    -->
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -411,5 +342,145 @@
 
     <x-slot name="script">
         <x-script></x-script>
+
+        <script>
+            // Retrieve dynamic data from the controller
+            var categoryLabels = @json($categoryNames);
+            var categoryValues = @json($categoryTotals);
+            var categoryColors = @json($categoryColors);
+
+            // Initialize the pie chart with dynamic data
+            var ctx = document.getElementById("pieChartAdminTypes");
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categoryLabels,
+                    datasets: [{
+                        data: categoryValues,
+                        backgroundColor: categoryColors,
+                        hoverBackgroundColor: categoryColors,
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                var currentValue = dataset.data[tooltipItem.index];
+                                var label = data.labels[tooltipItem.index];
+                                return `${label}: ₱${currentValue}`;
+                            }
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 80,
+                },
+            });
+        </script>
+
+        <script>
+            // Get the monthly revenue data from PHP
+            // Set a default max value if monthlyRevenueData is empty or undefined
+            var monthlyRevenueData = Object.values(@json($monthlyData));
+            console.log("Monthly Revenue Data (Array Format):", monthlyRevenueData); // Check the array format
+
+            // Set max based on data if available, or a default of 1000000
+            var maxRevenue = monthlyRevenueData.length ? Math.max(...monthlyRevenueData) * 1.1 : 1000000;
+
+            var ctx = document.getElementById("barChartAdminTypes");
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    datasets: [{
+                        label: "Revenue",
+                        backgroundColor: "#f6c23e",
+                        hoverBackgroundColor: "#e6a500",
+                        borderColor: "#f6c23e",
+                        data: monthlyRevenueData, // Now in proper array format
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'month'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 12
+                            },
+                            maxBarThickness: 25,
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: maxRevenue, // Dynamically set max value based on data
+                                maxTicksLimit: 6,
+                                padding: 10,
+                                callback: function(value) {
+                                    return '₱' + number_format(value);
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(190, 190, 190)",
+                                zeroLineColor: "rgb(190, 190, 190)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        titleMarginBottom: 10,
+                        titleFontColor: '#000',
+                        titleFontSize: 14,
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#000",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'Revenue: ₱' + number_format(tooltipItem.yLabel);
+                            }
+                        }
+                    },
+                }
+            });
+
+        </script>
+
+
     </x-slot>
 </x-base>

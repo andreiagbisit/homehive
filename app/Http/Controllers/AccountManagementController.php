@@ -144,7 +144,7 @@ class AccountManagementController extends Controller
 
         // Redirect with a success message
         return redirect()->route('manage.roles')->with('success', 'Role and privileges updated successfully.');
-}
+    }
 
 
 }

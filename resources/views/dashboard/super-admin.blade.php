@@ -251,7 +251,6 @@
                                         <h4 id="payment-tally-h4" class="text-light">{{ $name }}</h4>
                                         <div class="col-auto">
                                             <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">
-                                                {{ $categoryPercentages[$index] }}% 
                                                 <span id="payment-tally-percentage-desc" class="h6">{{ $categoryCounts[$index] }} collections made</span>
                                             </div>
                                         </div>

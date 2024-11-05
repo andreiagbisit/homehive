@@ -252,7 +252,7 @@
                                         <div class="col-auto">
                                             <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">
                                                 {{ $categoryPercentages[$index] }}% 
-                                                <span id="payment-tally-percentage-desc" class="h6">({{ $categoryTotals[$index] }} collections made)</span>
+                                                <span id="payment-tally-percentage-desc" class="h6">{{ $categoryCounts[$index] }} collections made</span>
                                             </div>
                                         </div>
                                         <div class="col">

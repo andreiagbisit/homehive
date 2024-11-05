@@ -67,15 +67,22 @@ class DashboardController extends Controller
         $categoryNames = [];
         $categoryTotals = [];
         $categoryColors = [];
+        $categoryCounts = []; // New array to store the counts of collections
+        
     
         foreach ($fundCollectionByCategory as $fund) {
             $categoryNames[] = $fund->category->name;
             $categoryTotals[] = $fund->total;  // Use the actual total fee amount
             $categoryColors[] = $fund->category->hex_code;
+            $categoryCounts[] = $fund->count; // Get the count of payments made for this category
         }
 
          // Calculate percentages of completed collections
-            $collectionsByCategory = Payment::selectRaw('category_id, COUNT(*) as total_expected_collections, SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as actual_collections')
+            $collectionsByCategory = Payment::selectRaw(
+            'category_id, 
+            COUNT(*) as total_expected_collections, 
+            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as actual_collections, 
+            COUNT(CASE WHEN status_id = 1 THEN 1 END) as count')
             ->groupBy('category_id')
             ->with('category')
             ->get();
@@ -89,7 +96,6 @@ class DashboardController extends Controller
             $percentage = ($totalExpected > 0) ? round(($actual / $totalExpected) * 100) : 0;
             $categoryPercentages[] = $percentage;
         }
-
     
         \Log::info('Category Totals Array:', $categoryTotals); // Log category totals to verify contents
         \Log::info('Total Fund Collection:', ['total' => array_sum($categoryTotals)]); // Log total
@@ -119,7 +125,8 @@ class DashboardController extends Controller
             'categoryTotals',
             'categoryColors',
             'monthlyData',
-            'categoryPercentages'
+            'categoryPercentages',
+            'categoryCounts'
         ));
     }
 
@@ -197,6 +204,26 @@ class DashboardController extends Controller
             $categoryPercentages[] = $percentage; // Collect percentage for this category
         }
 
+        // Prepare data for payment modes
+            $gcashCount = Payment::where('user_id', $currentUserId)
+            ->where('mode_id', 1) // Assuming 1 represents "GCash"
+            ->whereMonth('pay_date', $currentMonth)
+            ->whereYear('pay_date', $currentYear)
+            ->count();
+
+        $onSiteCount = Payment::where('user_id', $currentUserId)
+            ->where('mode_id', 2) // Assuming 2 represents "On-Site"
+            ->whereMonth('pay_date', $currentMonth)
+            ->whereYear('pay_date', $currentYear)
+            ->count();
+
+        // Total payments made by the user
+        $totalPaymentsCount = $gcashCount + $onSiteCount;
+
+        // Calculate percentages
+        $gcashPercentage = $totalPaymentsCount > 0 ? round(($gcashCount / $totalPaymentsCount) * 100) : 0;
+        $onSitePercentage = $totalPaymentsCount > 0 ? round(($onSiteCount / $totalPaymentsCount) * 100) : 0;
+
         // Log results for debugging
         \Log::info('Category Totals:', $categoryTotals);
         \Log::info('Category Percentages:', $categoryPercentages);
@@ -211,7 +238,11 @@ class DashboardController extends Controller
             'categoryTotals',
             'categoryColors',
             'categoryPercentages',
-            'categoryCounts')); // Include categoryCounts in the view data
+            'categoryCounts',
+            'gcashPercentage',
+            'onSitePercentage',
+            'gcashCount',
+            'onSiteCount')); // Include categoryCounts in the view data
     }
 
 }

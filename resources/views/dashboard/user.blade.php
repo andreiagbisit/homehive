@@ -215,10 +215,10 @@
                                     <span class="h3 font-weight-bold text-primary">GCash</span><br>
                                     
                                     <span class="h6">
-                                        Used <span class="text-primary font-weight-bold">6 times</span> as payment medium
+                                        Used <span class="text-primary font-weight-bold">{{ $gcashCount }}</span> as payment medium
                                     </span><hr>
                                     
-                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-primary font-weight-bold">60%</span></h5>
+                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-primary font-weight-bold">{{ $gcashPercentage }}%</span></h5>
                                     
                                     <div class="progress">
                                         <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
@@ -235,10 +235,10 @@
                                     <span class="h3 font-weight-bold text-danger">On-site Payment</span><br>
                                     
                                     <span class="h6">
-                                        Used <span class="text-danger font-weight-bold">8 times</span> as payment medium
+                                        Used <span class="text-danger font-weight-bold">{{ $onSiteCount }}</span> as payment medium
                                     </span><hr>
                                     
-                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-danger font-weight-bold">80%</span></h5>
+                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-danger font-weight-bold">{{ $onSitePercentage }}%</span></h5>
                                     
                                     <div class="progress">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 11:32 AM
+-- Generation Time: Nov 05, 2024 at 11:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -180,20 +180,6 @@ CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `facility_dates`
---
-
-CREATE TABLE `facility_dates` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `facility_id` tinyint(3) UNSIGNED NOT NULL,
-  `date` date NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -507,22 +493,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
---
-
-CREATE TABLE `notification` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `password_resets`
 --
 
@@ -748,33 +718,6 @@ CREATE TABLE `payment_status` (
 INSERT INTO `payment_status` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Paid', NULL, NULL),
 (2, 'Pending', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `permission`
---
-
-CREATE TABLE `permission` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `privilege`
---
-
-CREATE TABLE `privilege` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `account_type_id` tinyint(3) UNSIGNED NOT NULL,
-  `permission_id` int(10) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1027,13 +970,6 @@ ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
--- Indexes for table `facility_dates`
---
-ALTER TABLE `facility_dates`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `facility_dates_facility_id_foreign` (`facility_id`);
-
---
 -- Indexes for table `facility_reservation`
 --
 ALTER TABLE `facility_reservation`
@@ -1075,13 +1011,6 @@ ALTER TABLE `job_batches`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `notification_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -1129,20 +1058,6 @@ ALTER TABLE `payment_mode`
 --
 ALTER TABLE `payment_status`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `permission`
---
-ALTER TABLE `permission`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `privilege`
---
-ALTER TABLE `privilege`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `privilege_account_type_id_foreign` (`account_type_id`),
-  ADD KEY `privilege_permission_id_foreign` (`permission_id`);
 
 --
 -- Indexes for table `sessions`
@@ -1211,12 +1126,6 @@ ALTER TABLE `bulletin_board_category`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `facility_dates`
---
-ALTER TABLE `facility_dates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `facility_reservation`
 --
 ALTER TABLE `facility_reservation`
@@ -1247,12 +1156,6 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
@@ -1281,18 +1184,6 @@ ALTER TABLE `payment_mode`
 --
 ALTER TABLE `payment_status`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `permission`
---
-ALTER TABLE `permission`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `privilege`
---
-ALTER TABLE `privilege`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subdivision_facility`
@@ -1336,12 +1227,6 @@ ALTER TABLE `bulletin_board`
   ADD CONSTRAINT `bulletin_board_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `facility_dates`
---
-ALTER TABLE `facility_dates`
-  ADD CONSTRAINT `facility_dates_facility_id_foreign` FOREIGN KEY (`facility_id`) REFERENCES `subdivision_facility` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `facility_reservation`
 --
 ALTER TABLE `facility_reservation`
@@ -1357,12 +1242,6 @@ ALTER TABLE `facility_time_slots`
   ADD CONSTRAINT `facility_time_slots_facility_id_foreign` FOREIGN KEY (`facility_id`) REFERENCES `subdivision_facility` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `notification`
---
-ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
@@ -1371,13 +1250,6 @@ ALTER TABLE `payment`
   ADD CONSTRAINT `payment_mode_id_foreign` FOREIGN KEY (`mode_id`) REFERENCES `payment_mode` (`id`),
   ADD CONSTRAINT `payment_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `payment_status` (`id`),
   ADD CONSTRAINT `payment_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `privilege`
---
-ALTER TABLE `privilege`
-  ADD CONSTRAINT `privilege_account_type_id_foreign` FOREIGN KEY (`account_type_id`) REFERENCES `account_type` (`id`),
-  ADD CONSTRAINT `privilege_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`);
 
 --
 -- Constraints for table `users`

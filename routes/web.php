@@ -102,7 +102,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/super-admin', [DashboardController::class, 'index'])->name('dashboard.superadmin');
 
     Route::get('/dashboard/admin', [DashboardController::class, 'index'])->name('dashboard.admin');
-        
+
+    Route::get('/dashboard/user', [DashboardController::class, 'userDashboard'])->name('dashboard.user');
+
     Route::get('/dashboard/monthly-revenue', [DashboardController::class, 'getMonthlyRevenue'])->name('dashboard.monthly.revenue');
 
     
@@ -595,7 +597,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('add.entry.admin');
 
     // Admin Routes
-
+    /*Route::get('/dashboard/admin', function () {
+        return view('dashboard/admin');
+    })->name('dashboard.admin');*/
 
     /*Route::get('/bulletin-board/admin', function () {
         return view('bulletin-board/admin');
@@ -624,9 +628,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
 
     // User Routes
-    Route::get('/dashboard/user', function () {
+    /*Route::get('/dashboard/user', function () {
         return view('dashboard/user');
-    })->name('dashboard.user');
+    })->name('dashboard.user');*/
 
     /*Route::get('/bulletin-board/user', function () {
         return view('bulletin-board/user');

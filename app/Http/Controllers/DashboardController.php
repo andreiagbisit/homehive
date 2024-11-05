@@ -87,15 +87,15 @@ class DashboardController extends Controller
             ->with('category')
             ->get();
 
-        $categoryPercentages = [];
+        /*$categoryPercentages = [];
         foreach ($collectionsByCategory as $collection) {
             $totalExpected = $collection->total_expected_collections;
             $actual = $collection->actual_collections;
             
             // Calculate percentage of collections completed
             $percentage = ($totalExpected > 0) ? round(($actual / $totalExpected) * 100) : 0;
-            $categoryPercentages[] = $percentage;
-        }
+            
+        }*/
     
         \Log::info('Category Totals Array:', $categoryTotals); // Log category totals to verify contents
         \Log::info('Total Fund Collection:', ['total' => array_sum($categoryTotals)]); // Log total
@@ -125,7 +125,6 @@ class DashboardController extends Controller
             'categoryTotals',
             'categoryColors',
             'monthlyData',
-            'categoryPercentages',
             'categoryCounts'
         ));
     }
@@ -201,7 +200,7 @@ class DashboardController extends Controller
             $categoryTotals[] = $total; // Total fees for this category
             $categoryColors[] = $category->hex_code; // Assuming you have a hex_code field
             $categoryCounts[] = $count; // Store the count of payments made for this category
-            $categoryPercentages[] = $percentage; // Collect percentage for this category
+            
         }
 
         // Prepare data for payment modes
@@ -226,7 +225,6 @@ class DashboardController extends Controller
 
         // Log results for debugging
         \Log::info('Category Totals:', $categoryTotals);
-        \Log::info('Category Percentages:', $categoryPercentages);
         \Log::info('Category Counts:', $categoryCounts); // Log category counts for debugging
 
         // Pass the count to the view
@@ -237,7 +235,6 @@ class DashboardController extends Controller
             'categoryNames',
             'categoryTotals',
             'categoryColors',
-            'categoryPercentages',
             'categoryCounts',
             'gcashPercentage',
             'onSitePercentage',

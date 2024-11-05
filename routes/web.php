@@ -101,6 +101,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard/super-admin', [DashboardController::class, 'index'])->name('dashboard.superadmin');
 
+    Route::get('/dashboard/admin', [DashboardController::class, 'index'])->name('dashboard.admin');
+        
     Route::get('/dashboard/monthly-revenue', [DashboardController::class, 'getMonthlyRevenue'])->name('dashboard.monthly.revenue');
 
     
@@ -593,9 +595,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('add.entry.admin');
 
     // Admin Routes
-    Route::get('/dashboard/admin', function () {
-        return view('dashboard/admin');
-    })->name('dashboard.admin');
+
 
     /*Route::get('/bulletin-board/admin', function () {
         return view('bulletin-board/admin');

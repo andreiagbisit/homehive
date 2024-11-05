@@ -163,34 +163,16 @@
                             <div class="card-body overflow-auto" style="height: calc(651px - 56px);"> <!-- Adjust height based on header height -->
                                 @foreach ($categoryNames as $index => $name)
                                     <div class="card shadow mb-4 rounded-lg" id="payment-tally-category-card"> <!-- Use unique classes -->
-                                        <div class="card-body" style="background-color: {{ $categoryColors[$index] }};">
-                                            <h4 class="text-light">{{ $name }}</h4>
+                                        <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $categoryColors[$index] }};">
+                                            <h4 class="text-light" style="font-weight: 700; text-shadow: 2px 2px 4px #000;">{{ $name }}</h4>
                                             <div class="col-auto">
                                                 @if (isset($categoryPercentages[$index]) && isset($categoryTotals[$index]))
                                                     <div class="h5 mb-0 mr-3 text-light">
-                                                        {{ $categoryPercentages[$index] }}% 
-                                                        <span class="h6">({{ $categoryCounts[$index] }} payments made)</span>
+                                                        <span class="h6" style="text-shadow: 2px 2px 4px #000;"><b>{{ $categoryCounts[$index] }}</b> payment/s made</span>
                                                     </div>
                                                 @else
                                                     <div class="h5 mb-0 mr-3 text-light">
                                                         No data available for this category.
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                            <div class="col">
-                                                @if (isset($categoryPercentages[$index]))
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-dark" role="progressbar" 
-                                                            style="width: {{ $categoryPercentages[$index] }}%;" 
-                                                            aria-valuenow="{{ $categoryPercentages[$index] }}" 
-                                                            aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-dark" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
                                                     </div>
                                                 @endif
                                             </div>
@@ -215,14 +197,8 @@
                                     <span class="h3 font-weight-bold text-primary">GCash</span><br>
                                     
                                     <span class="h6">
-                                        Used <span class="text-primary font-weight-bold">{{ $gcashCount }}</span> as payment medium
-                                    </span><hr>
-                                    
-                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-primary font-weight-bold">{{ $gcashPercentage }}%</span></h5>
-                                    
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                        Used <span class="text-primary font-weight-bold">{{ $gcashCount }}</span> times as payment medium
+                                    </span>
                                 </div>
                             </div><br>
 
@@ -235,14 +211,8 @@
                                     <span class="h3 font-weight-bold text-danger">On-site Payment</span><br>
                                     
                                     <span class="h6">
-                                        Used <span class="text-danger font-weight-bold">{{ $onSiteCount }}</span> as payment medium
-                                    </span><hr>
-                                    
-                                    <h5 id="transaction-mode-rate-desc-2">Usage Rate: <span class="text-danger font-weight-bold">{{ $onSitePercentage }}%</span></h5>
-                                    
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                        Used <span class="text-danger font-weight-bold">{{ $onSiteCount }}</span> times as payment medium
+                                    </span>
                                 </div>
                             </div>
                         </div>

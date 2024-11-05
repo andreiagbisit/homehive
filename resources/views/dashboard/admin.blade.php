@@ -76,7 +76,7 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div id="tally-card-title" class="font-weight-bold text-primary text-uppercase mb-1">HOA Officer / Admin-Type Accounts</div>
+                                    <div id="tally-card-title" class="font-weight-bold text-primary text-uppercase mb-1">HOA / Subdivision Official Accounts</div>
                                     <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $hoaOfficerCount }}</div>
                                 </div>
                                 
@@ -247,20 +247,12 @@
                         <div style="height: 609px;" class="card-body overflow-auto">
                             @foreach ($categoryNames as $index => $name)
                                 <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg"> <!-- Added rounded-lg -->
-                                    <div class="card-body" style="background-color: {{ $categoryColors[$index] }};">
+                                    <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $categoryColors[$index] }};">
                                         <h4 id="payment-tally-h4" class="text-light">{{ $name }}</h4>
                                         <div class="col-auto">
                                             <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">
                                                 {{ $categoryPercentages[$index] }}% 
                                                 <span id="payment-tally-percentage-desc" class="h6">({{ $categoryTotals[$index] }} collections made)</span>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-dark" role="progressbar" 
-                                                    style="width: {{ $categoryPercentages[$index] }}%;" 
-                                                    aria-valuenow="{{ $categoryPercentages[$index] }}" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

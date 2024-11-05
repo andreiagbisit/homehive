@@ -2,7 +2,7 @@
     <x-slot name="head">
         <x-head>
             <x-slot name="title">
-                <title>Manage Payment - Lorem Ipsum</title>
+                <title>Manage Payment - {{ $payment->title }}</title>
             </x-slot>
         </x-head>
     </x-slot>
@@ -35,7 +35,7 @@
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 id="header-h1">Manage Payment - Lorem Ipsum</h1>
+                <h1 id="header-h1">Manage Payment - {{ $payment->title }}</h1>
             </div>
 
             <div class="col-lg-6">

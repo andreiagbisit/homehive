@@ -81,11 +81,10 @@
                                                 <td>{{ $payment->paymentMode->name ?? 'N/A' }}</td>
                                                 <td>{{ $payment->pay_date ? $payment->pay_date->format('m/d/Y') : 'N/A' }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('manage.payment', ['payment' => $payment->id]) }}" class="btn btn-warning btn-icon-split">
+                                                    <a href="{{ route('manage.payment', ['payment' => $payment->id]) }}" title="Manage Pending Payment" class="btn btn-warning btn-icon-split">
                                                         <span class="icon text-white-50">
                                                             <i class="fas fa-arrow-right"></i>
                                                         </span>
-                                                        <span class="text" style="color: #000; font-weight: 500;">Manage</span>
                                                     </a>
                                                 </td>
                                             </tr>

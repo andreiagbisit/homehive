@@ -37,7 +37,7 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 id="header-h1">Dashboard</h1>
             </div>
-
+            <!--
             <div class="d-sm-flex mb-4">
                 <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#dashboardModalEdit">
                     <span class="icon text-white-50">
@@ -47,7 +47,7 @@
                 </a>
             </div>
 
-            <!-- Content Rows -->
+             Content Rows 
             <div class="row">
                 <div class="col-xl-6 col-md-6 mb-4">
                     <div class="card border-left-secondary shadow h-100 py-2">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
@@ -306,7 +306,7 @@
 
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card shadow mb-4">
+                    <!--<div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 id="card-h6" class="m-0">Facility Reservation Rate</h6>
                         </div>
@@ -334,7 +334,7 @@
                                 <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

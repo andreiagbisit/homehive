@@ -71,9 +71,9 @@ class DashboardController extends Controller
         
     
         foreach ($fundCollectionByCategory as $fund) {
-            $categoryNames[] = $fund->category->name;
+            $categoryNames[] = $fund->category ? $fund->category->name : 'No Category';
             $categoryTotals[] = $fund->total;  // Use the actual total fee amount
-            $categoryColors[] = $fund->category->hex_code;
+            $categoryColors[] = $fund->category ? $fund->category->hex_code : '#000000';
             $categoryCounts[] = $fund->count; // Get the count of payments made for this category
         }
 

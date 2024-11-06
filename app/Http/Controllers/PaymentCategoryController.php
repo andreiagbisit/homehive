@@ -52,7 +52,7 @@ class PaymentCategoryController extends Controller
                 'pay_date' => now(),
                 'month' => now()->format('F'),
                 'year' => now()->year,
-                'collector_id' => auth()->id(), // Or specify a default collector
+                'collector_id' => null, // Or specify a default collector
             ]);
         }
 

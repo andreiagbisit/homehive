@@ -72,7 +72,7 @@
 
                                         <tr>
                                             <td id="tb-v-head">Category</td>
-                                            <td>{{ $payment->category->name }}</td>
+                                            <td>{{ $payment->category ? $payment->category->name : 'No Category' }}</td>
                                         </tr>
 
                                         <tr>

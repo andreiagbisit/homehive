@@ -67,7 +67,11 @@
 
                                         <tr>
                                             <td id="tb-v-head">Household Representative</td>
-                                            <td>{{ $payment->user->fname }} {{ $payment->user->mname ?? '' }} {{ $payment->user->lname }}</td>
+                                            <td>
+                                                    {{ optional($payment->user)->fname ?? 'No User' }}
+                                                    {{ optional($payment->user)->mname ?? '' }}
+                                                    {{ optional($payment->user)->lname ?? '' }}
+                                            </td> <!-- Household Representative -->
                                         </tr>
 
                                         <tr>

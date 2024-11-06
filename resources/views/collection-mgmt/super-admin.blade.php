@@ -96,7 +96,11 @@
                                                 <td>{{ $payment->id }}</td> <!-- Payment No. -->
                                                 <td>{{ $payment->title }}</td> <!-- Subject -->
                                                 <td>{{ $payment->category->name ?? 'N/A' }}</td> <!-- Category -->
-                                                <td>{{ $payment->user->fname }} {{ $payment->user->mname ?? '' }} {{ $payment->user->lname }}</td> <!-- Household Representative -->
+                                                <td>
+                                                    {{ optional($payment->user)->fname ?? 'No User' }}
+                                                    {{ optional($payment->user)->mname ?? '' }}
+                                                    {{ optional($payment->user)->lname ?? '' }}
+                                                </td> <!-- Household Representative -->
                                                 <td>{{ $payment->collector->name ?? 'N/A' }}</td> <!-- Collector -->
                                                 <td><b>₱{{ number_format($payment->fee, 2) }}</b></td> <!-- Amount -->
                                                 <td>

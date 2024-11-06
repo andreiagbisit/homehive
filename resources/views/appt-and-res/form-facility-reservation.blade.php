@@ -56,27 +56,26 @@
                                 <form action="{{ route('facility-reservation.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="facility_id" value="{{ $facility->id }}">
-                                    <h5 id="page-desc">I. Select Date and Time Slot</h5>
+                                    <h5 id="page-desc">I. Select Date and Time</h5>
                                     <br>
-                                    
+
                                     <!-- Date Selection Dropdown -->
                                     <div class="form-group row mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="date" id="input-label">Date <span style="color: red;">*</span></label>
-                                            <select id="collector-select" name="appt_date" id="date" class="form-control form-control-user" required onchange="filterTimeSlots()">
+                                            <select name="appt_date" id="date" class="form-control form-control-user" required>
                                                 @foreach($availableDates as $date)
-                                                    <option value="{{ $date->format('Y-m-d') }}">{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</option>
+                                                    <option value="{{ $date->format('Y-m-d') }}">{{ $date->format('l, F j, Y') }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <label for="time" id="input-label">Time Slot <span style="color: red;">*</span></label>
-                                            <select id="collector-select" name="appt_time" id="time-slot" class="form-control form-control-user" required>
+                                            <select name="appt_time" id="time-slot" class="form-control form-control-user" required onchange="setAppointmentTimes()">
                                                 <option value="">Select Time Slot</option>
                                                 @foreach($facility->timeSlots as $slot)
-                                                    <option value="{{ $slot->start_time }}|{{ $slot->end_time }}" 
-                                                        {{ isset($bookedSlots[$date->format('Y-m-d')]) && in_array($slot->start_time, $bookedSlots[$date->format('Y-m-d')]) ? 'disabled' : '' }}>
+                                                    <option value="{{ $slot->start_time }}|{{ $slot->end_time }}">
                                                         {{ $slot->start_time }} - {{ $slot->end_time }}
                                                     </option>
                                                 @endforeach
@@ -117,26 +116,24 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        
+
                                         <!-- Collector QR Code Display -->
                                         <div id="collector-qr-code" style="display: none; margin-top: 10px;">
-                                            <p>Collector QR Code:</p>
-                                            <img id="qr-code-img" src="" alt="Collector QR Code" style="max-width: 50%; height: auto; border: 1px solid #ddd; padding: 5px;">
-                                        </div>
+                                            <img id="qr-code-img" src="" alt="Collector QR Code" style="max-width: 50%; height: auto; padding: 5px;">
+                                        </div><br>
 
                                         <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt below. The receipt can be downloaded from the GCash app.</p>
 
-                                        <div id="upload-input-div" class="custom-file mb-5">
+                                        <div class="custom-file mb-5">
                                             <input id="upload-input-base" name="receipt" type="file" class="custom-file-input" accept=".jpg, .png" onchange="showPreview(event)">
                                             <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
                                         </div>
 
                                         <div id="image-preview" style="display: none; margin-top: 10px;">
-                                            <p>Receipt Preview:</p>
-                                            <img id="preview-img" src="#" alt="Receipt Preview" style="max-width: 50%; height: auto; border: 1px solid #ddd; padding: 5px;">
-                                        </div>
+                                            <img id="preview-img" src="#" alt="Receipt Preview" style="max-width: 50%; height: auto; padding: 5px;">
+                                        </div><br>
 
-                                        <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.</p>
+                                        <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, input the Reference No. from the receipt below.</p>
 
                                         <div class="form-group">
                                             <p id="input-label">Reference No.</p>
@@ -305,18 +302,6 @@
                 document.getElementById('appt_end_time').value = endTime;
             }
 
-            const bookedSlots = @json($bookedSlots);
-
-            function filterTimeSlots() {
-                const selectedDate = document.getElementById('date').value;
-                const timeSlotSelect = document.getElementById('time-slot');
-
-                for (let i = 0; i < timeSlotSelect.options.length; i++) {
-                    const option = timeSlotSelect.options[i];
-                    const [startTime] = option.value.split('|');
-                    option.disabled = bookedSlots[selectedDate] && bookedSlots[selectedDate].includes(startTime);
-                }
-            }
 
         </script>
 

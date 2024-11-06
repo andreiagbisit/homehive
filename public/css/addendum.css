@@ -2,7 +2,7 @@
     color: #000;
 }
 
-#appt-and-res-button-submit {
+#appt-and-res-button-submit, #saveChangesButton {
     color: #000;
     font-size: 16px;
     border-radius: 10rem;
@@ -114,7 +114,7 @@
     margin-left: 20px;
 }
 
-#collector-select, #account_type_id {
+#collector-select, #account_type_id, #date, #time-slot {
     font-size: 16px;
     width: 95%;
     height: 50px;

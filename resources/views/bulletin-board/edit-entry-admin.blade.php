@@ -88,7 +88,7 @@
                                             {{ $entry->category_id == $category->id ? 'checked' : '' }}>
                                         <label id="checkbox-label" class="form-check-label mb-2">
                                             <span id="chart-category" class="rounded-label" 
-                                                style="background-color: {{ $category->hex_code }};">
+                                                style="color: #fff; background-color: {{ $category->hex_code }};">
                                                 {{ $category->name }}
                                             </span>
                                         </label>
@@ -159,7 +159,9 @@
                                     <button id="saveChangesButton" type="submit" class="btn btn-warning btn-user btn-block font-weight-bold">SAVE CHANGES</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold">BACK</a>
+                                        <a id="appt-and-res-button-submit" style="color: #fff;"
+                                        href="{{ auth()->user()->account_type_id == 1 ? route('bulletin.board.superadmin') : route('bulletin.board.admin') }}"
+                                        class="btn btn-secondary btn-user btn-block font-weight-bold">BACK</a>
                                     </div>
                                 </div>
                             </form>
@@ -202,23 +204,85 @@
     </x-slot>
 
     <x-slot name="script">
-    <link rel="stylesheet" href="{{ url('vendor/richtexteditor/rte_theme_default.css') }}">
-    <script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
-    <script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Initialize the rich text editor on the textarea
-        var editor = new RichTextEditor("#richtexteditor");
+        <!-- Load jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script>
+                (function($) {
+                    "use strict"; // Start of use strict
 
-        // Populate the editor with old content or existing content
-        editor.setHTML(`{!! old('description', $entry->description) !!}`);
+                    // Toggle the side navigation
+                    $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+                        $("body").toggleClass("sidebar-toggled");
+                        $(".sidebar").toggleClass("toggled");
+                        if ($(".sidebar").hasClass("toggled")) {
+                        $('.sidebar .collapse').collapse('hide');
+                        };
+                    });
 
-        // Sync content of the editor with the underlying textarea on form submission
-        document.querySelector('form').addEventListener('submit', function() {
-            var content = editor.getHTML();
-            document.querySelector('textarea[name="description"]').value = content; // Sync the value
+                    // Close any open menu accordions when window is resized below 768px
+                    $(window).resize(function() {
+                        if ($(window).width() < 768) {
+                        $('.sidebar .collapse').collapse('hide');
+                        };
+                        
+                        // Toggle the side navigation when window is resized below 480px
+                        if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+                        $("body").addClass("sidebar-toggled");
+                        $(".sidebar").addClass("toggled");
+                        $('.sidebar .collapse').collapse('hide');
+                        };
+                    });
+
+                    // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+                    $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function(e) {
+                        if ($(window).width() > 768) {
+                        var e0 = e.originalEvent,
+                            delta = e0.wheelDelta || -e0.detail;
+                        this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+                        e.preventDefault();
+                        }
+                    });
+
+                    // Scroll to top button appear
+                    $(document).on('scroll', function() {
+                        var scrollDistance = $(this).scrollTop();
+                        if (scrollDistance > 100) {
+                        $('.scroll-to-top').fadeIn();
+                        } else {
+                        $('.scroll-to-top').fadeOut();
+                        }
+                    });
+
+                    // Smooth scrolling using jQuery easing
+                    $(document).on('click', 'a.scroll-to-top', function(e) {
+                        var $anchor = $(this);
+                        $('html, body').stop().animate({
+                        scrollTop: ($($anchor.attr('href')).offset().top)
+                        }, 1000, 'easeInOutExpo');
+                        e.preventDefault();
+                    });
+
+                    })(jQuery); // End of use strict
+                    // Update the delete form with the correct entry ID when the delete button is clicked
+            </script>
+        <link rel="stylesheet" href="{{ url('vendor/richtexteditor/rte_theme_default.css') }}">
+        <script src="{{ url('vendor/richtexteditor/rte.js') }}"></script>
+        <script src="{{ url('vendor/richtexteditor/plugins/all_plugins.js') }}"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize the rich text editor on the textarea
+            var editor = new RichTextEditor("#richtexteditor");
+
+            // Populate the editor with old content or existing content
+            editor.setHTML(`{!! old('description', $entry->description) !!}`);
+
+            // Sync content of the editor with the underlying textarea on form submission
+            document.querySelector('form').addEventListener('submit', function() {
+                var content = editor.getHTML();
+                document.querySelector('textarea[name="description"]').value = content; // Sync the value
+            });
         });
-    });
-    </script>
+        </script>
     </x-slot>
 </x-base>

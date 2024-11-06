@@ -149,7 +149,7 @@
                                         The payment receipt from the GCash app that can be downloaded on your device.
                                     </p>
 
-                                    <div id="upload-input-div" class="custom-file mb-5">
+                                    <div id="upload-input-div" style="padding-bottom: 750px;" class="custom-file mb-5">
                                         <input id="upload-input-base" name="receipt_img" class="custom-file-input" type="file" accept=".jpg, .png">
                                         <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
                                     </div>
@@ -223,6 +223,7 @@
                 if (!receiptPreviewContainer) {
                     receiptPreviewContainer = document.createElement('div');
                     receiptPreviewContainer.id = 'receipt-preview-container';
+                    //receiptPreviewContainer.style.overflow = 'scroll';
                     receiptInput.parentNode.insertBefore(receiptPreviewContainer, receiptInput.nextSibling);
                 }
 
@@ -255,9 +256,11 @@
                         reader.onload = function(e) {
                             const receiptImage = document.createElement('img');
                             receiptImage.src = e.target.result;
-                            receiptImage.className = 'img-fluid mt-3 mb-4';
+                            receiptImage.className = 'img-contain mt-3 mb-4';
                             receiptImage.alt = 'Uploaded Receipt Preview';
                             receiptPreviewContainer.appendChild(receiptImage);
+                            receiptImage.style.maxWidth = '370px';
+                            receiptImage.style.maxHeight = '678px';
                         };
                         reader.readAsDataURL(file);
                     }

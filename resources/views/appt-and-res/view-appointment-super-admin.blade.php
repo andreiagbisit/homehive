@@ -110,7 +110,7 @@
                                             <td>
                                             @if ($application->receipt_img)
                                                 <img src="https://homehivemedia.blob.core.windows.net/homehivemedia/{{ $application->receipt_img }}"
-                                                    alt="GCash Receipt" class="img-fluid" style="max-width: 200px;"> 
+                                                    alt="GCash Receipt" class="img-fluid" style="max-width: 370px;"> 
                                                 @else
                                                     No receipt uploaded.
                                             @endif

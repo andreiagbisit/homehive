@@ -193,6 +193,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('/collection-mgmt/update-collector-super-admin/{id}', [PaymentCollectorController::class, 'update'])->name('collection.mgmt.update.collector.superadmin');
 
+    Route::put('/collection-mgmt/update-collector-admin/{id}', [PaymentCollectorController::class, 'update'])->name('collection.mgmt.update.collector.admin');
+
     Route::get('/collection-mgmt/view-collector-super-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.superadmin');  
 
     Route::get('/collection-mgmt/view-collector-admin/{id}', [PaymentCollectorController::class, 'show'])->name('collection.mgmt.view.collector.admin');

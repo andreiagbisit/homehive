@@ -68,7 +68,7 @@
                                         <tr>
                                             <td id="tb-v-head">GCash QR Code</td>
                                             <td>
-                                            <img id="qr-code-container" src="{{ Storage::disk('azure')->url($collector->gcash_qr_code_path) }}" style="max-width: 200px;">
+                                                <div style="display: flex; justify-content:center;"><img id="qr-code-container" style="justify-content: center;" src="{{ Storage::disk('azure')->url($collector->gcash_qr_code_path) }}" style="max-width: 370px;">
                                             </td>
                                         </tr>
                                     </table>

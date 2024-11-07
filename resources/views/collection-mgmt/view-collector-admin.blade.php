@@ -52,76 +52,28 @@
                                     <table id="tb" class="table table-bordered" width="100%" cellspacing="0">
                                         <tr>
                                             <td id="tb-v-head">ID</td>
-                                            <td>1</td>
+                                            <td>{{ $collector->id }}</td>
                                         </tr>
-                                        
+                                    
                                         <tr>
                                             <td id="tb-v-head">Collector Name</td>
-                                            <td>John Doe</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Profile Picture</td>
-                                            <td>
-                                                <img class="img-circle profile-avatar border border border-secondary rounded-circle" src="{{ url('img/pfp_2.png') }}">
-                                            </td>
+                                            <td>{{ $collector->name }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">GCash No.</td>
-                                            <td>09102345678</td>
+                                            <td>{{ $collector->collector_gcash_number }}</td>
                                         </tr>
 
                                         <tr>
                                             <td id="tb-v-head">GCash QR Code</td>
                                             <td>
-                                                <img id="qr-code-container" src="{{ url('/img/gcash-qr-1.png') }}">
+                                                <div style="display: flex; justify-content:center;"><img id="qr-code-container" style="justify-content: center;" src="{{ Storage::disk('azure')->url($collector->gcash_qr_code_path) }}" style="max-width: 370px;">
                                             </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td id="tb-v-head">Color Hex</td>
-                                            <td>#e74a3b</td>
                                         </tr>
                                     </table>
                                 </form>
                             </div><hr><br>
-
-                            <div class="pl-3 pr-3">
-                                <h4 id="form-header-h4">
-                                    Assigned Color Preview
-                                </h4>
-
-                                <p id="page-desc">
-                                    <b>&#8226; Dashboard - Collector's Approach Rate Entry:</b>
-                                </p>
-
-                                <div class="card border-left-danger shadow py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            
-                                            <div class="row no-gutters align-items-center">
-                                                <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_2.png') }}"><br>
-                                                <h3 id="collector-rate-h3">John Doe</h3>
-                                            </div><hr>
-
-                                            <h6 id="collector-rate-desc">Selected by households <span class="text-danger font-weight-bold">2 times</span> as a payment collector</h6>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 text-danger font-weight-bold">20%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><br><hr>
-                            </div>
                             
                             <div class="col-sm-3 float-right">
                                 <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('collection.mgmt.manage.collectors.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">

@@ -115,7 +115,7 @@
                                         <td id="tb-v-head">Receipt</td>
                                         <td class="text-center" style="display: flex; justify-content: center;">
                                             @if ($reservation->receipt_path)
-                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="width: 200px; height: auto;">
+                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="width: 370px;">
                                             @else
                                                 No receipt uploaded.
                                             @endif

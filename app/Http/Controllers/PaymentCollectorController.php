@@ -96,7 +96,6 @@ class PaymentCollectorController extends Controller
 
     public function editCollector($id) {
         $collector = PaymentCollector::findOrFail($id);
-        return view('collection-mgmt.edit-collector-super-admin', compact('collector'));
 
         $view = auth()->user()->account_type_id == 1 
         ? 'collection-mgmt.edit-collector-super-admin' 

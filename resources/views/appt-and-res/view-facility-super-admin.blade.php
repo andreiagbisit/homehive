@@ -59,10 +59,6 @@
                                         <td>{{ $facility->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td id="tb-v-head">Color Hex</td>
-                                        <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
-                                    </tr>
-                                    <tr>
                                         <td id="tb-v-head">Fee</td>
                                         <td><b>₱{{ number_format($facility->fee, 2) }}</b></td>
                                     </tr>
@@ -77,24 +73,26 @@
                                 </table>
                             </div><hr><br>
 
-                                <div class="pl-3 pr-3">
-                                    <h4 id="form-header-h4">
-                                        Assigned Color Preview
-                                    </h4>
+                                <div style="display: none;">
+                                    <div class="pl-3 pr-3">
+                                        <h4 id="form-header-h4">
+                                            Assigned Color Preview
+                                        </h4>
 
-                                    <p id="page-desc">
-                                        <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
-                                    </p>
+                                        <p id="page-desc">
+                                            <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
+                                        </p>
 
-                                    <div class="card-body">
-                                        <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold" style="color: {{ $facility->hex_code }};">{{ $facility->name }}</h4>
-                                        <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold" style="color: {{ $facility->hex_code }};">2 times</span> by households</h6>
+                                        <div class="card-body">
+                                            <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold" style="color: {{ $facility->hex_code }};">{{ $facility->name }}</h4>
+                                            <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold" style="color: {{ $facility->hex_code }};">2 times</span> by households</h6>
 
-                                        <div class="progress mb-4">
-                                            <div id="dashboard-facility-progress-bar" class="progress-bar" role="progressbar" style="background-color: {{ $facility->hex_code }}; width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress mb-4">
+                                                <div id="dashboard-facility-progress-bar" class="progress-bar" role="progressbar" style="background-color: {{ $facility->hex_code }}; width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div><br><hr>
+                                    </div><br><hr>
+                                </div>
 
                             <div class="col-sm-3 float-right">
                                 <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('manage.facilities.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">

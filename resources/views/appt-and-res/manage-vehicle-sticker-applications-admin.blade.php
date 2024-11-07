@@ -98,15 +98,15 @@
                                             <td>{{ $application->appt_date ? $application->appt_date->format('m/d/Y') : 'N/A' }}</td>
                                             <td>{{ $application->appt_time ?? 'N/A' }}</td>
                                             <td class="text-center" style="display: flex;">
-                                                <a href="{{ route('appt.and.res.view.appointment.admin', ['id' => $application->id]) }}" class="btn btn-primary btn-icon-split">
+                                                <a href="{{ route('appt.and.res.view.appointment.admin', ['id' => $application->id]) }}" style="margin-right: 2%;" title="View Entry" class="btn btn-primary btn-icon-split">
                                                     <span class="icon text-white-50"><i class="fas fa-binoculars"></i></span>
                                                 </a><br>
 
-                                                <a href="{{ route('appt.and.res.edit.appointment.admin', $application->id) }}" class="btn btn-success btn-icon-split">
+                                                <a href="{{ route('appt.and.res.edit.appointment.admin', $application->id) }}" style="margin-right: 2%;" title="Edit Entry" class="btn btn-success btn-icon-split">
                                                     <span class="icon text-white-50"><i class="fas fa-edit"></i></span>
                                                 </a><br>
 
-                                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $application->id }})">
+                                                <a href="#" class="btn btn-danger btn-icon-split" title="Delete Entry" data-toggle="modal" data-target="#deleteEntryModal" onclick="setDeleteEntryUrl({{ $application->id }})">
                                                     <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
                                                 </a>
                                             </td>

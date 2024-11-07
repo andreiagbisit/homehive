@@ -60,12 +60,11 @@ class FacilityController extends Controller
         // Retrieve all facilities with their time slots
         $facilities = SubdivisionFacility::with('timeSlots')->get();
     
-        // Determine which view to return based on the route name
-        if (\Route::currentRouteName() === 'manage.facilities.admin') {
-            return view('appt-and-res.manage-facilities-admin', compact('facilities'));
-        }
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.manage-facilities-super-admin' 
+        : 'appt-and-res.manage-facilities-admin';
     
-        return view('appt-and-res.manage-facilities-super-admin', compact('facilities'));
+        return view($view, compact('facilities'));
     }
 
     public function viewFacility($id)
@@ -73,14 +72,22 @@ class FacilityController extends Controller
         // Retrieve the facility by its ID, including its time slots
         $facility = SubdivisionFacility::with('timeSlots')->findOrFail($id);
 
-        // Pass the facility to the view
-        return view('appt-and-res.view-facility-super-admin', compact('facility'));
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.view-facility-super-admin' 
+        : 'appt-and-res.view-facility-admin';
+    
+        return view($view, compact('facility'));
     }
 
     public function editFacility($id)
     {
         $facility = SubdivisionFacility::with('timeSlots')->findOrFail($id);
-        return view('appt-and-res.edit-facility-super-admin', compact('facility'));
+
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.edit-facility-super-admin' 
+        : 'appt-and-res.edit-facility-admin';
+    
+        return view($view, compact('facility'));
     }
 
     public function updateFacility(Request $request, $id)

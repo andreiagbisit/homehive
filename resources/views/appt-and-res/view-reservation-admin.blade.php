@@ -72,7 +72,7 @@
                                     </tr>
                                     <tr>
                                         <td id="tb-v-head">Reservation Fee</td>
-                                        <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                                        <td><b>₱{{ number_format($reservation->fee, 2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td id="tb-v-head">Reservation Fee Payment Status</td>
@@ -115,7 +115,7 @@
                                         <td id="tb-v-head">Receipt</td>
                                         <td class="text-center" style="display: flex; justify-content: center;">
                                             @if ($reservation->receipt_path)
-                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="width: 200px; height: auto;">
+                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="width: 370px;">
                                             @else
                                                 No receipt uploaded.
                                             @endif

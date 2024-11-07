@@ -166,7 +166,7 @@
                                         <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $categoryColors[$index] }};">
                                             <h4 class="text-light" style="font-weight: 700; text-shadow: 2px 2px 4px #000;">{{ $name }}</h4>
                                             <div class="col-auto">
-                                                @if (isset($categoryPercentages[$index]) && isset($categoryTotals[$index]))
+                                                @if (isset($categoryCounts[$index]))
                                                     <div class="h5 mb-0 mr-3 text-light">
                                                         <span class="h6" style="text-shadow: 2px 2px 4px #000;"><b>{{ $categoryCounts[$index] }}</b> payment/s made</span>
                                                     </div>

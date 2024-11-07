@@ -65,7 +65,6 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Facility</th>
-                                            <th>Color Hex</th>
                                             <th>Fee</th>
                                             <th>Available Days</th>
                                             <th>Available Months</th>
@@ -78,7 +77,6 @@
                                         <tr>
                                             <td>{{ $facility->id }}</td>
                                             <td>{{ $facility->name }}</td>
-                                            <td><span style="color: {{ $facility->hex_code }}; font-weight: bold;">{{ $facility->hex_code }}</span></td>
                                             <td><b>₱{{ number_format($facility->fee, 2) }}</b></td>
                                             <td>
                                                 @foreach($facility->available_days as $day)

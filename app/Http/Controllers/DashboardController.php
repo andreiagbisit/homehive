@@ -74,7 +74,13 @@ class DashboardController extends Controller
             $categoryNames[] = $fund->category ? $fund->category->name : 'No Category';
             $categoryTotals[] = $fund->total;  // Use the actual total fee amount
             $categoryColors[] = $fund->category ? $fund->category->hex_code : '#000000';
-            $categoryCounts[] = $fund->count; // Get the count of payments made for this category
+
+            // Calculate total payments made for each category across all users
+            $categoryCounts[] = Payment::where('category_id', $fund->category_id)
+            ->where('status_id', 1) // Only count payments marked as 'paid'
+            ->whereMonth('pay_date', $currentMonth)
+            ->whereYear('pay_date', $currentYear)
+            ->count();
         }
 
          // Calculate percentages of completed collections
@@ -215,6 +221,7 @@ class DashboardController extends Controller
             ->whereMonth('pay_date', $currentMonth)
             ->whereYear('pay_date', $currentYear)
             ->count();
+
 
         // Total payments made by the user
         $totalPaymentsCount = $gcashCount + $onSiteCount;

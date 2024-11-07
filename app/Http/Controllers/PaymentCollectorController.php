@@ -36,10 +36,10 @@ class PaymentCollectorController extends Controller
         // Redirect based on user role
         if (auth()->user()->account_type_id == 1) { // Superadmin
             return redirect()->route('collection.mgmt.manage.collectors.superadmin')
-                            ->with('success', 'Collector added successfully.');
+                            ->with('success', 'GCash payment collector added successfully.');
         } else {
             return redirect()->route('collection.mgmt.manage.collectors.admin')
-                            ->with('success', 'Collector added successfully.');
+                            ->with('success', 'GCash payment collector added successfully.');
     }
     }
 
@@ -67,9 +67,9 @@ class PaymentCollectorController extends Controller
 
         // Redirect based on user role
         if (auth()->user()->account_type_id == 1) { // Superadmin
-            return redirect()->route('collection.mgmt.manage.collectors.superadmin')->with('success', 'Collector updated successfully.');
+            return redirect()->route('collection.mgmt.manage.collectors.superadmin')->with('success', 'GCash payment collector information updated successfully.');
         } else {
-            return redirect()->route('collection.mgmt.manage.collectors.admin')->with('success', 'Collector updated successfully.');
+            return redirect()->route('collection.mgmt.manage.collectors.admin')->with('success', 'GCash payment collector information updated successfully.');
         }
     }
 
@@ -81,7 +81,11 @@ class PaymentCollectorController extends Controller
 
     public function addCollectorAdmin()
     {
-        return view('collection-mgmt.add-collector-super-admin'); // Reusing the same view file
+        $view = auth()->user()->account_type_id == 1 
+        ? 'collection-mgmt.add-collector-super-admin' 
+        : 'collection-mgmt.add-collector-admin';
+    
+        return view($view);
     }
 
     public function manageCollectorsAdmin()
@@ -93,12 +97,23 @@ class PaymentCollectorController extends Controller
     public function editCollector($id) {
         $collector = PaymentCollector::findOrFail($id);
         return view('collection-mgmt.edit-collector-super-admin', compact('collector'));
+
+        $view = auth()->user()->account_type_id == 1 
+        ? 'collection-mgmt.edit-collector-super-admin' 
+        : 'collection-mgmt.edit-collector-admin';
+    
+        return view($view, compact('collector'));
     }
     
     public function show($id)
     {
         $collector = PaymentCollector::findOrFail($id); // Retrieve the collector by ID
-        return view('collection-mgmt.view-collector-super-admin', compact('collector'));
+
+        $view = auth()->user()->account_type_id == 1 
+        ? 'collection-mgmt.view-collector-super-admin' 
+        : 'collection-mgmt.view-collector-admin';
+    
+        return view($view, compact('collector'));
     }
 
     public function destroy($id)
@@ -106,9 +121,9 @@ class PaymentCollectorController extends Controller
         $collector = PaymentCollector::findOrFail($id);
         $collector->delete();
         if (auth()->user()->account_type_id == 2) { // Assuming 2 is admin
-            return redirect()->route('collection.mgmt.manage.collectors.admin')->with('success', 'Collector deleted successfully.');
+            return redirect()->route('collection.mgmt.manage.collectors.admin')->with('success', 'GCash payment collector removed successfully.');
         } else {
-            return redirect()->route('collection.mgmt.manage.collectors.superadmin')->with('success', 'Collector deleted successfully.');
+            return redirect()->route('collection.mgmt.manage.collectors.superadmin')->with('success', 'GCash payment collector removed successfully.');
         }
 
     }

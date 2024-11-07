@@ -76,13 +76,13 @@
                                                 <td>{{ $category->name }}</td>
                                                 <td><span style="color: {{ $category->hex_code }}; font-weight: bold;">{{ $category->hex_code }}</span></td>
                                                 <td class="text-center" style="display: flex; justify-content: center;">
-                                                <a href="{{ route('collection.mgmt.view.category.admin', $category->id) }}" class="btn btn-primary btn-icon-split" title="View Entry" style="margin-right: 2%;">
+                                                <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.view.category.superadmin', $category->id) : route('collection.mgmt.view.category.admin', $category->id) }}" class="btn btn-primary btn-icon-split" title="View Entry" style="margin-right: 2%;">
                                                         <span class="icon text-white-50">
                                                             <i class="fas fa-binoculars"></i>
                                                         </span>
                                                     </a><br>
 
-                                                    <a href="{{ route('collection.mgmt.edit.category.admin', $category->id) }}" class="btn btn-success btn-icon-split" title="Edit Entry" style="margin-right: 2%;">
+                                                    <a href="{{ auth()->user()->account_type_id == 1 ? route('collection.mgmt.edit.category.superadmin', $category->id) : route('collection.mgmt.edit.category.admin', $category->id) }}" class="btn btn-success btn-icon-split" title="Edit Entry" style="margin-right: 2%;">
                                                         <span class="icon text-white-50">
                                                             <i class="fas fa-edit"></i>
                                                         </span>

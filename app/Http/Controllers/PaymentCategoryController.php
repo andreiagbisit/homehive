@@ -65,9 +65,9 @@ class PaymentCategoryController extends Controller
         }
                          
         if (auth()->user()->account_type_id == 1) {
-            return redirect()->route('manage.fund.collection.categories.superadmin')->with('success', 'Category added successfully and notifications sent.');
+            return redirect()->route('manage.fund.collection.categories.superadmin')->with('success', 'Payment category added successfully. Notifications successfully sent through email.');
         } else {
-            return redirect()->route('manage.fund.collection.categories.admin')->with('success', 'Category added successfully and notifications sent.');
+            return redirect()->route('manage.fund.collection.categories.admin')->with('success', 'Payment category added successfully. Notifications successfully sent through email.');
         }
     }
     public function index()
@@ -90,7 +90,11 @@ class PaymentCategoryController extends Controller
     public function edit($id)
     {
         $category = PaymentCategory::findOrFail($id);
-        return view('collection-mgmt.edit-category-super-admin', compact('category'));
+        $view = auth()->user()->account_type_id == 1 
+            ? 'collection-mgmt.edit-category-super-admin' 
+            : 'collection-mgmt.edit-category-admin';
+        
+        return view($view, compact('category'));
     }
 
     public function update(Request $request, $id)

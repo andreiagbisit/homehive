@@ -142,102 +142,46 @@
                                         </div>
                                     </div>-->
 
-                                    <div class="form-group">
-                                        <label id="input-label" for="collector-select">Payment Collector</label><br>
-                                        <select id="collector-select" name="collector_id" class="form-control w-50" required>
-                                            <option value="">Select a Collector</option>
-                                            @foreach ($collectors as $collector)
-                                                <option value="{{ $collector->id }}" data-qr-code="{{ $collector->gcash_qr_code_path }}">
-                                                    {{ $collector->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <div id="gcash-fields">
+                                        <div class="form-group">
+                                            <label id="input-label" for="collector-select">Payment Collector</label><br>
+                                            <select id="collector-select" name="collector_id" class="form-control w-50" required>
+                                                <option value="">Select a Collector</option>
+                                                @foreach ($collectors as $collector)
+                                                    <option value="{{ $collector->id }}" data-qr-code="{{ $collector->gcash_qr_code_path }}">
+                                                        {{ $collector->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                    <div id="qr-code-container"></div>
+                                        <div id="qr-code-container"></div>
 
-                                    <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt with the provided upload form below. 
-                                        The payment receipt from the GCash app that can be downloaded on your device.
-                                    </p>
+                                        <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt with the provided upload form below. 
+                                            The payment receipt from the GCash app that can be downloaded on your device.
+                                        </p>
 
-                                    <div id="upload-input-div" class="custom-file mb-5">
-                                        <input id="upload-input-base" class="custom-file-input" type="file" name="receipt_img" accept=".jpg, .png" onchange="showFileName()">
-                                        <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label><br><br>
-                                    </div>
+                                        <div id="upload-input-div" class="custom-file mb-5">
+                                            <input id="upload-input-base" class="custom-file-input" type="file" name="receipt_img" accept=".jpg, .png" onchange="showPreview(event)">
+                                            <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
+                                        </div>
 
-                                    <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.
-                                    </p>
+                                        <div id="image-preview" style="display: none;">
+                                            <img id="preview-img" src="#" alt="Receipt Preview" style="max-width: 50%; height: auto; padding: 5px;">
+                                        </div><br>
 
-                                    <div id="reference-no-div">
-                                        <div class="form-group row">
-                                            <div class="col-sm-3 mb-3">
-                                                <p id="input-label">Reference No.</p>
-                                                <input id="collector-select" type="text" class="form-control" id="reference_no" name="reference_no" placeholder="XXXX XXXX X" value="{{ old('reference_no', $payment->reference_no) }}">
+                                        <p id="upload-desc-2"><span style="color: red;">*</span> Alternatively, you could just input the Reference No. indicated within the receipt with the provided field below.
+                                        </p>
+
+                                        <div id="reference-no-div">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 mb-3">
+                                                    <p id="input-label">Reference No.</p>
+                                                    <input id="collector-select" type="text" class="form-control" id="reference_no" name="reference_no" placeholder="XXXX XXXX X" value="{{ old('reference_no', $payment->reference_no) }}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div><br>
-
-                                    <script>
-                                        /* MODE OF PAYMENT - INITIAL STATE (DISABLE ALL FIELDS WHEN PAYMENT OPTIONS ARE UNCHECKED) */
-                                        // Initialize form with all fields disabled
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            document.getElementById('appointment-date').disabled = true;
-                                            document.getElementById('appointment-time').disabled = true;
-                                            document.getElementById('collector-select').disabled = true;
-
-                                            // Hide the QR code description and upload input initially
-                                            const uploadDesc = document.getElementById('upload-desc');
-                                            const uploadDesc2 = document.getElementById('upload-desc-2');
-                                            const uploadInputDiv = document.getElementById('upload-input-div');
-                                            const referenceNoDiv = document.getElementById('reference-no-div');
-                                            
-                                            uploadDesc.style.display = 'none';
-                                            uploadDesc2.style.display = 'none';
-                                            uploadInputDiv.style.display = 'none';
-                                            referenceNoDiv.style.display = 'none';
-                                        });
-
-                                        /* PAYMENT COLLECTOR W/ CORRESPONDING QR CODE */
-
-                                        document.getElementById('collector-select').addEventListener('change', function() {
-                                            const selectedCollector = this.value;
-                                            const qrCodeContainer = document.getElementById('qr-code-container');
-
-                                            // Clear any existing QR code
-                                            qrCodeContainer.innerHTML = '';
-
-                                            let qrCodeSrc = '';
-
-                                            // Determine the correct QR code image based on the selected collector
-                                            switch(selectedCollector) {
-                                                case 'John Doe':
-                                                    qrCodeSrc = '/img/gcash-qr-1.png';
-                                                    break;
-                                                case 'Jane Doe':
-                                                    qrCodeSrc = '/img/gcash-qr-2.png';
-                                                    break;
-                                                case 'Michael Smith':
-                                                    qrCodeSrc = '/img/gcash-qr-3.png';
-                                                    break;
-                                                case 'Mary Smith':
-                                                    qrCodeSrc = '/img/gcash-qr-4.png';
-                                                    break;
-                                                default:
-                                                    qrCodeSrc = ''; // Optional: No QR code if no valid selection
-                                            }
-
-                                            // Create a new img element if a valid QR code is found
-                                            if (qrCodeSrc) {
-                                                const qrCodeImage = document.createElement('img');
-                                                qrCodeImage.src = qrCodeSrc;
-                                                qrCodeImage.className = 'img-fluid mt-3 mb-4'; // Apply your desired classes
-                                                qrCodeImage.alt = 'GCash QR Code';
-
-                                                // Append the image to the container
-                                                qrCodeContainer.appendChild(qrCodeImage);
-                                            }
-                                        });
-                                    </script>
 
                                     <hr>
                                     <div class="form-group row">
@@ -334,19 +278,45 @@
         </script>
 
         <script>
+            // Function to toggle the display of gcash-fields based on selected checkboxes
             function togglePaymentOptions() {
                 const gcashCheckbox = document.getElementById('gcash');
                 const onsiteCheckbox = document.getElementById('onsite');
+                const gcashFields = document.getElementById('gcash-fields');
                 const modeIdInput = document.getElementById('mode_id');
 
                 if (gcashCheckbox.checked) {
-                    modeIdInput.value = 1; // GCash
+                    gcashFields.style.display = 'block'; // Show GCash fields
+                    modeIdInput.value = 1; // Set GCash as selected mode
                     onsiteCheckbox.checked = false; // Uncheck "On-site Payment"
-                } else if (onsiteCheckbox.checked) {
-                    modeIdInput.value = 2; // On-Site Payment
-                    gcashCheckbox.checked = false; // Uncheck "GCash"
                 } else {
-                    modeIdInput.value = ''; // Clear if neither is checked
+                    gcashFields.style.display = 'none'; // Hide GCash fields
+                }
+
+                if (onsiteCheckbox.checked) {
+                    modeIdInput.value = 2; // Set On-site Payment as selected mode
+                    gcashCheckbox.checked = false; // Uncheck "GCash"
+                }
+            }
+
+            // Hide gcash-fields initially on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('gcash-fields').style.display = 'none';
+            });
+
+            function showPreview(event) {
+                const preview = document.getElementById('image-preview');
+                const previewImg = document.getElementById('preview-img');
+                
+                if (event.target.files && event.target.files[0]) {
+                    preview.style.display = 'block';
+                    previewImg.src = URL.createObjectURL(event.target.files[0]);
+                    previewImg.onload = function() {
+                        URL.revokeObjectURL(previewImg.src); // Free up memory
+                    };
+                } else {
+                    preview.style.display = 'none';
+                    previewImg.src = '';
                 }
             }
         </script>

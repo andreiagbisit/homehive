@@ -27,23 +27,6 @@
 
             <div class="col-lg-6">
                 <p id="page-desc">* Personal details in the form are omitted, as the reservant will be the assigned owner of this account.</p>
-                <p class="text-danger font-weight-bold">Households may register up to 5 vehicles.</p>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div id="tally-card-title" class="font-weight-bold text-danger text-uppercase mb-1">Registered Vehicles</div>
-                                <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">2</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-car-side fa-2x text-danger"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row">
@@ -104,32 +87,33 @@
 
                                     <div class="form-group form-check">
                                         <input type="radio" name="payment_mode_id" value="2" class="form-check-input" id="onsite" onclick="togglePaymentOptions()">
-                                        <label for="onsite" class="h5 font-weight-bold form-check-label">On-site Payment</label>
+                                        <label id="page-desc" for="onsite" class="h5 font-weight-bold form-check-label">On-site Payment</label>
                                         <p id="page-desc">Amount in cash should be prepared by the resident in the subdivision's HOA office.</p>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Appointment Date</p>
-                                            <input type="date" name="appt_date" class="form-control form-control-user" id="appointment-date">
+                                    <div id="appt-fields">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <p id="input-label">Appointment Date</p>
+                                                <input type="date" name="appt_date" class="form-control form-control-user" id="appointment-date">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p id="input-label">Appointment Time</p>
+                                                <input type="time" name="appt_time" class="form-control form-control-user" id="appointment-time">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p id="input-label">Appointment Time</p>
-                                            <input type="time" name="appt_time" class="form-control form-control-user" id="appointment-time">
-                                        </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p id="input-label">Date of Payment</p>
-                                            <input type="date" name="date_of_payment" class="form-control form-control-user" required>
-                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <p id="input-label">Date of Payment</p>
+                                                <input type="date" name="date_of_payment" class="form-control form-control-user" required>
+                                            </div>
+                                        </div><hr>
                                     </div>
-                                    <hr>
 
                                     <div class="form-group form-check">
                                         <input type="radio" name="payment_mode_id" value="1" class="form-check-input" id="gcash" onclick="togglePaymentOptions()">
-                                        <label for="gcash" class="h5 font-weight-bold form-check-label">GCash</label>
+                                        <label id="page-desc" for="gcash" class="h5 font-weight-bold form-check-label">GCash</label>
                                         <p id="page-desc">This mode of payment will still be initiated via the GCash app.</p>
                                     </div>
 
@@ -143,16 +127,16 @@
                                             </select>
                                         </div>
                                         <div id="qr-code-container"></div><br>
-                                    </div>
 
-                                    <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt with the provided upload form below. 
-                                        The payment receipt from the GCash app that can be downloaded on your device.
-                                    </p>
+                                        <p id="upload-desc">After scanning the QR code, kindly upload the payment receipt with the provided upload form below. 
+                                            The payment receipt from the GCash app that can be downloaded on your device.
+                                        </p>
 
-                                    <div id="upload-input-div" style="padding-bottom: 750px;" class="custom-file mb-5">
-                                        <input id="upload-input-base" name="receipt_img" class="custom-file-input" type="file" accept=".jpg, .png">
-                                        <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
-                                    </div>
+                                        <div id="upload-input-div" style="padding-bottom: 750px;" class="custom-file mb-5">
+                                            <input id="upload-input-base" name="receipt_img" class="custom-file-input" type="file" accept=".jpg, .png">
+                                            <label id="upload-input-text" class="custom-file-label" for="upload-input-base">Upload Receipt</label>
+                                        </div>
+                                    </div><hr>
                                     
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -274,19 +258,23 @@
                 const gcashOptions = document.getElementById('gcash-options');
                 const uploadInputDiv = document.getElementById('upload-input-div');
                 const uploadDesc = document.getElementById('upload-desc');
+                const apptFields = document.getElementById('appt-fields');
 
                 if (gcashCheckbox.checked) {
                     collectorSelect.disabled = false;
                     gcashOptions.style.display = 'block';
                     uploadInputDiv.style.display = 'block';
                     uploadDesc.style.display = 'block';
+                    apptFields.style.display = 'none';
                 } else if (onsiteCheckbox.checked) {
+                    apptFields.style.display = 'block';
                     collectorSelect.disabled = true;
                     gcashOptions.style.display = 'none';
                     uploadInputDiv.style.display = 'none';
                     uploadDesc.style.display = 'none';
                 } else {
                     collectorSelect.disabled = true;
+                    apptFields.style.display = 'none';
                     gcashOptions.style.display = 'none';
                     uploadInputDiv.style.display = 'none';
                     uploadDesc.style.display = 'none';

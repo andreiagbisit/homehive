@@ -53,57 +53,19 @@
                                     Please fill in the necessary details provided with the following fields below to add a collector for the online payment option GCash, which will be utilized by the households in managing payments. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
 
-                                <form class="user">
+                                <form class="user" action="{{ route('store-collector') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Name <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text-name" class="form-control form-control-user" required>
+                                            <input type="text" name="name" id="form-text-name" class="form-control form-control-user" required>
                                         </div>
 
                                         <div class="col-sm-6">
                                             <p id="input-label">GCash No. <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required>
+                                            <input type="text" name="collector_gcash_number" id="form-text" class="form-control form-control-user" required>
                                         </div>
                                     </div><hr>
-
-                                    <h4 id="form-header-h4" class="pl-2 mt-4">
-                                        Entry Image <span style="color: red;">*</span>
-                                    </h4><br>
-
-                                    <div class="form-group text-center">
-                                        <!-- Only one profile picture display -->
-                                        <img class="img-circle profile-avatar border border border-secondary rounded-circle mb-1" 
-                                            src="{{ url('/img/pfp_2.png') }}" 
-                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;"><br><br>
-                                             <span id="media-upload-info">
-                                                <i class="fas fa-image pr-2"></i> pfp_2.png | 169 KB
-                                            </span><br><br>
-                                        <p id="page-desc">
-                                            * The image's resolution must at least be <b>232x232</b>.<br>
-                                            <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
-                                            <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
-                                        </p>
-
-                                        <!-- File input for profile picture -->
-                                        <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png">
-                                        <label class="btn btn-warning btn-icon-split" for="input-file">
-                                            <span class="icon text-white-50">
-                                                    <i class="fas fa-file-upload"></i>
-                                            </span>
-                                            
-                                            <span class="text" style="color: #000; font-weight: 500;">
-                                                Upload New Image
-                                            </span>
-                                        </label><br>
-
-                                        <a href="#" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
-                                        </a>
-                                    </div>
-                                    <hr>
 
                                     <h4 id="form-header-h4" class="pl-2 mt-4">
                                         GCash QR Code <span style="color: red;">*</span>
@@ -111,19 +73,19 @@
 
                                     <div class="form-group text-center">
                                         <!-- Only one profile picture display -->
-                                        <img id="qr-code-container" src="{{ url('/img/gcash-qr-1.png') }}"><br><br>
-                                             <span id="media-upload-info">
-                                                <i class="fas fa-image pr-2"></i> gcash-qr-1.png | 127 KB
+                                        <img class="d-inline justify-content-center" id="qr-code-preview" src="{{ old('gcash_qr_code') ? Storage::disk('azure')->url(old('gcash_qr_code')) : '' }}" style="display: {{ old('gcash_qr_code') ? 'block' : 'none' }}; max-width: 300px; margin-bottom: 10px;">
+                                                <!-- <i class="fas fa-image pr-2"></i> gcash-qr-1.png | 127 KB -->
                                             </span><br><br>
                                         <p id="page-desc">
                                             * The image's resolution must at least be <b>240x320</b>.<br>
+                                            QR code upload is <b>REQUIRED</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
                                             <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
                                         </p>
 
                                         <!-- File input for profile picture -->
-                                        <input id="input-file" type="file" name="profile_picture" accept=".jpg, .png">
-                                        <label class="btn btn-warning btn-icon-split" for="input-file">
+                                        <input id="gcash_qr_code" type="file" name="gcash_qr_code" accept=".jpg, .png" style="display: none;" required onchange="previewQRCode()">
+                                        <label class="btn btn-warning btn-icon-split" for="gcash_qr_code">
                                             <span class="icon text-white-50">
                                                     <i class="fas fa-file-upload"></i>
                                             </span>
@@ -133,106 +95,25 @@
                                             </span>
                                         </label><br>
 
-                                        <a href="#" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
-                                        </a>
-                                    </div>
-                                    <hr>
-
-                                    <h4 id="form-header-h4" class="mt-4 mb-4">
-                                        Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
-                                    </h4>
-
-                                    <p id="page-desc">
-                                        Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
-                                        <br><br>
-                                        <span style="color: red;">*</span>
-                                        <b>
-                                            The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
-                                        </b>
-                                    </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
-                                    <hr>
-
-                                    <div class="pl-3 pr-3 mt-4">
-                                        <h4 id="form-header-h4">
-                                            Assigned Color Preview
-                                        </h4>
-
-                                        <p id="page-desc">
-                                            <b>&#8226; Dashboard - Collector's Approach Rate Entry:</b>
-                                        </p>
-
-                                        <div id="collector-approach-rate-left-border" class="card shadow py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <img id="collector-rate-img" class="img-profile rounded-circle border border-secondary rounded-circle" src="{{ url('img/pfp_2.png') }}"><br>
-                                                        <h3 id="collector-rate-h3">John Doe</h3>
-                                                    </div><hr>
-
-                                                    <h6 id="collector-rate-desc">Selected by households <span id="collector-approach-rate-frequency" class="font-weight-bold">2 times</span> as a payment collector</h6>
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col-auto">
-                                                            <div id="collector-approach-rate-percentage" class="h5 mb-0 mr-3 font-weight-bold">20%</div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="progress progress-sm mr-2">
-                                                                <div id="collector-approach-rate-progress-bar" class="progress-bar" style="width: 20%;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            @if ($errors->has('gcash_qr_code'))
+                                            <div class="text-danger mt-2">
+                                                {{ $errors->first('gcash_qr_code') }}
                                             </div>
-                                        </div>
-                                        <script>
-                                            // Function to apply the initial values based on the predefined input values
-                                            function applyInitialValues() {
-                                                // Fetch the predefined values from the input fields
-                                                var defaultText = document.getElementById('form-text-name').value;
-                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+                                            @endif
 
-                                                // Apply the predefined text to the category name
-                                                document.getElementById('collector-rate-h3').innerText = defaultText;
-
-                                                document.getElementById('collector-approach-rate-left-border').style.borderLeftColor = defaultColor;
-                                                document.getElementById('collector-approach-rate-frequency').style.color = defaultColor;  // Update the text color
-                                                document.getElementById('collector-approach-rate-percentage').style.color = defaultColor;  // Update the percentage text color
-                                                document.getElementById('collector-approach-rate-progress-bar').style.backgroundColor = defaultColor;  // Update the progress bar color
-                                            }
-
-                                            // Apply the initial values when the page loads
-                                            window.onload = applyInitialValues;
-
-                                            // Update values in real time based on user input
-                                            document.getElementById('form-text-name').addEventListener('input', function(event) {
-                                                var inputText = event.target.value;
-                                                document.getElementById('collector-rate-h3').innerText = inputText;
-                                            });
-
-                                            // JavaScript to update styles in real-time based on color picker input
-                                            document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
-                                                var selectedColor = event.target.value;  // Get the selected color from the color picker
-
-                                                // Apply the selected color to various elements
-                                                document.getElementById('collector-approach-rate-left-border').style.borderLeftColor = selectedColor;
-                                                document.getElementById('collector-approach-rate-frequency').style.color = selectedColor;  // Update the text color
-                                                document.getElementById('collector-approach-rate-percentage').style.color = selectedColor;  // Update the percentage text color
-                                                document.getElementById('collector-approach-rate-progress-bar').style.backgroundColor = selectedColor;  // Update the progress bar color
-                                            });
-                                        </script>
-                                    </div><br><hr>
+                                        <!-- "Remove Existing Image" button -->
+                                        <button type="button" onclick="removeQRCode()" class="btn btn-danger btn-icon-split" style="margin-bottom: 2%;">
+                                            <span class="icon text-white-50"><i class="fas fa-trash-alt"></i></span>
+                                            <span class="text" style="color: #fff; font-weight: 500;">Remove Existing Image</span>
+                                        </button>
                                     </div>
+                                    <hr>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
+                                            <button type="submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 ADD COLLECTOR
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -283,5 +164,31 @@
 
     <x-slot name="script">
         <x-script></x-script>
+        <script>
+            function previewQRCode() {
+                const fileInput = document.getElementById('gcash_qr_code');
+                const previewImage = document.getElementById('qr-code-preview');
+
+                // Display the preview when a file is selected
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+
+            function removeQRCode() {
+                // Clear the file input and hide the preview image
+                const fileInput = document.getElementById('gcash_qr_code');
+                const previewImage = document.getElementById('qr-code-preview');
+                
+                fileInput.value = '';  // Clear the file input
+                previewImage.style.display = 'none';  // Hide the preview
+                previewImage.src = '';  // Clear the preview image source
+            }
+        </script>
     </x-slot>
 </x-base>

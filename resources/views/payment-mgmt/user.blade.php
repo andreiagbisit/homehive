@@ -74,7 +74,7 @@
                                                 <td>{{ $payment->month }} {{ $payment->year }}</td>
                                                 <td><b>₱{{ number_format($payment->fee, 2) }}</b></td>
                                                 <td>
-                                                    <span style="color: {{ $payment->paymentStatus->name == 'Paid' ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                                    <span class="text-uppercase" style="color: {{ $payment->paymentStatus->name == 'Paid' ? '#28a745' : '#dc6335' }}; font-weight: bold;">
                                                         {{ $payment->paymentStatus->name }}
                                                     </span>
                                                 </td>

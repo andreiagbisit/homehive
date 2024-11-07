@@ -136,13 +136,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/bulletin-board/store-category', [BulletinBoardCategoryController::class, 'store'])
      ->name('bulletin.board.store.category');
 
-     Route::get('/bulletin-board/manage-categories-admin', [BulletinBoardCategoryController::class, 'index'])
+     Route::get('/bulletin-board/manage-categories', [BulletinBoardCategoryController::class, 'index'])
      ->name('bulletin.board.manage.categories.admin');
 
-     Route::get('/bulletin-board/view-category-admin/{id}', [BulletinBoardCategoryController::class, 'show'])
+     Route::get('/bulletin-board/view-category/{id}', [BulletinBoardCategoryController::class, 'show'])
      ->name('bulletin.board.view.category.admin');
 
-     Route::get('/bulletin-board/edit-category-admin/{id}', [BulletinBoardCategoryController::class, 'edit'])
+     Route::get('/bulletin-board/edit-category/{id}', [BulletinBoardCategoryController::class, 'edit'])
     ->name('bulletin.board.edit.category.admin');
     
     Route::patch('/bulletin-board/update-category-admin/{id}', [BulletinBoardCategoryController::class, 'update'])
@@ -172,7 +172,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/bulletin-board/store-entry', [BulletinBoardController::class, 'store'])->name('bulletin.board.store.entry.admin');
 
         // Route to show the edit form
-    Route::get('/bulletin-board/edit-entry-admin/{id}', [BulletinBoardController::class, 'edit'])->name('bulletin.board.edit.entry.admin');
+    Route::get('/bulletin-board/edit-entry/{id}', [BulletinBoardController::class, 'edit'])->name('bulletin.board.edit.entry.admin');
 
     // Route to handle form submission and update the entry
     Route::put('/bulletin-board/update-entry-admin/{id}', [BulletinBoardController::class, 'update'])->name('bulletin.board.update.admin');
@@ -224,6 +224,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection-mgmt/edit-category-admin/{id}', [PaymentCategoryController::class, 'edit'])->name('collection.mgmt.edit.category.admin');
 
     Route::put('/collection-mgmt/update-category-super-admin/{id}', [PaymentCategoryController::class, 'update'])->name('collection.mgmt.update.category.superadmin');
+
+    Route::put('/collection-mgmt/update-category-admin/{id}', [PaymentCategoryController::class, 'update'])->name('collection.mgmt.update.category.admin');
 
     Route::delete('/collection-mgmt/delete-category-super-admin/{id}', [PaymentCategoryController::class, 'destroy'])->name('collection.mgmt.delete.category.superadmin');
 
@@ -319,9 +321,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/appt-and-res/view-reservation-super-admin/{id}', [FacilityReservationController::class, 'viewReservationSuperAdmin'])->name('appt.and.res.view.reservation.superadmin');
 
+    Route::get('/appt-and-res/view-reservation-admin/{id}', [FacilityReservationController::class, 'viewReservationSuperAdmin'])->name('appt.and.res.view.reservation.admin');
+    
     Route::get('/appt-and-res/edit-reservation-super-admin/{id}', [FacilityReservationController::class, 'editReservationSuperAdmin'])->name('appt.and.res.edit.reservation.superadmin');
 
+    Route::get('/appt-and-res/edit-reservation-admin/{id}', [FacilityReservationController::class, 'editReservationSuperAdmin'])->name('appt.and.res.edit.reservation.admin');
+    
     Route::put('/appt-and-res/update-reservation-super-admin/{id}', [FacilityReservationController::class, 'updateReservationSuperAdmin'])->name('update.reservation.superadmin');
+
+    Route::put('/appt-and-res/update-reservation-admin/{id}', [FacilityReservationController::class, 'updateReservationSuperAdmin'])->name('update.reservation.admin');
 
     Route::get('/appt-and-res/generate-facility-reservation-report', [FacilityReservationController::class, 'generateReport'])
     ->name('generate.facility.reservation.report');
@@ -399,8 +407,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('bulletin-board/add-category-super-admin');
     })->name('bulletin.board.add.category.superadmin');
 
-    Route::get('/bulletin-board/add-category-admin', function () {
-        return view('bulletin-board/add-category-admin');
+    Route::get('/bulletin-board/add-category', function () {
+        return view('bulletin-board/add-category');
     })->name('bulletin.board.add.category.admin');
 
     Route::get('/bulletin-board/edit-category-super-admin', function () {

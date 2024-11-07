@@ -77,7 +77,7 @@ class BulletinBoardController extends Controller
         Mail::to($user->email)->queue(new BulletinBoardNotification($bulletinEntry));
         }
 
-        return redirect()->route('bulletin.board.admin')->with('success', 'Entry added successfully and notifications sent!');
+        return redirect()->route('bulletin.board.admin')->with('success', 'Bulletin board entry added successfully. Notifications successfully sent.');
     }
 
     public function edit($id)
@@ -85,7 +85,7 @@ class BulletinBoardController extends Controller
         $entry = BulletinBoardEntry::findOrFail($id); // Find the entry by ID
         $categories = BulletinBoardCategory::all(); // Fetch all categories
 
-        return view('bulletin-board.edit-entry-admin', compact('entry', 'categories')); // Pass data to view
+        return view('bulletin-board.edit-entry', compact('entry', 'categories')); // Pass data to view
     }
 
     public function update(Request $request, $id)
@@ -110,7 +110,7 @@ class BulletinBoardController extends Controller
         ]);
 
         // Redirect back with success message
-        return redirect()->route('bulletin.board.admin')->with('success', 'Entry updated successfully!');
+        return redirect()->route('bulletin.board.admin')->with('success', 'Bulletin board entry updated successfully.');
     }
 
     public function destroy($id)
@@ -119,7 +119,7 @@ class BulletinBoardController extends Controller
         $bulletinEntry = BulletinBoardEntry::findOrFail($id);
         $bulletinEntry->delete();
     
-        return redirect()->route('bulletin.board.admin')->with('success', 'Entry deleted successfully!');
+        return redirect()->route('bulletin.board.admin')->with('success', 'EBulletin board entry removed successfully.');
     }
     
 

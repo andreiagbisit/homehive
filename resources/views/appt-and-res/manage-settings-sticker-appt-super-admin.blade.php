@@ -74,63 +74,65 @@
 
                                     <hr>
 
-                                    <h4 id="form-header-h4" class="mt-4 mb-4">
-                                        Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
-                                    </h4>
-
-                                    <p id="page-desc">
-                                        Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
-                                        <br><br>
-                                        <span style="color: red;">*</span>
-                                        <b>
-                                            The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
-                                        </b>
-                                    </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="hex_code" required value="{{ $details->hex_code ?? '#000000' }}">
-                                    <hr>
-
-                                    <div class="pl-3 pr-3 mt-4">
-                                        <h4 id="form-header-h4">
-                                            Assigned Color Preview
+                                    <div style="display: none;">
+                                        <h4 id="form-header-h4" class="mt-4 mb-4">
+                                            Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
                                         </h4>
 
                                         <p id="page-desc">
-                                            <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
+                                            Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
+                                            <br><br>
+                                            <span style="color: red;">*</span>
+                                            <b>
+                                                The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
+                                            </b>
                                         </p>
+                                        <input type="color" id="bulletin-board-category-color-picker" name="hex_code" required value="{{ $details->hex_code ?? '#000000' }}">
+                                        <hr>
 
-                                        <div id="payment-tally-category-card-2" class="card-body">
-                                            <h4 id="payment-tally-h4" class="text-light">Vehicle Sticker</h4>
-                                            <div class="col-auto">
-                                                <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
-                                            </div>
+                                        <div class="pl-3 pr-3 mt-4">
+                                            <h4 id="form-header-h4">
+                                                Assigned Color Preview
+                                            </h4>
 
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <p id="page-desc">
+                                                <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
+                                            </p>
+
+                                            <div id="payment-tally-category-card-2" class="card-body">
+                                                <h4 id="payment-tally-h4" class="text-light">Vehicle Sticker</h4>
+                                                <div class="col-auto">
+                                                    <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <script>
-                                            // Function to apply the initial values based on the predefined input values
-                                            function applyInitialValues() {
-                                                var colorPicker = document.getElementById('bulletin-board-category-color-picker');
-                                                var colorCard = document.getElementById('payment-tally-category-card-2');
+                                            <script>
+                                                // Function to apply the initial values based on the predefined input values
+                                                function applyInitialValues() {
+                                                    var colorPicker = document.getElementById('bulletin-board-category-color-picker');
+                                                    var colorCard = document.getElementById('payment-tally-category-card-2');
 
-                                                // Set initial color based on the input value
-                                                colorCard.style.backgroundColor = colorPicker.value;
+                                                    // Set initial color based on the input value
+                                                    colorCard.style.backgroundColor = colorPicker.value;
 
-                                                // Update color preview dynamically on color picker change
-                                                colorPicker.addEventListener('input', function(event) {
-                                                    colorCard.style.backgroundColor = event.target.value;
-                                                });
-                                            }
+                                                    // Update color preview dynamically on color picker change
+                                                    colorPicker.addEventListener('input', function(event) {
+                                                        colorCard.style.backgroundColor = event.target.value;
+                                                    });
+                                                }
 
-                                            // Apply the initial values when the page loads
-                                            window.onload = applyInitialValues;
-                                        </script>
-                                    </div><br><hr>
+                                                // Apply the initial values when the page loads
+                                                window.onload = applyInitialValues;
+                                            </script>
+                                        </div><br><hr>
+                                    </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">

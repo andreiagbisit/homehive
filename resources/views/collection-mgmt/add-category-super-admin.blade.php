@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <hr>
-
+                                    
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
                                     </h4>
@@ -83,7 +83,7 @@
                                         <span style="color: red;">*</span>
                                         <b>Supported browsers may have multiple input pickers.</b>
                                     </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="hex_code" required>
+                                    <input type="color" id="bulletin-board-category-color-picker" name="hex_code">
                                     <hr>
 
                                     <div class="pl-3 pr-3 mt-4">

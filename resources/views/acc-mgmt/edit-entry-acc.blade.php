@@ -189,7 +189,12 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="{{ route('account.management.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="
+                                                {{ 
+                                                    auth()->user()->account_type_id == 1 ? route('account.management.superadmin') : route('account.management.admin')
+                                                }}
+                                                  "
+                                               class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

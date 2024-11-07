@@ -91,14 +91,14 @@ class AccountManagementController extends Controller
 
         if ($currentUser->account_type_id == 1) {
             // Redirect to superadmin account management
-            return redirect()->route('account.management.superadmin')->with('success', 'User deleted successfully.');
+            return redirect()->route('account.management.superadmin')->with('success', 'User account deleted successfully.');
         } elseif ($currentUser->account_type_id == 2) {
             // Redirect to admin account management
-            return redirect()->route('account.management.admin')->with('success', 'User deleted successfully.');
+            return redirect()->route('account.management.admin')->with('success', 'User account deleted successfully.');
         }
 
         // Fallback in case no valid role is found (optional)
-        return redirect()->route('login')->with('error', 'Unauthorized access.');
+        return redirect()->route('login')->with('error', 'You are unauthorized to delete this user account.');
     }
 
     public function verify(User $user)
@@ -143,7 +143,7 @@ class AccountManagementController extends Controller
         $user->save();
 
         // Redirect with a success message
-        return redirect()->route('manage.roles')->with('success', 'Role and privileges updated successfully.');
+        return redirect()->route('manage.roles')->with('success', 'User account role and privileges updated successfully.');
     }
 
 

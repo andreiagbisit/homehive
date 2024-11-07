@@ -130,7 +130,13 @@
                             <hr>
                             
                             <div class="col-sm-3 float-right">
-                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('account.management.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit"
+                                   href="
+                                            {{ 
+                                                auth()->user()->account_type_id == 1 ? route('account.management.superadmin') : route('account.management.admin')
+                                            }}
+                                        "
+                                   class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK
                                 </a>
                             </div>

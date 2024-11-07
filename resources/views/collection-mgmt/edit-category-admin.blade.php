@@ -53,28 +53,31 @@
                                     Please fill in the necessary details provided with the following fields below to edit an existing category for managing funds. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
 
-                                <form class="user">
+                                <form class="user" action="{{ route('collection.mgmt.update.category.admin', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+
                                     <div class="form-group row mt-4 mb-4">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p id="input-label">Name <span style="color: red;">*</span></p>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Maintenance">
+                                            <input type="text" name="name" id="form-text" class="form-control form-control-user" required value="{{ $category->name }}">
                                         </div>
                                     </div>
                                     <hr>
 
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
-                                        Assigned Color Code (for Dashboard) <span style="color: red;">*</span>
+                                        Assigned Color Preview <span style="color: red;">*</span>
                                     </h4>
 
                                     <p id="page-desc">
-                                        Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
+                                        Click the color box below to reveal a color picker. Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
                                         <br><br>
                                         <span style="color: red;">*</span>
                                         <b>
                                             The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
                                         </b>
                                     </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required value="#e74a3b">
+                                    <input type="color" name="hex_code" id="bulletin-board-category-color-picker" required value="{{ $category->hex_code }}">
                                     <hr>
 
                                     <div class="pl-3 pr-3 mt-4">
@@ -86,15 +89,12 @@
                                             <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
                                         </p>
 
-                                        <div id="payment-tally-category-card-2" class="card-body">
-                                            <h4 id="payment-tally-h4" class="text-light"></h4>
-                                            <div class="col-auto">
-                                                <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
-                                            </div>
-
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg">
+                                            <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $category->hex_code }};">
+                                                <h4 id="payment-tally-h4" class="text-light">{{ $category->name }}</h4>
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 text-light">
+                                                        <span class="h6" style="text-shadow: 2px 2px 4px #000;"><b>1</b> payment/s made</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,11 +131,12 @@
                                         </script>
                                     </div><br><hr>
 
+                                    <!-- Rest of your form remains the same -->
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">

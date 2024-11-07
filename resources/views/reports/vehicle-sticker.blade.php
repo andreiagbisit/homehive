@@ -43,11 +43,11 @@
                 <td>{{ $application->payment_mode_id == 1 ? 'GCash' : 'On-site Payment' }}</td>
                 <td>{{ $application->collector->name ?? 'N/A' }}</td>
                 <td>{{ $application->date_of_payment ? $application->date_of_payment->format('m/d/Y') : 'N/A' }}</td>
-                <td>₱{{ number_format($application->fee, 2) }}</td>
+                <td>PHP {{ number_format($application->fee, 2) }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <p><strong>Total Fee:</strong> ₱{{ number_format($totalFee, 2) }}</p>
+    <p><strong>Total Fee:</strong> PHP {{ number_format($totalFee, 2) }}</p>
 </body>
 </html>

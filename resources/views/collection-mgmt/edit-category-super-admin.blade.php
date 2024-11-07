@@ -89,15 +89,12 @@
                                             <b>&#8226; Dashboard - Collection Tallied per Category Entry:</b>
                                         </p>
 
-                                        <div id="payment-tally-category-card-2" class="card-body">
-                                            <h4 id="payment-tally-h4" class="text-light"></h4>
-                                            <div class="col-auto">
-                                                <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">20% <span id="payment-tally-percentage-desc" class="h6">(2 collections made)</span></div>
-                                            </div>
-
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg">
+                                            <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $category->hex_code }};">
+                                                <h4 id="payment-tally-h4" class="text-light">{{ $category->name }}</h4>
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 text-light">
+                                                        <span class="h6" style="text-shadow: 2px 2px 4px #000;"><b>1</b> payment/s made</span>
                                                     </div>
                                                 </div>
                                             </div>

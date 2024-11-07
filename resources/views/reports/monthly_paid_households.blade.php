@@ -18,7 +18,7 @@
             @foreach($payments as $payment)
             <tr>
                 <td>{{ $payment->user->fname }} {{ $payment->user->mname ?? '' }} {{ $payment->user->lname }}</td> <!-- Household Representative -->
-                <td>₱{{ number_format($payment->fee, 2) }}</td>
+                <td>PHP {{ number_format($payment->fee, 2) }}</td>
                 <td>{{ $payment->category->name ?? 'N/A' }}</td>
                 <td>{{ $payment->pay_date->format('m/d/Y') }}</td>
             </tr>

@@ -134,7 +134,6 @@
                                             (auth()->user()->account_type_id == 2 ? route('dashboard.admin') : 
                                             route('dashboard.user'))
                                         }}
-                                            
                                     " 
                                     class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK

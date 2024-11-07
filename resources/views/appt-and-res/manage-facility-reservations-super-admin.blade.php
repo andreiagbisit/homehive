@@ -81,13 +81,13 @@
                                         <tr>
                                             <td>{{ $reservation->id }}</td>
                                             <td>
-                                                {{ $reservation->user->fname }}
-                                                {{ $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
-                                                {{ $reservation->user->lname }}
+                                                {{ $reservation->user ? $reservation->user->fname : '' }}
+                                                {{ $reservation->user && $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
+                                                {{ $reservation->user ? $reservation->user->lname : '' }}
                                             </td>
                                             <td>{{ $reservation->facility->name }}</td>
                                             <td>{{ $reservation->start_date->format('m/d/Y') }}</td>
-                                            <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                                            <td><b>₱{{ number_format($reservation->fee, 2) }}</b></td>
                                             <td>
                                                 <span style="color: {{ $reservation->payment_status == 1 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
                                                     {{ $reservation->payment_status == 1 ? 'PAID' : 'PENDING' }}

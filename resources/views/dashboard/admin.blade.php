@@ -246,12 +246,12 @@
                         </div>
                         <div style="height: 609px;" class="card-body overflow-auto">
                             @foreach ($categoryNames as $index => $name)
-                                <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg"> <!-- Added rounded-lg -->
+                                <div id="payment-tally-category-card" class="card shadow mb-4 shadow-lg rounded-lg">
                                     <div class="card-body" style="box-shadow: 2px 2px 10px #969696; border-radius: 5px; background-color: {{ $categoryColors[$index] }};">
                                         <h4 id="payment-tally-h4" class="text-light">{{ $name }}</h4>
                                         <div class="col-auto">
                                             <div id="payment-tally-percentage" class="h5 mb-0 mr-3 text-light">
-                                                <span id="payment-tally-percentage-desc" class="h6">({{ $categoryTotals[$index] }} collections made)</span>
+                                                <span id="payment-tally-percentage-desc" class="h6" style="text-shadow: 2px 2px 4px #000;"><span style="font-weight: 800;">{{ $categoryCounts[$index] }}</span> payment/s made</span>
                                             </div>
                                         </div>
                                     </div>

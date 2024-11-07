@@ -160,7 +160,7 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="{{ route('collection.mgmt.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('collection.mgmt.admin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

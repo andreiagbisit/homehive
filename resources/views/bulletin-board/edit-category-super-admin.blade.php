@@ -54,20 +54,26 @@
                                     Please fill in the necessary details provided with the following fields below to edit an existing category for the bulletin board. Fields marked with <span style="color: red; font-weight: 500;">*</span> are mandatory.
                                 </p>
 
-                                <form class="user">
+                                <!-- Form for Editing the Category -->
+                                <form method="POST" action="{{ route('bulletin.board.update.category.superadmin', $category->id) }}" class="user">
+                                    @csrf
+                                    @method('PATCH') <!-- Use PATCH for updates -->
+
+                                    <!-- Category Name -->
                                     <div class="form-group row">
                                         <div class="col-sm-6 mt-4 mb-4">
-                                        <h4 id="form-header-h4">
-                                            Name <span style="color: red;">*</span>
-                                        </h4>
-                                            <input type="text" id="form-text" class="form-control form-control-user" required value="Announcement">
+                                            <h4 id="form-header-h4">
+                                                Name <span style="color: red;">*</span>
+                                            </h4>
+                                            <input type="text" name="name" id="form-text" class="form-control form-control-user" required value="{{ old('name', $category->name) }}">
                                         </div>
-                                    </div><hr>
+                                    </div>
+                                    <hr>
 
+                                    <!-- Color Picker -->
                                     <h4 id="form-header-h4" class="mt-4 mb-4">
                                         Assigned Color <span style="color: red;">*</span>
                                     </h4>
-
                                     <p id="page-desc">
                                         Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
                                         <br><br>
@@ -76,49 +82,46 @@
                                             The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
                                         </b>
                                     </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required value="#e74a3b">
+                                    <input type="color" name="hex_code" id="bulletin-board-category-color-picker" required value="{{ old('hex_code', $category->hex_code) }}">
                                     <hr>
 
+                                    <!-- Color Preview -->
                                     <h4 id="form-header-h4" class="mt-4">
                                         Assigned Color Preview
                                     </h4>
-
                                     <p id="page-desc">
                                         <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
                                     </p>
-                                    <div id="sample-bulletin-board-entry">
-                                        {{ $category->name }}
+                                    <div id="sample-bulletin-board-entry" style="background-color: {{ old('hex_code', $category->hex_code) }} ;">
+                                        <span id="category-name-1">{{ $category->name }}</span>
                                     </div><br>
 
                                     <p id="page-desc">
                                         <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
                                     </p>
                                     <p id="chart-category" class="mr-2 mb-4">
-                                        <i id="category-circle-icon" class="fas fa-circle"></i> <span id="category-name"></span><br>
+                                        <i id="category-circle-icon" class="fas fa-circle" style="color: {{ old('hex_code', $category->hex_code) }} ;"></i> <span id="category-name-2"></span><br>
                                     </p>
 
+                                    <!-- Script for Real-Time Updates -->
                                     <script>
-                                        // Function to apply the initial values based on the predefined input values
                                         function applyInitialValues() {
-                                            // Fetch the predefined values from the input fields
                                             var defaultText = document.getElementById('form-text').value;
                                             var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
 
-                                            // Apply the predefined text to the category name
                                             document.getElementById('category-name').innerText = defaultText;
-
-                                            // Apply the predefined color to the bulletin board entry and circle icon
                                             document.getElementById('sample-bulletin-board-entry').style.backgroundColor = defaultColor;
                                             document.getElementById('category-circle-icon').style.color = defaultColor;
                                         }
 
-                                        // Apply the initial values when the page loads
                                         window.onload = applyInitialValues;
 
-                                        // Update values in real time based on user input
                                         document.getElementById('form-text').addEventListener('input', function(event) {
-                                            var inputText = event.target.value;
-                                            document.getElementById('category-name').innerText = inputText;
+                                            document.getElementById('category-name-1').innerText = event.target.value;
+                                        });
+
+                                        document.getElementById('form-text').addEventListener('input', function(event) {
+                                            document.getElementById('category-name-2').innerText = event.target.value;
                                         });
 
                                         document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
@@ -127,18 +130,18 @@
                                             document.getElementById('category-circle-icon').style.color = selectedColor;
                                         });
                                     </script>
-
                                     <hr>
 
+                                    <!-- Submit and Cancel Buttons -->
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <a id="appt-and-res-button-submit" href="#" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
+                                            <button type="submit" class="btn btn-warning btn-user btn-block font-weight-bold" style="color: #000; font-size: 16px;">
                                                 SAVE CHANGES
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <a id="appt-and-res-button-submit" href="#" onclick="history.go(-1)" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
+                                            <a id="appt-and-res-button-submit" href="{{ route('bulletin.board.manage.categories.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                                 BACK
                                             </a>
                                         </div>

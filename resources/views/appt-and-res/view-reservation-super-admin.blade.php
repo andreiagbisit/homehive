@@ -57,9 +57,9 @@
                                     <tr>
                                         <td id="tb-v-head">Name of Applicant</td>
                                         <td>
-                                            {{ $reservation->user->fname }}
-                                            {{ $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
-                                            {{ $reservation->user->lname }}
+                                            {{ $reservation->user ? $reservation->user->fname : '' }}
+                                            {{ $reservation->user && $reservation->user->mname ? $reservation->user->mname . ' ' : '' }}
+                                            {{ $reservation->user ? $reservation->user->lname : '' }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -72,7 +72,7 @@
                                     </tr>
                                     <tr>
                                         <td id="tb-v-head">Reservation Fee</td>
-                                        <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                                        <td><b>₱{{ number_format($reservation->fee, 2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td id="tb-v-head">Reservation Fee Payment Status</td>
@@ -113,9 +113,9 @@
 
                                     <tr>
                                         <td id="tb-v-head">Receipt</td>
-                                        <td>
+                                        <td class="text-center" style="display: flex; justify-content: center;">
                                             @if ($reservation->receipt_path)
-                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="max-width: 200px; max-height: 200px;">
+                                                <img src="{{ $reservation->receipt_path }}" alt="Receipt Image" style="width: 200px; height: auto;">
                                             @else
                                                 No receipt uploaded.
                                             @endif

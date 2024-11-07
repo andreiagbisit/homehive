@@ -67,26 +67,26 @@
                                 </table>
                             </div><hr><br>
 
-                            <div class="pl-3 pr-3">
-                                <h4 id="form-header-h4">
-                                    Assigned Color Preview
-                                </h4>
+                                <div class="pl-3 pr-3">
+                                    <h4 id="form-header-h4">
+                                        Assigned Color Preview
+                                    </h4>
 
-                                <p id="page-desc">
-                                    <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
-                                </p>
-                                <div id="sample-bulletin-board-entry" style="background-color: {{ $category->hex_code }};">
-                                    {{ $category->name }}
-                                </div><br>
+                                    <p id="page-desc">
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Desktop Layout)</span>:</b>
+                                    </p>
+                                    <div id="sample-bulletin-board-entry" style="background-color: {{ $category->hex_code }};">
+                                        {{ $category->name }}
+                                    </div><br>
 
-                                <p id="page-desc">
-                                    <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
-                                </p>
-                                <p id="chart-category" class="mr-2 mb-4">
-                                    <i id="category-circle-icon" class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> <span id="{{ $category->name }}"></span><br>
-                                </p>
-                            </div><br><hr><br>
-
+                                    <p id="page-desc">
+                                        <b>&#8226; Bulletin Board Entry <span style="color: red;">(Mobile Layout)</span> / Category Legend:</b>
+                                    </p>
+                                    <p id="chart-category" class="mr-2 mb-4">
+                                        <i id="category-circle-icon" class="fas fa-circle" style="color: {{ $category->hex_code }};"></i> <span id="{{ $category->name }}"></span><br>
+                                    </p>
+                                </div><br><hr><br>
+                            
                             <div class="col-sm-3 float-right">
                                 <a style="border-radius: 35rem; padding: .75rem .1rem; line-height: 1.5;" id="appt-and-res-button-submit" href="{{ route('bulletin.board.manage.categories.superadmin') }}" class="btn btn-secondary btn-user btn-block font-weight-bold text-white">
                                     BACK

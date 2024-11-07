@@ -31,7 +31,7 @@ class BulletinBoardCategoryController extends Controller
         $categories = BulletinBoardCategory::all();
 
         // Return the view with the categories data
-        return view('bulletin-board.manage-categories-admin', compact('categories'));
+        return view('bulletin-board.manage-categories', compact('categories'));
     }
 
         public function show($id)
@@ -49,7 +49,7 @@ class BulletinBoardCategoryController extends Controller
         $category = BulletinBoardCategory::findOrFail($id);
 
         // Return the edit view with the category data
-        return view('bulletin-board.edit-category-admin', compact('category'));
+        return view('bulletin-board.edit-category', compact('category'));
     }
 
     public function update(Request $request, $id)

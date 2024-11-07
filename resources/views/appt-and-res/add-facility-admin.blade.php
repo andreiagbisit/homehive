@@ -159,67 +159,69 @@
                                     <button type="button" id="add-time-slot" class="btn btn-sm btn-primary mt-2">ADD</button>
                                     <br><hr>
 
-                                    <h4 id="form-header-h4" class="mt-4 mb-4">
-                                        Assigned Color <span style="color: red;">*</span>
-                                    </h4>
-
-                                    <p id="page-desc">
-                                        Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
-                                        <br><br>
-                                        <span style="color: red;">*</span>
-                                        <b>
-                                            The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
-                                        </b>
-                                    </p>
-                                    <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
-                                    <hr>
-
-                                    <div class="pl-3 pr-3 mt-4">
-                                        <h4 id="form-header-h4">
-                                            Assigned Color Preview
+                                    <div style="display: none;">
+                                        <h4 id="form-header-h4" class="mt-4 mb-4">
+                                            Assigned Color <span style="color: red;">*</span>
                                         </h4>
 
                                         <p id="page-desc">
-                                            <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
+                                            Click the color box below to reveal a color picker.  Within the color picker, you may drag the selector or use the provided input-based color picker (e.g. RGB, HSV, HEX) by your browser.
+                                            <br><br>
+                                            <span style="color: red;">*</span>
+                                            <b>
+                                                The provided input-based color pickers may vary per browser, and a browser may include multiple input pickers.
+                                            </b>
                                         </p>
+                                        <input type="color" id="bulletin-board-category-color-picker" name="bulletin-board-category-color-picker" required>
+                                        <hr>
 
-                                        <div class="card-body">
-                                            <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold"></h4>
-                                            <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold">2 times</span> by households</h6>
+                                        <div class="pl-3 pr-3 mt-4">
+                                            <h4 id="form-header-h4">
+                                                Assigned Color Preview
+                                            </h4>
 
-                                            <div class="progress mb-4">
-                                                <div id="dashboard-facility-progress-bar" class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <p id="page-desc">
+                                                <b>&#8226; Dashboard - Facility Reservation Rate Entry:</b>
+                                            </p>
+
+                                            <div class="card-body">
+                                                <h4 id="dashboard-facility-reservation-name-percentage" class="font-weight-bold"></h4>
+                                                <h6 id="facility-rate-desc">Reserved <span id="dashboard-facility-frequency" class="font-weight-bold">2 times</span> by households</h6>
+
+                                                <div class="progress mb-4">
+                                                    <div id="dashboard-facility-progress-bar" class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <script>
-                                            function applyInitialValues() {
-                                                var defaultText = document.getElementById('facility_name').value;
-                                                document.getElementById('dashboard-facility-reservation-name-percentage').innerText = defaultText;
+                                            <script>
+                                                function applyInitialValues() {
+                                                    var defaultText = document.getElementById('facility_name').value;
+                                                    document.getElementById('dashboard-facility-reservation-name-percentage').innerText = defaultText;
 
-                                                var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
+                                                    var defaultColor = document.getElementById('bulletin-board-category-color-picker').value;
 
-                                                document.getElementById('dashboard-facility-reservation-name-percentage').style.color = defaultColor;
-                                                document.getElementById('dashboard-facility-frequency').style.color = defaultColor;
-                                                document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = defaultColor;
-                                            }
+                                                    document.getElementById('dashboard-facility-reservation-name-percentage').style.color = defaultColor;
+                                                    document.getElementById('dashboard-facility-frequency').style.color = defaultColor;
+                                                    document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = defaultColor;
+                                                }
 
-                                            window.onload = applyInitialValues;
+                                                window.onload = applyInitialValues;
 
-                                            document.getElementById('facility_name').addEventListener('input', function(event) {
-                                                var inputText = event.target.value;
-                                                document.getElementById('dashboard-facility-reservation-name-percentage').innerText = inputText;
-                                            });
-                                            
-                                            document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
-                                                var selectedColor = event.target.value;
+                                                document.getElementById('facility_name').addEventListener('input', function(event) {
+                                                    var inputText = event.target.value;
+                                                    document.getElementById('dashboard-facility-reservation-name-percentage').innerText = inputText;
+                                                });
+                                                
+                                                document.getElementById('bulletin-board-category-color-picker').addEventListener('input', function(event) {
+                                                    var selectedColor = event.target.value;
 
-                                                document.getElementById('dashboard-facility-reservation-name-percentage').style.color = selectedColor;
-                                                document.getElementById('dashboard-facility-frequency').style.color = selectedColor;
-                                                document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = selectedColor;
-                                            });
-                                        </script>
-                                    </div><hr><br>
+                                                    document.getElementById('dashboard-facility-reservation-name-percentage').style.color = selectedColor;
+                                                    document.getElementById('dashboard-facility-frequency').style.color = selectedColor;
+                                                    document.getElementById('dashboard-facility-progress-bar').style.backgroundColor = selectedColor;
+                                                });
+                                            </script>
+                                        </div><hr><br>
+                                    </div>
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3">

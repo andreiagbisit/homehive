@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Facility Reservations Report</h1>
-    <p>Total Revenue for Selected Filters: ₱{{ number_format($totalRevenue, 2) }}</p>
+    <p>Total Revenue for Selected Filters: PHP {{ number_format($totalRevenue, 2) }}</p>
 
     <table width="100%" style="border-collapse: collapse;">
         <thead>
@@ -28,7 +28,7 @@
                     <td>{{ $reservation->user->full_name }}</td>
                     <td>{{ $reservation->facility->name }}</td>
                     <td>{{ $reservation->start_date->format('m/d/Y') }}</td>
-                    <td>₱{{ number_format($reservation->fee, 2) }}</td>
+                    <td>PHP {{ number_format($reservation->fee, 2) }}</td>
                     <td>{{ $reservation->payment_status == 1 ? 'Paid' : 'Pending' }}</td>
                     <td>{{ $reservation->payment_date ? $reservation->payment_date->format('m/d/Y') : 'N/A' }}</td>
                     <td>{{ $reservation->appt_start_time }} - {{ $reservation->appt_end_time }}</td>

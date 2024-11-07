@@ -314,7 +314,7 @@
                             var entryId = eventObj.extendedProps.entryId;
                             if (entryId) {
                                 console.log("Setting Edit Button href for Entry ID: ", entryId);
-                                editButton.setAttribute('href', '/bulletin-board/edit-entry-admin/' + entryId);
+                                editButton.setAttribute('href', '/bulletin-board/edit-entry/' + entryId);
                                 console.log("New href:", editButton.getAttribute('href'));
                             } else {
                                 console.error('No entry ID found for this event');
@@ -337,7 +337,7 @@
                         var entryId = eventObj.extendedProps.entryId;
                         if (entryId) {
                             console.log("Setting Edit Button href for Entry ID: ", entryId);
-                            editButton.setAttribute('href', '/bulletin-board/edit-entry-admin/' + entryId);
+                            editButton.setAttribute('href', '/bulletin-board/edit-entry/' + entryId);
                         } else {
                             console.error('No entry ID found for this event');
                         }

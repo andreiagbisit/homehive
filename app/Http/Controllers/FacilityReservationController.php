@@ -84,7 +84,7 @@ class FacilityReservationController extends Controller
             Mail::to($admin->email)->send(new FacilityReservationNotification($reservation, $admin));
         }
 
-        return redirect()->route('appt.res')->with('success', 'Facility reservation submitted successfully.');
+        return redirect()->route('appt.res')->with('success', 'Facility reservation entry submitted successfully.');
     }
 
 
@@ -178,7 +178,7 @@ class FacilityReservationController extends Controller
         $reservation->delete();
 
         // Redirect back to the reservations management page with a success message
-        return redirect()->route('manage.facility.reservations.admin')->with('success', 'Reservation deleted successfully');
+        return redirect()->route('manage.facility.reservations.admin')->with('success', 'Facility reservation entry deleted successfully.');
     }
 
     public function updatePaymentMode(Request $request, $facilityId)
@@ -303,7 +303,7 @@ class FacilityReservationController extends Controller
         }
 
         // Redirect back with a success message
-        return redirect()->route('manage.facility.reservations.admin')->with('success', 'Reservation updated successfully.');
+        return redirect()->route('manage.facility.reservations.admin')->with('success', 'Facility reservation entry updated successfully.');
         
     }
     
@@ -316,14 +316,22 @@ class FacilityReservationController extends Controller
         $reservations = FacilityReservation::with(['user', 'facility', 'collector', 'paymentStatus'])->get();
         
         // Return the view with the reservations data
-        return view('appt-and-res.manage-facility-reservations-super-admin', compact('reservations', 'facilities'));
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.manage-facility-reservations-super-admin' 
+        : 'appt-and-res.manage-facility-reservations-admin';
+    
+        return view($view, compact('reservations', 'facilities'));
     }
 
     public function viewReservationSuperAdmin($id)
     {
         $reservation = FacilityReservation::with(['user', 'facility', 'collector', 'paymentStatus'])->findOrFail($id);
-        
-        return view('appt-and-res.view-reservation-super-admin', compact('reservation'));
+
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.view-reservation-super-admin' 
+        : 'appt-and-res.view-reservation-admin';
+    
+        return view($view, compact('reservation'));
     }
 
     public function editReservationSuperAdmin($id)
@@ -354,7 +362,11 @@ class FacilityReservationController extends Controller
         $users = User::all();
         $collectors = PaymentCollector::all();
 
-        return view('appt-and-res.edit-reservation-super-admin', compact('reservation', 'availableDates', 'availableTimeSlots', 'users', 'collectors', 'facility'));
+        $view = auth()->user()->account_type_id == 1 
+        ? 'appt-and-res.edit-reservation-super-admin' 
+        : 'appt-and-res.edit-reservation-admin';
+    
+        return view($view, compact('reservation', 'availableDates', 'availableTimeSlots', 'users', 'collectors', 'facility'));
     }
 
     public function updateReservationSuperAdmin(Request $request, $id)
@@ -391,12 +403,8 @@ class FacilityReservationController extends Controller
             Mail::to($reservation->user->email)->send(new FacilityReservationPaidNotification($reservation));
         }
 
-        // Redirect to the superadmin management page
-        return redirect()->route('manage.facility.reservations.superadmin')->with('success', 'Reservation updated successfully.');
+        return redirect()->route('manage.facility.reservations.superadmin')->with('success', 'Facility reservation entry updated successfully.');
     }
-
-
-
 
     public function generateReport(Request $request)
     {

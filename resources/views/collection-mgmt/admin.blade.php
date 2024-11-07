@@ -104,7 +104,7 @@
                                                 <td>{{ $payment->collector->name ?? 'N/A' }}</td> <!-- Collector -->
                                                 <td><b>₱{{ number_format($payment->fee, 2) }}</b></td> <!-- Amount -->
                                                 <td>
-                                                    <span style="color: {{ $payment->status_id == 1 ? '#28a745' : '#dc6335' }}; font-weight: bold;">
+                                                    <span class="text-uppercase" style="color: {{ $payment->status_id == 1 ? '#28a745' : '#dc6335' }}; font-weight: bold;">
                                                         {{ $payment->paymentStatus->name }}
                                                     </span>
                                                 </td> <!-- Status -->

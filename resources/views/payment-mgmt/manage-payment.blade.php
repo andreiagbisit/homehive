@@ -91,7 +91,7 @@
                                     <h5 id="page-desc">II. Mode of Payment</h5><br>
                                     
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="onsite" onclick="togglePaymentOptions()">
+                                        <input type="radio" class="form-check-input" id="onsite" onclick="togglePaymentOptions()">
                                         <label id="checkbox-label" class="h5 font-weight-bold form-check-label" for="onsite">On-site Payment</label>
                                         <p id="page-desc">Amount in cash should be prepared by the resident in the subdivision's HOA office.</p>
                                     </div>
@@ -100,7 +100,7 @@
                                     <hr>
 
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="gcash" onclick="togglePaymentOptions()">
+                                        <input type="radio" class="form-check-input" id="gcash" onclick="togglePaymentOptions()">
                                         <label id="checkbox-label" class="h5 font-weight-bold form-check-label" for="gcash">GCash</label>
                                         
                                         <p id="page-desc">This mode of payment will still be initiated via the GCash app. 
@@ -284,18 +284,22 @@
                 const onsiteCheckbox = document.getElementById('onsite');
                 const gcashFields = document.getElementById('gcash-fields');
                 const modeIdInput = document.getElementById('mode_id');
+                const collectorSelect = document.getElementById('collector-select');
 
                 if (gcashCheckbox.checked) {
                     gcashFields.style.display = 'block'; // Show GCash fields
                     modeIdInput.value = 1; // Set GCash as selected mode
                     onsiteCheckbox.checked = false; // Uncheck "On-site Payment"
+                    collectorSelect.setAttribute('required', 'required'); // Make collector required
                 } else {
                     gcashFields.style.display = 'none'; // Hide GCash fields
+                    collectorSelect.removeAttribute('required'); // Remove required attribute
                 }
 
                 if (onsiteCheckbox.checked) {
                     modeIdInput.value = 2; // Set On-site Payment as selected mode
                     gcashCheckbox.checked = false; // Uncheck "GCash"
+                    collectorSelect.removeAttribute('required'); // Remove required attribute
                 }
             }
 

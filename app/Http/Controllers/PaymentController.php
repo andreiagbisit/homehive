@@ -155,18 +155,18 @@ class PaymentController extends Controller
     {
         $payment = Payment::findOrFail($id);
 
-        // Validate the form data
-        $request->validate([
+        // Adjust validation based on the selected payment mode
+        $validatedData = $request->validate([
             'reference_no' => 'nullable|string|max:255',
             'receipt_img' => 'nullable|file|mimes:jpg,png|max:2048', // max file size of 2MB
-            'collector_id' => 'required|exists:payment_collector,id',
             'mode_id' => 'required|exists:payment_mode,id',
+            'collector_id' => $request->input('mode_id') == 1 ? 'required|exists:payment_collector,id' : 'nullable',
         ]);
 
-        // Update reference number
-        $payment->reference_no = $request->input('reference_no');
-        $payment->collector_id = $request->input('collector_id');
-        $payment->mode_id = $request->input('mode_id');
+        // Update reference number and payment details
+        $payment->reference_no = $validatedData['reference_no'];
+        $payment->collector_id = $validatedData['collector_id'] ?? null;
+        $payment->mode_id = $validatedData['mode_id'];
 
         // Handle file upload to Azure Blob Storage
         if ($request->hasFile('receipt_img')) {
@@ -186,7 +186,5 @@ class PaymentController extends Controller
 
         return redirect()->route('payment.mgmt')->with('success', 'Payment submitted successfully.');
     }
-
-
 
 }

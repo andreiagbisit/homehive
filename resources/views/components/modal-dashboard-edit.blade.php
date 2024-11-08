@@ -41,7 +41,6 @@
                                 </span><br><br>
 
                         <p id="page-desc">
-                            * The image's resolution must at least be <b>232x232</b>.<br>
                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
                             <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
                         </p>

@@ -193,8 +193,8 @@
 
     <x-slot name="script">
         <x-script></x-script>
-        
-        <script>
+
+                <script>
             document.addEventListener('DOMContentLoaded', function() {
                 togglePaymentOptions(); // Initialize the view based on current selections
 
@@ -207,12 +207,11 @@
                 if (!receiptPreviewContainer) {
                     receiptPreviewContainer = document.createElement('div');
                     receiptPreviewContainer.id = 'receipt-preview-container';
-                    //receiptPreviewContainer.style.overflow = 'scroll';
                     receiptInput.parentNode.insertBefore(receiptPreviewContainer, receiptInput.nextSibling);
                 }
 
-                // Display QR code when a collector is selected
-                collectorSelect.addEventListener('change', function() {
+                // Function to display the QR code for the selected collector
+                function displayQRCode() {
                     const selectedOption = collectorSelect.options[collectorSelect.selectedIndex];
                     const qrCodePath = selectedOption.getAttribute('data-qr-code');
 
@@ -228,7 +227,14 @@
                     } else {
                         qrCodeContainer.innerHTML = '<p>No QR code available for this collector.</p>';
                     }
-                });
+                }
+
+                // Attach change and click event listeners to ensure QR code loads correctly
+                collectorSelect.addEventListener('change', displayQRCode);
+                collectorSelect.addEventListener('click', displayQRCode);
+
+                // Trigger the display function on page load to show QR code for the first collector (if any)
+                displayQRCode();
 
                 // Display uploaded receipt preview
                 receiptInput.addEventListener('change', function() {
@@ -281,5 +287,6 @@
                 }
             }
         </script>
+
     </x-slot>
 </x-base>

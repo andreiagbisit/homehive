@@ -78,7 +78,6 @@
                                     <div class="form-group text-center">
                                         <img id="img-preview" class="img-fluid mt-3 mb-4" src="{{ url('img/facilities.jpg') }}"><br>
                                         <p id="page-desc">
-                                            * The image's resolution must at least be <b>390x300</b>. In smartphone-based layouts, it will be displayed at <b>246x300</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b>
                                         </p>
 

@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-lg-6">
-                <p id="page-desc">* Personal details in the form are omitted, as the reservant will be the assigned owner of this account.</p>
+                <p id="page-desc">* Personal details in the form are omitted, as the applicant will be the assigned owner of this account.</p>
             </div>
             <!-- Content Row -->
             <div class="row">

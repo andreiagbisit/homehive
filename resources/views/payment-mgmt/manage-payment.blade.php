@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-lg-6">
-                <p id="page-desc">* Personal details in the form are omitted, as the reservant will be the assigned owner of this account.</p>
+                <p id="page-desc">* Personal details in the form are omitted, as the applicant will be the assigned owner of this account.</p>
             </div>
 
             <!-- Content Row -->
@@ -104,8 +104,8 @@
                                         <label id="checkbox-label" class="h5 font-weight-bold form-check-label" for="gcash">GCash</label>
                                         
                                         <p id="page-desc">This mode of payment will still be initiated via the GCash app. 
-                                            The reservant should be referred to a GCash QR code linking to the payment collector's GCash account to commence payment,
-                                            once the reservant has selected their payment collector of choice.
+                                            The applicant should be referred to a GCash QR code linking to the payment collector's GCash account to commence payment,
+                                            once the applicant has selected their payment collector of choice.
                                         </p>
                                     </div>
 

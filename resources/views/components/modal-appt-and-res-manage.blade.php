@@ -18,7 +18,6 @@
                         </p>
 
                         <p id="page-desc" class="text-center">
-                            * The image's resolution must at least be <b>390x300</b>. In smartphone-based layouts, it will be displayed at <b>267x300</b>.<br>
                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b><br>
                             <b>Maximum image size:</b> <b class="text-danger">20 MB</b>
                         </p><hr>

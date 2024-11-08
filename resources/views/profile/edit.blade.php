@@ -178,7 +178,6 @@
                                             src="{{ $user->profile_picture ?: $defaultProfilePictureUrl }}" 
                                             style="border-radius: 50%; width: 232px; height: 232px; object-fit: cover;">
                                         <p id="page-desc">
-                                            * The image's resolution must at least be <b>232x232</b>.<br>
                                             <b>Supported file types:</b> <b class="text-danger">.jpg</b>, <b class="text-danger">.png</b>
                                         </p>
 

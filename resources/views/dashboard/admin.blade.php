@@ -108,7 +108,7 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div id="tally-card-title" class="font-weight-bold text-info text-uppercase mb-1">Households Invoiced</div>
+                                    <div id="tally-card-title" class="font-weight-bold text-info text-uppercase mb-1">Payment Notices Issued</div>
                                     <div id="tally-card-counter" class="h5 mb-0 font-weight-bold">{{ $householdsInvoicedCount }}</div>
                                 </div>
                                 

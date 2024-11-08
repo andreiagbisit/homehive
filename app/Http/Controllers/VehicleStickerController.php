@@ -111,7 +111,7 @@ class VehicleStickerController extends Controller
         }
      
          // Redirect with success message
-         return redirect()->route('appt.res')->with('success', 'Vehicle Sticker Application submitted successfully.');
+         return redirect()->route('appt.res')->with('success', 'Vehicle Sticker Application submitted successfully.'); 
      }
      
 

@@ -106,7 +106,7 @@
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <p id="input-label">Date of Payment</p>
-                                                <input type="date" name="date_of_payment" class="form-control form-control-user" required>
+                                                <input type="date" name="date_of_payment" id="date-of-payment" class="form-control form-control-user">
                                             </div>
                                         </div><hr>
                                     </div>
@@ -265,27 +265,44 @@
                 const uploadInputDiv = document.getElementById('upload-input-div');
                 const uploadDesc = document.getElementById('upload-desc');
                 const apptFields = document.getElementById('appt-fields');
+                const dateOfPaymentField = document.querySelector('input[name="date_of_payment"]');
 
                 if (gcashCheckbox.checked) {
-                    collectorSelect.disabled = false;
+                    // Show GCash fields
                     gcashOptions.style.display = 'block';
                     uploadInputDiv.style.display = 'block';
                     uploadDesc.style.display = 'block';
                     apptFields.style.display = 'none';
+
+                    // Disable collector select and remove required from date field
+                    collectorSelect.disabled = false;
+                    dateOfPaymentField.removeAttribute('required');
                 } else if (onsiteCheckbox.checked) {
+                    // Show On-site payment fields
                     apptFields.style.display = 'block';
-                    collectorSelect.disabled = true;
                     gcashOptions.style.display = 'none';
                     uploadInputDiv.style.display = 'none';
                     uploadDesc.style.display = 'none';
+
+                    // Set date_of_payment as required for on-site payment
+                    dateOfPaymentField.setAttribute('required', 'required');
                 } else {
+                    // Hide all fields if neither is selected
                     collectorSelect.disabled = true;
                     apptFields.style.display = 'none';
                     gcashOptions.style.display = 'none';
                     uploadInputDiv.style.display = 'none';
                     uploadDesc.style.display = 'none';
+
+                    // Remove required from date field
+                    dateOfPaymentField.removeAttribute('required');
                 }
             }
+
+            // Initialize the fields on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                togglePaymentOptions(); // Ensure correct visibility on page load
+            });
         </script>
 
     </x-slot>

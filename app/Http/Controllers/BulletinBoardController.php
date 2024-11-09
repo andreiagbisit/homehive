@@ -71,13 +71,29 @@ class BulletinBoardController extends Controller
             'user_id' => Auth::id(),  // Set the user_id of the logged-in user
         ]);
 
-         // Send email notification to all users
-        $users = User::all(); // Optionally filter active users or specific user types
-        foreach ($users as $user) {
-        Mail::to($user->email)->queue(new BulletinBoardNotification($bulletinEntry));
+            // Get emails of users with account_type_id = 3 (regular users)
+            $emails = User::where('account_type_id', 3)->pluck('email')->toArray();
+
+            if (!empty($emails)) {
+                \Log::info('Dispatching BulletinBoardNotification for entry', [
+                    'entry_id' => $bulletinEntry->id,
+                    'title' => $bulletinEntry->title,
+                    'total_recipients' => count($emails)
+                ]);
+
+                // Queue the notification to these users only
+                Mail::to($emails)->queue(new BulletinBoardNotification($bulletinEntry));
+            }
+
+        // Determine the route based on the user's account type
+        if (auth()->user()->account_type_id == 1) {
+            // Super Admin
+            return redirect()->route('bulletin.board.superadmin')->with('success', 'Bulletin board entry added successfully. Notifications successfully sent.');
+        } else {
+            // Admin
+            return redirect()->route('bulletin.board.admin')->with('success', 'Bulletin board entry added successfully. Notifications successfully sent.');
         }
 
-        return redirect()->route('bulletin.board.admin')->with('success', 'Bulletin board entry added successfully. Notifications successfully sent.');
     }
 
     public function edit($id)
@@ -119,7 +135,14 @@ class BulletinBoardController extends Controller
         $bulletinEntry = BulletinBoardEntry::findOrFail($id);
         $bulletinEntry->delete();
     
-        return redirect()->route('bulletin.board.admin')->with('success', 'EBulletin board entry removed successfully.');
+        // Determine the route based on the user's account type
+        if (auth()->user()->account_type_id == 1) {
+            // Super Admin
+            return redirect()->route('bulletin.board.superadmin')->with('success', 'Bulletin board entry removed successfully.');
+        } else {
+            // Admin
+            return redirect()->route('bulletin.board.admin')->with('success', 'Bulletin board entry removed successfully.');
+        }
     }
     
 

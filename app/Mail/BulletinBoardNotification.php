@@ -16,11 +16,23 @@ class BulletinBoardNotification extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param BulletinBoardEntry $bulletinEntry
      */
     public function __construct(BulletinBoardEntry $bulletinEntry)
     {
+        // Ensure we have the entry data
+        if (!$bulletinEntry) {
+            \Log::error('BulletinBoardNotification: Bulletin entry is missing.');
+        }
+
         $this->bulletinEntry = $bulletinEntry;
+
+        // Log entry creation for debugging
+        \Log::info('BulletinBoardNotification: Entry created.', [
+            'entry_id' => $this->bulletinEntry->id ?? 'N/A',
+            'title' => $this->bulletinEntry->title ?? 'N/A',
+            'author' => $this->bulletinEntry->user->fname ?? 'N/A',
+        ]);
     }
 
     /**
@@ -30,6 +42,17 @@ class BulletinBoardNotification extends Mailable
      */
     public function build()
     {
+        if (!$this->bulletinEntry || !$this->bulletinEntry->user) {
+            \Log::error('BulletinBoardNotification: Missing bulletin entry or user.');
+        } else {
+            \Log::info('Building Bulletin Notification Email', [
+                'title' => $this->bulletinEntry->title,
+                'author' => $this->bulletinEntry->user->fname . ' ' . $this->bulletinEntry->user->lname,
+                'email' => $this->bulletinEntry->user->email ?? 'No Email',
+            ]);
+        }
+
+        // Ensure the email template and data are properly set up
         return $this->markdown('emails.bulletinBoardNotification')
                     ->subject('New Bulletin Board Entry: ' . $this->bulletinEntry->title)
                     ->with([
